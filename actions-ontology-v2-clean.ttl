@@ -1,0 +1,313 @@
+@prefix : <http://example.org/actions#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+@base <http://example.org/actions#> .
+
+<http://example.org/actions> rdf:type owl:Ontology ;
+    rdfs:label "Actions File Specification Ontology" ;
+    rdfs:comment "OWL ontology extending Schema.org Action for the actions file specification - optimized for queries and clarity" ;
+    rdfs:seeAlso <http://schema.org/Action> ;
+    owl:versionInfo "2.1.0" .
+
+#################################################################
+#    Schema.org Class Declarations (for compatibility without import)
+#################################################################
+
+schema:Action rdf:type owl:Class ;
+    rdfs:label "Action (Schema.org)" ;
+    rdfs:comment "Schema.org Action class - declared locally for compatibility" ;
+    rdfs:isDefinedBy <http://schema.org/> .
+
+schema:ActionStatusType rdf:type owl:Class ;
+    rdfs:label "Action Status Type (Schema.org)" ;
+    rdfs:comment "Schema.org ActionStatusType class" ;
+    rdfs:isDefinedBy <http://schema.org/> .
+
+schema:PotentialActionStatus rdf:type owl:NamedIndividual, schema:ActionStatusType ;
+    rdfs:label "Potential Action Status (Schema.org)" ;
+    rdfs:isDefinedBy <http://schema.org/> .
+
+schema:ActiveActionStatus rdf:type owl:NamedIndividual, schema:ActionStatusType ;
+    rdfs:label "Active Action Status (Schema.org)" ;
+    rdfs:isDefinedBy <http://schema.org/> .
+
+schema:CompletedActionStatus rdf:type owl:NamedIndividual, schema:ActionStatusType ;
+    rdfs:label "Completed Action Status (Schema.org)" ;
+    rdfs:isDefinedBy <http://schema.org/> .
+
+# Schema.org properties
+schema:name rdf:type owl:DatatypeProperty ;
+    rdfs:label "name (Schema.org)" ;
+    rdfs:comment "The name of the item" ;
+    rdfs:isDefinedBy <http://schema.org/> .
+
+schema:description rdf:type owl:DatatypeProperty ;
+    rdfs:label "description (Schema.org)" ;
+    rdfs:comment "A description of the item" ;
+    rdfs:isDefinedBy <http://schema.org/> .
+
+schema:identifier rdf:type owl:DatatypeProperty ;
+    rdfs:label "identifier (Schema.org)" ;
+    rdfs:comment "The identifier property represents any kind of identifier" ;
+    rdfs:isDefinedBy <http://schema.org/> .
+
+schema:startTime rdf:type owl:DatatypeProperty ;
+    rdfs:label "start time (Schema.org)" ;
+    rdfs:comment "The startTime of something" ;
+    rdfs:isDefinedBy <http://schema.org/> .
+
+schema:endTime rdf:type owl:DatatypeProperty ;
+    rdfs:label "end time (Schema.org)" ;
+    rdfs:comment "The endTime of something" ;
+    rdfs:isDefinedBy <http://schema.org/> .
+
+schema:location rdf:type owl:ObjectProperty ;
+    rdfs:label "location (Schema.org)" ;
+    rdfs:comment "The location of, for example, where an event is happening" ;
+    rdfs:isDefinedBy <http://schema.org/> .
+
+schema:actionStatus rdf:type owl:ObjectProperty ;
+    rdfs:label "action status (Schema.org)" ;
+    rdfs:comment "Indicates the current disposition of the Action" ;
+    rdfs:isDefinedBy <http://schema.org/> .
+
+#################################################################
+#    Core Action Class extending Schema.org Action
+#################################################################
+
+:Action rdf:type owl:Class ;
+    rdfs:label "Action" ;
+    rdfs:comment "A task or action that can be performed, extending Schema.org Action with file format specific properties" ;
+    rdfs:subClassOf schema:Action .
+
+#################################################################
+#    Structural Action Subclasses (for constraints & queries)
+#################################################################
+
+:RootAction rdf:type owl:Class ;
+    rdfs:label "Root Action" ;
+    rdfs:comment "An action at depth 1 - can belong to projects" ;
+    rdfs:subClassOf :Action .
+
+:ChildAction rdf:type owl:Class ;
+    rdfs:label "Child Action" ;
+    rdfs:comment "An action at depth > 1 - must have parent" ;
+    rdfs:subClassOf :Action .
+
+#################################################################
+#    Action State Enumeration (mapped to Schema.org ActionStatusType)
+#################################################################
+
+:ActionState rdf:type owl:Class ;
+    rdfs:label "Action State" ;
+    rdfs:comment "Enumerated states an action can be in, compatible with Schema.org ActionStatusType" ;
+    rdfs:subClassOf schema:ActionStatusType .
+
+:NotStarted rdf:type owl:NamedIndividual, :ActionState ;
+    rdfs:label "Not Started" ;
+    rdfs:comment "Corresponds to PotentialActionStatus in Schema.org" ;
+    :stateSymbol " " ;
+    owl:sameAs schema:PotentialActionStatus .
+
+:InProgress rdf:type owl:NamedIndividual, :ActionState ;
+    rdfs:label "In Progress" ;
+    rdfs:comment "Corresponds to ActiveActionStatus in Schema.org" ;
+    :stateSymbol "-" ;
+    owl:sameAs schema:ActiveActionStatus .
+
+:Completed rdf:type owl:NamedIndividual, :ActionState ;
+    rdfs:label "Completed" ;
+    rdfs:comment "Corresponds to CompletedActionStatus in Schema.org" ;
+    :stateSymbol "x" ;
+    owl:sameAs schema:CompletedActionStatus .
+
+:Blocked rdf:type owl:NamedIndividual, :ActionState ;
+    rdfs:label "Blocked/Awaiting" ;
+    rdfs:comment "Custom state for blocked or awaiting actions" ;
+    :stateSymbol "=" .
+
+:Cancelled rdf:type owl:NamedIndividual, :ActionState ;
+    rdfs:label "Cancelled" ;
+    rdfs:comment "Custom state for cancelled actions" ;
+    :stateSymbol "_" .
+
+#################################################################
+#    Object Properties (structural relationships)
+#################################################################
+
+:parentAction rdf:type owl:ObjectProperty ;
+    rdfs:label "parent action" ;
+    rdfs:comment "Links child action to its parent (file format specific hierarchy)" ;
+    rdfs:domain :ChildAction ;
+    rdfs:range :Action ;
+    owl:inverseOf :childAction .
+
+:childAction rdf:type owl:ObjectProperty ;
+    rdfs:label "child action" ;
+    rdfs:comment "Links parent to its child actions (file format specific hierarchy)" ;
+    rdfs:domain :Action ;
+    rdfs:range :ChildAction .
+
+:state rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
+    rdfs:label "state" ;
+    rdfs:comment "Current state of the action, extends Schema.org actionStatus" ;
+    rdfs:domain :Action ;
+    rdfs:range :ActionState ;
+    rdfs:subPropertyOf schema:actionStatus .
+
+#################################################################
+#    File Format Specific Data Properties
+#################################################################
+
+:depth rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "depth" ;
+    rdfs:comment "Hierarchical depth (1-6) specific to file format structure" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:positiveInteger .
+
+#################################################################
+#    Organizational Properties (file format specific)
+#################################################################
+
+:project rdf:type owl:DatatypeProperty ;
+    rdfs:label "project" ;
+    rdfs:comment "Project/story name (marked with *, root actions only)" ;
+    rdfs:domain :RootAction ;
+    rdfs:range xsd:string .
+
+:context rdf:type owl:DatatypeProperty ;
+    rdfs:label "context" ;
+    rdfs:comment "GTD context (marked with +, multiple allowed)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf schema:location .
+
+:priority rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "priority" ;
+    rdfs:comment "Priority level (marked with !, Eisenhower matrix)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:positiveInteger .
+
+:durationMinutes rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "duration minutes" ;
+    rdfs:comment "Expected duration in minutes (D30 = 30 minutes)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:positiveInteger .
+
+#################################################################
+#    Temporal Properties (aligned with Schema.org)
+#################################################################
+
+:doDateTime rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "do date time" ;
+    rdfs:comment "When action should be performed (marked with @, ISO 8601)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:dateTime ;
+    rdfs:subPropertyOf schema:startTime .
+
+:doDate rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "do date" ;
+    rdfs:comment "Date action should be performed (marked with @)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:date ;
+    rdfs:subPropertyOf schema:startTime .
+
+:doTime rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "do time" ;
+    rdfs:comment "Time action should be performed (marked with @)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:time ;
+    rdfs:subPropertyOf schema:startTime .
+
+:completedDateTime rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "completed date time" ;
+    rdfs:comment "When action was completed (marked with %, auto-generated)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:dateTime ;
+    rdfs:subPropertyOf schema:endTime .
+
+#################################################################
+#    Recurrence Properties (file format specific extensions)
+#################################################################
+
+:recurrenceFrequency rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "recurrence frequency" ;
+    rdfs:comment "Recurrence frequency code (R + MI|H|D|W|MO|Y)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:string .
+
+:recurrenceInterval rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "recurrence interval" ;
+    rdfs:comment "Interval for recurrence (default 1, I2 = every 2nd)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:positiveInteger .
+
+:recurrenceUntil rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "recurrence until" ;
+    rdfs:comment "End date for recurrence (U + date)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:date .
+
+:recurrenceCount rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "recurrence count" ;
+    rdfs:comment "Maximum recurrence count (C + number)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:positiveInteger .
+
+:byDay rdf:type owl:DatatypeProperty ;
+    rdfs:label "by day" ;
+    rdfs:comment "Days of week for recurrence (BD + Mon,Tue,etc)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:string .
+
+:byMonth rdf:type owl:DatatypeProperty ;
+    rdfs:label "by month" ;
+    rdfs:comment "Months for yearly recurrence (BMO + Jan,Feb,etc)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:string .
+
+:byMonthDay rdf:type owl:DatatypeProperty ;
+    rdfs:label "by month day" ;
+    rdfs:comment "Days of month for recurrence (BMOD + 1-31)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:integer .
+
+:byHour rdf:type owl:DatatypeProperty ;
+    rdfs:label "by hour" ;
+    rdfs:comment "Hours for time-based recurrence (BH + 0-23)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:integer .
+
+:byMinute rdf:type owl:DatatypeProperty ;
+    rdfs:label "by minute" ;
+    rdfs:comment "Minutes for time-based recurrence (BMI + 0-59)" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:integer .
+
+:stateSymbol rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "state symbol" ;
+    rdfs:comment "Character representing state in file format" ;
+    rdfs:domain :ActionState ;
+    rdfs:range xsd:string .
+
+#################################################################
+#    Derived Classes (for query convenience)
+#################################################################
+
+:CompletedAction rdf:type owl:Class ;
+    rdfs:label "Completed Action" ;
+    rdfs:comment "Actions that have been completed" ;
+    rdfs:subClassOf :Action .
+
+:RecurringAction rdf:type owl:Class ;
+    rdfs:label "Recurring Action" ;
+    rdfs:comment "Actions with recurrence patterns" ;
+    rdfs:subClassOf :Action .
+
+:ProjectAction rdf:type owl:Class ;
+    rdfs:label "Project Action" ;  
+    rdfs:comment "Actions belonging to a project" ;
+    rdfs:subClassOf :RootAction .

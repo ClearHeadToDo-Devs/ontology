@@ -1,0 +1,28 @@
+@prefix : <http://example.org/actions#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@base <http://example.org/actions#> .
+
+<http://example.org/actions> rdf:type owl:Ontology ;
+    rdfs:label "Actions File Specification Ontology" ;
+    rdfs:comment "OWL ontology for the actions file specification - test version" ;
+    owl:versionInfo "2.1.0-test" .
+
+:Action rdf:type owl:Class ;
+    rdfs:label "Action" ;
+    rdfs:comment "A task or action that can be performed" .
+
+:ActionState rdf:type owl:Class ;
+    rdfs:label "Action State" ;
+    rdfs:comment "Enumerated states an action can be in" .
+
+:NotStarted rdf:type owl:NamedIndividual, :ActionState ;
+    rdfs:label "Not Started" .
+
+:name rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "name" ;
+    rdfs:comment "Name/title of the action" ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:string .
