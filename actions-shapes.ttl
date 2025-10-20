@@ -101,6 +101,71 @@ actions:MaxDepthConstraint
         sh:message "Actions cannot exceed 5 levels of nesting" ;
     ] .
 
+# Depth consistency validation (when depth is specified)
+actions:DepthConsistencyShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:sparql [
+        sh:select """
+            SELECT $this
+            WHERE {
+                # Check for depth 0 claiming to have parents
+                { $this actions:depth 0 ; actions:parentAction ?parent . }
+                UNION
+                # Check for depth 5 not having exactly 5 ancestors  
+                { $this actions:depth 5 . 
+                  FILTER NOT EXISTS { 
+                    $this actions:parentAction/actions:parentAction/actions:parentAction/actions:parentAction/actions:parentAction ?ancestor .
+                    FILTER NOT EXISTS { ?ancestor actions:parentAction ?grandparent }
+                  }
+                }
+            }
+        """ ;
+        sh:message "Depth specification inconsistent with actual parent chain" ;
+    ] .
+
+# Class-depth consistency
+actions:RootDepthConsistency
+    a sh:NodeShape ;
+    sh:targetClass actions:RootAction ;
+    sh:sparql [
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this actions:depth ?depth .
+                FILTER(?depth != 0)
+            }
+        """ ;
+        sh:message "RootAction depth, when specified, must be 0" ;
+    ] .
+
+actions:LeafDepthConsistency
+    a sh:NodeShape ;
+    sh:targetClass actions:LeafAction ;
+    sh:sparql [
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this actions:depth ?depth .
+                FILTER(?depth != 5)
+            }
+        """ ;
+        sh:message "LeafAction depth, when specified, must be 5" ;
+    ] .
+
+actions:ChildDepthConsistency
+    a sh:NodeShape ;
+    sh:targetClass actions:ChildAction ;
+    sh:sparql [
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this actions:depth ?depth .
+                FILTER(?depth < 1 || ?depth > 4)
+            }
+        """ ;
+        sh:message "ChildAction depth, when specified, must be between 1 and 4" ;
+    ] .
 # Root Action Project Constraint
 actions:RootActionProjectShape
     a sh:NodeShape ;

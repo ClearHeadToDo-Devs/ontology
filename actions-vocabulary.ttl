@@ -173,6 +173,12 @@ actions:state rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
 #    Project Management Properties
 #################################################################
 
+actions:depth rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "depth"@en ;
+    rdfs:comment "Optional calculated hierarchical depth level (0-5). When specified, must match actual nesting level. Can be computed from parentAction chains."@en ;
+    rdfs:domain actions:Action ;
+    rdfs:range xsd:nonNegativeInteger .
+
 actions:project rdf:type owl:DatatypeProperty ;
     rdfs:label "project"@en ;
     rdfs:comment "Project or story name that this action belongs to. Only available for root actions to maintain hierarchical clarity."@en ;
