@@ -3,19 +3,17 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
 #################################################################
-#    Invalid: Wrong Depth Sequence (Gap in Depth)
+#    Invalid: Leaf Action with Wrong Parent Type
 #################################################################
 
-actions:parent a actions:RootAction ;
-    actions:depth 0 ;
+actions:root_parent a actions:RootAction ;
     actions:priority 1 ;
     actions:state actions:InProgress ;
-    actions:context "@work" ;
-    actions:childAction actions:child .
+    actions:context "@work" .
 
-actions:child a actions:ChildAction ;
-    actions:depth 3 ;  # Should be 1! Gap of 2 levels
+# Invalid: Leaf action with root parent (should have child parent)
+actions:invalid_leaf a actions:LeafAction ;
     actions:priority 2 ;
     actions:state actions:NotStarted ;
     actions:context "@computer" ;
-    actions:parentAction actions:parent .
+    actions:parentAction actions:root_parent .  # Invalid! Leaf must have ChildAction parent

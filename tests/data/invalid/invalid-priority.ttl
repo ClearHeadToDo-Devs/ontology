@@ -7,7 +7,6 @@
 #################################################################
 
 actions:invalid_priority a actions:RootAction ;
-    actions:depth 0 ;
     actions:priority 5 ;  # Invalid! Must be 1-4
     actions:state actions:NotStarted ;
     actions:context "@work" .

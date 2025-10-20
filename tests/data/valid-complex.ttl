@@ -8,54 +8,43 @@
 
 # Valid Root Action (depth 0) with project
 actions:root1 a actions:RootAction ;
-    actions:depth 0 ;
     actions:priority 1 ;
     actions:project "Website Redesign" ;
     actions:state actions:InProgress ;
-    actions:context "@computer", "@office" ;
-    actions:childAction actions:child1 .
+    actions:context "@computer", "@office" .
 
 # Valid Child Action (depth 1) 
 actions:child1 a actions:ChildAction ;
-    actions:depth 1 ;
     actions:priority 2 ;
     actions:state actions:NotStarted ;
     actions:context "@design" ;
     actions:parentAction actions:root1 ;
-    actions:childAction actions:child2 ;
     actions:doDate "2025-01-25"^^xsd:date .
 
 # Valid Child Action (depth 2)
 actions:child2 a actions:ChildAction ;
-    actions:depth 2 ;
     actions:priority 3 ;
     actions:state actions:InProgress ;
     actions:context "@computer" ;
     actions:parentAction actions:child1 ;
-    actions:childAction actions:child3 ;
     actions:durationMinutes 90 .
 
 # Valid Child Action (depth 3)
 actions:child3 a actions:ChildAction ;
-    actions:depth 3 ;
     actions:priority 2 ;
     actions:state actions:Blocked ;
     actions:context "@phone" ;
-    actions:parentAction actions:child2 ;
-    actions:childAction actions:child4 .
+    actions:parentAction actions:child2 .
 
 # Valid Child Action (depth 4) 
 actions:child4 a actions:ChildAction ;
-    actions:depth 4 ;
     actions:priority 4 ;
     actions:state actions:NotStarted ;
     actions:context "@errands" ;
-    actions:parentAction actions:child3 ;
-    actions:childAction actions:leaf1, actions:leaf2 .
+    actions:parentAction actions:child3 .
 
 # Valid Leaf Action (depth 5)
 actions:leaf1 a actions:LeafAction ;
-    actions:depth 5 ;
     actions:priority 1 ;
     actions:state actions:Completed ;
     actions:context "@computer" ;
@@ -64,7 +53,6 @@ actions:leaf1 a actions:LeafAction ;
 
 # Valid Leaf Action (depth 5) 
 actions:leaf2 a actions:LeafAction ;
-    actions:depth 5 ;
     actions:priority 3 ;
     actions:state actions:NotStarted ;
     actions:context "@home", "@weekend" ;
@@ -72,7 +60,6 @@ actions:leaf2 a actions:LeafAction ;
 
 # Valid Root Action with recurrence
 actions:root2 a actions:RootAction ;
-    actions:depth 0 ;
     actions:priority 2 ;
     actions:project "Daily Standup" ;
     actions:state actions:InProgress ;
@@ -84,7 +71,6 @@ actions:root2 a actions:RootAction ;
 
 # Valid standalone Root Action (no project)
 actions:root3 a actions:RootAction ;
-    actions:depth 0 ;
     actions:priority 1 ;
     actions:state actions:NotStarted ;
     actions:context "@personal" ;

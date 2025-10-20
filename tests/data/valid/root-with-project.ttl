@@ -7,7 +7,6 @@
 #################################################################
 
 actions:project_root a actions:RootAction ;
-    actions:depth 0 ;
     actions:priority 2 ;
     actions:project "Website Redesign" ;
     actions:state actions:InProgress ;

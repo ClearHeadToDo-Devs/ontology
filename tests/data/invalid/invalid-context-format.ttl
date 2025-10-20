@@ -7,7 +7,6 @@
 #################################################################
 
 actions:invalid_context a actions:RootAction ;
-    actions:depth 0 ;
     actions:priority 1 ;
     actions:state actions:NotStarted ;
     actions:context "computer" .  # Invalid! Should be "@computer"

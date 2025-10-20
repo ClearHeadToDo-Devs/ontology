@@ -7,7 +7,6 @@
 #################################################################
 
 actions:recurrence_invalid a actions:RootAction ;
-    actions:depth 0 ;
     actions:priority 1 ;
     actions:state actions:NotStarted ;
     actions:context "@work" ;

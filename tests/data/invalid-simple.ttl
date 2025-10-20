@@ -3,13 +3,17 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
 #################################################################
-#    Simple Invalid Test - Root Action with Wrong Depth
+#    Simple Invalid Test - Root Action with Parent
 #################################################################
 
-# Invalid: Root action with wrong depth
-actions:invalid_root a actions:RootAction ;
-    actions:depth 1 ;  # Should be 0!
+# Invalid: Root action with parent (should not have parent)
+actions:other_action a actions:RootAction ;
     actions:priority 1 ;
-    actions:project "Test Project" ;
     actions:state actions:InProgress ;
-    actions:context "@computer" .
+    actions:context "@work" .
+
+actions:invalid_root a actions:RootAction ;
+    actions:priority 1 ;
+    actions:state actions:InProgress ;
+    actions:context "@computer" ;
+    actions:parentAction actions:other_action .  # Invalid! Root cannot have parent

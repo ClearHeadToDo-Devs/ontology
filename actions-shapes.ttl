@@ -14,15 +14,6 @@ actions:ActionShape
     a sh:NodeShape ;
     sh:targetClass actions:Action ;
     sh:property [
-        sh:path actions:depth ;
-        sh:datatype xsd:integer ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:minInclusive 0 ;
-        sh:maxInclusive 5 ;
-        sh:message "Action must have exactly one depth value between 0 and 5" ;
-    ] ;
-    sh:property [
         sh:path actions:priority ;
         sh:datatype xsd:integer ;
         sh:minCount 1 ;
@@ -49,24 +40,14 @@ actions:RootActionShape
     a sh:NodeShape ;
     sh:targetClass actions:RootAction ;
     sh:property [
-        sh:path actions:depth ;
-        sh:hasValue 0 ;
-        sh:message "Root actions must have depth 0" ;
-    ] ;
-    sh:property [
         sh:path actions:parentAction ;
         sh:maxCount 0 ;
-        sh:message "Root actions cannot have action parents" ;
+        sh:message "Root actions cannot have parents" ;
     ] ;
     sh:property [
         sh:path actions:project ;
         sh:datatype xsd:string ;
         sh:message "Root actions may have project assignments" ;
-    ] ;
-    sh:property [
-        sh:path actions:childAction ;
-        sh:class actions:ChildAction ;
-        sh:message "Root actions may only have child actions as children" ;
     ] .
 
 # Child Action Shape - depth 1-4
@@ -74,41 +55,25 @@ actions:ChildActionShape
     a sh:NodeShape ;
     sh:targetClass actions:ChildAction ;
     sh:property [
-        sh:path actions:depth ;
-        sh:minInclusive 1 ;
-        sh:maxInclusive 4 ;
-        sh:message "Child actions must have depth between 1 and 4" ;
-    ] ;
-    sh:property [
         sh:path actions:parentAction ;
-        sh:class actions:Action ;
+        sh:or (
+            [ sh:class actions:RootAction ]
+            [ sh:class actions:ChildAction ]
+        ) ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "Child actions must have exactly one action parent" ;
+        sh:message "Child actions must have exactly one parent (root or child action)" ;
     ] ;
     sh:property [
         sh:path actions:project ;
         sh:maxCount 0 ;
-        sh:message "Child actions cannot have project assignments - only root actions can" ;
-    ] ;
-    sh:property [
-        sh:path actions:childAction ;
-        sh:or (
-            [ sh:class actions:ChildAction ]
-            [ sh:class actions:LeafAction ]
-        ) ;
-        sh:message "Child actions may only have child or leaf actions as children" ;
+        sh:message "Child actions cannot have project assignments" ;
     ] .
 
 # Leaf Action Shape - depth 5
 actions:LeafActionShape
     a sh:NodeShape ;
     sh:targetClass actions:LeafAction ;
-    sh:property [
-        sh:path actions:depth ;
-        sh:hasValue 5 ;
-        sh:message "Leaf actions must have depth 5" ;
-    ] ;
     sh:property [
         sh:path actions:parentAction ;
         sh:class actions:ChildAction ;
@@ -120,53 +85,20 @@ actions:LeafActionShape
         sh:path actions:project ;
         sh:maxCount 0 ;
         sh:message "Leaf actions cannot have project assignments" ;
-    ] ;
-    sh:property [
-        sh:path actions:childAction ;
-        sh:maxCount 0 ;
-        sh:message "Leaf actions may not have children" ;
     ] .
 
-# Parent-Child Consistency Shape
-actions:ParentChildConsistencyShape
+# Maximum depth constraint (no more than 5 levels of nesting)
+actions:MaxDepthConstraint
     a sh:NodeShape ;
     sh:targetClass actions:Action ;
     sh:sparql [
         sh:select """
-            SELECT $this ?parent ?childDepth ?parentDepth
+            SELECT $this
             WHERE {
-                $this actions:parentAction ?parent .
-                $this actions:depth ?childDepth .
-                ?parent actions:depth ?parentDepth .
-                FILTER(?childDepth != ?parentDepth + 1)
+                $this actions:parentAction/actions:parentAction/actions:parentAction/actions:parentAction/actions:parentAction/actions:parentAction ?greatGreatGreatGreatGrandparent .
             }
         """ ;
-        sh:message "Child action depth must be exactly parent depth + 1" ;
-    ] .
-
-# Inverse relationship consistency
-actions:InverseConsistencyShape
-    a sh:NodeShape ;
-    sh:targetClass actions:Action ;
-    sh:sparql [
-        sh:select """
-            SELECT $this ?child
-            WHERE {
-                $this actions:childAction ?child .
-                FILTER NOT EXISTS { ?child actions:parentAction $this }
-            }
-        """ ;
-        sh:message "If action has child, child must have this action as parent" ;
-    ] ;
-    sh:sparql [
-        sh:select """
-            SELECT $this ?parent
-            WHERE {
-                $this actions:parentAction ?parent .
-                FILTER NOT EXISTS { ?parent actions:childAction $this }
-            }
-        """ ;
-        sh:message "If action has parent, parent must have this action as child" ;
+        sh:message "Actions cannot exceed 5 levels of nesting" ;
     ] .
 
 # Root Action Project Constraint

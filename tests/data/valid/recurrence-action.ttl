@@ -7,7 +7,6 @@
 #################################################################
 
 actions:recurring_standup a actions:RootAction ;
-    actions:depth 0 ;
     actions:priority 2 ;
     actions:project "Team Management" ;
     actions:state actions:InProgress ;

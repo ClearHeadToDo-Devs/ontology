@@ -8,21 +8,19 @@
 
 # Missing state
 actions:missing_state a actions:RootAction ;
-    actions:depth 0 ;
     actions:priority 1 ;
     actions:context "@work" .
     # Missing actions:state - Invalid!
 
 # Missing priority
 actions:missing_priority a actions:RootAction ;
-    actions:depth 0 ;
     actions:state actions:NotStarted ;
     actions:context "@work" .
     # Missing actions:priority - Invalid!
 
-# Missing depth
-actions:missing_depth a actions:RootAction ;
+# Missing any property - but this is actually valid since context is optional
+# Let's make this a duplicate of missing_state for now
+actions:duplicate_missing_state a actions:RootAction ;
     actions:priority 1 ;
-    actions:state actions:NotStarted ;
     actions:context "@work" .
-    # Missing actions:depth - Invalid!
+    # Missing actions:state - Invalid!

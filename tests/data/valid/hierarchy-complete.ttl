@@ -7,47 +7,36 @@
 #################################################################
 
 actions:hierarchy_root a actions:RootAction ;
-    actions:depth 0 ;
     actions:priority 1 ;
     actions:project "API Development" ;
     actions:state actions:InProgress ;
-    actions:context "@computer" ;
-    actions:childAction actions:hierarchy_child .
+    actions:context "@computer" .
 
 actions:hierarchy_child a actions:ChildAction ;
-    actions:depth 1 ;
     actions:priority 2 ;
     actions:state actions:NotStarted ;
     actions:context "@design" ;
-    actions:parentAction actions:hierarchy_root ;
-    actions:childAction actions:hierarchy_child2 .
+    actions:parentAction actions:hierarchy_root .
 
 actions:hierarchy_child2 a actions:ChildAction ;
-    actions:depth 2 ;
     actions:priority 2 ;
     actions:state actions:InProgress ;
     actions:context "@coding" ;
-    actions:parentAction actions:hierarchy_child ;
-    actions:childAction actions:hierarchy_child3 .
+    actions:parentAction actions:hierarchy_child .
 
 actions:hierarchy_child3 a actions:ChildAction ;
-    actions:depth 3 ;
     actions:priority 3 ;
     actions:state actions:NotStarted ;
     actions:context "@testing" ;
-    actions:parentAction actions:hierarchy_child2 ;
-    actions:childAction actions:hierarchy_child4 .
+    actions:parentAction actions:hierarchy_child2 .
 
 actions:hierarchy_child4 a actions:ChildAction ;
-    actions:depth 4 ;
     actions:priority 1 ;
     actions:state actions:InProgress ;
     actions:context "@deploy" ;
-    actions:parentAction actions:hierarchy_child3 ;
-    actions:childAction actions:hierarchy_leaf .
+    actions:parentAction actions:hierarchy_child3 .
 
 actions:hierarchy_leaf a actions:LeafAction ;
-    actions:depth 5 ;
     actions:priority 4 ;
     actions:state actions:Completed ;
     actions:context "@computer" ;

@@ -8,7 +8,6 @@
 
 # Simple valid root action
 actions:simple_root a actions:RootAction ;
-    actions:depth 0 ;
     actions:priority 1 ;
     actions:project "Test Project" ;
     actions:state actions:InProgress ;

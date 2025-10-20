@@ -159,15 +159,8 @@ actions:Cancelled rdf:type owl:NamedIndividual, actions:ActionState ;
 actions:parentAction rdf:type owl:ObjectProperty ;
     rdfs:label "parent action"@en ;
     rdfs:comment "Links child action to its parent in the hierarchical structure"@en ;
-    rdfs:domain actions:ChildAction ;
-    rdfs:range actions:Action ;
-    owl:inverseOf actions:childAction .
-
-actions:childAction rdf:type owl:ObjectProperty ;
-    rdfs:label "child action"@en ;
-    rdfs:comment "Links parent to its child actions in the hierarchical structure"@en ;
-    rdfs:domain actions:Action ;
-    rdfs:range actions:ChildAction .
+    rdfs:domain [ owl:unionOf ( actions:ChildAction actions:LeafAction ) ] ;
+    rdfs:range [ owl:unionOf ( actions:RootAction actions:ChildAction ) ] .
 
 actions:state rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:label "state"@en ;
@@ -175,16 +168,6 @@ actions:state rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain actions:Action ;
     rdfs:range actions:ActionState ;
     rdfs:subPropertyOf schema:actionStatus .
-
-#################################################################
-#    Hierarchical Structure Properties
-#################################################################
-
-actions:depth rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
-    rdfs:label "depth"@en ;
-    rdfs:comment "Hierarchical depth level (0-5) indicating nesting level in action hierarchy: 0=root, 1-4=child, 5=leaf"@en ;
-    rdfs:domain actions:Action ;
-    rdfs:range xsd:nonNegativeInteger .
 
 #################################################################
 #    Project Management Properties
