@@ -22,7 +22,7 @@ actions:child1 a actions:ChildAction ;
     actions:state actions:NotStarted ;
     actions:context "@design" ;
     actions:parentAction actions:root1 ;
-    actions:childAction actions:child2, actions:leaf1 ;
+    actions:childAction actions:child2 ;
     actions:doDate "2025-01-25"^^xsd:date .
 
 # Valid Child Action (depth 2)
@@ -51,7 +51,7 @@ actions:child4 a actions:ChildAction ;
     actions:state actions:NotStarted ;
     actions:context "@errands" ;
     actions:parentAction actions:child3 ;
-    actions:childAction actions:leaf2 .
+    actions:childAction actions:leaf1, actions:leaf2 .
 
 # Valid Leaf Action (depth 5)
 actions:leaf1 a actions:LeafAction ;
@@ -59,7 +59,7 @@ actions:leaf1 a actions:LeafAction ;
     actions:priority 1 ;
     actions:state actions:Completed ;
     actions:context "@computer" ;
-    actions:parentAction actions:child1 ;
+    actions:parentAction actions:child4 ;
     actions:completedDateTime "2025-01-20T14:30:00"^^xsd:dateTime .
 
 # Valid Leaf Action (depth 5) 

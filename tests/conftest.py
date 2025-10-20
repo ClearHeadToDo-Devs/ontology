@@ -86,7 +86,7 @@ def shacl_validator(ontology_graph, shapes_graph):
             data_graph,
             shacl_graph=shapes_graph,
             ont_graph=ontology_graph if use_ontology else None,
-            inference='rdfs' if use_ontology else None,
+            inference=None,  # No inference to match CLI behavior
             abort_on_first=False,
             debug=False
         )
