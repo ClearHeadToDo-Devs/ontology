@@ -1,13 +1,13 @@
 [project]
 name = "ontology"
 version = "0.1.0"
-description = "Actions Vocabulary Ontology with SHACL validation testing"
+description = "W3C Actions Vocabulary with SHACL validation for downstream schema generation"
 requires-python = ">=3.12"
 dependencies = [
     "pyshacl>=0.25.0",
     "rdflib>=7.0.0",
     "pytest>=8.0.0",
-    "pytest-xdist>=3.5.0",
+    "invoke>=2.0.0",
 ]
 
 [tool.pytest.ini_options]
@@ -21,6 +21,7 @@ addopts = [
     "--tb=short", 
     "-q",  # Quiet by default, use -v to override
     "-ra",
+    "--import-mode=importlib",  # Better for uv projects
 ]
 # Add console script shortcuts
 minversion = "8.0"
@@ -68,9 +69,5 @@ target-version = ["py312"]
 profile = "black"
 line_length = 88
 [project.optional-dependencies]
-dev = [
-    "pytest-cov>=4.1.0",
-    "pytest-html>=4.1.0",
-    "black>=24.0.0",
-    "isort>=5.13.0",
-]
+# Optional development dependencies for ontology maintainers only
+dev = ["black>=24.0.0", "pytest-cov>=4.1.0"]

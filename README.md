@@ -3,6 +3,44 @@ As part of the clearhead platform, we want to build out a foundation that is bot
 
 To this end, we are going to be using the ontology defined within this repository our core foundation upon which all applications can be built
 
+## Usage
+
+This ontology provides W3C-compliant RDF/OWL vocabulary and SHACL constraints for task management systems.
+
+### Validation (Downstream Consumers)
+
+```bash
+# Install dependencies
+uv sync
+
+# Run all validation tests (recommended)
+uv run pytest
+
+# Quick syntax validation
+uv run invoke validate
+
+# Clean artifacts
+uv run invoke clean
+
+# See all available tasks
+uv run invoke --list
+```
+
+### Integration
+
+Your downstream applications should:
+
+1. Parse `actions-vocabulary.ttl` for class/property definitions
+2. Use `actions-shapes.ttl` for validation rules  
+3. Run `uv run invoke test` to validate your data against these constraints
+
+### Files
+
+- `actions-vocabulary.ttl` - Core ontology (OWL 2)
+- `actions-shapes.ttl` - SHACL constraints  
+- `tests/` - Validation test suite with example data
+- `tasks.py` - Invoke task definitions
+
 ## Terms
 For now we are working primarily with Actions which are a generic format that is intended to express an intent to complete something as either an individual or a system
 
