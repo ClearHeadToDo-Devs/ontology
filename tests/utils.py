@@ -5,9 +5,11 @@ Utility functions for SHACL validation testing.
 import rdflib
 from typing import List, Dict, Any
 from rdflib import Namespace
+import logging
 
 # SHACL namespace
 SHACL = Namespace("http://www.w3.org/ns/shacl#")
+logger = logging.getLogger("shacl_validator.utils")
 
 
 def count_validation_violations(validation_graph: rdflib.Graph) -> int:
@@ -96,6 +98,8 @@ def assert_validation_passes(conforms: bool, report_text: str, message: str = ""
         AssertionError: If validation failed
     """
     if not conforms:
+        logger.error(f"Validation failed: {message}")
+        logger.debug(f"Full validation report:\n{report_text}")
         error_msg = f"{message}\nValidation failed with report:\n{report_text}"
         raise AssertionError(error_msg)
 
@@ -113,13 +117,19 @@ def assert_validation_fails(conforms: bool, report_text: str, message: str = "")
         AssertionError: If validation unexpectedly passed
     """
     if conforms:
+        logger.error(f"Validation unexpectedly passed: {message}")
         error_msg = f"{message}\nValidation unexpectedly passed"
         raise AssertionError(error_msg)
     
     # Ensure we have some violation messages
     if not report_text or ("ValidationResult" not in report_text and "Constraint Violation" not in report_text):
+        logger.warning(f"Validation failed but no detailed violations found for: {message}")
+        logger.debug(f"Report text: {report_text}")
         error_msg = f"{message}\nValidation failed but no detailed violations found"
         raise AssertionError(error_msg)
+    else:
+        logger.info(f"Validation correctly failed: {message}")
+        logger.debug(f"Violation report preview: {report_text[:200]}...")
 
 
 def print_validation_summary(

@@ -56,6 +56,12 @@ uv run pytest -q
 
 # Very verbose mode
 uv run pytest -vv
+
+# Show live logs during testing
+uv run pytest -s --verbose-validation
+
+# Save logs to file
+uv run pytest --log-file=test.log
 ```
 
 ## Test Organization
@@ -65,7 +71,6 @@ tests/
 ├── data/
 │   ├── valid/          # Test data that should pass validation
 │   └── invalid/        # Test data that should fail validation  
-├── results/            # SHACL validation reports (auto-generated)
 ├── conftest.py         # Pytest configuration and fixtures
 ├── utils.py            # Test utilities
 ├── test_shacl_validation.py     # Core SHACL validation tests
@@ -74,8 +79,6 @@ tests/
 
 ## Custom Options
 
-- `--quick` - Skip slow/complex tests (same as `-m "not slow"`)
-- `--verbose-validation` - Show detailed SHACL violation reports
 
 ## Examples
 
@@ -93,6 +96,30 @@ uv run pytest --cov=tests --cov-report=html
 uv run pytest -vv -s tests/test_shacl_validation.py::TestValidDataFiles::test_specific_valid_file
 ```
 
+## Logging and Debugging
+
+pytest captures logs automatically. For SHACL validation debugging:
+
+```bash
+# Show validation logs in real-time
+uv run pytest --verbose-validation -s
+
+# Save all logs to file
+uv run pytest --log-file=validation.log --log-file-level=DEBUG
+
+# Show only failed test logs
+uv run pytest --tb=long  # Shows captured logs for failed tests
+
+# Very detailed logging
+uv run pytest --verbose-validation -vvv --tb=long
+```
+
+The logging shows:
+- ✅ Validation success/failure for each test
+- ❌ SHACL constraint violations 
+- 📝 Validation report excerpts
+- 🔍 Test execution flow
+
 ## Adding New Tests
 
 1. **Valid data**: Add `.ttl` files to `tests/data/valid/`
@@ -100,3 +127,4 @@ uv run pytest -vv -s tests/test_shacl_validation.py::TestValidDataFiles::test_sp
 3. **Custom tests**: Add to existing test classes or create new ones
 
 The test system automatically discovers and tests all files in the data directories.
+Logs are captured automatically and shown for failed tests.

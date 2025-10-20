@@ -1,9 +1,0 @@
-Validation Report
-Conforms: False
-Results (1):
-Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
-	Severity: sh:Violation
-	Source Shape: [ sh:class actions:ChildAction ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("Leaf actions must have exactly one child action parent") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path actions:parentAction ]
-	Focus Node: actions:temporal_invalid
-	Result Path: actions:parentAction
-	Message: Leaf actions must have exactly one child action parent

@@ -9,14 +9,15 @@ from pathlib import Path
 from typing import Tuple, List, Dict, Any, Optional
 import tempfile
 import os
+import logging
 
 # Test configuration
 TEST_DATA_DIR = Path(__file__).parent / "data"
 ROOT_DIR = Path(__file__).parent.parent
-RESULTS_DIR = Path(__file__).parent / "results"
 
-# Ensure directories exist
-RESULTS_DIR.mkdir(exist_ok=True)
+
+# Set up logger
+logger = logging.getLogger("shacl_validator")
 
 
 def pytest_sessionfinish(session, exitstatus):
@@ -30,12 +31,12 @@ def pytest_sessionfinish(session, exitstatus):
     else:
         print("❌ SOME TESTS FAILED")
         print("💡 Check test output above for details")
-        print(f"📁 Validation reports saved in: {RESULTS_DIR}")
+        print("📝 Use --verbose-validation to see detailed SHACL reports")
         print("")
         print("Common fixes:")
         print("  • Check test data file syntax")
         print("  • Review SHACL constraint violations")
-        print("  • Run with --verbose-validation for details")
+        print("  • Use pytest -s to see live logs")
     print("=" * 80)
 @pytest.fixture(scope="session")
 def ontology_graph():
@@ -65,7 +66,6 @@ def shacl_validator(ontology_graph, shapes_graph):
     
     def validate_data(
         data_graph: rdflib.Graph,
-        save_report: bool = True,
         test_name: str = "test",
         use_ontology: bool = True
     ) -> Tuple[bool, rdflib.Graph, str]:
@@ -74,13 +74,14 @@ def shacl_validator(ontology_graph, shapes_graph):
         
         Args:
             data_graph: The RDF data to validate
-            save_report: Whether to save validation report to file
             test_name: Name for the validation report file
             use_ontology: Whether to include ontology for validation
         
         Returns:
             Tuple of (conforms, report_graph, report_text)
         """
+        logger.info(f"Validating {test_name} (ontology={use_ontology})")
+        
         conforms, report_graph, report_text = validate(
             data_graph,
             shacl_graph=shapes_graph,
@@ -90,11 +91,14 @@ def shacl_validator(ontology_graph, shapes_graph):
             debug=False
         )
         
-        # Save validation report if requested
-        if save_report:
-            report_file = RESULTS_DIR / f"{test_name}-result.ttl"
-            with open(report_file, 'w', encoding='utf-8') as f:
-                f.write(report_text)
+        # Log validation results
+        if conforms:
+            logger.info(f"✅ {test_name}: Validation passed")
+        else:
+            logger.warning(f"❌ {test_name}: Validation failed")
+            # Log first few lines of violation report for debugging
+            report_lines = report_text.split('\n')[:10]
+            logger.debug(f"Validation report excerpt:\n" + '\n'.join(report_lines))
         
         return conforms, report_graph, report_text
     
@@ -159,12 +163,6 @@ def pytest_addoption(parser):
         default=False,
         help="Run only basic tests (skip complex/slow cases)"
     )
-    parser.addoption(
-        "--save-reports",
-        action="store_true",
-        default=True,
-        help="Save validation reports to results directory"
-    )
 
 
 @pytest.fixture
@@ -179,10 +177,6 @@ def quick_mode(request):
     return request.config.getoption("--quick")
 
 
-@pytest.fixture  
-def save_reports(request):
-    """Get save reports setting."""
-    return request.config.getoption("--save-reports")
 
 
 def pytest_collection_modifyitems(config, items):
@@ -199,8 +193,14 @@ def pytest_collection_modifyitems(config, items):
 
 def pytest_configure(config):
     """Configure test session."""
-    # Ensure results directory exists
-    RESULTS_DIR.mkdir(exist_ok=True)
+    # Set up logging based on verbose-validation option
+    if config.getoption("--verbose-validation"):
+        # Enable live CLI logging for verbose validation
+        config.option.log_cli = True
+        config.option.log_cli_level = "DEBUG"
+        logger.setLevel(logging.DEBUG)
+    else:
+        logger.setLevel(logging.INFO)
     
     # Add custom markers
     config.addinivalue_line("markers", "slow: marks tests as slow")
@@ -224,7 +224,6 @@ def pytest_report_header(config):
     return [
         f"🧪 Actions Vocabulary SHACL Test Suite",
         f"Test data directory: {TEST_DATA_DIR}",
-        f"Results directory: {RESULTS_DIR}",
         f"Quick mode: {'✅' if config.getoption('--quick') else '❌'}",
         f"Verbose validation: {'✅' if config.getoption('--verbose-validation') else '❌'}",
         f"",

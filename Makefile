@@ -42,10 +42,11 @@ test-consistency:  ## Test only ontology consistency
 	uv run pytest tests/test_ontology_consistency.py
 
 clean:  ## Clean test artifacts
-	rm -rf tests/results/*
 	rm -rf tests/__pycache__
 	rm -rf .pytest_cache
-	@echo "✅ Cleaned test artifacts"
+	rm -rf htmlcov/
+	rm -rf .coverage
+	@echo "🧹 Cleaned test artifacts"
 
 lint:  ## Run linting (if dev dependencies installed)
 	uv run --group dev isort tests/ --check-only
@@ -69,4 +70,4 @@ watch:  ## Watch files and run tests on changes
 # Coverage reporting (if pytest-cov installed)
 coverage:  ## Run tests with coverage reporting
 	uv run pytest --cov=tests --cov-report=html --cov-report=term
-	@echo "Coverage report generated in htmlcov/"
+	@echo "📊 Coverage report generated in htmlcov/"
