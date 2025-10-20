@@ -1,0 +1,10 @@
+Validation Report
+Conforms: False
+Results (1):
+Constraint Violation in MaxInclusiveConstraintComponent (http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:maxInclusive Literal("4", datatype=xsd:integer) ; sh:message Literal("Child actions must have depth between 1 and 4") ; sh:minInclusive Literal("1", datatype=xsd:integer) ; sh:path actions:depth ]
+	Focus Node: actions:hierarchy_leaf
+	Value Node: Literal("5", datatype=xsd:integer)
+	Result Path: actions:depth
+	Message: Child actions must have depth between 1 and 4

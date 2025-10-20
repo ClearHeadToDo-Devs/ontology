@@ -1,0 +1,28 @@
+@prefix actions: <https://vocab.example.org/actions/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+#################################################################
+#    Invalid: Missing Required Properties
+#################################################################
+
+# Missing state
+actions:missing_state a actions:RootAction ;
+    actions:depth 0 ;
+    actions:priority 1 ;
+    actions:context "@work" .
+    # Missing actions:state - Invalid!
+
+# Missing priority
+actions:missing_priority a actions:RootAction ;
+    actions:depth 0 ;
+    actions:state actions:NotStarted ;
+    actions:context "@work" .
+    # Missing actions:priority - Invalid!
+
+# Missing depth
+actions:missing_depth a actions:RootAction ;
+    actions:priority 1 ;
+    actions:state actions:NotStarted ;
+    actions:context "@work" .
+    # Missing actions:depth - Invalid!

@@ -1,0 +1,29 @@
+@prefix actions: <https://vocab.example.org/actions/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+#################################################################
+#    Invalid: Leaf Action with Children
+#################################################################
+
+actions:parent a actions:ChildAction ;
+    actions:depth 4 ;
+    actions:priority 1 ;
+    actions:state actions:InProgress ;
+    actions:context "@work" ;
+    actions:childAction actions:leaf .
+
+actions:leaf a actions:LeafAction ;
+    actions:depth 5 ;
+    actions:priority 2 ;
+    actions:state actions:NotStarted ;
+    actions:context "@computer" ;
+    actions:parentAction actions:parent ;
+    actions:childAction actions:impossible .  # Invalid! Leaf cannot have children
+
+actions:impossible a actions:ChildAction ;
+    actions:depth 6 ;  # Also invalid - exceeds max depth
+    actions:priority 1 ;
+    actions:state actions:NotStarted ;
+    actions:context "@impossible" ;
+    actions:parentAction actions:leaf .

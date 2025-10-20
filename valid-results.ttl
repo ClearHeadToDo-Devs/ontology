@@ -1,0 +1,834 @@
+Skipping DataGraph clone because PySHACL is operating in inplace mode.
+Found 11 SHACL Shapes defined with type sh:NodeShape.
+Found 0 SHACL Shapes defined with type sh:PropertyShape.
+Found 0 property paths to follow.
+Found 11 implied SHACL Shapes based on their properties.
+Found 22 implied SHACL Shapes used as values in shape-expecting constraints.
+Cached 13 unique NodeShapes and 20 unique PropertyShapes.
+Validating DataGraph named Ne000d615bd3b4d12a2d7f146c27c9542
+Checking if Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.012ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13> because it found no focus nodes.
+Checking if Shape <NodeShape https://vocab.example.org/actions/ContextArrayShape> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.018ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <NodeShape https://vocab.example.org/actions/ContextArrayShape> because it found no focus nodes.
+Checking if Shape <NodeShape https://vocab.example.org/actions/TemporalConsistencyShape> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.014ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <NodeShape https://vocab.example.org/actions/TemporalConsistencyShape> because it found no focus nodes.
+Checking if Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14> because it found no focus nodes.
+Checking if Shape <NodeShape https://vocab.example.org/actions/DurationShape> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.017ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <NodeShape https://vocab.example.org/actions/DurationShape> because it found no focus nodes.
+Checking if Shape <NodeShape https://vocab.example.org/actions/RecurrenceShape> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.013ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <NodeShape https://vocab.example.org/actions/RecurrenceShape> because it found no focus nodes.
+Checking if Shape <NodeShape https://vocab.example.org/actions/ActionShape> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.012ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <NodeShape https://vocab.example.org/actions/ActionShape> because it found no focus nodes.
+Checking if Shape <NodeShape https://vocab.example.org/actions/ChildActionShape> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.015ms
+Found 4 Focus Nodes to evaluate.
+Running evaluation of Shape <NodeShape https://vocab.example.org/actions/ChildActionShape>
+Milliseconds to find value nodes for focus nodes: 0.001ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape>
+Checking conformance for constraint: <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>>
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>
+Milliseconds to find value nodes for focus nodes: 0.007ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>
+Checking conformance for constraint: <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9> -> <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Milliseconds to check constraint <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>: 0.029ms
+DataGraph conforms to constraint <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>.
+Checking conformance for constraint: <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9> -> <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Milliseconds to check constraint <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>: 0.015ms
+DataGraph conforms to constraint <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>: 0.161ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>
+Milliseconds to find value nodes for focus nodes: 0.006ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>
+Checking conformance for constraint: <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9> -> <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Milliseconds to check constraint <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>: 0.014ms
+DataGraph conforms to constraint <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>.
+Checking conformance for constraint: <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9> -> <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Milliseconds to check constraint <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>: 0.018ms
+DataGraph conforms to constraint <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>: 0.125ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>
+Milliseconds to find value nodes for focus nodes: 0.005ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>
+Checking conformance for constraint: <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9> -> <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Milliseconds to check constraint <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>: 0.014ms
+DataGraph conforms to constraint <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>.
+Checking conformance for constraint: <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9> -> <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Milliseconds to check constraint <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>: 0.012ms
+DataGraph conforms to constraint <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>: 0.111ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>
+Milliseconds to find value nodes for focus nodes: 0.005ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>
+Checking conformance for constraint: <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9> -> <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Milliseconds to check constraint <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>: 0.012ms
+DataGraph conforms to constraint <MinInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>.
+Checking conformance for constraint: <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9> -> <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>
+Milliseconds to check constraint <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>: 0.010ms
+DataGraph conforms to constraint <MaxInclusiveConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9>: 0.104ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>
+Milliseconds to find value nodes for focus nodes: 0.004ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>
+Checking conformance for constraint: <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> -> <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Milliseconds to check constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>: 0.258ms
+Focus nodes do _not_ conform to constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>.
+Checking conformance for constraint: <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> -> <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Milliseconds to check constraint <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>: 0.013ms
+DataGraph conforms to constraint <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>.
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>: 0.010ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>: 0.423ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>
+Milliseconds to find value nodes for focus nodes: 0.005ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>
+Checking conformance for constraint: <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> -> <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Milliseconds to check constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>: 0.145ms
+Focus nodes do _not_ conform to constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>.
+Checking conformance for constraint: <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> -> <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Milliseconds to check constraint <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>: 0.011ms
+DataGraph conforms to constraint <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>.
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>: 0.010ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>: 0.308ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>
+Milliseconds to find value nodes for focus nodes: 0.005ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>
+Checking conformance for constraint: <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> -> <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Milliseconds to check constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>: 0.130ms
+Focus nodes do _not_ conform to constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>.
+Checking conformance for constraint: <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> -> <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Milliseconds to check constraint <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>: 0.011ms
+DataGraph conforms to constraint <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>.
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>: 0.011ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>: 0.278ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>
+Milliseconds to find value nodes for focus nodes: 0.004ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>
+Checking conformance for constraint: <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> -> <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Milliseconds to check constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>: 0.121ms
+Focus nodes do _not_ conform to constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>.
+Checking conformance for constraint: <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> -> <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Milliseconds to check constraint <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>: 0.010ms
+DataGraph conforms to constraint <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>.
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>: 0.009ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10>: 0.269ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>: 0.010ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>: 0.066ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>: 0.010ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>: 0.066ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>: 0.010ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>: 0.064ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>: 0.010ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11>: 0.063ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>
+Milliseconds to find value nodes for focus nodes: 0.004ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>
+Checking conformance for constraint: <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Milliseconds to find value nodes for focus nodes: 0.000ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Checking conformance for constraint: <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13> -> <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>
+Milliseconds to check constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>: 0.015ms
+DataGraph conforms to constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>.
+Milliseconds to evaluate shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>: 0.065ms
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Milliseconds to find value nodes for focus nodes: 0.000ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Checking conformance for constraint: <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14> -> <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>
+Milliseconds to check constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>: 0.086ms
+Focus nodes do _not_ conform to constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>.
+Milliseconds to evaluate shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>: 0.138ms
+sh:or constraint reports will be inspected and not passed to the parent Node:
+Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:class actions:LeafAction ]
+	Focus Node: actions:child4
+	Value Node: actions:child4
+	Message: Value does not have class actions:LeafAction
+
+Milliseconds to check constraint <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>: 0.314ms
+DataGraph conforms to constraint <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>: 0.371ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>
+Milliseconds to find value nodes for focus nodes: 0.004ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>
+Checking conformance for constraint: <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Milliseconds to find value nodes for focus nodes: 0.000ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Checking conformance for constraint: <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13> -> <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>
+Milliseconds to check constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>: 0.016ms
+DataGraph conforms to constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>.
+Milliseconds to evaluate shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>: 0.066ms
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Milliseconds to find value nodes for focus nodes: 0.000ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Checking conformance for constraint: <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14> -> <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>
+Milliseconds to check constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>: 0.084ms
+Focus nodes do _not_ conform to constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>.
+Milliseconds to evaluate shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>: 0.136ms
+sh:or constraint reports will be inspected and not passed to the parent Node:
+Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:class actions:LeafAction ]
+	Focus Node: actions:child3
+	Value Node: actions:child3
+	Message: Value does not have class actions:LeafAction
+
+Milliseconds to check constraint <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>: 0.303ms
+DataGraph conforms to constraint <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>: 0.363ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>
+Milliseconds to find value nodes for focus nodes: 0.005ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>
+Checking conformance for constraint: <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Milliseconds to find value nodes for focus nodes: 0.000ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Checking conformance for constraint: <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13> -> <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>
+Milliseconds to check constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>: 0.082ms
+Focus nodes do _not_ conform to constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>.
+Milliseconds to evaluate shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>: 0.135ms
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Milliseconds to find value nodes for focus nodes: 0.000ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Checking conformance for constraint: <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14> -> <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>
+Milliseconds to check constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>: 0.017ms
+DataGraph conforms to constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>.
+Milliseconds to evaluate shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>: 0.066ms
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Milliseconds to find value nodes for focus nodes: 0.000ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Checking conformance for constraint: <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13> -> <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>
+Milliseconds to check constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>: 0.015ms
+DataGraph conforms to constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>.
+Milliseconds to evaluate shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>: 0.062ms
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Milliseconds to find value nodes for focus nodes: 0.000ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Checking conformance for constraint: <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14> -> <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>
+Milliseconds to check constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>: 0.126ms
+Focus nodes do _not_ conform to constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>.
+Milliseconds to evaluate shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>: 0.186ms
+sh:or constraint reports will be inspected and not passed to the parent Node:
+Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:class actions:ChildAction ]
+	Focus Node: actions:leaf1
+	Value Node: actions:leaf1
+	Message: Value does not have class actions:ChildAction
+
+Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:class actions:LeafAction ]
+	Focus Node: actions:child2
+	Value Node: actions:child2
+	Message: Value does not have class actions:LeafAction
+
+Milliseconds to check constraint <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>: 0.609ms
+DataGraph conforms to constraint <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>: 0.670ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>
+Milliseconds to find value nodes for focus nodes: 0.005ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>
+Checking conformance for constraint: <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Milliseconds to find value nodes for focus nodes: 0.000ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>
+Checking conformance for constraint: <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13> -> <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>
+Milliseconds to check constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>: 0.084ms
+Focus nodes do _not_ conform to constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>>.
+Milliseconds to evaluate shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb13>: 0.138ms
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Milliseconds to find value nodes for focus nodes: 0.000ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>
+Checking conformance for constraint: <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/ChildActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> -> <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>> -> <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14> -> <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>
+Milliseconds to check constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>: 0.017ms
+DataGraph conforms to constraint <ClassConstraintComponent on <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>>.
+Milliseconds to evaluate shape <NodeShape ned5dc55d30e04a62bd16b55ca9b50eaeb14>: 0.068ms
+sh:or constraint reports will be inspected and not passed to the parent Node:
+Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:class actions:ChildAction ]
+	Focus Node: actions:leaf2
+	Value Node: actions:leaf2
+	Message: Value does not have class actions:ChildAction
+
+Milliseconds to check constraint <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>: 0.305ms
+DataGraph conforms to constraint <OrConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12>: 0.368ms
+Milliseconds to check constraint <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>>: 4.257ms
+Focus nodes do _not_ conform to constraint <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/ChildActionShape>>.
+Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:class actions:Action ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("Child actions must have exactly one action parent") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path actions:parentAction ]
+	Focus Node: actions:child3
+	Value Node: actions:child2
+	Result Path: actions:parentAction
+	Message: Child actions must have exactly one action parent
+
+Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:class actions:Action ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("Child actions must have exactly one action parent") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path actions:parentAction ]
+	Focus Node: actions:child2
+	Value Node: actions:child1
+	Result Path: actions:parentAction
+	Message: Child actions must have exactly one action parent
+
+Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:class actions:Action ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("Child actions must have exactly one action parent") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path actions:parentAction ]
+	Focus Node: actions:child1
+	Value Node: actions:root1
+	Result Path: actions:parentAction
+	Message: Child actions must have exactly one action parent
+
+Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:class actions:Action ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("Child actions must have exactly one action parent") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path actions:parentAction ]
+	Focus Node: actions:child4
+	Value Node: actions:child3
+	Result Path: actions:parentAction
+	Message: Child actions must have exactly one action parent
+
+Milliseconds to evaluate shape <NodeShape https://vocab.example.org/actions/ChildActionShape>: 4.372ms
+Checking if Shape <NodeShape https://vocab.example.org/actions/ParentChildConsistencyShape> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.020ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <NodeShape https://vocab.example.org/actions/ParentChildConsistencyShape> because it found no focus nodes.
+Checking if Shape <NodeShape https://vocab.example.org/actions/RootActionProjectShape> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.014ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <NodeShape https://vocab.example.org/actions/RootActionProjectShape> because it found no focus nodes.
+Checking if Shape <NodeShape https://vocab.example.org/actions/InverseConsistencyShape> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.014ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <NodeShape https://vocab.example.org/actions/InverseConsistencyShape> because it found no focus nodes.
+Checking if Shape <NodeShape https://vocab.example.org/actions/RootActionShape> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.017ms
+Found 3 Focus Nodes to evaluate.
+Running evaluation of Shape <NodeShape https://vocab.example.org/actions/RootActionShape>
+Milliseconds to find value nodes for focus nodes: 0.000ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape>
+Checking conformance for constraint: <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>>
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>
+Milliseconds to find value nodes for focus nodes: 0.007ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>
+Checking conformance for constraint: <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5> -> <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>>
+Milliseconds to check constraint <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>>: 0.015ms
+DataGraph conforms to constraint <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>: 0.083ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>
+Milliseconds to find value nodes for focus nodes: 0.005ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>
+Checking conformance for constraint: <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5> -> <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>>
+Milliseconds to check constraint <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>>: 0.012ms
+DataGraph conforms to constraint <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>: 0.092ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>
+Milliseconds to find value nodes for focus nodes: 0.005ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>
+Checking conformance for constraint: <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5> -> <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>>
+Milliseconds to check constraint <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>>: 0.011ms
+DataGraph conforms to constraint <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5>: 0.071ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>>: 0.009ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>: 0.064ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>>: 0.010ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>: 0.062ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>>: 0.009ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6>: 0.062ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>
+Checking conformance for constraint: <DatatypeConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7> -> <DatatypeConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>>
+Milliseconds to check constraint <DatatypeConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>>: 0.011ms
+DataGraph conforms to constraint <DatatypeConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>: 0.065ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>
+Milliseconds to find value nodes for focus nodes: 0.005ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>
+Checking conformance for constraint: <DatatypeConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7> -> <DatatypeConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>>
+Milliseconds to check constraint <DatatypeConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>>: 0.013ms
+DataGraph conforms to constraint <DatatypeConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>: 0.070ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>
+Milliseconds to find value nodes for focus nodes: 0.004ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>
+Checking conformance for constraint: <DatatypeConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7> -> <DatatypeConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>>
+Milliseconds to check constraint <DatatypeConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>>: 0.012ms
+DataGraph conforms to constraint <DatatypeConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7>: 0.069ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>
+Checking conformance for constraint: <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8> -> <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>>
+Milliseconds to check constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>>: 0.010ms
+DataGraph conforms to constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>: 0.063ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>
+Checking conformance for constraint: <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8> -> <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>>
+Milliseconds to check constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>>: 0.010ms
+DataGraph conforms to constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>: 0.062ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>
+Milliseconds to find value nodes for focus nodes: 0.004ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>
+Checking conformance for constraint: <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/RootActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8> -> <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>>
+Milliseconds to check constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>>: 0.015ms
+DataGraph conforms to constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8>: 0.070ms
+Milliseconds to check constraint <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>>: 1.157ms
+DataGraph conforms to constraint <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/RootActionShape>>.
+Milliseconds to evaluate shape <NodeShape https://vocab.example.org/actions/RootActionShape>: 1.225ms
+Checking if Shape <NodeShape https://vocab.example.org/actions/LeafActionShape> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.021ms
+Found 2 Focus Nodes to evaluate.
+Running evaluation of Shape <NodeShape https://vocab.example.org/actions/LeafActionShape>
+Milliseconds to find value nodes for focus nodes: 0.000ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape>
+Checking conformance for constraint: <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>>
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>
+Milliseconds to find value nodes for focus nodes: 0.005ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>
+Checking conformance for constraint: <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17> -> <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>>
+Milliseconds to check constraint <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>>: 0.011ms
+DataGraph conforms to constraint <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>: 0.069ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>
+Milliseconds to find value nodes for focus nodes: 0.005ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>
+Checking conformance for constraint: <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17> -> <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>>
+Milliseconds to check constraint <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>>: 0.012ms
+DataGraph conforms to constraint <HasValueConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17>: 0.073ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>
+Milliseconds to find value nodes for focus nodes: 0.004ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>
+Checking conformance for constraint: <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18> -> <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>
+Milliseconds to check constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>: 0.015ms
+DataGraph conforms to constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>.
+Checking conformance for constraint: <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18> -> <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>
+Milliseconds to check constraint <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>: 0.010ms
+DataGraph conforms to constraint <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>.
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>: 0.011ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>: 0.148ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>
+Milliseconds to find value nodes for focus nodes: 0.004ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>
+Checking conformance for constraint: <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18> -> <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>
+Milliseconds to check constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>: 0.015ms
+DataGraph conforms to constraint <ClassConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>.
+Checking conformance for constraint: <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18> -> <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>
+Milliseconds to check constraint <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>: 0.009ms
+DataGraph conforms to constraint <MinCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>.
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>: 0.009ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18>: 0.141ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>>: 0.010ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>: 0.063ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>>: 0.011ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19>: 0.063ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>>: 0.010ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>: 0.064ms
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>
+Shape was passed 1 Focus Node/s to evaluate.
+Running evaluation of Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>
+Milliseconds to find value nodes for focus nodes: 0.002ms
+Current shape evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>
+Checking conformance for constraint: <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>>
+Current constraint evaluation path: <NodeShape https://vocab.example.org/actions/LeafActionShape> -> <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>> -> <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20> -> <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>>
+Milliseconds to check constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>>: 0.010ms
+DataGraph conforms to constraint <MaxCountConstraintComponent on <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>>.
+Milliseconds to evaluate shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20>: 0.064ms
+Milliseconds to check constraint <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>>: 0.896ms
+DataGraph conforms to constraint <PropertyConstraintComponent on <NodeShape https://vocab.example.org/actions/LeafActionShape>>.
+Milliseconds to evaluate shape <NodeShape https://vocab.example.org/actions/LeafActionShape>: 0.957ms
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.010ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb17> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.009ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb7> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.009ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb18> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb4> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb4> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb31> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb31> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb9> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb25> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb25> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb10> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb5> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb3> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb3> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb20> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb12> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb8> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb2> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb2> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb11> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb33> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb33> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb26> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb26> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb19> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb1> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb1> because it found no focus nodes.
+Checking if Shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6> defines its own targets.
+Identifying targets to find focus nodes.
+Milliseconds to find focus nodes: 0.007ms
+Found 0 Focus Nodes to evaluate.
+Skipping shape <PropertyShape ned5dc55d30e04a62bd16b55ca9b50eaeb6> because it found no focus nodes.
+@prefix actions: <https://vocab.example.org/actions/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [ a sh:ValidationResult ;
+            sh:focusNode actions:child2 ;
+            sh:resultMessage "Child actions must have exactly one action parent" ;
+            sh:resultPath actions:parentAction ;
+            sh:resultSeverity sh:Violation ;
+            sh:sourceConstraintComponent sh:ClassConstraintComponent ;
+            sh:sourceShape _:ned5dc55d30e04a62bd16b55ca9b50eaeb10 ;
+            sh:value actions:child1 ],
+        [ a sh:ValidationResult ;
+            sh:focusNode actions:child3 ;
+            sh:resultMessage "Child actions must have exactly one action parent" ;
+            sh:resultPath actions:parentAction ;
+            sh:resultSeverity sh:Violation ;
+            sh:sourceConstraintComponent sh:ClassConstraintComponent ;
+            sh:sourceShape _:ned5dc55d30e04a62bd16b55ca9b50eaeb10 ;
+            sh:value actions:child2 ],
+        [ a sh:ValidationResult ;
+            sh:focusNode actions:child4 ;
+            sh:resultMessage "Child actions must have exactly one action parent" ;
+            sh:resultPath actions:parentAction ;
+            sh:resultSeverity sh:Violation ;
+            sh:sourceConstraintComponent sh:ClassConstraintComponent ;
+            sh:sourceShape _:ned5dc55d30e04a62bd16b55ca9b50eaeb10 ;
+            sh:value actions:child3 ],
+        [ a sh:ValidationResult ;
+            sh:focusNode actions:child1 ;
+            sh:resultMessage "Child actions must have exactly one action parent" ;
+            sh:resultPath actions:parentAction ;
+            sh:resultSeverity sh:Violation ;
+            sh:sourceConstraintComponent sh:ClassConstraintComponent ;
+            sh:sourceShape _:ned5dc55d30e04a62bd16b55ca9b50eaeb10 ;
+            sh:value actions:root1 ] .
+
+_:ned5dc55d30e04a62bd16b55ca9b50eaeb10 sh:class actions:Action ;
+    sh:maxCount 1 ;
+    sh:message "Child actions must have exactly one action parent" ;
+    sh:minCount 1 ;
+    sh:path actions:parentAction .
+

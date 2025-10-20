@@ -30,7 +30,7 @@ The purpose of this repo works at many levels:
     This will allow us to generate the proper schemas and class structures and will atleast make testing much easier since we will know the exchange format we plan to use as well for our base layer of structure
 
 # Class Structure
-At its base, we have the `plannedAction` class which is an extension of the Action class of schema.org and we have a few key sublcasses of those:
+At its base, we have the `PlannedAction` class which is a subclass of the Action class of schema.org and we have a few key sublcasses of those:
 - `Root`
     - MAY have an action as the parent but does not have to
     - MAY have 1 or more child Actions

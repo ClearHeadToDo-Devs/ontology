@@ -1,0 +1,55 @@
+@prefix actions: <https://vocab.example.org/actions/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+#################################################################
+#    Valid Complete Hierarchy (Root -> Child -> Leaf)
+#################################################################
+
+actions:hierarchy_root a actions:RootAction ;
+    actions:depth 0 ;
+    actions:priority 1 ;
+    actions:project "API Development" ;
+    actions:state actions:InProgress ;
+    actions:context "@computer" ;
+    actions:childAction actions:hierarchy_child .
+
+actions:hierarchy_child a actions:ChildAction ;
+    actions:depth 1 ;
+    actions:priority 2 ;
+    actions:state actions:NotStarted ;
+    actions:context "@design" ;
+    actions:parentAction actions:hierarchy_root ;
+    actions:childAction actions:hierarchy_child2 .
+
+actions:hierarchy_child2 a actions:ChildAction ;
+    actions:depth 2 ;
+    actions:priority 2 ;
+    actions:state actions:InProgress ;
+    actions:context "@coding" ;
+    actions:parentAction actions:hierarchy_child ;
+    actions:childAction actions:hierarchy_child3 .
+
+actions:hierarchy_child3 a actions:ChildAction ;
+    actions:depth 3 ;
+    actions:priority 3 ;
+    actions:state actions:NotStarted ;
+    actions:context "@testing" ;
+    actions:parentAction actions:hierarchy_child2 ;
+    actions:childAction actions:hierarchy_child4 .
+
+actions:hierarchy_child4 a actions:ChildAction ;
+    actions:depth 4 ;
+    actions:priority 1 ;
+    actions:state actions:InProgress ;
+    actions:context "@deploy" ;
+    actions:parentAction actions:hierarchy_child3 ;
+    actions:childAction actions:hierarchy_leaf .
+
+actions:hierarchy_leaf a actions:LeafAction ;
+    actions:depth 5 ;
+    actions:priority 4 ;
+    actions:state actions:Completed ;
+    actions:context "@computer" ;
+    actions:parentAction actions:hierarchy_child4 ;
+    actions:completedDateTime "2025-01-20T14:30:00"^^xsd:dateTime .

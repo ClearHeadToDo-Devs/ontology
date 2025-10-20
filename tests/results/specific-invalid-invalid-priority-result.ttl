@@ -1,0 +1,10 @@
+Validation Report
+Conforms: False
+Results (1):
+Constraint Violation in MaxInclusiveConstraintComponent (http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:datatype xsd:integer ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:maxInclusive Literal("4", datatype=xsd:integer) ; sh:message Literal("Action must have exactly one priority value between 1 and 4 (Eisenhower matrix)") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:minInclusive Literal("1", datatype=xsd:integer) ; sh:path actions:priority ]
+	Focus Node: actions:invalid_priority
+	Value Node: Literal("5", datatype=xsd:integer)
+	Result Path: actions:priority
+	Message: Action must have exactly one priority value between 1 and 4 (Eisenhower matrix)

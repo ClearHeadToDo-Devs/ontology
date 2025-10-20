@@ -1,0 +1,144 @@
+@prefix actions: <https://vocab.example.org/actions/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+#################################################################
+#    Invalid Test Cases - These should fail validation
+#################################################################
+
+# INVALID: Root action with wrong depth (should be 0)
+actions:invalid_root1 a actions:RootAction ;
+    actions:depth 1 ;
+    actions:priority 2 ;
+    actions:state actions:NotStarted ;
+    actions:context "@computer" .
+
+# INVALID: Root action with action parent (should not have one)
+actions:invalid_root2 a actions:RootAction ;
+    actions:depth 0 ;
+    actions:priority 1 ;
+    actions:state actions:InProgress ;
+    actions:context "@office" ;
+    actions:parentAction actions:invalid_child1 .
+
+# INVALID: Child action without parent (must have one)
+actions:invalid_child1 a actions:ChildAction ;
+    actions:depth 2 ;
+    actions:priority 3 ;
+    actions:state actions:NotStarted ;
+    actions:context "@computer" .
+
+# INVALID: Child action with wrong depth sequence (parent depth 1, child depth 3 - gap!)
+actions:invalid_parent a actions:ChildAction ;
+    actions:depth 1 ;
+    actions:priority 1 ;
+    actions:state actions:InProgress ;
+    actions:context "@work" ;
+    actions:parentAction actions:some_root ;
+    actions:childAction actions:invalid_child2 .
+
+actions:invalid_child2 a actions:ChildAction ;
+    actions:depth 3 ; # Should be 2!
+    actions:priority 2 ;
+    actions:state actions:NotStarted ;
+    actions:context "@computer" ;
+    actions:parentAction actions:invalid_parent .
+
+actions:some_root a actions:RootAction ;
+    actions:depth 0 ;
+    actions:priority 1 ;
+    actions:state actions:NotStarted ;
+    actions:context "@work" ;
+    actions:childAction actions:invalid_parent .
+
+# INVALID: Leaf action with children (should not have any)
+actions:invalid_leaf1 a actions:LeafAction ;
+    actions:depth 5 ;
+    actions:priority 2 ;
+    actions:state actions:InProgress ;
+    actions:context "@home" ;
+    actions:parentAction actions:valid_child ;
+    actions:childAction actions:impossible_child .
+
+actions:valid_child a actions:ChildAction ;
+    actions:depth 4 ;
+    actions:priority 1 ;
+    actions:state actions:InProgress ;
+    actions:context "@work" ;
+    actions:childAction actions:invalid_leaf1 .
+
+actions:impossible_child a actions:ChildAction ;
+    actions:depth 6 ; # Also invalid - exceeds max depth
+    actions:priority 1 ;
+    actions:state actions:NotStarted ;
+    actions:context "@impossible" ;
+    actions:parentAction actions:invalid_leaf1 .
+
+# INVALID: Child action with project (only root actions can have projects)
+actions:invalid_child3 a actions:ChildAction ;
+    actions:depth 2 ;
+    actions:priority 1 ;
+    actions:project "Should Not Have This" ; # INVALID!
+    actions:state actions:NotStarted ;
+    actions:context "@computer" .
+
+# INVALID: Action with invalid priority (should be 1-4)
+actions:invalid_priority a actions:RootAction ;
+    actions:depth 0 ;
+    actions:priority 5 ; # INVALID! Must be 1-4
+    actions:state actions:NotStarted ;
+    actions:context "@work" .
+
+# INVALID: Action with invalid depth (should be 0-5)
+actions:invalid_depth a actions:ChildAction ;
+    actions:depth 7 ; # INVALID! Max is 5
+    actions:priority 1 ;
+    actions:state actions:NotStarted ;
+    actions:context "@work" .
+
+# INVALID: Action missing required state
+actions:missing_state a actions:RootAction ;
+    actions:depth 0 ;
+    actions:priority 1 ;
+    actions:context "@work" .
+    # Missing actions:state - INVALID!
+
+# INVALID: Action missing required priority
+actions:missing_priority a actions:RootAction ;
+    actions:depth 0 ;
+    actions:state actions:NotStarted ;
+    actions:context "@work" .
+    # Missing actions:priority - INVALID!
+
+# INVALID: Action missing required depth
+actions:missing_depth a actions:RootAction ;
+    actions:priority 1 ;
+    actions:state actions:NotStarted ;
+    actions:context "@work" .
+    # Missing actions:depth - INVALID!
+
+# INVALID: Action with both recurrenceUntil and recurrenceCount
+actions:invalid_recurrence a actions:RootAction ;
+    actions:depth 0 ;
+    actions:priority 1 ;
+    actions:state actions:NotStarted ;
+    actions:context "@work" ;
+    actions:recurrenceFrequency "WEEKLY" ;
+    actions:recurrenceUntil "2025-12-31"^^xsd:date ;
+    actions:recurrenceCount 52 . # INVALID! Can't have both
+
+# INVALID: Context not following GTD format
+actions:invalid_context a actions:RootAction ;
+    actions:depth 0 ;
+    actions:priority 1 ;
+    actions:state actions:NotStarted ;
+    actions:context "computer" . # INVALID! Should be "@computer"
+
+# INVALID: Completion before scheduled time
+actions:invalid_temporal a actions:LeafAction ;
+    actions:depth 5 ;
+    actions:priority 1 ;
+    actions:state actions:Completed ;
+    actions:context "@work" ;
+    actions:doDateTime "2025-01-25T10:00:00"^^xsd:dateTime ;
+    actions:completedDateTime "2025-01-25T09:00:00"^^xsd:dateTime . # INVALID! Completed before scheduled

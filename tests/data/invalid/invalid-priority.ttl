@@ -1,0 +1,13 @@
+@prefix actions: <https://vocab.example.org/actions/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+#################################################################
+#    Invalid: Priority Out of Range
+#################################################################
+
+actions:invalid_priority a actions:RootAction ;
+    actions:depth 0 ;
+    actions:priority 5 ;  # Invalid! Must be 1-4
+    actions:state actions:NotStarted ;
+    actions:context "@work" .

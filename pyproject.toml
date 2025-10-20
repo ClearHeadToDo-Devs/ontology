@@ -1,0 +1,63 @@
+[project]
+name = "ontology"
+version = "0.1.0"
+description = "Actions Vocabulary Ontology with SHACL validation testing"
+requires-python = ">=3.12"
+dependencies = [
+    "pyshacl>=0.25.0",
+    "rdflib>=7.0.0",
+    "pytest>=8.0.0",
+    "pytest-xdist>=3.5.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config", 
+    "--tb=short",
+    "-ra",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests", 
+    "validation: marks tests as SHACL validation tests",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["tests"]
+omit = [
+    "tests/conftest.py",
+    "*/.venv/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+[project.optional-dependencies]
+dev = [
+    "pytest-cov>=4.1.0",
+    "pytest-html>=4.1.0",
+    "black>=24.0.0",
+    "isort>=5.13.0",
+]

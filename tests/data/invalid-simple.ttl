@@ -1,0 +1,15 @@
+@prefix actions: <https://vocab.example.org/actions/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+#################################################################
+#    Simple Invalid Test - Root Action with Wrong Depth
+#################################################################
+
+# Invalid: Root action with wrong depth
+actions:invalid_root a actions:RootAction ;
+    actions:depth 1 ;  # Should be 0!
+    actions:priority 1 ;
+    actions:project "Test Project" ;
+    actions:state actions:InProgress ;
+    actions:context "@computer" .

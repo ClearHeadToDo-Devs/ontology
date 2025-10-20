@@ -1,0 +1,250 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix actions: <https://vocab.example.org/actions/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+
+#################################################################
+#    SHACL Shapes for Actions Vocabulary
+#################################################################
+
+# Base Action Shape - applies to all actions
+actions:ActionShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:property [
+        sh:path actions:depth ;
+        sh:datatype xsd:integer ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 5 ;
+        sh:message "Action must have exactly one depth value between 0 and 5" ;
+    ] ;
+    sh:property [
+        sh:path actions:priority ;
+        sh:datatype xsd:integer ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 4 ;
+        sh:message "Action must have exactly one priority value between 1 and 4 (Eisenhower matrix)" ;
+    ] ;
+    sh:property [
+        sh:path actions:context ;
+        sh:datatype xsd:string ;
+        sh:message "Context must be string values" ;
+    ] ;
+    sh:property [
+        sh:path actions:state ;
+        sh:class actions:ActionState ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Action must have exactly one state" ;
+    ] .
+
+# Root Action Shape - depth 0
+actions:RootActionShape
+    a sh:NodeShape ;
+    sh:targetClass actions:RootAction ;
+    sh:property [
+        sh:path actions:depth ;
+        sh:hasValue 0 ;
+        sh:message "Root actions must have depth 0" ;
+    ] ;
+    sh:property [
+        sh:path actions:parentAction ;
+        sh:maxCount 0 ;
+        sh:message "Root actions cannot have action parents" ;
+    ] ;
+    sh:property [
+        sh:path actions:project ;
+        sh:datatype xsd:string ;
+        sh:message "Root actions may have project assignments" ;
+    ] ;
+    sh:property [
+        sh:path actions:childAction ;
+        sh:class actions:ChildAction ;
+        sh:message "Root actions may only have child actions as children" ;
+    ] .
+
+# Child Action Shape - depth 1-4
+actions:ChildActionShape
+    a sh:NodeShape ;
+    sh:targetClass actions:ChildAction ;
+    sh:property [
+        sh:path actions:depth ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 4 ;
+        sh:message "Child actions must have depth between 1 and 4" ;
+    ] ;
+    sh:property [
+        sh:path actions:parentAction ;
+        sh:class actions:Action ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Child actions must have exactly one action parent" ;
+    ] ;
+    sh:property [
+        sh:path actions:project ;
+        sh:maxCount 0 ;
+        sh:message "Child actions cannot have project assignments - only root actions can" ;
+    ] ;
+    sh:property [
+        sh:path actions:childAction ;
+        sh:or (
+            [ sh:class actions:ChildAction ]
+            [ sh:class actions:LeafAction ]
+        ) ;
+        sh:message "Child actions may only have child or leaf actions as children" ;
+    ] .
+
+# Leaf Action Shape - depth 5
+actions:LeafActionShape
+    a sh:NodeShape ;
+    sh:targetClass actions:LeafAction ;
+    sh:property [
+        sh:path actions:depth ;
+        sh:hasValue 5 ;
+        sh:message "Leaf actions must have depth 5" ;
+    ] ;
+    sh:property [
+        sh:path actions:parentAction ;
+        sh:class actions:ChildAction ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Leaf actions must have exactly one child action parent" ;
+    ] ;
+    sh:property [
+        sh:path actions:project ;
+        sh:maxCount 0 ;
+        sh:message "Leaf actions cannot have project assignments" ;
+    ] ;
+    sh:property [
+        sh:path actions:childAction ;
+        sh:maxCount 0 ;
+        sh:message "Leaf actions may not have children" ;
+    ] .
+
+# Parent-Child Consistency Shape
+actions:ParentChildConsistencyShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:sparql [
+        sh:select """
+            SELECT $this ?parent ?childDepth ?parentDepth
+            WHERE {
+                $this actions:parentAction ?parent .
+                $this actions:depth ?childDepth .
+                ?parent actions:depth ?parentDepth .
+                FILTER(?childDepth != ?parentDepth + 1)
+            }
+        """ ;
+        sh:message "Child action depth must be exactly parent depth + 1" ;
+    ] .
+
+# Inverse relationship consistency
+actions:InverseConsistencyShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:sparql [
+        sh:select """
+            SELECT $this ?child
+            WHERE {
+                $this actions:childAction ?child .
+                FILTER NOT EXISTS { ?child actions:parentAction $this }
+            }
+        """ ;
+        sh:message "If action has child, child must have this action as parent" ;
+    ] ;
+    sh:sparql [
+        sh:select """
+            SELECT $this ?parent
+            WHERE {
+                $this actions:parentAction ?parent .
+                FILTER NOT EXISTS { ?parent actions:childAction $this }
+            }
+        """ ;
+        sh:message "If action has parent, parent must have this action as child" ;
+    ] .
+
+# Root Action Project Constraint
+actions:RootActionProjectShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:sparql [
+        sh:select """
+            SELECT $this ?project
+            WHERE {
+                $this actions:project ?project .
+                FILTER NOT EXISTS { $this a actions:RootAction }
+            }
+        """ ;
+        sh:message "Only root actions can have project assignments" ;
+    ] .
+
+# Context Array Validation Shape
+actions:ContextArrayShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:property [
+        sh:path actions:context ;
+        sh:datatype xsd:string ;
+        sh:pattern "^@[a-zA-Z0-9_-]+$" ;
+        sh:message "Context should follow GTD format starting with @ (e.g., @phone, @computer, @errands)" ;
+    ] .
+
+# Recurrence Validation Shape
+actions:RecurrenceShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:property [
+        sh:path actions:recurrenceFrequency ;
+        sh:in ( "DAILY" "WEEKLY" "MONTHLY" "YEARLY" ) ;
+        sh:message "Recurrence frequency must be DAILY, WEEKLY, MONTHLY, or YEARLY" ;
+    ] ;
+    sh:property [
+        sh:path actions:recurrenceInterval ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:message "Recurrence interval must be a positive integer" ;
+    ] ;
+    sh:sparql [
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this actions:recurrenceUntil ?until ;
+                      actions:recurrenceCount ?count .
+            }
+        """ ;
+        sh:message "Action cannot have both recurrenceUntil and recurrenceCount - choose one termination method" ;
+    ] .
+
+# Duration Validation Shape
+actions:DurationShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:property [
+        sh:path actions:durationMinutes ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 10080 ; # 7 days in minutes
+        sh:message "Duration must be between 1 minute and 7 days (10080 minutes)" ;
+    ] .
+
+# Temporal Consistency Shape
+actions:TemporalConsistencyShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:sparql [
+        sh:select """
+            SELECT $this ?doDateTime ?completedDateTime
+            WHERE {
+                $this actions:doDateTime ?doDateTime ;
+                      actions:completedDateTime ?completedDateTime .
+                FILTER(?completedDateTime < ?doDateTime)
+            }
+        """ ;
+        sh:message "Completion date/time cannot be before scheduled do date/time" ;
+    ] .

@@ -1,0 +1,29 @@
+Validation Report
+Conforms: False
+Results (4):
+Constraint Violation in MaxCountConstraintComponent (http://www.w3.org/ns/shacl#MaxCountConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:maxCount Literal("0", datatype=xsd:integer) ; sh:message Literal("Leaf actions may not have children") ; sh:path actions:childAction ]
+	Focus Node: actions:leaf
+	Result Path: actions:childAction
+	Message: Leaf actions may not have children
+Constraint Violation in MaxInclusiveConstraintComponent (http://www.w3.org/ns/shacl#MaxInclusiveConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:maxInclusive Literal("4", datatype=xsd:integer) ; sh:message Literal("Child actions must have depth between 1 and 4") ; sh:minInclusive Literal("1", datatype=xsd:integer) ; sh:path actions:depth ]
+	Focus Node: actions:impossible
+	Value Node: Literal("6", datatype=xsd:integer)
+	Result Path: actions:depth
+	Message: Child actions must have depth between 1 and 4
+Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:class actions:Action ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("Child actions must have exactly one action parent") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path actions:parentAction ]
+	Focus Node: actions:parent
+	Result Path: actions:parentAction
+	Message: Child actions must have exactly one action parent
+Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:class actions:Action ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("Child actions must have exactly one action parent") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path actions:parentAction ]
+	Focus Node: actions:impossible
+	Value Node: actions:leaf
+	Result Path: actions:parentAction
+	Message: Child actions must have exactly one action parent

@@ -102,12 +102,17 @@ actions:Action rdf:type owl:Class ;
 
 actions:RootAction rdf:type owl:Class ;
     rdfs:label "Root Action"@en ;
-    rdfs:comment "An action at the top level of hierarchy (depth 1) - can belong to projects/stories and serve as parent to child actions"@en ;
+    rdfs:comment "An action at the top level of hierarchy (depth 0) - can belong to projects/stories and serve as parent to child actions"@en ;
     rdfs:subClassOf actions:Action .
 
 actions:ChildAction rdf:type owl:Class ;
     rdfs:label "Child Action"@en ;
-    rdfs:comment "An action at depth > 1 in the hierarchy - must have a parent action"@en ;
+    rdfs:comment "An action at depth 1-4 in the hierarchy - must have a parent action and may have child or leaf actions"@en ;
+    rdfs:subClassOf actions:Action .
+
+actions:LeafAction rdf:type owl:Class ;
+    rdfs:label "Leaf Action"@en ;
+    rdfs:comment "An action at depth 5 in the hierarchy - must have a parent child action and cannot have children"@en ;
     rdfs:subClassOf actions:Action .
 
 #################################################################
@@ -177,9 +182,9 @@ actions:state rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
 
 actions:depth rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:label "depth"@en ;
-    rdfs:comment "Hierarchical depth level (1-6) indicating nesting level in action hierarchy"@en ;
+    rdfs:comment "Hierarchical depth level (0-5) indicating nesting level in action hierarchy: 0=root, 1-4=child, 5=leaf"@en ;
     rdfs:domain actions:Action ;
-    rdfs:range xsd:positiveInteger .
+    rdfs:range xsd:nonNegativeInteger .
 
 #################################################################
 #    Project Management Properties

@@ -1,0 +1,15 @@
+@prefix actions: <https://vocab.example.org/actions/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+#################################################################
+#    Invalid: Completion Before Scheduled Time
+#################################################################
+
+actions:temporal_invalid a actions:LeafAction ;
+    actions:depth 5 ;
+    actions:priority 1 ;
+    actions:state actions:Completed ;
+    actions:context "@work" ;
+    actions:doDateTime "2025-01-25T10:00:00"^^xsd:dateTime ;
+    actions:completedDateTime "2025-01-25T09:00:00"^^xsd:dateTime .  # Invalid! Completed before scheduled
