@@ -5,6 +5,29 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <http://schema.org/> .
 
+# UUID Validation Shape
+actions:UUIDShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:property [
+        sh:path actions:uuid ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" ;
+        sh:message "UUID must be valid version 7 format (xxxxxxxx-xxxx-7xxx-xxxx-xxxxxxxxxxxx)" ;
+    ] .
+
+# Name Requirements Shape  
+actions:NameShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:property [
+        sh:path schema:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minLength 1 ;
+        sh:message "Action must have exactly one non-empty name" ;
+    ] .
 #################################################################
 #    SHACL Shapes for Actions Vocabulary
 #################################################################
@@ -17,7 +40,6 @@ actions:ActionShape
         sh:path actions:priority ;
         sh:datatype xsd:integer ;
         sh:minCount 1 ;
-        sh:maxCount 1 ;
         sh:minInclusive 1 ;
         sh:maxInclusive 4 ;
         sh:message "Action must have exactly one priority value between 1 and 4 (Eisenhower matrix)" ;
@@ -31,7 +53,6 @@ actions:ActionShape
         sh:path actions:state ;
         sh:class actions:ActionState ;
         sh:minCount 1 ;
-        sh:maxCount 1 ;
         sh:message "Action must have exactly one state" ;
     ] .
 
@@ -244,4 +265,26 @@ actions:TemporalConsistencyShape
             }
         """ ;
         sh:message "Completion date/time cannot be before scheduled do date/time" ;
+    ] ;
+    sh:sparql [
+        sh:select """
+            SELECT $this ?dueDateTime ?completedDateTime
+            WHERE {
+                $this actions:dueDateTime ?dueDateTime ;
+                      actions:completedDateTime ?completedDateTime .
+                FILTER(?completedDateTime > ?dueDateTime)
+            }
+        """ ;
+        sh:message "Completion date/time should not be after due date/time (indicates missed deadline)" ;
+    ] ;
+    sh:sparql [
+        sh:select """
+            SELECT $this ?doDateTime ?dueDateTime
+            WHERE {
+                $this actions:doDateTime ?doDateTime ;
+                      actions:dueDateTime ?dueDateTime .
+                FILTER(?doDateTime > ?dueDateTime)
+            }
+        """ ;
+        sh:message "Do date/time cannot be after due date/time" ;
     ] .

@@ -1,6 +1,7 @@
 @prefix actions: <https://vocab.example.org/actions/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema: <http://schema.org/> .
 
 #################################################################
 #    Valid Test Cases - These should pass validation
@@ -8,6 +9,7 @@
 
 # Valid Root Action (depth 0) with project
 actions:root1 a actions:RootAction ;
+    schema:name "Redesign homepage layout" ;
     actions:priority 1 ;
     actions:project "Website Redesign" ;
     actions:state actions:InProgress ;
@@ -15,6 +17,7 @@ actions:root1 a actions:RootAction ;
 
 # Valid Child Action (depth 1) 
 actions:child1 a actions:ChildAction ;
+    schema:name "Create wireframes" ;
     actions:priority 2 ;
     actions:state actions:NotStarted ;
     actions:context "@design" ;
@@ -23,6 +26,7 @@ actions:child1 a actions:ChildAction ;
 
 # Valid Child Action (depth 2)
 actions:child2 a actions:ChildAction ;
+    schema:name "Design responsive layout" ;
     actions:priority 3 ;
     actions:state actions:InProgress ;
     actions:context "@computer" ;
@@ -31,6 +35,7 @@ actions:child2 a actions:ChildAction ;
 
 # Valid Child Action (depth 3)
 actions:child3 a actions:ChildAction ;
+    schema:name "Get client approval" ;
     actions:priority 2 ;
     actions:state actions:Blocked ;
     actions:context "@phone" ;
@@ -38,6 +43,7 @@ actions:child3 a actions:ChildAction ;
 
 # Valid Child Action (depth 4) 
 actions:child4 a actions:ChildAction ;
+    schema:name "Purchase design assets" ;
     actions:priority 4 ;
     actions:state actions:NotStarted ;
     actions:context "@errands" ;
@@ -45,6 +51,7 @@ actions:child4 a actions:ChildAction ;
 
 # Valid Leaf Action (depth 5)
 actions:leaf1 a actions:LeafAction ;
+    schema:name "Update project documentation" ;
     actions:priority 1 ;
     actions:state actions:Completed ;
     actions:context "@computer" ;
@@ -53,6 +60,7 @@ actions:leaf1 a actions:LeafAction ;
 
 # Valid Leaf Action (depth 5) 
 actions:leaf2 a actions:LeafAction ;
+    schema:name "Test on mobile devices" ;
     actions:priority 3 ;
     actions:state actions:NotStarted ;
     actions:context "@home", "@weekend" ;
@@ -60,6 +68,7 @@ actions:leaf2 a actions:LeafAction ;
 
 # Valid Root Action with recurrence
 actions:root2 a actions:RootAction ;
+    schema:name "Team daily standup meeting" ;
     actions:priority 2 ;
     actions:project "Daily Standup" ;
     actions:state actions:InProgress ;
@@ -71,6 +80,7 @@ actions:root2 a actions:RootAction ;
 
 # Valid standalone Root Action (no project)
 actions:root3 a actions:RootAction ;
+    schema:name "Review personal goals" ;
     actions:priority 1 ;
     actions:state actions:NotStarted ;
     actions:context "@personal" ;

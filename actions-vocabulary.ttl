@@ -116,6 +116,36 @@ actions:LeafAction rdf:type owl:Class ;
     rdfs:subClassOf actions:Action .
 
 #################################################################
+#    Ontological Constraints (logical relationships)
+#################################################################
+
+# Class disjointness - these are mutually exclusive
+actions:RootAction owl:disjointWith actions:ChildAction, actions:LeafAction .
+actions:ChildAction owl:disjointWith actions:LeafAction .
+
+# Domain restrictions - only RootActions can have projects
+actions:project rdfs:domain actions:RootAction .
+
+# Property restrictions using OWL
+actions:RootAction rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty actions:parentAction ;
+    owl:maxCardinality 0
+] .
+
+actions:ChildAction rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty actions:parentAction ;
+    owl:cardinality 1
+] .
+
+actions:LeafAction rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty actions:parentAction ;
+    owl:cardinality 1
+] .
+
+#################################################################
 #    Action State Enumeration (mapped to Schema.org ActionStatusType)
 #################################################################
 
@@ -238,6 +268,27 @@ actions:completedDateTime rdf:type owl:DatatypeProperty, owl:FunctionalProperty 
     rdfs:range xsd:dateTime ;
     rdfs:subPropertyOf schema:endTime .
 
+actions:dueDateTime rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "due date time"@en ;
+    rdfs:comment "When action must be completed by (deadline)"@en ;
+    rdfs:domain actions:Action ;
+    rdfs:range xsd:dateTime ;
+    rdfs:subPropertyOf schema:endTime .
+
+actions:dueDate rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "due date"@en ;
+    rdfs:comment "Date action must be completed by"@en ;
+    rdfs:domain actions:Action ;
+    rdfs:range xsd:date ;
+    rdfs:subPropertyOf schema:endTime .
+
+actions:dueTime rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "due time"@en ;
+    rdfs:comment "Time action must be completed by"@en ;
+    rdfs:domain actions:Action ;
+    rdfs:range xsd:time ;
+    rdfs:subPropertyOf schema:endTime .
+
 actions:durationMinutes rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:label "duration minutes"@en ;
     rdfs:comment "Expected duration in minutes for completing this action"@en ;
@@ -312,6 +363,18 @@ actions:stateSymbol rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:comment "Character representing state in file format serialization"@en ;
     rdfs:domain actions:ActionState ;
     rdfs:range xsd:string .
+
+#################################################################
+#    Core Content Properties (explicit Schema.org alignment)
+#################################################################
+
+actions:uuid rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:label "uuid"@en ;
+    rdfs:comment "Version 7 UUID identifier for universal uniqueness"@en ;
+    rdfs:domain actions:Action ;
+    rdfs:range xsd:string ;
+    rdfs:subPropertyOf schema:identifier ;
+    rdfs:seeAlso <https://tools.ietf.org/html/draft-peabody-dispatch-new-uuid-format> .
 
 #################################################################
 #    Derived Classes (for query convenience)

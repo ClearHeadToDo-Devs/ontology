@@ -1,12 +1,14 @@
 @prefix actions: <https://vocab.example.org/actions/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema: <http://schema.org/> .
 
 #################################################################
 #    Minimal Valid Root Action
 #################################################################
 
 actions:minimal_root a actions:RootAction ;
+    schema:name "Minimal test action" ;
     actions:priority 1 ;
     actions:state actions:NotStarted ;
     actions:context "@work" .
