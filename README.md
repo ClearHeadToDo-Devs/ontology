@@ -44,3 +44,9 @@ At its base, we have the `PlannedAction` class which is a subclass of the Action
 We have a state hierarchy that extends to the [actionStatusType](https://schema.org/ActionStatusType) that includes the ones defined [Active, Completed, Failed, Potential] and adds two more:
 - Blocked
 
+# Tooling
+To support all this we are expecting people to leverage the tooling that will make this all most useful
+- protege for a GUI to review ontology structure
+- `pySHACL` for CLI validation
+
+to support this we have a test suite that does SHACL validation on a set of valid and invlaid TTL documents that one can use to both validate the current state of the constraints while also getting some examples of what code snippets may look like
