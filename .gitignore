@@ -15,7 +15,7 @@ htmlcov/
 .DS_Store
 Thumbs.db
 # Python
-tests/__pycache__/
+tests/__pycache__/*
 *.pyc
 *.pyo
 *.pyd

@@ -2,14 +2,15 @@
 Pytest configuration and fixtures for Actions Vocabulary testing.
 """
 
+import logging
+import os
+import tempfile
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
+
 import pytest
 import rdflib
 from pyshacl import validate
-from pathlib import Path
-from typing import Tuple, List, Dict, Any, Optional
-import tempfile
-import os
-import logging
 
 # Test configuration
 TEST_DATA_DIR = Path(__file__).parent / "data"
@@ -26,7 +27,7 @@ def pytest_sessionfinish(session, exitstatus):
     if exitstatus == 0:
         print("🎉 ALL TESTS PASSED!")
         print("✅ Valid data conforms to SHACL shapes")
-        print("✅ Invalid data properly rejected") 
+        print("✅ Invalid data properly rejected")
         print("✅ Ontology consistency validated")
     else:
         print("❌ SOME TESTS FAILED")
@@ -38,6 +39,8 @@ def pytest_sessionfinish(session, exitstatus):
         print("  • Review SHACL constraint violations")
         print("  • Use pytest -s to see live logs")
     print("=" * 80)
+
+
 @pytest.fixture(scope="session")
 def ontology_graph():
     """Load the actions vocabulary ontology graph."""
@@ -63,52 +66,50 @@ def shapes_graph():
 @pytest.fixture
 def shacl_validator(ontology_graph, shapes_graph):
     """Create a SHACL validator function using pyshacl library."""
-    
+
     def validate_data(
-        data_graph: rdflib.Graph,
-        test_name: str = "test",
-        use_ontology: bool = True
+        data_graph: rdflib.Graph, test_name: str = "test", use_ontology: bool = True
     ) -> Tuple[bool, rdflib.Graph, str]:
         """
         Validate data graph against shapes using pyshacl library.
-        
+
         Args:
             data_graph: The RDF data to validate
             test_name: Name for the validation report file
             use_ontology: Whether to include ontology for validation
-        
+
         Returns:
             Tuple of (conforms, report_graph, report_text)
         """
         logger.info(f"Validating {test_name} (ontology={use_ontology})")
-        
+
         conforms, report_graph, report_text = validate(
             data_graph,
             shacl_graph=shapes_graph,
             ont_graph=ontology_graph if use_ontology else None,
             inference=None,  # No inference to match CLI behavior
             abort_on_first=False,
-            debug=False
+            debug=False,
         )
-        
+
         # Log validation results
         if conforms:
             logger.info(f"✅ {test_name}: Validation passed")
         else:
             logger.warning(f"❌ {test_name}: Validation failed")
             # Log first few lines of violation report for debugging
-            report_lines = report_text.split('\n')[:10]
-            logger.debug(f"Validation report excerpt:\n" + '\n'.join(report_lines))
-        
+            report_lines = report_text.split("\n")[:10]
+            logger.debug(f"Validation report excerpt:\n" + "\n".join(report_lines))
+
         return conforms, report_graph, report_text
-    
+
     return validate_data
 
 
 @pytest.fixture
 def data_loader():
     """Utility to load test data from files."""
-    
+
     def load_data(file_path: Path, format="turtle") -> rdflib.Graph:
         """Load RDF data from file."""
         g = rdflib.Graph()
@@ -116,7 +117,7 @@ def data_loader():
             raise FileNotFoundError(f"Test data file not found: {file_path}")
         g.parse(file_path, format=format)
         return g
-    
+
     return load_data
 
 
@@ -125,43 +126,43 @@ def test_data_files():
     """Get dictionaries of valid and invalid test data files."""
     valid_files = {}
     invalid_files = {}
-    
+
     # Collect valid test files
     valid_dir = TEST_DATA_DIR / "valid"
     if valid_dir.exists():
         for file_path in valid_dir.glob("*.ttl"):
             valid_files[file_path.stem] = file_path
-    
+
     # Also include top-level valid files
     for file_path in TEST_DATA_DIR.glob("valid-*.ttl"):
         valid_files[file_path.stem] = file_path
-    
-    # Collect invalid test files  
+
+    # Collect invalid test files
     invalid_dir = TEST_DATA_DIR / "invalid"
     if invalid_dir.exists():
         for file_path in invalid_dir.glob("*.ttl"):
             invalid_files[file_path.stem] = file_path
-    
+
     # Also include top-level invalid files
     for file_path in TEST_DATA_DIR.glob("invalid-*.ttl"):
         invalid_files[file_path.stem] = file_path
-    
+
     return {"valid": valid_files, "invalid": invalid_files}
 
 
 def pytest_addoption(parser):
     """Add custom command line options."""
     parser.addoption(
-        "--verbose-validation", 
-        action="store_true", 
+        "--verbose-validation",
+        action="store_true",
         default=False,
-        help="Show detailed SHACL validation output"
+        help="Show detailed SHACL validation output",
     )
     parser.addoption(
-        "--quick", 
-        action="store_true", 
+        "--quick",
+        action="store_true",
         default=False,
-        help="Run only basic tests (skip complex/slow cases)"
+        help="Run only basic tests (skip complex/slow cases)",
     )
 
 
@@ -177,15 +178,13 @@ def quick_mode(request):
     return request.config.getoption("--quick")
 
 
-
-
 def pytest_collection_modifyitems(config, items):
     """Mark tests based on naming conventions."""
     for item in items:
         # Mark slow tests
         if "complex" in item.name or "hierarchy" in item.name:
             item.add_marker(pytest.mark.slow)
-        
+
         # Mark validation tests
         if "shacl" in str(item.fspath) or "validation" in item.name:
             item.add_marker(pytest.mark.validation)
@@ -201,7 +200,7 @@ def pytest_configure(config):
         logger.setLevel(logging.DEBUG)
     else:
         logger.setLevel(logging.INFO)
-    
+
     # Add custom markers
     config.addinivalue_line("markers", "slow: marks tests as slow")
     config.addinivalue_line("markers", "validation: marks tests as SHACL validation")
@@ -212,9 +211,9 @@ def pytest_sessionstart(session):
     config = session.config
     print("\n" + "=" * 80)
     print("🔬 SHACL Validation Test Suite (pytest + pyshacl)")
-    if config.getoption('--quick'):
+    if config.getoption("--quick"):
         print("⚡ Quick mode: Skipping slow tests")
-    if config.getoption('--verbose-validation'):
+    if config.getoption("--verbose-validation"):
         print("📝 Verbose validation: Showing detailed SHACL reports")
     print("=" * 80)
 
@@ -229,8 +228,8 @@ def pytest_report_header(config):
         f"",
         f"💡 Usage examples:",
         f"  uv run pytest                    # Run all tests",
-        f"  uv run pytest -v                # Verbose output", 
+        f"  uv run pytest -v                # Verbose output",
         f"  uv run pytest --quick           # Skip slow tests",
         f"  uv run pytest --verbose-validation  # Show SHACL details",
-        f"  uv run pytest -k 'TestValid'    # Run only valid data tests"
+        f"  uv run pytest -k 'TestValid'    # Run only valid data tests",
     ]
