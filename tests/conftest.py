@@ -19,6 +19,24 @@ RESULTS_DIR = Path(__file__).parent / "results"
 RESULTS_DIR.mkdir(exist_ok=True)
 
 
+def pytest_sessionfinish(session, exitstatus):
+    """Called after whole test run finished."""
+    print("\n" + "=" * 80)
+    if exitstatus == 0:
+        print("🎉 ALL TESTS PASSED!")
+        print("✅ Valid data conforms to SHACL shapes")
+        print("✅ Invalid data properly rejected") 
+        print("✅ Ontology consistency validated")
+    else:
+        print("❌ SOME TESTS FAILED")
+        print("💡 Check test output above for details")
+        print(f"📁 Validation reports saved in: {RESULTS_DIR}")
+        print("")
+        print("Common fixes:")
+        print("  • Check test data file syntax")
+        print("  • Review SHACL constraint violations")
+        print("  • Run with --verbose-validation for details")
+    print("=" * 80)
 @pytest.fixture(scope="session")
 def ontology_graph():
     """Load the actions vocabulary ontology graph."""
@@ -189,12 +207,31 @@ def pytest_configure(config):
     config.addinivalue_line("markers", "validation: marks tests as SHACL validation")
 
 
+def pytest_sessionstart(session):
+    """Called after the Session object has been created."""
+    config = session.config
+    print("\n" + "=" * 80)
+    print("🔬 SHACL Validation Test Suite (pytest + pyshacl)")
+    if config.getoption('--quick'):
+        print("⚡ Quick mode: Skipping slow tests")
+    if config.getoption('--verbose-validation'):
+        print("📝 Verbose validation: Showing detailed SHACL reports")
+    print("=" * 80)
+
+
 def pytest_report_header(config):
     """Add custom header to test report."""
     return [
-        f"Actions Vocabulary Test Suite",
+        f"🧪 Actions Vocabulary SHACL Test Suite",
         f"Test data directory: {TEST_DATA_DIR}",
         f"Results directory: {RESULTS_DIR}",
-        f"Quick mode: {config.getoption('--quick')}",
-        f"Verbose validation: {config.getoption('--verbose-validation')}"
+        f"Quick mode: {'✅' if config.getoption('--quick') else '❌'}",
+        f"Verbose validation: {'✅' if config.getoption('--verbose-validation') else '❌'}",
+        f"",
+        f"💡 Usage examples:",
+        f"  uv run pytest                    # Run all tests",
+        f"  uv run pytest -v                # Verbose output", 
+        f"  uv run pytest --quick           # Skip slow tests",
+        f"  uv run pytest --verbose-validation  # Show SHACL details",
+        f"  uv run pytest -k 'TestValid'    # Run only valid data tests"
     ]

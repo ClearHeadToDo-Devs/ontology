@@ -4,20 +4,6 @@ Results (4):
 Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
 	Severity: sh:Violation
 	Source Shape: [ sh:class actions:Action ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("Child actions must have exactly one action parent") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path actions:parentAction ]
-	Focus Node: actions:child3
-	Value Node: actions:child2
-	Result Path: actions:parentAction
-	Message: Child actions must have exactly one action parent
-Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
-	Severity: sh:Violation
-	Source Shape: [ sh:class actions:Action ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("Child actions must have exactly one action parent") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path actions:parentAction ]
-	Focus Node: actions:child1
-	Value Node: actions:root1
-	Result Path: actions:parentAction
-	Message: Child actions must have exactly one action parent
-Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
-	Severity: sh:Violation
-	Source Shape: [ sh:class actions:Action ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("Child actions must have exactly one action parent") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path actions:parentAction ]
 	Focus Node: actions:child2
 	Value Node: actions:child1
 	Result Path: actions:parentAction
@@ -27,5 +13,19 @@ Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#Cla
 	Source Shape: [ sh:class actions:Action ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("Child actions must have exactly one action parent") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path actions:parentAction ]
 	Focus Node: actions:child4
 	Value Node: actions:child3
+	Result Path: actions:parentAction
+	Message: Child actions must have exactly one action parent
+Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:class actions:Action ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("Child actions must have exactly one action parent") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path actions:parentAction ]
+	Focus Node: actions:child3
+	Value Node: actions:child2
+	Result Path: actions:parentAction
+	Message: Child actions must have exactly one action parent
+Constraint Violation in ClassConstraintComponent (http://www.w3.org/ns/shacl#ClassConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:class actions:Action ; sh:maxCount Literal("1", datatype=xsd:integer) ; sh:message Literal("Child actions must have exactly one action parent") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path actions:parentAction ]
+	Focus Node: actions:child1
+	Value Node: actions:root1
 	Result Path: actions:parentAction
 	Message: Child actions must have exactly one action parent

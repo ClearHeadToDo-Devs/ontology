@@ -12,26 +12,34 @@ install:  ## Install dependencies with uv
 	uv sync
 	@echo "✅ Dependencies installed"
 
+install-dev:  ## Install with dev dependencies  
+	uv sync --group dev
+	@echo "✅ Dev dependencies installed"
+
+# New pytest-based commands
+test-help:  ## Show pytest help and available options
+	uv run pytest --help
+
 test:  ## Run all tests
-	./run_tests.py
+	uv run pytest
 
 test-quick:  ## Run only quick tests (skip slow ones)
-	./run_tests.py --quick
+	uv run pytest --quick
 
 test-verbose:  ## Run tests with verbose output
-	./run_tests.py --verbose --verbose-validation
+	uv run pytest -v --verbose-validation
 
 test-specific:  ## Run specific test (use TEST=test_name)
-	./run_tests.py tests/test_shacl_validation.py::$(TEST)
+	uv run pytest tests/test_shacl_validation.py::$(TEST)
 
 test-valid:  ## Test only valid data files
-	./run_tests.py -k "TestValidDataFiles"
+	uv run pytest -k "TestValidDataFiles"
 
 test-invalid:  ## Test only invalid data files  
-	./run_tests.py -k "TestInvalidDataFiles"
+	uv run pytest -k "TestInvalidDataFiles"
 
 test-consistency:  ## Test only ontology consistency
-	./run_tests.py tests/test_ontology_consistency.py
+	uv run pytest tests/test_ontology_consistency.py
 
 clean:  ## Clean test artifacts
 	rm -rf tests/results/*
@@ -60,5 +68,5 @@ watch:  ## Watch files and run tests on changes
 
 # Coverage reporting (if pytest-cov installed)
 coverage:  ## Run tests with coverage reporting
-	./run_tests.py --cov=tests --cov-report=html
+	uv run pytest --cov=tests --cov-report=html --cov-report=term
 	@echo "Coverage report generated in htmlcov/"

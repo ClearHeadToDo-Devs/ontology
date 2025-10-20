@@ -94,13 +94,13 @@ ontology/
 uv sync
 
 # Run all tests
-./run_tests.py
+uv run pytest
 
 # Quick tests only 
-./run_tests.py --quick
+uv run pytest --quick
 
 # Verbose SHACL output
-./run_tests.py --verbose-validation
+uv run pytest -v --verbose-validation
 
 # Using make
 make test
@@ -111,8 +111,8 @@ make test-verbose
 ### **Advanced Testing**
 ```bash
 # Test specific files
-./run_tests.py -- -k "test_valid"
-./run_tests.py -- -k "TestSmartValidation"
+uv run pytest -k "test_valid"
+uv run pytest -k "TestSmartValidation"
 
 # Test with coverage
 make coverage

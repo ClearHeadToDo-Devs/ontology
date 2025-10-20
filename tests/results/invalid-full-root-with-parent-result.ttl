@@ -7,6 +7,13 @@ Constraint Violation in MaxCountConstraintComponent (http://www.w3.org/ns/shacl#
 	Focus Node: actions:invalid_root
 	Result Path: actions:parentAction
 	Message: Root actions cannot have action parents
+Constraint Violation in MinInclusiveConstraintComponent (http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent):
+	Severity: sh:Violation
+	Source Shape: [ sh:maxInclusive Literal("4", datatype=xsd:integer) ; sh:message Literal("Child actions must have depth between 1 and 4") ; sh:minInclusive Literal("1", datatype=xsd:integer) ; sh:path actions:depth ]
+	Focus Node: actions:invalid_root
+	Value Node: Literal("0", datatype=xsd:integer)
+	Result Path: actions:depth
+	Message: Child actions must have depth between 1 and 4
 Constraint Violation in SPARQLConstraintComponent (http://www.w3.org/ns/shacl#SPARQLConstraintComponent):
 	Severity: sh:Violation
 	Source Shape: actions:InverseConsistencyShape
@@ -20,13 +27,6 @@ Constraint Violation in SPARQLConstraintComponent (http://www.w3.org/ns/shacl#SP
             }
         ") ]
 	Message: If action has parent, parent must have this action as child
-Constraint Violation in MinInclusiveConstraintComponent (http://www.w3.org/ns/shacl#MinInclusiveConstraintComponent):
-	Severity: sh:Violation
-	Source Shape: [ sh:maxInclusive Literal("4", datatype=xsd:integer) ; sh:message Literal("Child actions must have depth between 1 and 4") ; sh:minInclusive Literal("1", datatype=xsd:integer) ; sh:path actions:depth ]
-	Focus Node: actions:invalid_root
-	Value Node: Literal("0", datatype=xsd:integer)
-	Result Path: actions:depth
-	Message: Child actions must have depth between 1 and 4
 Constraint Violation in SPARQLConstraintComponent (http://www.w3.org/ns/shacl#SPARQLConstraintComponent):
 	Severity: sh:Violation
 	Source Shape: actions:ParentChildConsistencyShape
