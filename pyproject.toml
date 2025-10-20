@@ -6,8 +6,10 @@ requires-python = ">=3.12"
 dependencies = [
     "pyshacl>=0.25.0",
     "rdflib>=7.0.0",
+    "owlready2>=0.48",
     "pytest>=8.0.0",
     "invoke>=2.0.0",
+    "jsonschema>=4.0.0",
 ]
 
 [tool.pytest.ini_options]

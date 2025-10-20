@@ -5,12 +5,36 @@ To this end, we are going to be using the ontology defined within this repositor
 
 ## Documentation
 
-- **[ONTOLOGY.md](./ONTOLOGY.md)** - Comprehensive semantic documentation of the Actions Vocabulary ontology
-- **[Action File Specification](https://github.com/primary-desktop/tree-sitter-actions/blob/main/docs/action_specification.md)** - File format syntax and parsing rules
+ - **[SCHEMA_GENERATION.md](./SCHEMA_GENERATION.md)** - JSON Schema generation from OWL + SHACL
+ - **[LESSONS_LEARNED.md](./LESSONS_LEARNED.md)** - Development insights and technical guidance
 
 ## Usage
 
 This ontology provides W3C-compliant RDF/OWL vocabulary and SHACL constraints for task management systems.
+
+### Schema Generation ("Small Waist" Architecture)
+
+Generate JSON Schema files from your OWL ontology + SHACL shapes for use in APIs, databases, and applications:
+
+```bash
+# Generate JSON schemas from ontology
+uv run invoke generate-schemas
+
+# Test schemas with example data
+uv run invoke test-examples
+
+# Run complete pipeline (validate → generate → test)
+uv run invoke full-pipeline
+```
+
+**Generated artifacts:**
+- `schemas/action.schema.json` - Base Action class schema
+- `schemas/rootaction.schema.json` - Root-level action schema  
+- `schemas/childaction.schema.json` - Child action schema
+- `schemas/leafaction.schema.json` - Leaf action schema
+- `schemas/actions-combined.schema.json` - Combined schema with `$defs`
+
+See `examples/` directory for valid data examples and integration guides.
 
 ### Validation (Downstream Consumers)
 

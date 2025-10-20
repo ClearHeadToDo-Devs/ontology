@@ -1,0 +1,13 @@
+{
+  "$schema": "../schemas/childaction.schema.json",
+  "uuid": "01936194-d5b0-7890-8000-fedcba654321",
+  "name": "Implement user authentication",
+  "description": "Add OAuth2 login flow to the dashboard",
+  "priority": "1",
+  "state": "active",
+  "parentAction": "01936194-d5b0-7890-8000-abcdef123456",
+  "context": "@computer",
+  "durationMinutes": "240",
+  "doDate": "2025-02-03",
+  "dueDate": "2025-02-10"
+}
