@@ -1,0 +1,12 @@
+{
+  "$schema": "../schemas/action.schema.json",
+  "uuid": "01936194-d5b0-7890-8000-123456789abc",
+  "name": "Review quarterly reports",
+  "description": "Analyze Q4 performance metrics and prepare summary for leadership team",
+  "priority": 2,
+  "state": "active",
+  "context": "@office",
+  "durationMinutes": 90,
+  "doDateTime": "2025-01-25T14:00:00Z",
+  "dueDateTime": "2025-01-30T17:00:00Z"
+}

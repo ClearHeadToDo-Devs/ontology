@@ -1,0 +1,41 @@
+[
+  {
+    "description": "Missing required fields",
+    "data": {
+      "uuid": "01936194-d5b0-7890-8000-123456789abc",
+      "description": "This will fail - missing name, priority, and state"
+    },
+    "expectedErrors": ["Missing required property: name", "Missing required property: priority", "Missing required property: state"]
+  },
+  {
+    "description": "Invalid priority value",
+    "data": {
+      "uuid": "01936194-d5b0-7890-8000-123456789abc",
+      "name": "Test action",
+      "priority": 5,
+      "state": "active"
+    },
+    "expectedErrors": ["Priority must be between 1 and 4"]
+  },
+  {
+    "description": "Invalid UUID format",
+    "data": {
+      "uuid": "not-a-valid-uuid",
+      "name": "Test action", 
+      "priority": 2,
+      "state": "active"
+    },
+    "expectedErrors": ["UUID must match version 7 pattern"]
+  },
+  {
+    "description": "Invalid duration",
+    "data": {
+      "uuid": "01936194-d5b0-7890-8000-123456789abc",
+      "name": "Test action",
+      "priority": 2,
+      "state": "active",
+      "durationMinutes": 20000
+    },
+    "expectedErrors": ["Duration must be between 1 and 10080 minutes (1 week)"]
+  }
+]
