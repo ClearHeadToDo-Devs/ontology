@@ -1,113 +1,169 @@
-# Vocabulary Introduction
-As part of the clearhead platform, we want to build out a foundation that is both logically sound while also conforming to exsting standards.
+# Actions Vocabulary v3 - BFO/CCO-Aligned Ontology
 
-To this end, we are going to be using the ontology defined within this repository our core foundation upon which all applications can be built
+**Current Version**: 3.0 (Development)
+**Namespace**: `https://vocab.clearhead.io/actions/`
+**Status**: Active development, POC validated
+
+## What is This?
+
+The Actions Vocabulary provides a **formal semantic foundation** for task management systems, combining:
+
+- **BFO 2.0 Compliance** - ISO standard upper ontology (ISO/IEC 21838-2:2021)
+- **CCO Integration** - Common Core Ontologies mid-level framework
+- **Schema.org Alignment** - SKOS-mapped for web/SEO benefits
+- **Practical Tooling** - JSON Schema generation for APIs, databases, and applications
+
+This ontology serves as the **"small waist" architecture** - a minimal, semantically rigorous interface that enables scientific-grade reasoning while supporting practical code generation.
+
+## Version History
+
+- **v3** (Current) - BFO/CCO-aligned formal ontology at root level
+  - Location: Root directory
+  - Format: OWL/XML (`actions-vocabulary.owl`)
+  - See: [BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md), [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md)
+
+- **v2** (Legacy) - Schema.org-based pragmatic ontology
+  - Location: `v2/` directory
+  - Format: Turtle (`.ttl`)
+  - See: [v2/README.md](./v2/README.md), [v2/ONTOLOGY.md](./v2/ONTOLOGY.md)
+  - Migration guide: [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md)
+
+## Quick Start
+
+### Prerequisites
+```bash
+# Python 3.12+ with uv package manager
+uv sync
+```
+
+### Validation
+```bash
+# Run v3 validation tests
+uv run python tests/test_poc.py
+
+# For v2 legacy tests
+cd v2 && uv run pytest
+```
+
+### Visual Exploration
+```bash
+# Open in Protégé ontology editor
+# File → Open → actions-vocabulary.owl
+# Reasoner → HermiT → Start reasoner
+```
+
+## Key Architectural Change: Plan vs Process Separation
+
+### v2 Model (Single Entity)
+```turtle
+:action1 a actions:Action ;
+    schema:name "Review reports" ;
+    actions:state actions:Completed .
+```
+❌ **Problem:** Conflates WHAT to do (plan) with HOW it was done (execution)
+
+### v3 Model (Separation of Concerns)
+```turtle
+# The PLAN (information - what to do)
+:review_plan a actions:ActionPlan ;
+    schema:name "Review reports" ;
+    actions:hasPriority 2 ;
+    actions:prescribes :review_process .
+
+# The EXECUTION (process - how it was done)
+:review_process a actions:ActionProcess ;
+    actions:hasState actions:Completed .
+```
+✅ **Benefits:**
+- Plans can prescribe multiple executions (recurring actions)
+- Execution can diverge from plan (reality vs intention)
+- Aligns with BFO continuant/occurrent distinction
+- Separates information (persistent) from events (temporal)
 
 ## Documentation
 
- - **[SCHEMA_GENERATION.md](./SCHEMA_GENERATION.md)** - JSON Schema generation from OWL + SHACL
- - **[LESSONS_LEARNED.md](./LESSONS_LEARNED.md)** - Development insights and technical guidance
+### Core Documentation
+- **[BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md)** - Technical mapping to BFO/CCO
+- **[SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md)** - Schema.org integration strategy
+- **[SUMMARY.md](./SUMMARY.md)** - Comprehensive v3 overview
+- **[CLAUDE.md](./CLAUDE.md)** - Development guide (AI & human)
+
+### Shared Resources
+- **[docs/](./docs/)** - Shared documentation across versions
+- **[examples/](./examples/)** - Example data and integration guides
+- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Vocabulary hosting guide
+
+## Files Structure
+
+```
+/
+├── actions-vocabulary.owl          # v3 ontology (OWL/XML)
+├── imports/                        # BFO and CCO imports
+├── tests/                          # v3 validation tests
+├── docs/, examples/, schemas/      # Shared resources
+├── v2/                             # Legacy v2 ontology
+└── migrations/                     # Version migration guides
+```
 
 ## Usage
 
-This ontology provides W3C-compliant RDF/OWL vocabulary and SHACL constraints for task management systems.
-
-### Schema Generation ("Small Waist" Architecture)
-
-Generate JSON Schema files from your OWL ontology + SHACL shapes for use in APIs, databases, and applications:
-
+### For Ontology Developers
 ```bash
-# Generate JSON schemas from ontology
+# Edit in Protégé (recommended)
+# Or edit OWL/XML directly with understanding of the format
+
+# Validate changes
+uv run python tests/test_poc.py
+
+# Check consistency with HermiT reasoner in Protégé
+```
+
+### For Application Developers
+```bash
+# Generate JSON schemas (future feature)
 uv run invoke generate-schemas
 
-# Test schemas with example data
-uv run invoke test-examples
-
-# Run complete pipeline (validate → generate → test)
-uv run invoke full-pipeline
+# Integrate with your application
+# - Parse actions-vocabulary.owl for class/property definitions
+# - Use generated JSON schemas for data validation
+# - See examples/ for integration patterns
 ```
 
-**Generated artifacts:**
-- `schemas/action.schema.json` - Base Action class schema
-- `schemas/rootaction.schema.json` - Root-level action schema  
-- `schemas/childaction.schema.json` - Child action schema
-- `schemas/leafaction.schema.json` - Leaf action schema
-- `schemas/actions-combined.schema.json` - Combined schema with `$defs`
+## Why v3?
 
-See `examples/` directory for valid data examples and integration guides.
+v2 was a **pragmatic Schema.org-based design** that served production needs well. v3 is a **complete architectural redesign** for:
 
-### Validation (Downstream Consumers)
+1. **Formal Semantic Rigor** - BFO compliance enables scientific interoperability
+2. **Separation of Concerns** - Plans (information) vs Processes (executions)
+3. **CCO Patterns** - Reuse proven mid-level ontology patterns
+4. **Broader Interoperability** - Join 450+ BFO-based ontologies
+5. **Long-term Maintainability** - Clearer semantics, better reasoner support
 
-```bash
-# Install dependencies
-uv sync
+See [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md) for detailed rationale and migration path.
 
-# Run all validation tests (recommended)
-uv run pytest
+## Tooling
 
-# Quick syntax validation
-uv run invoke validate
+### Recommended Tools
+- **[Protégé](https://protege.stanford.edu/)** - Visual ontology editor with HermiT reasoner
+- **[owlready2](https://owlready2.readthedocs.io/)** - Python library for OWL ontologies
+- **[pySHACL](https://github.com/RDFLib/pySHACL)** - SHACL constraint validation (future)
+- **Text Editors** - OWL/XML editing with understanding (VS Code, Neovim, etc.)
 
-# Clean artifacts
-uv run invoke clean
+## Contributing
 
-# See all available tasks
-uv run invoke --list
-```
+When making changes:
 
-### Integration
+1. **Read the docs first** - See CLAUDE.md for development guidelines
+2. **Understand BFO/CCO** - Review BFO_CCO_ALIGNMENT.md for design patterns
+3. **Test thoroughly** - Run validation suite and HermiT reasoner
+4. **Document decisions** - Update relevant .md files with architectural choices
 
-Your downstream applications should:
+## License
 
-1. Parse `actions-vocabulary.ttl` for class/property definitions
-2. Use `actions-shapes.ttl` for validation rules  
-3. Run `uv run invoke test` to validate your data against these constraints
+See [LICENSE](./LICENSE)
 
-### Files
+## Support
 
-- `actions-vocabulary.ttl` - Core ontology (OWL 2)
-- `actions-shapes.ttl` - SHACL constraints  
-- `tests/` - Validation test suite with example data
-- `tasks.py` - Invoke task definitions
-
-## Terms
-For now we are working primarily with Actions which are a generic format that is intended to express an intent to complete something as either an individual or a system
-
-**For detailed semantic definitions, see [ONTOLOGY.md](./ONTOLOGY.md).**
-
-The vocabulary extends the [Schema.org Action Class](https://schema.org/Action) with:
-- Hierarchical task organization (6-level depth structure)
-- GTD-style context tags for environmental requirements  
-- Project/story organization for root actions
-- Dual temporal model (do-date scheduling + due-date deadlines)
-- iCalendar-compatible recurrence patterns
-- Extended state management beyond simple completion
-
-# Purpose
-The purpose of this repo works at many levels:
-- **Semantic Foundation**: Provides the definitive semantic model for task management concepts, serving as the authoritative reference for domain understanding
-- **Implementation Guide**: Enables implementors to build consistent tooling including:
-  - File format parsers and serializers
-  - Database schemas and migrations  
-  - API data models and validation
-  - Application class structures and types
-  - Search and analytics systems
-
-**The ontology maintains implementation flexibility while ensuring semantic consistency across all tools and platforms.**
-
-## Architecture
-This vocabulary serves as the "small waist" of the platform - a minimal, stable interface that enables:
-- **Code Generation**: Automated schema and class generation from semantic definitions
-- **Interoperability**: Consistent data exchange between different implementations  
-- **Testing**: Unified validation and compliance testing across tools
-- **Evolution**: Backward-compatible extensions as requirements grow
-
-**For detailed class definitions, property specifications, and usage examples, see [ONTOLOGY.md](./ONTOLOGY.md).**
-
-# Tooling
-## Recommended Tools
-- **[Protégé](https://protege.stanford.edu/)** - GUI ontology editor for visual exploration and editing
-- **[pySHACL](https://github.com/RDFLib/pySHACL)** - Python library for SHACL constraint validation
-- **Text Editors** - Direct TTL editing with syntax highlighting (VS Code, Neovim, etc.)
-
-The included test suite validates both positive and negative cases against the SHACL constraints, providing practical examples of valid and invalid data structures.
+- Issues: GitHub issue tracker
+- Documentation: See [CLAUDE.md](./CLAUDE.md) for comprehensive development guide
+- v2 Support: See [v2/README.md](./v2/README.md) for legacy version

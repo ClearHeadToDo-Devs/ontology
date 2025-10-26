@@ -1,76 +1,139 @@
-# Purpose
-We are building an ontology that will guide development of an open data format platform where common data classes can be leveraged by different stakeholders to build applications
+# Actions Vocabulary v3 - Development Guide
 
-## How it is used
-The vocabulary will be primarily imported into protege ontology editor to get the structure right
+## Context
 
-we are also using our code editor (neovim in our example) to edit the ontology by hand so feel free to use that to review and make structured edits
+This is a higher order repo with several other repositories as git submodules.
 
-# Overview
-We are using OWL 2 with a scoping for a productivity app
+For a large intro please see [the README](./README.md)
 
-the intention is that we will use this ontology as well as the SHACL structure to generate scaffolding such as:
-- tree sitter parsers
-- database schemas
-- data schema for json
-- class generation on static typing languages
+### Repository Structure
 
-to this point we are trying to capture semantic meaning here while also importing enough context that the implementors can take this work one at a time
+This repository now uses **versioned layout** with v3 as the default:
 
-## Key Files
-- README.md covers the concepts in a plaintext format
-- actions-vocabulary.ttl is the ontology itself and is the primary unit of work
-- action-shapes.ttl is a SHACL file that actually holds the complimentary SHACL constraints needed to function properly
+```
+/
+├── # V3 ONTOLOGY (default at root)
+├── actions-vocabulary.owl          # v3 ontology (OWL/XML)
+├── imports/                        # BFO/CCO ontologies
+├── tests/                          # v3 validation tests
+├── BFO_CCO_ALIGNMENT.md           # v3 architecture docs
+├── SCHEMA_ORG_ALIGNMENT.md
+├── SUMMARY.md
+│
+├── # SHARED RESOURCES
+├── docs/, examples/, schemas/      # Shared across versions
+├── scripts/                        # Shared tooling
+├── DEPLOYMENT.md                  # Deployment guide
+│
+├── # V2 LEGACY
+├── v2/                            # Legacy v2 ontology
+│   ├── actions-vocabulary.ttl
+│   ├── actions-shapes.ttl
+│   ├── tests/                     # v2 test suite
+│   └── README.md, CLAUDE.md, etc.
+│
+└── migrations/                     # Version migration docs
+    └── V2_TO_V3_MIGRATION.md
+```
 
-# Testing
-This is a typical python project built using `uv` so for testing you simply need to run: `uv run pytest`
+## Version Status
 
-check `pyproject.toml` for secondary commands with more granular control or which utilize CLI commands
+**Current Default: v3** (BFO/CCO-aligned formal ontology)
+- **Location:** Root directory
+- **Status:** Active development, POC validated
+- **Format:** OWL/XML
+- **Architecture:** BFO 2.0 + CCO compliant formal ontology
+- **Use for:** New development, semantic web integration, research
 
-# Architecture Principles
+**Legacy: v2** (Schema.org-based pragmatic ontology)
+- **Location:** `v2/` directory
+- **Status:** Stable, production-ready (archived)
+- **Format:** Turtle (TTL)
+- **Architecture:** Pragmatic Schema.org-based design
+- **Use for:** Existing integrations, stable deployments
 
-## Semantic Web Design Philosophy
-- **Schema.org First**: Always check Schema.org for existing properties before creating custom ones
-- **Inheritance over Equivalence**: Use `rdfs:subPropertyOf` rather than `owl:equivalentProperty` when extending existing vocabularies
-- **Property Reuse**: Leverage inherited properties (`schema:name`, `schema:description`) rather than duplicating
+See [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md) for migration guide.
 
-## OWL vs SHACL Boundaries
+## Running Components
 
-### OWL Responsibilities (Logical Domain Model)
-- **Class hierarchy and relationships** - what CAN exist in the domain
-- **Disjointness declarations** - mutually exclusive classes  
-- **Domain/range restrictions** - semantic constraints
-- **Functional properties** - single-valued properties declared at ontology level
-- **Schema.org alignment** - semantic relationships via `rdfs:subPropertyOf`
-- **OWL restrictions** - class definitions via property constraints
+All submodules have their own README files - please review before doing any work to ensure proper context:
 
-### SHACL Responsibilities (Data Quality Validation)  
-- **Required fields and cardinality** - what MUST exist in valid data
-- **Value constraints** - ranges, patterns, formats (e.g., UUID v7, priority 1-4)
-- **Business rules** - complex validation via SPARQL constraints
-- **Non-functional cardinality** - `maxCount` where OWL doesn't declare functional
-- **Temporal logic** - date consistency, completion vs deadline validation
+- **ontology** (this repo) - Python project managed through `uv`, generates JSON schemas from ontologies and SHACL shapes
+- **tree-sitter-actions** - JavaScript project for generating tree-sitter parser
+- **clearhead-cli** - Rust CLI that uses the first two projects
 
-### Key Rule: Avoid Redundancy
-- **Don't duplicate** `owl:FunctionalProperty` with `sh:maxCount 1`  
-- **Do use** SHACL `maxCount` for properties that aren't OWL functional (like `schema:name`)
-- **Let OWL handle** logical domain constraints, **let SHACL handle** data validation
+## How It Is Used
 
-## Testing Strategy
+The vocabulary is primarily imported into Protégé ontology editor to get the structure right.
 
-### Two-Layer Testing Approach
-1. **OWL Reasoning Tests** (`test_owl_reasoning.py`)
-   - Ontology satisfiability and logical consistency
-   - Class disjointness verification  
-   - Property domain/range correctness
-   - Schema.org alignment validation
-   - Functional property declarations
+We also use code editors (neovim/VSCode) to edit the ontology by hand for structured edits.
 
-2. **SHACL Validation Tests** (`test_shacl_validation.py`)
-   - Data quality constraints
-   - Business rule enforcement
-   - Value format validation
-   - Required field verification
+**For v3:** OWL/XML format is preferred for Protégé compatibility and industry standards.
+
+## Testing
+
+### v3 Tests
+```bash
+# Run v3 validation
+uv run python tests/test_poc.py
+
+# When full test suite is available
+uv run pytest
+```
+
+### v2 Tests (Legacy)
+```bash
+cd v2
+uv run pytest
+```
+
+Check `pyproject.toml` (root for v3, `v2/pyproject.toml` for v2) for secondary commands.
+
+## v3 Architecture Principles
+
+### Semantic Web Design Philosophy
+
+#### BFO First, Schema.org Second
+- **Primary alignment:** BFO/CCO for formal rigor
+- **Secondary alignment:** SKOS mapping to Schema.org for web benefits
+- **Continuant vs Occurrent:** Separate information (plans) from processes (executions)
+- **Reuse CCO Patterns:** Extend proven CCO patterns (Plan, IntentionalAct) before creating custom classes
+- **SKOS for Cross-Ontology:** Use `skos:closeMatch` for Schema.org alignment, not `rdfs:subClassOf`
+- **Document Decisions:** Record architectural decisions in dedicated markdown files
+
+See [BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md) for detailed technical mapping.
+
+### OWL vs SHACL Boundaries (Future)
+
+When SHACL shapes are added to v3:
+
+**OWL Responsibilities (Logical Domain Model)**
+- Class hierarchy and relationships - what CAN exist
+- Disjointness declarations - mutually exclusive classes
+- Domain/range restrictions - semantic constraints
+- Functional properties - single-valued properties
+- Schema.org alignment via SKOS
+
+**SHACL Responsibilities (Data Quality Validation)**
+- Required fields and cardinality - what MUST exist
+- Value constraints - ranges, patterns, formats
+- Business rules - complex validation via SPARQL
+- Non-functional cardinality
+- Temporal logic
+
+**Key Rule:** Avoid Redundancy
+- Don't duplicate `owl:FunctionalProperty` with `sh:maxCount 1`
+- Let OWL handle logical constraints, let SHACL handle data validation
+
+### Testing Strategy
+
+**Current (POC Phase):**
+1. Python validation script (`tests/test_poc.py`)
+2. Protégé + HermiT reasoner validation
+
+**Future (Full v3):**
+1. **OWL Reasoning Tests** - Ontology satisfiability, class disjointness, property correctness
+2. **SHACL Validation Tests** - Data quality constraints, business rules
 
 ## "Small Waist" Architecture
 
@@ -86,83 +149,165 @@ This ontology serves as the **minimal stable interface** between different imple
                                  │
                     ┌────────────▼─────────────┐
                     │   Actions Ontology       │
-                    │   (Semantic Truth)       │  
+                    │   (Semantic Truth)       │
                     └──────────────────────────┘
 ```
 
 **Benefits:**
-- **Code Generation**: Schemas and classes generated from semantic definitions
-- **Interoperability**: Consistent data exchange between implementations
-- **Testing**: Unified validation across all tools  
-- **Evolution**: Backward-compatible extensions as requirements grow
+- **Code Generation:** Schemas and classes generated from semantic definitions
+- **Interoperability:** Consistent data exchange between implementations
+- **Testing:** Unified validation across all tools
+- **Evolution:** Backward-compatible extensions
 
-## File Relationships
+## Key Files
 
-### Core Semantic Layer
-- **`actions-vocabulary.ttl`** - OWL ontology defining the logical domain model
-- **`actions-shapes.ttl`** - SHACL constraints for data validation  
-- **`ONTOLOGY.md`** - Comprehensive semantic documentation (THE authoritative reference)
+### v3 Files (Current Default at Root)
+- **README.md** - Project overview and v3 introduction
+- **CLAUDE.md** - This file (development guide)
+- **actions-vocabulary.owl** - v3 ontology (OWL/XML format)
+- **BFO_CCO_ALIGNMENT.md** - Technical BFO/CCO mapping
+- **SCHEMA_ORG_ALIGNMENT.md** - Schema.org integration strategy
+- **SUMMARY.md** - Comprehensive v3 overview
+- **tests/test_poc.py** - Validation script
+- **imports/** - BFO and CCO ontology files
 
-### Documentation Layer  
-- **`README.md`** - Project overview and usage instructions
-- **`CLAUDE.md`** - AI/human collaboration context (this file)
+### Shared Files
+- **docs/** - Shared documentation
+- **examples/** - Example data
+- **schemas/** - Generated schemas
+- **scripts/** - Tooling scripts
+- **DEPLOYMENT.md** - Vocabulary hosting guide
 
-### Implementation Layer
-- **File format specs** - Syntax and parsing rules (separate repos)
-- **Generated schemas** - Database, JSON, etc. (downstream artifacts)
+### v2 Files (Legacy in v2/ directory)
+- **v2/README.md** - v2 concepts and usage
+- **v2/CLAUDE.md** - v2 development guide
+- **v2/ONTOLOGY.md** - v2 semantic documentation
+- **v2/actions-vocabulary.ttl** - v2 ontology
+- **v2/actions-shapes.ttl** - v2 SHACL constraints
+- **v2/tests/** - v2 test suite
 
-### Testing Layer
-- **`tests/test_owl_reasoning.py`** - Ontological consistency 
-- **`tests/test_shacl_validation.py`** - Data quality validation
-- **`tests/data/`** - Valid and invalid test cases
+## Which Version to Work On?
 
-## Decision History & Rationales
+**Work on v3 (root) if:**
+- Adding new architectural features
+- Need BFO compliance
+- Building semantic web integrations
+- Long-term development
+- New projects
 
-### Why Schema.org Alignment?
-- **SEO Benefits**: Search engines understand Schema.org properties
-- **Tool Compatibility**: Existing semantic web tools work out of the box
-- **Standards Compliance**: Leverages W3C recommended practices
-- **Avoid Reinvention**: Don't create custom properties when standard ones exist
-
-### Why Dual Temporal Model?
-- **`doDate/Time`** - When you plan to work on it (scheduling)
-- **`dueDate/Time`** - When it must be completed (deadline) 
-- **`completedDateTime`** - When it was actually finished (tracking)
-- **All connected to `schema:startTime/endTime`** for semantic consistency
-
-### Why Hierarchical Structure?
-- **GTD Compatibility**: Supports Getting Things Done methodology
-- **Project Management**: Natural breakdown of complex work
-- **6-Level Limit**: Prevents over-nesting while supporting realistic depth
-- **Clear Roles**: Root (can have projects), Child (intermediate), Leaf (terminal)
+**Work on v2 (v2/ directory) if:**
+- Fixing bugs in existing production systems
+- Supporting legacy integrations
+- Need immediate stability
+- Maintaining deployed systems
 
 ## Common Pitfalls for Future Development
 
-### 🚫 **Avoid These Mistakes**
-1. **Creating custom properties** without checking Schema.org first
-2. **Using `owl:equivalentProperty`** instead of `rdfs:subPropertyOf` for extensions  
-3. **Duplicating cardinality** in both OWL (functional) and SHACL (maxCount)
-4. **Mixing logical constraints in SHACL** that belong in OWL
-5. **Missing namespace declarations** in test data (don't forget `@prefix schema:`)
+### 🚫 Avoid These Mistakes
 
-### ✅ **Follow These Patterns**
-1. **Check inheritance chain**: Thing → Action → actions:Action gets you name, description, etc.
-2. **Use proper boundaries**: OWL for CAN exist, SHACL for SHOULD exist
-3. **Test both layers**: OWL reasoning + SHACL validation  
-4. **Update documentation**: Always sync ONTOLOGY.md with ontology changes
-5. **Validate frequently**: `uv run invoke validate` catches syntax errors early
+1. **Mixing upper ontologies** - Don't use both `rdfs:subClassOf cco:Plan` and `rdfs:subClassOf schema:Action`
+2. **State on plans** - Plans don't have state, processes do
+3. **Forgetting reasoner validation** - Always run HermiT after OWL changes
+4. **Unclear property names** - Use `hasDoDate`, not just `date`
+5. **Missing namespace declarations** - Always declare prefixes
+
+### ✅ Follow These Patterns
+
+1. **Use SKOS for Schema.org alignment** - `skos:closeMatch schema:Action`, not `rdfs:subClassOf`
+2. **Separate plans from processes** - Information vs occurrents
+3. **Test both layers** - Syntax validation + reasoning
+4. **Update documentation** - Always sync markdown files with changes
+5. **Validate frequently** - `uv run python tests/test_poc.py`
 
 ## Integration Guidelines
 
 ### For Future AI Assistants
-- **Always read ONTOLOGY.md first** - it's the definitive semantic reference
-- **Check existing tests** before making changes to understand expected behavior  
-- **Run both test suites** after modifications: OWL reasoning + SHACL validation
-- **Consider Schema.org alignment** for any new properties
-- **Understand the "small waist" concept** - this ontology serves multiple downstream implementations
 
-### For Human Developers  
+- **Always read documentation first** - README.md, BFO_CCO_ALIGNMENT.md, SCHEMA_ORG_ALIGNMENT.md
+- **Understand version structure** - Root = v3, v2/ = legacy
+- **Check existing tests** before making changes
+- **Run validation after modifications** - Python tests + HermiT reasoner
+- **Consider BFO/CCO alignment** for any new classes/properties
+- **Use SKOS for Schema.org** - Not class hierarchy mixing
+
+### For Human Developers
+
 - **Use Protégé for visual exploration** of the ontology structure
-- **Reference file format specs separately** - don't confuse syntax with semantics
-- **Start with ONTOLOGY.md** to understand domain concepts before diving into TTL files
-- **Leverage the testing framework** to validate changes against real use cases
+- **Start with documentation** - BFO_CCO_ALIGNMENT.md explains design decisions
+- **Leverage testing framework** to validate changes
+- **Reference v2 for comparison** - See how concepts evolved
+- **Join BFO/CCO community** for broader context
+
+## Common Tasks
+
+### Validate v3 Ontology
+```bash
+uv run python tests/test_poc.py
+```
+
+### Edit v3 Ontology
+```bash
+# Option 1: Protégé (recommended)
+# - Open actions-vocabulary.owl
+# - Make changes visually
+# - Run HermiT reasoner
+# - Save
+
+# Option 2: Direct OWL/XML editing
+# - Edit actions-vocabulary.owl with understanding of OWL/XML format
+# - Validate with test_poc.py
+```
+
+### Work on v2 (Legacy)
+```bash
+cd v2
+# Edit actions-vocabulary.ttl or actions-shapes.ttl
+uv run invoke validate
+uv run pytest
+```
+
+### Generate Schemas (Future)
+```bash
+# When schema generation is implemented for v3
+uv run invoke generate-schemas
+```
+
+## Decision History & Rationales
+
+### Why BFO/CCO for v3?
+- **Scientific Rigor:** ISO standard ontology framework
+- **Interoperability:** 450+ ontologies use BFO as upper ontology
+- **Clear Semantics:** Formal distinctions (continuant/occurrent)
+- **Long-term Maintainability:** Proven patterns from CCO
+
+### Why Separate Plans from Processes?
+- **Recurring Actions:** One plan → multiple executions
+- **Reality vs Intention:** Execution can diverge from plan
+- **BFO Compliance:** Aligns with continuant/occurrent distinction
+- **Clear Semantics:** Information (persistent) vs events (temporal)
+
+### Why SKOS for Schema.org?
+- **Avoid Upper Ontology Conflicts:** BFO and Schema.org have different philosophies
+- **Preserve Benefits:** Still get SEO/web advantages via SKOS alignment
+- **Clean Separation:** Formal semantics (BFO) + pragmatic mapping (Schema.org)
+
+See [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md) for full details.
+
+## Resources
+
+### BFO/CCO Resources
+- **BFO Specification:** http://basic-formal-ontology.org/
+- **CCO Repository:** https://github.com/CommonCoreOntology/CommonCoreOntologies
+- **NCOR Resources:** https://ontology.buffalo.edu/
+
+### Tools
+- **Protégé:** https://protege.stanford.edu/
+- **owlready2 docs:** https://owlready2.readthedocs.io/
+- **SKOS Primer:** https://www.w3.org/TR/skos-primer/
+
+### Our Docs
+- [README.md](./README.md) - User guide
+- [BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md) - Technical mapping
+- [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md) - Web integration
+- [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md) - Migration guide
+- [v2/ONTOLOGY.md](./v2/ONTOLOGY.md) - v2 semantic documentation
