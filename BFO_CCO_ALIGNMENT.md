@@ -116,53 +116,64 @@ bfo:Entity
 ```
 cco:InformationEntityOntology
 ├── cco:InformationContentEntity (extends bfo:InformationContentEntity)
-│   ├── cco:DirectiveInformationContentEntity
-│   │   ├── cco:Plan ← ActionPlan extends this
-│   │   ├── cco:Objective
-│   │   └── cco:ActionSpecification
+│   ├── cco:DirectiveInformationContentEntity (ont00000965) ← ActionPlan extends this
+│   │   ├── cco:PerformanceSpecification
+│   │   ├── cco:Algorithm
+│   │   └── cco:Language
 │   └── cco:DescriptiveInformationContentEntity
 │
 cco:EventOntology
 └── bfo:Process
     └── cco:Act
-        └── cco:IntentionalAct ← ActionProcess extends this
+        └── cco:PlannedAct (ont00000228) ← ActionProcess extends this
+            └── [aka: Intentional Act]
 ```
+
+**Note:** CCO does not define a `Plan` class. Plans are represented as specialized `DirectiveInformationContentEntity` subclasses in domain ontologies.
 
 ### CCO Classes We Extend
 
-#### cco:Plan
+#### cco:DirectiveInformationContentEntity (ont00000965)
 
-**Definition:** A directive information content entity that prescribes some set of intended Acts.
+**CCO URI:** `https://www.commoncoreontologies.org/ont00000965`
+
+**Definition:** An information content entity that consists of a set of propositions or images (as in the case of a blueprint) that prescribe some Entity.
 
 **Key Features:**
-- Prescribes processes (via `cco:prescribes` relation)
+- Prescribes other entities (via `cco:prescribes` relation - ont00001942)
 - Information entity (can be copied, stored, transmitted)
-- Has objectives and action specifications as parts
+- Generic class - requires domain specialization
 
-**Why ActionPlan extends cco:Plan:**
+**Why ActionPlan extends DirectiveInformationContentEntity:**
 ```turtle
-actions:ActionPlan rdfs:subClassOf cco:Plan .
+actions:ActionPlan rdfs:subClassOf cco:ont00000965 .
 ```
-- Natural semantic fit - our actions ARE plans
-- Inherits CCO's plan-to-process pattern
-- Reuses well-tested BFO alignment
+- Semantically correct - action plans ARE directive information
+- Follows CCO best practice (specialize directives in domain ontologies)
+- Inherits CCO's prescriptive pattern
+- Minimal dependencies - no intermediate abstractions
 
-#### cco:IntentionalAct
+#### cco:PlannedAct (ont00000228)
 
-**Definition:** An Act in which at least one Agent plays a causative role and which is prescribed by some Directive Information Content Entity.
+**CCO URI:** `https://www.commoncoreontologies.org/ont00000228`
+
+**Alternative Label:** Intentional Act
+
+**Definition:** An Act in which at least one Agent plays a causative role and which is prescribed by some Directive Information Content Entity held by at least one of the Agents.
 
 **Key Features:**
 - Is a BFO Process (unfolds over time)
 - Performed by agents (for future extension)
 - Prescribed by directive ICE (like our ActionPlan)
 
-**Why ActionProcess extends cco:IntentionalAct:**
+**Why ActionProcess extends PlannedAct:**
 ```turtle
-actions:ActionProcess rdfs:subClassOf cco:IntentionalAct .
+actions:ActionProcess rdfs:subClassOf cco:ont00000228 .
 ```
-- Perfect fit - our processes ARE intentional acts
+- Perfect semantic fit - our processes ARE planned acts
 - Links to agents (when we add them)
-- Prescribed by ActionPlans
+- Prescribed by ActionPlans (DirectiveICE)
+- Standard CCO pattern for intentional actions
 
 ---
 
@@ -177,12 +188,11 @@ bfo:Entity
 │   └── bfo:GenericallyDependentContinuant
 │       └── bfo:InformationContentEntity
 │           └── cco:InformationContentEntity
-│               └── cco:DirectiveInformationContentEntity
-│                   └── cco:Plan
-│                       └── actions:ActionPlan
-│                           ├── actions:RootActionPlan
-│                           ├── actions:ChildActionPlan
-│                           └── actions:LeafActionPlan
+│               └── cco:DirectiveInformationContentEntity (ont00000965)
+│                   └── actions:ActionPlan
+│                       ├── actions:RootActionPlan
+│                       ├── actions:ChildActionPlan
+│                       └── actions:LeafActionPlan
 │
 ├── bfo:SpecificallyDependentContinuant
 │   └── bfo:Quality
@@ -196,9 +206,15 @@ bfo:Entity
 └── bfo:Occurrent
     └── bfo:Process
         └── cco:Act
-            └── cco:IntentionalAct
+            └── cco:PlannedAct (ont00000228)
                 └── actions:ActionProcess
 ```
+
+**Key Points:**
+- ActionPlan directly extends CCO's DirectiveInformationContentEntity
+- ActionProcess directly extends CCO's PlannedAct (aka IntentionalAct)
+- No intermediate "Plan" class - CCO expects domain specialization
+- Flat hierarchy - only specialize when needed (Root/Child/Leaf)
 
 ### Property Alignments
 
@@ -206,10 +222,16 @@ bfo:Entity
 
 ```turtle
 # From CCO
-cco:prescribes - Plan prescribes Process
+cco:prescribes (ont00001942)
+    rdfs:domain cco:DirectiveInformationContentEntity ;
+    rdfs:range bfo:Entity .
+    # "x prescribes y iff x is an instance of Information Content Entity
+    # and y is an instance of Entity, such that x serves as a rule or
+    # guide for y if y an Occurrent, or x serves as a model for y if
+    # y is a Continuant."
 
-# Our specialization
-actions:prescribes rdfs:subPropertyOf cco:prescribes ;
+# Our specialization (with domain/range restrictions)
+actions:prescribes rdfs:subPropertyOf cco:ont00001942 ;
     rdfs:domain actions:ActionPlan ;
     rdfs:range actions:ActionProcess .
 
@@ -318,7 +340,7 @@ actions:hasState
 **Why Not Multiple Inheritance:**
 ```turtle
 # ❌ DON'T DO THIS
-actions:ActionPlan rdfs:subClassOf cco:Plan, schema:Action .
+actions:ActionPlan rdfs:subClassOf cco:ont00000965, schema:Action .
 ```
 - Mixes two different upper ontologies (BFO and Schema.org)
 - Can confuse reasoners
@@ -326,7 +348,7 @@ actions:ActionPlan rdfs:subClassOf cco:Plan, schema:Action .
 **Correct Approach:**
 ```turtle
 # ✅ DO THIS
-actions:ActionPlan rdfs:subClassOf cco:Plan .           # BFO hierarchy
+actions:ActionPlan rdfs:subClassOf cco:ont00000965 .    # BFO hierarchy (DirectiveICE)
 actions:ActionPlan skos:closeMatch schema:Action .      # Cross-ontology mapping
 ```
 - Clean BFO hierarchy
@@ -347,9 +369,9 @@ actions:ActionPlan skos:closeMatch schema:Action .      # Cross-ontology mapping
 
 **Reasoner infers:**
 ```turtle
-:my_plan a actions:ActionPlan .        # direct parent
-:my_plan a cco:Plan .                  # grandparent
-:my_plan a cco:DirectiveInformationContentEntity .
+:my_plan a actions:ActionPlan .                          # direct parent
+:my_plan a cco:DirectiveInformationContentEntity .       # grandparent (ont00000965)
+:my_plan a cco:InformationContentEntity .
 :my_plan a bfo:InformationContentEntity .
 :my_plan a bfo:GenericallyDependentContinuant .
 :my_plan a bfo:Continuant .

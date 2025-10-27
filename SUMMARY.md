@@ -86,20 +86,20 @@ Created 5 major documentation files:
 bfo:Entity
 ├── bfo:Continuant
 │   └── bfo:InformationContentEntity
-│       └── cco:Plan
+│       └── cco:DirectiveInformationContentEntity (ont00000965)
 │           └── actions:ActionPlan ← Our plans
 └── bfo:Occurrent
     └── bfo:Process
-        └── cco:IntentionalAct
+        └── cco:PlannedAct (ont00000228)
             └── actions:ActionProcess ← Our executions
 ```
 
 ### 2. CCO Integration (DoD/IC Baseline)
 
 **Extends proven patterns:**
-- `cco:Plan` → Directive information prescribing acts
-- `cco:IntentionalAct` → Processes performed by agents
-- `cco:prescribes` → Plan-to-process relation
+- `cco:DirectiveInformationContentEntity` → Directive information prescribing acts
+- `cco:PlannedAct` (aka IntentionalAct) → Processes performed by agents
+- `cco:prescribes` (ont00001942) → Plan-to-process relation
 
 ### 3. Schema.org Alignment (Web/SEO)
 
@@ -206,11 +206,11 @@ v3/
 **Pattern:**
 ```turtle
 # DON'T: Mix upper ontologies
-actions:ActionPlan rdfs:subClassOf cco:Plan, schema:Action .  # ❌
+actions:ActionPlan rdfs:subClassOf cco:ont00000965, schema:Action .  # ❌
 
 # DO: SKOS cross-ontology mapping
-actions:ActionPlan rdfs:subClassOf cco:Plan .          # ✅
-actions:ActionPlan skos:closeMatch schema:Action .     # ✅
+actions:ActionPlan rdfs:subClassOf cco:ont00000965 .   # ✅ DirectiveICE
+actions:ActionPlan skos:closeMatch schema:Action .     # ✅ Web alignment
 ```
 
 ### Decision 3: OWL/XML Format ✅

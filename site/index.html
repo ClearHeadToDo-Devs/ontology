@@ -3,254 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clearhead Actions Vocabulary</title>
+    <title>Actions Vocabulary - Modular Productivity Ontology</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            line-height: 1.6;
-            color: #333;
-        }
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 3rem 2rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        .hero h1 {
-            margin: 0 0 1rem 0;
-            font-size: 2.5rem;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin: 0;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        .card {
-            background: white;
-            border: 1px solid #e1e5e9;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .card h3 {
-            margin-top: 0;
-            color: #2c3e50;
-        }
-        .endpoints {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 6px;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.9rem;
-        }
-        .endpoint {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #dee2e6;
-        }
-        .endpoint:last-child {
-            border-bottom: none;
-        }
-        .method {
-            color: #28a745;
-            font-weight: bold;
-        }
-        .format {
-            color: #6c757d;
-            font-size: 0.8rem;
-        }
-        .badge {
-            display: inline-block;
-            background: #007bff;
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-right: 0.5rem;
-        }
-        .version {
-            background: #28a745;
-        }
-        .status {
-            background: #ffc107;
-            color: #000;
-        }
-        pre {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 6px;
-            overflow-x: auto;
-            border-left: 4px solid #007bff;
-        }
-        .toc {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 6px;
-            margin: 1rem 0;
-        }
-        .toc ul {
-            margin: 0;
-            padding-left: 1.5rem;
-        }
+        body { font-family: system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 2rem; line-height: 1.6; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem; }
+        .module { background: #f8f9fa; padding: 1.5rem; margin: 1rem 0; border-radius: 4px; border-left: 4px solid #3498db; }
+        .module h3 { margin-top: 0; }
+        code { background: #e9ecef; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+        a { color: #3498db; text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <h1>Actions Vocabulary</h1>
-        <p>W3C-compliant RDF/OWL vocabulary and SHACL constraints for hierarchical task management</p>
-        <div style="margin-top: 1rem;">
-            <span class="badge version">v1.0</span>
-            <span class="badge status">Stable</span>
-        </div>
+    <h1>Actions Vocabulary v3</h1>
+    <p>A modular, BFO/CCO-aligned ontology for personal and organizational productivity.</p>
+
+    <h2>Modules</h2>
+
+    <div class="module">
+        <h3>Core Vocabulary</h3>
+        <p>Foundation classes: ActionPlan, ActionProcess, hierarchical structure, and states.</p>
+        <p><a href="actions/v3/core/">📄 Browse</a> | <code>https://vocab.clearhead.io/actions/v3/core</code></p>
     </div>
 
-    <div class="toc">
-        <h3>Quick Navigation</h3>
-        <ul>
-            <li><a href="#machine-readable">Machine-Readable Formats</a></li>
-            <li><a href="#human-docs">Human Documentation</a></li>
-            <li><a href="#examples">Examples & Integration</a></li>
-            <li><a href="#tools">Developer Tools</a></li>
-        </ul>
+    <div class="module">
+        <h3>Context Extension</h3>
+        <p>GTD-style contexts as typed entities (Location, Tool, Energy, Social).</p>
+        <p><a href="actions/v3/context/">📄 Browse</a> | <code>https://vocab.clearhead.io/actions/v3/context</code></p>
     </div>
 
-    <div class="grid">
-        <div class="card" id="machine-readable">
-            <h3>🤖 Machine-Readable Formats</h3>
-            <p>Access the vocabulary in various formats for semantic processing and validation.</p>
-            <div class="endpoints">
-                <div class="endpoint">
-                    <span><span class="method">GET</span> /actions/vocabulary.ttl</span>
-                    <span class="format">RDF Turtle</span>
-                </div>
-                <div class="endpoint">
-                    <span><span class="method">GET</span> /actions/shapes.ttl</span>
-                    <span class="format">SHACL Constraints</span>
-                </div>
-                <div class="endpoint">
-                    <span><span class="method">GET</span> /actions/schemas/actions-combined.schema.json</span>
-                    <span class="format">JSON Schema</span>
-                </div>
-                <div class="endpoint">
-                    <span><span class="method">GET</span> /.well-known/vocab-catalog.json</span>
-                    <span class="format">DCAT Catalog</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="card" id="human-docs">
-            <h3>📖 Human Documentation</h3>
-            <p>Comprehensive guides and reference materials for developers and implementors.</p>
-            <ul>
-                <li><a href="ontology.html">📋 Ontology Reference</a> - Class and property definitions</li>
-                <li><a href="schemas.html">🔧 JSON Schema Guide</a> - API integration patterns</li>
-                <li><a href="examples.html">💡 Examples</a> - Valid data structures and use cases</li>
-                <li><a href="integration.html">🔗 Integration Guide</a> - Implementation patterns</li>
-            </ul>
-        </div>
-
-        <div class="card" id="examples">
-            <h3>💡 Examples & Integration</h3>
-            <p>Ready-to-use examples and integration patterns for common scenarios.</p>
-            <h4>Quick Start - Valid Action:</h4>
-            <pre><code>{
-  "uuid": "01936194-d5b0-7890-8000-123456789abc",
-  "name": "Review quarterly reports",
-  "priority": 2,
-  "state": "active",
-  "context": "@office",
-  "durationMinutes": 90
-}</code></pre>
-            <p><a href="examples/">→ Browse all examples</a></p>
-        </div>
-
-        <div class="card" id="tools">
-            <h3>🛠️ Developer Tools</h3>
-            <p>Validation tools and utilities for working with the vocabulary.</p>
-            <ul>
-                <li><strong>Schema Validator</strong> - Test your JSON data against schemas</li>
-                <li><strong>RDF Playground</strong> - Explore ontology relationships</li>
-                <li><strong>Code Generators</strong> - Generate types for your language</li>
-            </ul>
-            <p><em>Coming soon: Interactive validation tools and code generators</em></p>
-        </div>
+    <div class="module">
+        <h3>Workflow Extension</h3>
+        <p>Dependencies, blocking relationships, and workflow patterns.</p>
+        <p><a href="actions/v3/workflow/">📄 Browse</a> | <code>https://vocab.clearhead.io/actions/v3/workflow</code></p>
     </div>
 
-    <div class="card">
-        <h3>🏗️ Architecture</h3>
-        <p>This vocabulary implements a <strong>"small waist" architecture</strong> where the OWL ontology and SHACL shapes serve as the single source of semantic truth:</p>
-        
-        <div style="text-align: center; margin: 2rem 0;">
-            <pre style="text-align: left; display: inline-block;">
-┌─────────────────────────┐    ┌─────────────────────────┐
-│ OWL Ontology            │    │ SHACL Shapes            │
-│ (What CAN exist)        │    │ (What MUST exist)       │
-└─────────┬───────────────┘    └─────────┬───────────────┘
-          │                              │
-          └─────────────┬──────────────────┘
-                        │
-            ┌───────────▼────────────┐
-            │ JSON Schema Generator  │
-            └───────────┬────────────┘
-                        │
-     ┌──────────────────┼──────────────────┐
-     │                  │                  │
-┌────▼────┐   ┌────────▼────────┐   ┌─────▼─────┐
-│ Web APIs│   │ Database Schema │   │ UI Forms  │
-│ OpenAPI │   │ SQL DDL         │   │ Validation│
-└─────────┘   └─────────────────┘   └───────────┘
-            </pre>
-        </div>
-        
-        <h4>Key Features:</h4>
-        <ul>
-            <li><strong>Schema.org Compatibility</strong> - Extends standard Action class</li>
-            <li><strong>Hierarchical Structure</strong> - 6-level depth organization (Root → Child → Leaf)</li>
-            <li><strong>GTD Integration</strong> - Context tags and project organization</li>
-            <li><strong>Temporal Model</strong> - Do-date scheduling + due-date deadlines</li>
-            <li><strong>iCalendar Recurrence</strong> - RRULE pattern compatibility</li>
-            <li><strong>State Management</strong> - Extended beyond simple completion tracking</li>
-        </ul>
+    <div class="module">
+        <h3>Roles Extension</h3>
+        <p>Agent assignment, delegation, and GTD Areas of Focus using CCO infrastructure.</p>
+        <p><a href="actions/v3/roles/">📄 Browse</a> | <code>https://vocab.clearhead.io/actions/v3/roles</code></p>
     </div>
 
-    <div class="card">
-        <h3>🔗 Content Negotiation</h3>
-        <p>The same URLs serve different formats based on your Accept headers:</p>
-        <div class="endpoints">
-            <div class="endpoint">
-                <span>Accept: text/turtle</span>
-                <span class="format">→ actions/vocabulary.ttl</span>
-            </div>
-            <div class="endpoint">
-                <span>Accept: application/json</span>
-                <span class="format">→ actions/schemas/actions-combined.schema.json</span>
-            </div>
-            <div class="endpoint">
-                <span>Accept: text/html</span>
-                <span class="format">→ Human-readable documentation</span>
-            </div>
-        </div>
-    </div>
+    <h2>Quick Start</h2>
+    <pre><code># Import core + extensions in your ontology
+&lt;owl:imports rdf:resource="https://vocab.clearhead.io/actions/v3/core"/&gt;
+&lt;owl:imports rdf:resource="https://vocab.clearhead.io/actions/v3/context"/&gt;
+&lt;owl:imports rdf:resource="https://vocab.clearhead.io/actions/v3/workflow"/&gt;
+&lt;owl:imports rdf:resource="https://vocab.clearhead.io/actions/v3/roles"/&gt;</code></pre>
 
-    <footer style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e1e5e9; text-align: center; color: #6c757d;">
-        <p>
-            <strong>Clearhead Actions Vocabulary</strong> | 
-            <a href="https://github.com/yourorg/platform/tree/main/ontology">Source Code</a> | 
-            <a href="mailto:vocab@clearhead.io">Contact</a>
-        </p>
-        <p>Licensed under MIT | Built with W3C standards</p>
-    </footer>
+    <h2>Documentation</h2>
+    <ul>
+        <li><a href="https://github.com/yourusername/ontology">GitHub Repository</a></li>
+        <li><a href="https://github.com/yourusername/ontology/blob/main/PHASE2_DESIGN.md">Phase 2 Design Document</a></li>
+        <li><a href="https://github.com/yourusername/ontology/blob/main/BFO_CCO_ALIGNMENT.md">BFO/CCO Alignment Guide</a></li>
+    </ul>
+
+    <hr style="margin: 3rem 0;">
+    <p style="color: #6c757d;">Version 3.1.0 | <a href="https://vocab.clearhead.io">vocab.clearhead.io</a></p>
 </body>
 </html>

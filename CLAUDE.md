@@ -205,11 +205,12 @@ This ontology serves as the **minimal stable interface** between different imple
 
 ### 🚫 Avoid These Mistakes
 
-1. **Mixing upper ontologies** - Don't use both `rdfs:subClassOf cco:Plan` and `rdfs:subClassOf schema:Action`
+1. **Mixing upper ontologies** - Don't use both `rdfs:subClassOf cco:ont00000965` and `rdfs:subClassOf schema:Action`
 2. **State on plans** - Plans don't have state, processes do
 3. **Forgetting reasoner validation** - Always run HermiT after OWL changes
 4. **Unclear property names** - Use `hasDoDate`, not just `date`
 5. **Missing namespace declarations** - Always declare prefixes
+6. **Using non-existent CCO classes** - CCO doesn't have a `Plan` class; use `DirectiveInformationContentEntity` (ont00000965)
 
 ### ✅ Follow These Patterns
 

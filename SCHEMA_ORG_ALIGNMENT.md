@@ -17,12 +17,12 @@ We want to leverage both: BFO for semantic rigor, Schema.org for web/SEO benefit
 
 ```turtle
 @prefix actions: <https://vocab.example.org/actions/v3#> .
-@prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
 @prefix schema: <http://schema.org/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 # BFO/CCO hierarchy (formal inheritance)
-actions:ActionPlan rdfs:subClassOf cco:Plan .
+actions:ActionPlan rdfs:subClassOf cco:ont00000965 .  # DirectiveInformationContentEntity
 actions:ActionPlan rdfs:subClassOf bfo:InformationContentEntity .  # via CCO
 
 # Schema.org mapping (cross-vocabulary alignment)

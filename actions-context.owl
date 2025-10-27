@@ -1,0 +1,458 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://vocab.clearhead.io/actions/context#"
+     xml:base="https://vocab.clearhead.io/actions/context"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:bfo="http://purl.obolibrary.org/obo/BFO_"
+     xmlns:cco="https://www.commoncoreontologies.org/"
+     xmlns:actions="https://vocab.clearhead.io/actions/v3#"
+     xmlns:schema="http://schema.org/"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:dc="http://purl.org/dc/terms/">
+
+    <owl:Ontology rdf:about="https://vocab.clearhead.io/actions/context">
+        <owl:versionIRI rdf:resource="https://vocab.clearhead.io/actions/context/3.1.0"/>
+        <owl:imports rdf:resource="https://vocab.clearhead.io/actions/v3"/>
+        <!-- NOTE: Uncomment for Protégé with full CCO imports -->
+        <!-- <owl:imports rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/ArtifactOntology"/> -->
+        <!-- <owl:imports rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/FacilityOntology"/> -->
+        <!-- <owl:imports rdf:resource="http://www.ontologyrepository.com/CommonCoreOntologies/Mid/AgentOntology"/> -->
+
+        <dc:creator>Claude (AI Assistant) in collaboration with Darrion Burgess</dc:creator>
+        <dc:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2025-10-26</dc:created>
+        <dc:title>Actions Vocabulary - Context Extension</dc:title>
+        <rdfs:label>Actions Context Extension v3.1</rdfs:label>
+        <rdfs:comment>Extension to Actions Vocabulary v3 that formalizes GTD-style contexts as first-class BFO entities rather than string literals. Contexts are directive information content entities that prescribe environmental, resource, or situational requirements for action execution.</rdfs:comment>
+        <owl:versionInfo>3.1.0</owl:versionInfo>
+        <rdfs:seeAlso rdf:resource="https://vocab.clearhead.io/docs/PHASE2_DESIGN.md#extension-1-context-formalization"/>
+    </owl:Ontology>
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // DESIGN RATIONALE
+    //
+    // Why Contexts as DirectiveInformationContentEntity?
+    //
+    // 1. BFO ALIGNMENT:
+    //    - Contexts are information (generically dependent continuants)
+    //    - They persist through time and can be reused
+    //    - They prescribe requirements (what resources/conditions are needed)
+    //
+    // 2. CCO PATTERN:
+    //    - DirectiveICE is CCO's pattern for prescriptive information
+    //    - Already used for ActionPlan - contexts are similar (prescribe requirements)
+    //    - Enables use of cco:prescribes relation pattern
+    //
+    // 3. PRACTICAL VALUE:
+    //    - Enables semantic queries: "Show actions requiring Office facilities"
+    //    - Links to actual CCO entities (Facilities, Artifacts, Agents)
+    //    - Supports reasoning about resource availability and conflicts
+    //
+    // 4. ALTERNATIVES CONSIDERED:
+    //    - Contexts as Qualities: Rejected - don't inhere in actions
+    //    - Contexts as Processes: Rejected - don't unfold over time
+    //    - Keep as strings: Rejected - no semantic reasoning possible
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+    -->
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Core Context Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+    -->
+
+    <!-- https://vocab.clearhead.io/actions/context#ActionContext -->
+
+    <owl:Class rdf:about="https://vocab.clearhead.io/actions/context#ActionContext">
+        <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
+        <rdfs:label xml:lang="en">Action Context</rdfs:label>
+        <skos:definition xml:lang="en">A directive information content entity that prescribes environmental, resource, or situational requirements for performing an action.</skos:definition>
+        <rdfs:comment xml:lang="en">DESIGN NOTE: Contexts are continuants (information entities) that persist and can be reused across multiple action plans. They prescribe what resources or conditions are needed for execution.
+
+BFO CATEGORY: Generically dependent continuant (via DirectiveICE)
+- Contexts exist as information
+- Can have multiple bearers (reused across actions)
+- Prescribe requirements (not the resources themselves)
+
+GTD PATTERN: Replaces string-based @context tags with typed entities
+- v2: "@office" (string literal)
+- v3.1: LocationContext → Office (cco:Facility)
+
+REASONING ENABLED:
+- Query all actions doable at current location
+- Check resource availability before scheduling
+- Detect conflicts (two actions needing same non-shareable resource)</rdfs:comment>
+    </owl:Class>
+
+
+
+    <!-- https://vocab.clearhead.io/actions/context#LocationContext -->
+
+    <owl:Class rdf:about="https://vocab.clearhead.io/actions/context#LocationContext">
+        <rdfs:subClassOf rdf:resource="https://vocab.clearhead.io/actions/context#ActionContext"/>
+        <rdfs:label xml:lang="en">Location Context</rdfs:label>
+        <skos:definition xml:lang="en">A context specifying that an action requires being performed at a particular type of facility or geospatial location.</skos:definition>
+        <rdfs:comment xml:lang="en">DESIGN NOTE: Links to CCO Facility hierarchy (47+ facility types).
+
+EXAMPLES:
+- Office building (cco:Office)
+- Home (cco:Residence)
+- Retail store (cco:Retail Facility)
+- Specific geospatial region (cco:GeospatialRegion)
+
+GTD USE CASE: @office, @home, @errands contexts
+- Instead of strings, reference actual facility types
+- Enables: "Show me all actions I can do here" (geolocation-aware)</rdfs:comment>
+        <skos:example>:shopping_location_ctx a :LocationContext ; :requiresFacility cco:RetailFacility .</skos:example>
+    </owl:Class>
+
+
+
+    <!-- https://vocab.clearhead.io/actions/context#ToolContext -->
+
+    <owl:Class rdf:about="https://vocab.clearhead.io/actions/context#ToolContext">
+        <rdfs:subClassOf rdf:resource="https://vocab.clearhead.io/actions/context#ActionContext"/>
+        <rdfs:label xml:lang="en">Tool Context</rdfs:label>
+        <skos:definition xml:lang="en">A context specifying that an action requires the use of particular artifacts or tools.</skos:definition>
+        <rdfs:comment xml:lang="en">DESIGN NOTE: Links to CCO Artifact hierarchy (200+ artifact types).
+
+EXAMPLES:
+- Computer (cco:Computer)
+- Telephone (cco:Telephone)
+- Vehicle (cco:Vehicle)
+- Specific software (extend CCO Software)
+
+GTD USE CASE: @computer, @phone, @online contexts
+- Reference actual artifact types
+- Enables: "Can I do this now?" (check tool availability)
+- Supports: Resource conflict detection</rdfs:comment>
+        <skos:example>:computer_tool_ctx a :ToolContext ; :requiresArtifact cco:Computer .</skos:example>
+    </owl:Class>
+
+
+
+    <!-- https://vocab.clearhead.io/actions/context#EnergyContext -->
+
+    <owl:Class rdf:about="https://vocab.clearhead.io/actions/context#EnergyContext">
+        <rdfs:subClassOf rdf:resource="https://vocab.clearhead.io/actions/context#ActionContext"/>
+        <rdfs:label xml:lang="en">Energy Context</rdfs:label>
+        <skos:definition xml:lang="en">A context specifying the cognitive or physical energy level required to perform an action.</skos:definition>
+        <rdfs:comment xml:lang="en">DESIGN NOTE: Based on GTD principle that energy is a limiting resource alongside time and tools.
+
+LEVELS: high, medium, low
+- High: Complex problem-solving, creative work, difficult conversations
+- Medium: Routine work, email processing, meetings
+- Low: Filing, simple data entry, reading
+
+GTD USE CASE: Do low-energy tasks when tired
+- Filter actions by current energy state
+- Optimize scheduling based on daily energy patterns
+- Avoid overcommitting high-energy tasks
+
+FUTURE EXTENSION: Could link to cco:Agent Capability for capacity modeling</rdfs:comment>
+        <skos:example>:low_energy_ctx a :EnergyContext ; :hasEnergyLevel "low" .</skos:example>
+    </owl:Class>
+
+
+
+    <!-- https://vocab.clearhead.io/actions/context#SocialContext -->
+
+    <owl:Class rdf:about="https://vocab.clearhead.io/actions/context#SocialContext">
+        <rdfs:subClassOf rdf:resource="https://vocab.clearhead.io/actions/context#ActionContext"/>
+        <rdfs:label xml:lang="en">Social Context</rdfs:label>
+        <skos:definition xml:lang="en">A context specifying that an action requires the presence or participation of particular agents.</skos:definition>
+        <rdfs:comment xml:lang="en">DESIGN NOTE: Links to CCO Agent (Person, Organization, Group).
+
+EXAMPLES:
+- Meeting requiring specific people
+- Collaboration needing team members
+- Task requiring manager approval
+
+GTD USE CASE: @agenda contexts (discuss with specific person)
+- "Topics to discuss with John when I see him"
+- Enables: Schedule meeting when all required agents available
+
+AGILE USE CASE: Sprint planning, standups, retrospectives
+- Specify required participants
+- Detect scheduling conflicts</rdfs:comment>
+        <skos:example>:team_meeting_ctx a :SocialContext ; :requiresAgent :john, :sarah .</skos:example>
+    </owl:Class>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties - Linking Contexts to Resources
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+    -->
+
+    <!-- https://vocab.clearhead.io/actions/context#requiresContext -->
+
+    <owl:ObjectProperty rdf:about="https://vocab.clearhead.io/actions/context#requiresContext">
+        <rdfs:domain rdf:resource="https://vocab.clearhead.io/actions/v3#ActionPlan"/>
+        <rdfs:range rdf:resource="https://vocab.clearhead.io/actions/context#ActionContext"/>
+        <rdfs:label xml:lang="en">requires context</rdfs:label>
+        <skos:definition xml:lang="en">Links an action plan to the contexts required for its execution.</skos:definition>
+        <rdfs:comment xml:lang="en">DESIGN NOTE: Replaces v2's string-based actions:hasContext property.
+
+CARDINALITY: Multiple contexts can be specified
+- Action may require BOTH @office AND @computer
+- Represents AND relationship (all must be satisfied)
+
+MIGRATION:
+- v2: :plan1 actions:hasContext "@office", "@computer"
+- v3.1: :plan1 :requiresContext :office_ctx, :computer_ctx
+
+REASONING:
+- Can query "all actions with context type X"
+- Can check "do I have all required contexts available?"</rdfs:comment>
+    </owl:ObjectProperty>
+
+
+
+    <!-- https://vocab.clearhead.io/actions/context#requiresFacility -->
+
+    <owl:ObjectProperty rdf:about="https://vocab.clearhead.io/actions/context#requiresFacility">
+        <rdfs:domain rdf:resource="https://vocab.clearhead.io/actions/context#LocationContext"/>
+        <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000192"/>
+        <rdfs:label xml:lang="en">requires facility</rdfs:label>
+        <skos:definition xml:lang="en">Specifies the type of facility needed for action execution.</skos:definition>
+        <rdfs:comment xml:lang="en">DESIGN NOTE: Links to cco:Facility (ont00000192).
+
+CCO FACILITY TYPES (47+ available):
+- cco:Office
+- cco:Residence
+- cco:Retail Facility
+- cco:Healthcare Facility
+- cco:Educational Facility
+- cco:Factory
+- etc.
+
+REASONING ENABLED:
+- Agent location: "I'm at home, show me @home actions"
+- Facility types: "Show all shopping tasks" (Retail Facility)
+- Geospatial: "Actions within 5km" (if facility has coordinates)
+
+INSTANCE VS TYPE:
+- Can specify facility TYPE (any Office)
+- Or specific INSTANCE (Building 42, Room 101)</rdfs:comment>
+        <skos:example>:office_ctx :requiresFacility cco:Office .</skos:example>
+    </owl:ObjectProperty>
+
+
+
+    <!-- https://vocab.clearhead.io/actions/context#requiresArtifact -->
+
+    <owl:ObjectProperty rdf:about="https://vocab.clearhead.io/actions/context#requiresArtifact">
+        <rdfs:domain rdf:resource="https://vocab.clearhead.io/actions/context#ToolContext"/>
+        <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000001"/>
+        <rdfs:label xml:lang="en">requires artifact</rdfs:label>
+        <skos:definition xml:lang="en">Specifies artifacts or tools needed for action execution.</skos:definition>
+        <rdfs:comment xml:lang="en">DESIGN NOTE: Links to cco:Artifact (ont00000001).
+
+CCO ARTIFACT TYPES (200+ available):
+- cco:Computer
+- cco:Telephone
+- cco:Vehicle
+- cco:Software
+- cco:Tool
+- etc.
+
+REASONING ENABLED:
+- Availability: "Do I have this tool?"
+- Conflicts: "Two actions need my car at same time"
+- Substitution: "Can I use tablet instead of computer?" (subclass reasoning)
+
+INSTANCE VS TYPE:
+- Can specify artifact TYPE (any Computer)
+- Or specific INSTANCE (my MacBook Pro)</rdfs:comment>
+        <skos:example>:computer_ctx :requiresArtifact cco:Computer .</skos:example>
+    </owl:ObjectProperty>
+
+
+
+    <!-- https://vocab.clearhead.io/actions/context#requiresAgent -->
+
+    <owl:ObjectProperty rdf:about="https://vocab.clearhead.io/actions/context#requiresAgent">
+        <rdfs:domain rdf:resource="https://vocab.clearhead.io/actions/context#SocialContext"/>
+        <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000374"/>
+        <rdfs:label xml:lang="en">requires agent</rdfs:label>
+        <skos:definition xml:lang="en">Specifies other agents whose presence or participation is needed.</skos:definition>
+        <rdfs:comment xml:lang="en">DESIGN NOTE: Links to cco:Agent (ont00000374).
+
+CCO AGENT TYPES:
+- cco:Person (individuals)
+- cco:Organization (companies, departments)
+- cco:Group of Agents (teams)
+
+USE CASES:
+- Meetings: Require specific people present
+- Approvals: Need manager's participation
+- Collaboration: Team members needed
+- GTD @agenda: Topics to discuss with specific person
+
+CARDINALITY: Multiple agents can be required
+- Meeting may need: manager AND two team members
+
+REASONING ENABLED:
+- Schedule when all agents available
+- Find all actions requiring specific person
+- Detect scheduling conflicts</rdfs:comment>
+        <skos:example>:meeting_ctx :requiresAgent :john, :sarah, :manager .</skos:example>
+    </owl:ObjectProperty>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatype Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+    -->
+
+    <!-- https://vocab.clearhead.io/actions/context#hasEnergyLevel -->
+
+    <owl:DatatypeProperty rdf:about="https://vocab.clearhead.io/actions/context#hasEnergyLevel">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://vocab.clearhead.io/actions/context#EnergyContext"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:oneOf>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                        <rdf:first>high</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                <rdf:first>medium</rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                        <rdf:first>low</rdf:first>
+                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </owl:oneOf>
+            </rdfs:Datatype>
+        </rdfs:range>
+        <rdfs:label xml:lang="en">has energy level</rdfs:label>
+        <skos:definition xml:lang="en">Specifies the energy level required for an action.</skos:definition>
+        <rdfs:comment xml:lang="en">DESIGN NOTE: Enumerated values ensure consistency.
+
+VALUES:
+- "high": Complex cognitive work, difficult tasks, creative problem-solving
+- "medium": Routine work, standard meetings, email processing
+- "low": Simple tasks, filing, reading, low-focus activities
+
+FUNCTIONAL PROPERTY: Each context has exactly one energy level
+
+GTD WORKFLOW:
+1. Tag actions with energy requirement when planning
+2. During execution: "I'm tired, show me low-energy tasks"
+3. Over time: Learn your energy patterns (morning = high, afternoon = low)
+
+FUTURE: Could link to circadian rhythm data, calendar energy tracking</rdfs:comment>
+    </owl:DatatypeProperty>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Example Instances
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+    -->
+
+    <!-- Common Location Contexts -->
+
+    <owl:NamedIndividual rdf:about="https://vocab.clearhead.io/actions/context#HomeLocationContext">
+        <rdf:type rdf:resource="https://vocab.clearhead.io/actions/context#LocationContext"/>
+        <rdfs:label xml:lang="en">Home Location Context</rdfs:label>
+        <rdfs:comment>Reusable context for actions requiring being at home</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="https://vocab.clearhead.io/actions/context#OfficeLocationContext">
+        <rdf:type rdf:resource="https://vocab.clearhead.io/actions/context#LocationContext"/>
+        <rdfs:label xml:lang="en">Office Location Context</rdfs:label>
+        <rdfs:comment>Reusable context for actions requiring being at office</rdfs:comment>
+    </owl:NamedIndividual>
+
+
+
+    <!-- Common Tool Contexts -->
+
+    <owl:NamedIndividual rdf:about="https://vocab.clearhead.io/actions/context#ComputerToolContext">
+        <rdf:type rdf:resource="https://vocab.clearhead.io/actions/context#ToolContext"/>
+        <rdfs:label xml:lang="en">Computer Tool Context</rdfs:label>
+        <rdfs:comment>Reusable context for actions requiring computer access</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="https://vocab.clearhead.io/actions/context#PhoneToolContext">
+        <rdf:type rdf:resource="https://vocab.clearhead.io/actions/context#ToolContext"/>
+        <rdfs:label xml:lang="en">Phone Tool Context</rdfs:label>
+        <rdfs:comment>Reusable context for actions requiring telephone</rdfs:comment>
+    </owl:NamedIndividual>
+
+
+
+    <!-- Common Energy Contexts -->
+
+    <owl:NamedIndividual rdf:about="https://vocab.clearhead.io/actions/context#HighEnergyContext">
+        <rdf:type rdf:resource="https://vocab.clearhead.io/actions/context#EnergyContext"/>
+        <hasEnergyLevel>high</hasEnergyLevel>
+        <rdfs:label xml:lang="en">High Energy Context</rdfs:label>
+        <rdfs:comment>For complex, demanding tasks requiring full cognitive capacity</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="https://vocab.clearhead.io/actions/context#MediumEnergyContext">
+        <rdf:type rdf:resource="https://vocab.clearhead.io/actions/context#EnergyContext"/>
+        <hasEnergyLevel>medium</hasEnergyLevel>
+        <rdfs:label xml:lang="en">Medium Energy Context</rdfs:label>
+        <rdfs:comment>For routine work and standard tasks</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="https://vocab.clearhead.io/actions/context#LowEnergyContext">
+        <rdf:type rdf:resource="https://vocab.clearhead.io/actions/context#EnergyContext"/>
+        <hasEnergyLevel>low</hasEnergyLevel>
+        <rdfs:label xml:lang="en">Low Energy Context</rdfs:label>
+        <rdfs:comment>For simple tasks doable when tired or distracted</rdfs:comment>
+    </owl:NamedIndividual>
+
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Example Usage
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+    -->
+
+    <!-- Example: Task requiring multiple contexts -->
+
+    <owl:NamedIndividual rdf:about="https://vocab.clearhead.io/actions/context#example_write_report_plan">
+        <rdf:type rdf:resource="https://vocab.clearhead.io/actions/v3#RootActionPlan"/>
+        <schema:name>Write quarterly report</schema:name>
+        <schema:description>Compile Q4 metrics and analysis</schema:description>
+        <requiresContext rdf:resource="https://vocab.clearhead.io/actions/context#OfficeLocationContext"/>
+        <requiresContext rdf:resource="https://vocab.clearhead.io/actions/context#ComputerToolContext"/>
+        <requiresContext rdf:resource="https://vocab.clearhead.io/actions/context#HighEnergyContext"/>
+        <rdfs:comment>Demonstrates multiple contexts: needs office, computer, AND high energy</rdfs:comment>
+    </owl:NamedIndividual>
+
+</rdf:RDF>
