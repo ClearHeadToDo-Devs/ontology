@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "description": "An intermediate action plan at hierarchical depths 1-4. Child action plans must have a parent action and may have child or leaf action plans as parts.",
+    "javaPackage": "io.clearhead.actions",
+    "typescriptType": "ChildActionPlan"
+  },
+  "optionalProperties": {
+    "hasContext": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "hasPriority": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "cannotStartUntil": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "assignedToAgent": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "mustCompleteBefore": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "delegatedBy": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "canRunInParallel": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "inRoleContext": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "prescribes": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "preferredAfter": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "dependsOn": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "requiresContext": {
+      "elements": {
+        "type": "string"
+      }
+    }
+  }
+}

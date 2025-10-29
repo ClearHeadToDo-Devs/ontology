@@ -1,0 +1,7 @@
+{
+  "metadata": {
+    "description": "An enumeration of states that an action process can be in. These are BFO qualities that inhere in action processes.",
+    "javaPackage": "io.clearhead.actions",
+    "typescriptType": "ActionState"
+  }
+}

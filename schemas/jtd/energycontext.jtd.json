@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "description": "Based on GTD principle that energy is a limiting resource alongside time and tools. Levels: high, medium, low.",
+    "javaPackage": "io.clearhead.actions",
+    "typescriptType": "EnergyContext"
+  },
+  "optionalProperties": {
+    "hasEnergyLevel": {
+      "elements": {
+        "type": "string"
+      }
+    }
+  }
+}

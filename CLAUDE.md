@@ -185,6 +185,7 @@ This ontology serves as the **minimal stable interface** between different imple
   - Includes: Core + Context + Workflow + Roles (all integrated)
 - **BFO_CCO_ALIGNMENT.md** - Technical BFO/CCO mapping
 - **SCHEMA_ORG_ALIGNMENT.md** - Schema.org integration strategy
+- **SCHEMA_GENERATION_DECISION.md** - JSON Schema vs JTD rationale (⚠️ experimental)
 - **PHASE2_DESIGN.md** - Extension design rationale
 - **PHASE2_IMPLEMENTATION.md** - Extension implementation details
 - **DEPLOYMENT.md** - Vocabulary hosting and deployment guide
@@ -194,8 +195,12 @@ This ontology serves as the **minimal stable interface** between different imple
 ### Shared Files
 - **docs/** - Additional documentation
 - **examples/** - Example data
-- **schemas/** - Generated schemas
+- **schemas/** - Generated schemas (JSON Schema and JTD)
+  - **schemas/*.schema.json** - JSON Schema files (production)
+  - **schemas/jtd/*.jtd.json** - JTD files (⚠️ experimental)
 - **scripts/** - Tooling scripts
+  - **scripts/generate_json_schema.py** - JSON Schema generator
+  - **scripts/generate_jtd.py** - JTD generator (⚠️ experimental)
 
 ### Archived Files
 - **ontology-backup-modular/** - Previous v3.0.0-poc modular structure
@@ -298,10 +303,35 @@ cd v2
 uv run pytest
 ```
 
-### Generate Schemas (Future)
+### Generate Schemas
 ```bash
-# When schema generation is fully implemented for v3.1.0
-uv run invoke generate-schemas
+# Generate JSON Schema (production-ready, for validation)
+uv run python scripts/generate_json_schema.py
+# Output: schemas/*.schema.json
+
+# Generate JTD (⚠️ EXPERIMENTAL, for code generation)
+uv run python scripts/generate_jtd.py
+# Output: schemas/jtd/*.jtd.json
+
+# Note: v3 schema generation works with OWL only (no SHACL shapes yet)
+# Both schemas are generated from the same ontology source
+```
+
+**Schema Generation Strategy:**
+- **JSON Schema** - Use for runtime validation, API documentation, OpenAPI specs
+- **JTD (Experimental)** - Use for code generation (Rust structs, TypeScript types)
+- See [SCHEMA_GENERATION_DECISION.md](./SCHEMA_GENERATION_DECISION.md) for full rationale
+
+**Code Generation from JTD:**
+```bash
+# Rust (for clearhead-cli)
+jtd-codegen schemas/jtd/actionplan.jtd.json \
+  --rust-out ../clearhead-cli/src/models/ \
+  --rust-edition 2021
+
+# TypeScript (for web apps)
+jtd-codegen schemas/jtd/actionplan.jtd.json \
+  --typescript-out src/types/
 ```
 
 ## Decision History & Rationales
@@ -341,5 +371,6 @@ See [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md) for full details.
 - [README.md](./README.md) - User guide
 - [BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md) - Technical mapping
 - [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md) - Web integration
+- [SCHEMA_GENERATION_DECISION.md](./SCHEMA_GENERATION_DECISION.md) - JSON Schema vs JTD (⚠️ experimental)
 - [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md) - Migration guide
 - [v2/ONTOLOGY.md](./v2/ONTOLOGY.md) - v2 semantic documentation

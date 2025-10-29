@@ -1,0 +1,7 @@
+{
+  "metadata": {
+    "description": "BFO: A specifically dependent continuant that inheres in a bearer. Examples: temperature, color, state.",
+    "javaPackage": "io.clearhead.actions",
+    "typescriptType": "BFO_0000019"
+  }
+}

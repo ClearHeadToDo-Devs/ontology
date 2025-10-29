@@ -1,0 +1,7 @@
+{
+  "metadata": {
+    "description": "BFO: An entity that unfolds over time and has temporal parts. Processes, events, and temporal regions are occurrents.",
+    "javaPackage": "io.clearhead.actions",
+    "typescriptType": "BFO_0000003"
+  }
+}

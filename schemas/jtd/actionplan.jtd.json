@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "description": "ActionPlans are BFO continuants (generically dependent continuants) that exist across time and can prescribe multiple action processes. An action plan can be executed multiple times (e.g., recurring actions). Closely aligned with Schema.org Action semantics via SKOS mapping.",
+    "javaPackage": "io.clearhead.actions",
+    "typescriptType": "ActionPlan"
+  },
+  "optionalProperties": {
+    "hasContext": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "hasPriority": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "cannotStartUntil": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "assignedToAgent": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "mustCompleteBefore": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "delegatedBy": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "canRunInParallel": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "inRoleContext": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "prescribes": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "preferredAfter": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "dependsOn": {
+      "elements": {
+        "type": "string"
+      }
+    },
+    "requiresContext": {
+      "elements": {
+        "type": "string"
+      }
+    }
+  }
+}
