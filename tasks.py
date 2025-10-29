@@ -62,6 +62,7 @@ def quick(c):
     c.run("pytest --quick")
 
 
+
 @task
 def generate_schemas(c):
     """Generate JSON schemas from OWL ontology and SHACL shapes."""
@@ -124,6 +125,7 @@ print('✅ Generated JSON-LD format')
 "''')
     except Exception as e:
         print(f"⚠️ Could not generate JSON-LD: {e}")
+
 
 
 @task
@@ -251,3 +253,24 @@ def deploy_check(c):
     else:
         print("\n❌ Deployment not ready - fix issues above")
         sys.exit(1)
+
+
+### Trying out an integration where we make a deployment step for cloudflare pages
+@task
+def deploy(c):
+    """Deploy the vocabulary site to Cloudflare Pages."""
+    print("🚀 Deploying vocabulary site to Cloudflare Pages...")
+    
+    # First, run deployment checks
+    deploy_check(c)
+    
+    # Assuming Cloudflare CLI is installed and configured
+    result = c.run("wrangler pages publish site --project-name actions-vocabulary --branch main", warn=True)
+    
+    if result.ok:
+        print("✅ Deployment successful!")
+    else:
+        print("❌ Deployment failed!")
+        sys.exit(1)
+
+

@@ -1,8 +1,8 @@
 # Actions Vocabulary v3 - BFO/CCO-Aligned Ontology
 
-**Current Version**: 3.0 (Development)
-**Namespace**: `https://vocab.clearhead.io/actions/`
-**Status**: Active development, POC validated
+**Current Version**: 3.1.0 (Production)
+**Namespace**: `https://vocab.clearhead.io/actions/v3#`
+**Status**: Production-ready, consolidated ontology
 
 ## What is This?
 
@@ -17,10 +17,15 @@ This ontology serves as the **"small waist" architecture** - a minimal, semantic
 
 ## Version History
 
-- **v3** (Current) - BFO/CCO-aligned formal ontology at root level
-  - Location: Root directory
-  - Format: OWL/XML (`actions-vocabulary.owl`)
+- **v3.1.0** (Current) - Consolidated BFO/CCO-aligned ontology
+  - Location: Root directory (`actions-vocabulary.owl`)
+  - Format: OWL/XML
+  - Includes: Core classes + Context + Workflow + Role extensions (all in one file)
   - See: [BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md), [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md)
+
+- **v3.0.0-poc** (Archived) - Initial POC with modular extensions
+  - Status: Consolidated into v3.1.0
+  - Backup: `ontology-backup-modular/`
 
 - **v2** (Legacy) - Schema.org-based pragmatic ontology
   - Location: `v2/` directory
@@ -40,6 +45,12 @@ uv sync
 ```bash
 # Run v3 validation tests
 uv run python tests/test_poc.py
+
+# Expected results:
+# ✅ 12 classes + 8 annotated BFO/CCO classes
+# ✅ 20 properties + 2 annotated CCO properties
+# ✅ ~260 RDF triples
+# ✅ Logically consistent
 
 # For v2 legacy tests
 cd v2 && uv run pytest
@@ -83,27 +94,47 @@ cd v2 && uv run pytest
 ## Documentation
 
 ### Core Documentation
+- **[CLAUDE.md](./CLAUDE.md)** - Development guide (AI & human developers)
 - **[BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md)** - Technical mapping to BFO/CCO
 - **[SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md)** - Schema.org integration strategy
-- **[SUMMARY.md](./SUMMARY.md)** - Comprehensive v3 overview
-- **[CLAUDE.md](./CLAUDE.md)** - Development guide (AI & human)
+- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Vocabulary hosting and deployment guide
+
+### Extension Documentation
+- **[PHASE2_DESIGN.md](./PHASE2_DESIGN.md)** - Design rationale for extensions
+- **[PHASE2_IMPLEMENTATION.md](./PHASE2_IMPLEMENTATION.md)** - Implementation details
 
 ### Shared Resources
-- **[docs/](./docs/)** - Shared documentation across versions
+- **[docs/](./docs/)** - Additional documentation
 - **[examples/](./examples/)** - Example data and integration guides
-- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Vocabulary hosting guide
 
 ## Files Structure
 
 ```
 /
-├── actions-vocabulary.owl          # v3 ontology (OWL/XML)
+├── actions-vocabulary.owl          # v3.1.0 consolidated ontology (OWL/XML)
 ├── imports/                        # BFO and CCO imports
-├── tests/                          # v3 validation tests
+│   ├── bfo.owl
+│   ├── cco-event.owl
+│   └── cco-information.owl
+├── tests/                          # Validation tests
 ├── docs/, examples/, schemas/      # Shared resources
 ├── v2/                             # Legacy v2 ontology
-└── migrations/                     # Version migration guides
+├── migrations/                     # Version migration guides
+└── ontology-backup-modular/        # Backup of previous modular structure
 ```
+
+### Consolidated Ontology Contents
+
+The `actions-vocabulary.owl` file includes:
+
+**Core (12 classes, 20 properties):**
+- ActionPlan/Process hierarchy
+- ActionState enumeration
+- Context extension (Location, Tool, Energy, Social)
+- Workflow extension (dependencies, milestones)
+- Role integration (agent assignment, delegation)
+
+**Plus:** Human-readable labels for all BFO/CCO classes (no more cryptic codes like `ont00000965`!)
 
 ## Usage
 
@@ -129,7 +160,7 @@ uv run invoke generate-schemas
 # - See examples/ for integration patterns
 ```
 
-## Why v3?
+## Why v3.1.0?
 
 v2 was a **pragmatic Schema.org-based design** that served production needs well. v3 is a **complete architectural redesign** for:
 
@@ -138,6 +169,12 @@ v2 was a **pragmatic Schema.org-based design** that served production needs well
 3. **CCO Patterns** - Reuse proven mid-level ontology patterns
 4. **Broader Interoperability** - Join 450+ BFO-based ontologies
 5. **Long-term Maintainability** - Clearer semantics, better reasoner support
+
+v3.1.0 **consolidates** the POC and all Phase 2 extensions into a single, production-ready ontology:
+
+- **Simpler deployment** - One file instead of four modular imports
+- **Complete feature set** - Core + Context + Workflow + Roles integrated
+- **Production ready** - Tested, validated, and documented
 
 See [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md) for detailed rationale and migration path.
 

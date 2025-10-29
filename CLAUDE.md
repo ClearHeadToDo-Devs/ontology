@@ -8,17 +8,23 @@ For a large intro please see [the README](./README.md)
 
 ### Repository Structure
 
-This repository now uses **versioned layout** with v3 as the default:
+This repository uses a **consolidated v3.1.0 layout**:
 
 ```
 /
-├── # V3 ONTOLOGY (default at root)
-├── actions-vocabulary.owl          # v3 ontology (OWL/XML)
+├── # V3.1.0 ONTOLOGY (consolidated, production-ready)
+├── actions-vocabulary.owl          # Complete v3.1.0 ontology (OWL/XML)
+│                                   # Includes: Core + Context + Workflow + Roles
 ├── imports/                        # BFO/CCO ontologies
-├── tests/                          # v3 validation tests
+│   ├── bfo.owl
+│   ├── cco-event.owl
+│   └── cco-information.owl
+├── tests/                          # Validation tests
+│   └── test_poc.py
 ├── BFO_CCO_ALIGNMENT.md           # v3 architecture docs
 ├── SCHEMA_ORG_ALIGNMENT.md
-├── SUMMARY.md
+├── PHASE2_DESIGN.md               # Extension design rationale
+├── PHASE2_IMPLEMENTATION.md       # Implementation details
 │
 ├── # SHARED RESOURCES
 ├── docs/, examples/, schemas/      # Shared across versions
@@ -29,8 +35,10 @@ This repository now uses **versioned layout** with v3 as the default:
 ├── v2/                            # Legacy v2 ontology
 │   ├── actions-vocabulary.ttl
 │   ├── actions-shapes.ttl
-│   ├── tests/                     # v2 test suite
-│   └── README.md, CLAUDE.md, etc.
+│   └── tests/                     # v2 test suite
+│
+├── # BACKUPS
+├── ontology-backup-modular/       # Previous modular v3.0.0-poc structure
 │
 └── migrations/                     # Version migration docs
     └── V2_TO_V3_MIGRATION.md
@@ -38,19 +46,25 @@ This repository now uses **versioned layout** with v3 as the default:
 
 ## Version Status
 
-**Current Default: v3** (BFO/CCO-aligned formal ontology)
-- **Location:** Root directory
-- **Status:** Active development, POC validated
+**Current: v3.1.0** (Consolidated BFO/CCO-aligned ontology)
+- **Location:** Root directory (`actions-vocabulary.owl`)
+- **Status:** Production-ready, consolidated
 - **Format:** OWL/XML
 - **Architecture:** BFO 2.0 + CCO compliant formal ontology
-- **Use for:** New development, semantic web integration, research
+- **Contents:** Core + Context extension + Workflow extension + Role integration (all in one file)
+- **Use for:** All new development, semantic web integration, production deployments
+
+**Archived: v3.0.0-poc** (Modular POC with separate extensions)
+- **Location:** `ontology-backup-modular/`
+- **Status:** Superseded by v3.1.0
+- **Note:** Separated into core + 3 extension files (now consolidated)
 
 **Legacy: v2** (Schema.org-based pragmatic ontology)
 - **Location:** `v2/` directory
-- **Status:** Stable, production-ready (archived)
+- **Status:** Stable, archived
 - **Format:** Turtle (TTL)
 - **Architecture:** Pragmatic Schema.org-based design
-- **Use for:** Existing integrations, stable deployments
+- **Use for:** Existing integrations requiring v2
 
 See [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md) for migration guide.
 
@@ -72,13 +86,16 @@ We also use code editors (neovim/VSCode) to edit the ontology by hand for struct
 
 ## Testing
 
-### v3 Tests
+### v3.1.0 Tests
 ```bash
-# Run v3 validation
+# Run v3.1.0 validation (consolidated ontology)
 uv run python tests/test_poc.py
 
-# When full test suite is available
-uv run pytest
+# Expected results:
+# ✅ 12 classes loaded (core + extensions)
+# ✅ 20 properties defined (core + extensions)
+# ✅ Logically consistent (HermiT reasoner)
+# ✅ ~229 RDF triples
 ```
 
 ### v2 Tests (Legacy)
@@ -87,7 +104,7 @@ cd v2
 uv run pytest
 ```
 
-Check `pyproject.toml` (root for v3, `v2/pyproject.toml` for v2) for secondary commands.
+Check `pyproject.toml` for additional commands.
 
 ## v3 Architecture Principles
 
@@ -161,22 +178,31 @@ This ontology serves as the **minimal stable interface** between different imple
 
 ## Key Files
 
-### v3 Files (Current Default at Root)
-- **README.md** - Project overview and v3 introduction
-- **CLAUDE.md** - This file (development guide)
-- **actions-vocabulary.owl** - v3 ontology (OWL/XML format)
+### v3.1.0 Files (Current at Root)
+- **README.md** - Project overview and quick start
+- **CLAUDE.md** - This file (development guide for AI & humans)
+- **actions-vocabulary.owl** - Consolidated v3.1.0 ontology (OWL/XML)
+  - Includes: Core + Context + Workflow + Roles (all integrated)
 - **BFO_CCO_ALIGNMENT.md** - Technical BFO/CCO mapping
 - **SCHEMA_ORG_ALIGNMENT.md** - Schema.org integration strategy
-- **SUMMARY.md** - Comprehensive v3 overview
+- **PHASE2_DESIGN.md** - Extension design rationale
+- **PHASE2_IMPLEMENTATION.md** - Extension implementation details
+- **DEPLOYMENT.md** - Vocabulary hosting and deployment guide
 - **tests/test_poc.py** - Validation script
 - **imports/** - BFO and CCO ontology files
 
 ### Shared Files
-- **docs/** - Shared documentation
+- **docs/** - Additional documentation
 - **examples/** - Example data
 - **schemas/** - Generated schemas
 - **scripts/** - Tooling scripts
-- **DEPLOYMENT.md** - Vocabulary hosting guide
+
+### Archived Files
+- **ontology-backup-modular/** - Previous v3.0.0-poc modular structure
+  - actions-vocabulary.owl (core only)
+  - actions-context.owl
+  - actions-roles.owl
+  - actions-workflow.owl
 
 ### v2 Files (Legacy in v2/ directory)
 - **v2/README.md** - v2 concepts and usage
@@ -188,18 +214,19 @@ This ontology serves as the **minimal stable interface** between different imple
 
 ## Which Version to Work On?
 
-**Work on v3 (root) if:**
-- Adding new architectural features
-- Need BFO compliance
-- Building semantic web integrations
-- Long-term development
-- New projects
+**Work on v3.1.0 (root) for:**
+- All new development (core + extensions consolidated)
+- BFO compliance and semantic web integrations
+- Production deployments
+- New projects and features
+- Bug fixes and improvements
 
-**Work on v2 (v2/ directory) if:**
-- Fixing bugs in existing production systems
+The consolidated v3.1.0 ontology is now the single source of truth.
+
+**Work on v2 (v2/ directory) only if:**
+- Maintaining existing v2 deployments
 - Supporting legacy integrations
-- Need immediate stability
-- Maintaining deployed systems
+- Cannot migrate to v3 yet
 
 ## Common Pitfalls for Future Development
 
@@ -241,35 +268,39 @@ This ontology serves as the **minimal stable interface** between different imple
 
 ## Common Tasks
 
-### Validate v3 Ontology
+### Validate v3.1.0 Ontology
 ```bash
 uv run python tests/test_poc.py
+
+# Expected: 12 classes, 20 properties, ~229 triples
+# All tests should pass (logically consistent)
 ```
 
-### Edit v3 Ontology
+### Edit v3.1.0 Ontology
 ```bash
 # Option 1: Protégé (recommended)
 # - Open actions-vocabulary.owl
 # - Make changes visually
-# - Run HermiT reasoner
+# - Run HermiT reasoner to check consistency
 # - Save
+# - Run: uv run python tests/test_poc.py
 
 # Option 2: Direct OWL/XML editing
-# - Edit actions-vocabulary.owl with understanding of OWL/XML format
-# - Validate with test_poc.py
+# - Edit actions-vocabulary.owl (use your editor)
+# - Validate: uv run python tests/test_poc.py
+# - Check reasoning in Protégé if making structural changes
 ```
 
-### Work on v2 (Legacy)
+### Work on v2 (Legacy - rarely needed)
 ```bash
 cd v2
 # Edit actions-vocabulary.ttl or actions-shapes.ttl
-uv run invoke validate
 uv run pytest
 ```
 
 ### Generate Schemas (Future)
 ```bash
-# When schema generation is implemented for v3
+# When schema generation is fully implemented for v3.1.0
 uv run invoke generate-schemas
 ```
 

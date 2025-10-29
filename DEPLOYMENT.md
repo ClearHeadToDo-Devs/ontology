@@ -2,31 +2,9 @@
 
 This document explains how to deploy the Actions Vocabulary as a hosted semantic vocabulary with proper content negotiation and discovery.
 
-## 🎯 Architecture
+## 🎯 Quick Start
 
-The deployment implements W3C best practices for vocabulary hosting:
-
-```
-https://vocab.clearhead.io/
-├── actions/                          # Vocabulary namespace  
-│   ├── vocabulary.ttl                # OWL ontology (Turtle)
-│   ├── shapes.ttl                    # SHACL constraints
-│   ├── vocabulary.rdf                # RDF/XML format
-│   ├── vocabulary.jsonld             # JSON-LD format
-│   ├── schemas/                      # Generated JSON schemas
-│   │   ├── action.schema.json
-│   │   ├── rootaction.schema.json
-│   │   ├── childaction.schema.json
-│   │   ├── leafaction.schema.json
-│   │   └── actions-combined.schema.json
-│   └── examples/                     # Example data
-├── docs/                            # Human documentation
-├── .well-known/                     # Discovery metadata
-│   └── vocab-catalog.json
-└── index.html                       # Landing page
-```
-
-## 🚀 Quick Start
+The Actions Vocabulary v3 is now consolidated into a single OWL file for easier deployment and use.
 
 ### Build and Test Locally
 
@@ -36,266 +14,279 @@ cd ontology
 # Install dependencies
 uv sync
 
-# Build the complete site
+# Validate the ontology
+uv run python tests/test_poc.py
+
+# Build the complete site (if needed for web hosting)
 uv run invoke build-site
 
 # Serve locally for testing
 uv run invoke serve-local
-
-# Test content negotiation (in another terminal)
-uv run invoke test-content-negotiation
 ```
 
-### Manual Testing
+## 📁 Current Structure
+
+The v3 ontology is now **consolidated** for simplicity:
+
+```
+/
+├── actions-vocabulary.owl          # Complete v3 ontology (core + extensions)
+├── imports/                        # BFO and CCO ontology files
+│   ├── bfo.owl
+│   ├── cco-event.owl
+│   └── cco-information.owl
+├── tests/                          # Validation tests
+├── docs/                          # Human documentation
+├── examples/                       # Example data
+└── v2/                            # Legacy v2 ontology (archived)
+```
+
+### What's Included in actions-vocabulary.owl
+
+The consolidated ontology includes:
+
+**Core Classes:**
+- ActionPlan, ActionProcess
+- RootActionPlan, ChildActionPlan, LeafActionPlan
+- ActionState (NotStarted, InProgress, Completed, Blocked, Cancelled)
+
+**Context Extension:**
+- ActionContext, LocationContext, ToolContext, EnergyContext, SocialContext
+- requiresContext, requiresFacility, requiresArtifact, requiresAgent
+
+**Workflow Extension:**
+- Milestone class
+- dependsOn, cannotStartUntil, mustCompleteBefore, preferredAfter
+- blockedBy, canRunInParallel
+
+**Role Integration:**
+- assignedToAgent, performedBy, delegatedBy, inRoleContext
+- Integration with CCO Agent and Role infrastructure
+
+## 🚀 Hosting Options
+
+### Option 1: GitHub Pages (Recommended for Simple Hosting)
 
 ```bash
-# Test different Accept headers
-curl -H "Accept: text/turtle" http://localhost:8000/actions/
-curl -H "Accept: application/json" http://localhost:8000/actions/
-curl -H "Accept: text/html" http://localhost:8000/actions/
-curl -H "Accept: application/rdf+xml" http://localhost:8000/actions/
-curl -H "Accept: application/ld+json" http://localhost:8000/actions/
+# In your repository
+mkdir -p docs/actions/v3
+cp actions-vocabulary.owl docs/actions/v3/
+
+# Commit and push
+git add docs/
+git commit -m "Add consolidated v3 ontology"
+git push
+
+# Enable GitHub Pages in repository settings
+# Set source to "docs" folder
 ```
 
-## 🤖 Automated Deployment
-
-### GitHub Actions (Recommended)
-
-The repository includes a complete GitHub Actions workflow at `.github/workflows/deploy-vocab.yml` that:
-
-1. **Validates** ontology and SHACL constraints
-2. **Generates** JSON schemas and additional formats  
-3. **Builds** the complete site structure
-4. **Deploys** to GitHub Pages automatically
-
-#### Setup GitHub Pages
-
-1. Enable GitHub Pages in repository settings
-2. Set source to "GitHub Actions"
-3. Push changes to main branch
-4. Site will be available at: `https://yourusername.github.io/yourrepo/`
-
-#### Custom Domain Setup
-
-1. Add CNAME file: `echo "vocab.clearhead.io" > ontology/docs/vocab-site/CNAME`
-2. Configure DNS: `vocab.clearhead.io CNAME yourusername.github.io`
-3. Enable custom domain in GitHub Pages settings
-
-### Manual Deployment
-
-```bash
-# Build site
-cd ontology
-uv run invoke build-site
-
-# Deploy to server (example with rsync)
-rsync -avz --delete site/ user@server:/var/www/vocab.clearhead.io/
+**Access URL:**
+```
+https://[username].github.io/[repo]/actions/v3/actions-vocabulary.owl
 ```
 
-## 🌐 Content Negotiation
+### Option 2: Custom Domain with Content Negotiation
 
-The deployment supports automatic format selection based on HTTP Accept headers:
+For production deployments with w3id.org or custom domains:
 
-| Accept Header | Response | Format |
-|---------------|----------|--------|
-| `text/turtle` | `vocabulary.ttl` | RDF Turtle |
-| `application/rdf+xml` | `vocabulary.rdf` | RDF/XML |
-| `application/ld+json` | `vocabulary.jsonld` | JSON-LD |
-| `application/json` | `actions-combined.schema.json` | JSON Schema |
-| `text/html` | `index.html` | HTML Documentation |
+**URI Strategy:**
+```
+https://vocab.clearhead.io/
+└── actions/
+    └── v3/                           # Version 3.1.0
+        ├── actions-vocabulary.owl     # OWL/XML format (canonical)
+        ├── actions-vocabulary.ttl     # Turtle format
+        ├── actions-vocabulary.rdf     # RDF/XML format
+        └── actions-vocabulary.jsonld  # JSON-LD format
+```
 
-### Implementation Options
-
-#### Apache (.htaccess)
+**Content Negotiation (.htaccess example):**
 ```apache
-# Copy docs/vocab-site/_htaccess to your web root as .htaccess
-cp ontology/docs/vocab-site/_htaccess /var/www/.htaccess
+# Serve appropriate format based on Accept header
+RewriteEngine On
+RewriteBase /actions/v3/
+
+# OWL/XML (default)
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml [NC,OR]
+RewriteCond %{HTTP_ACCEPT} application/xml [NC]
+RewriteRule ^$ actions-vocabulary.owl [L]
+
+# Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle [NC]
+RewriteRule ^$ actions-vocabulary.ttl [L]
+
+# JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json [NC]
+RewriteRule ^$ actions-vocabulary.jsonld [L]
+
+# Default to OWL
+RewriteRule ^$ actions-vocabulary.owl [L]
 ```
 
-#### Nginx
-```nginx
-# Use the provided nginx.conf
-sudo cp ontology/docs/vocab-site/nginx.conf /etc/nginx/sites-available/vocab.clearhead.io
-sudo ln -s /etc/nginx/sites-available/vocab.clearhead.io /etc/nginx/sites-enabled/
-sudo nginx -t && sudo systemctl reload nginx
-```
+### Option 3: w3id.org Permanent Identifier
 
-#### GitHub Pages + Jekyll
-GitHub Pages handles basic content negotiation, but for full semantic web support, consider using a custom solution or Netlify.
+For permanent, community-maintained URIs:
 
-## 📋 Validation & Testing
+1. Fork https://github.com/perma-id/w3id.org
+2. Create `.htaccess` in `/actions/`:
+   ```apache
+   # Redirect to your hosted vocabulary
+   RewriteRule ^v3$ https://vocab.clearhead.io/actions/v3/ [R=302,L]
+   ```
+3. Submit pull request to w3id.org
+4. Once merged, use `https://w3id.org/actions/v3` in your ontologies
 
-### Pre-deployment Checks
+## 🔍 Content Negotiation Testing
+
+Test that your deployment serves the correct format:
 
 ```bash
-# Run full validation pipeline
-uv run invoke full-pipeline
+# Request OWL/XML
+curl -H "Accept: application/rdf+xml" https://vocab.clearhead.io/actions/v3/
 
-# Check deployment readiness
-uv run invoke deploy-check
+# Request Turtle
+curl -H "Accept: text/turtle" https://vocab.clearhead.io/actions/v3/
 
-# Validate site structure
-find site -type f | head -20
+# Request JSON-LD
+curl -H "Accept: application/ld+json" https://vocab.clearhead.io/actions/v3/
 ```
 
-### Post-deployment Testing
+## 📦 Generating Alternative Formats
+
+If you need to generate TTL, RDF/XML, or JSON-LD formats from the OWL file:
 
 ```bash
-VOCAB_URL="https://vocab.clearhead.io"
+# Using rdflib (Python)
+uv run python -c "
+from rdflib import Graph
 
-# Test ontology accessibility
-curl -H "Accept: text/turtle" $VOCAB_URL/actions/ | head -10
+g = Graph()
+g.parse('actions-vocabulary.owl', format='xml')
 
-# Test JSON schema  
-curl -H "Accept: application/json" $VOCAB_URL/actions/ | jq '.title'
+# Generate Turtle
+g.serialize('actions-vocabulary.ttl', format='turtle')
 
-# Test discovery metadata
-curl $VOCAB_URL/.well-known/vocab-catalog.json | jq '.title'
+# Generate RDF/XML
+g.serialize('actions-vocabulary.rdf', format='pretty-xml')
 
-# Test HTML documentation
-curl -H "Accept: text/html" $VOCAB_URL/actions/ | grep -o '<title>.*</title>'
+# Generate JSON-LD
+g.serialize('actions-vocabulary.jsonld', format='json-ld')
+"
 ```
 
-## 🔧 Customization
+## 🔗 Using in Protégé
 
-### Branding & Styling
+For local development with Protégé, use the provided catalog file:
 
-Edit the HTML templates in `docs/vocab-site/`:
-- `index.html` - Main landing page
-- `actions/index.html` - Actions vocabulary page  
-- `docs/integration.html` - Integration guide
-
-### Additional Formats
-
-Add support for more formats by extending `generate_additional_formats()` in `tasks.py`:
-
-```python
-@task
-def generate_additional_formats(c):
-    # Add N-Triples format
-    c.run('''python -c "
-import rdflib
-g = rdflib.Graph()
-g.parse('actions-vocabulary.ttl', format='turtle')
-g.serialize('actions-vocabulary.nt', format='nt')
-"''')
+**File: `catalog-v001.xml`**
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <uri name="https://vocab.clearhead.io/actions/v3" uri="actions-vocabulary.owl"/>
+</catalog>
 ```
 
-### Custom Deployment Targets
+This allows you to:
+- Work offline with the ontology
+- Reference production URIs in your ontology files
+- Protégé automatically resolves to local files
 
-Enable custom deployment in `.github/workflows/deploy-vocab.yml`:
+## 📝 Importing in Other Ontologies
 
-```yaml
-deploy-custom:
-  name: Deploy to Custom Host
-  if: github.ref == 'refs/heads/main' && true  # Change to 'true'
+To use the Actions Vocabulary in your ontology:
+
+```xml
+<owl:Ontology rdf:about="https://example.com/my-ontology">
+  <!-- Import the consolidated vocabulary -->
+  <owl:imports rdf:resource="https://vocab.clearhead.io/actions/v3"/>
+</owl:Ontology>
 ```
 
-Add secrets to your repository:
-- `DEPLOY_HOST` - Your server hostname
-- `DEPLOY_USER` - SSH username  
-- `DEPLOY_KEY` - SSH private key
-- `DEPLOY_PATH` - Target directory path
+The consolidated vocabulary includes all core classes and extensions, so you only need one import.
 
-## 🔍 Monitoring & Maintenance
+## 🔄 Version Management
 
-### Analytics
+### Current Version: 3.1.0
 
-Add web analytics to track vocabulary usage:
+The consolidated ontology includes:
+- v3.0.0 core (POC) → INTEGRATED
+- v3.1.0 extensions (context, workflow, roles) → INTEGRATED
 
-```html
-<!-- Add to HTML templates -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'GA_TRACKING_ID');
-</script>
+### Version URIs
+
+```
+https://vocab.clearhead.io/actions/v3         # Current version (3.1.0)
+https://vocab.clearhead.io/actions/v3/3.1.0   # Specific version
+https://vocab.clearhead.io/actions/latest     # Always redirects to current
 ```
 
-### Access Logs
+**Best Practice:** Use version-specific URIs in production imports for stability.
 
-Monitor access patterns to understand usage:
+## 🧪 Validation
+
+After deployment, validate your vocabulary:
 
 ```bash
-# Analyze Nginx access logs
-grep "GET /actions" /var/log/nginx/access.log | \
-  awk '{print $7 " " $9}' | sort | uniq -c | sort -nr
+# Test loading
+uv run python tests/test_poc.py
 
-# Monitor Accept headers
-grep "GET /actions" /var/log/nginx/access.log | \
-  grep -o 'text/turtle\|application/json\|text/html' | \
-  sort | uniq -c
+# Test reasoning (requires Protégé or owlready2)
+# Open in Protégé → Reasoner → HermiT → Start reasoner
 ```
 
-### Health Checks
+**Expected Results:**
+- ✅ 12 classes loaded
+- ✅ 20 properties defined
+- ✅ Logically consistent (no reasoning errors)
+- ✅ ~229 RDF triples
 
-Set up monitoring for vocabulary availability:
+## 📚 Additional Resources
 
-```bash
-#!/bin/bash
-# health-check.sh
+### W3C Best Practices
+- [Cool URIs for the Semantic Web](https://www.w3.org/TR/cooluris/)
+- [Best Practices for Publishing Linked Data](https://www.w3.org/TR/ld-bp/)
+- [Content Negotiation by Profile](https://www.w3.org/TR/dx-prof-conneg/)
 
-VOCAB_URL="https://vocab.clearhead.io"
-TIMEOUT=10
+### Tools
+- **Protégé**: https://protege.stanford.edu/
+- **RDFLib**: https://rdflib.readthedocs.io/
+- **w3id.org**: https://github.com/perma-id/w3id.org
 
-# Test core endpoints
-endpoints=(
-  "actions/vocabulary.ttl:text/turtle"
-  "actions/schemas/actions-combined.schema.json:application/json"
-  ".well-known/vocab-catalog.json:application/json"
-)
+### Documentation
+- [README.md](./README.md) - User guide and quick start
+- [BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md) - Technical BFO/CCO mapping
+- [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md) - Schema.org integration
+- [CLAUDE.md](./CLAUDE.md) - Development guide
 
-for endpoint in "${endpoints[@]}"; do
-  url="${endpoint%:*}"
-  type="${endpoint#*:}"
-  
-  status=$(curl -s -o /dev/null -w "%{http_code}" \
-    -H "Accept: $type" \
-    --max-time $TIMEOUT \
-    "$VOCAB_URL/$url")
-  
-  if [ "$status" = "200" ]; then
-    echo "✅ $url ($type)"
-  else
-    echo "❌ $url ($type) - Status: $status"
-    exit 1
-  fi
-done
+## 🆘 Troubleshooting
 
-echo "🎉 All vocabulary endpoints healthy"
-```
+### Issue: Ontology won't load in Protégé
 
-## 📚 Resources
+**Solution:** Uncomment the BFO/CCO import statements in `actions-vocabulary.owl` and ensure you have the import files in the `imports/` directory.
 
-- [W3C Best Practices for Publishing Vocabularies](https://www.w3.org/TR/swbp-vocab-pub/)
-- [Content Negotiation Guidelines](https://www.w3.org/DesignIssues/Negotiation.html)
-- [JSON Schema Best Practices](https://json-schema.org/understanding-json-schema/)
-- [SHACL Specification](https://www.w3.org/TR/shacl/)
+### Issue: Content negotiation not working
 
-## ❓ Troubleshooting
+**Solution:** Check that:
+1. `.htaccess` file is in the correct directory
+2. `mod_rewrite` is enabled on your server
+3. Files have correct MIME types
 
-### Common Issues
+### Issue: Imports fail in other ontologies
 
-#### Content Negotiation Not Working
-- Check server configuration (Apache/Nginx)
-- Verify MIME types are set correctly
-- Test with explicit Accept headers
+**Solution:** Ensure:
+1. The vocabulary is hosted at the exact URI used in the import statement
+2. Content negotiation returns OWL/XML by default
+3. The server supports CORS if loading from JavaScript
 
-#### Schemas Not Loading
-- Ensure CORS headers are configured
-- Check schema URLs are accessible
-- Validate JSON schema syntax
+## 📧 Support
 
-#### GitHub Pages Deployment Fails
-- Verify GitHub Pages is enabled
-- Check workflow permissions
-- Review build logs for errors
+For issues or questions:
+- Open an issue on GitHub
+- Consult [CLAUDE.md](./CLAUDE.md) for development guidance
+- Review [BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md) for semantic questions
 
-#### SSL Certificate Issues
-- Use Let's Encrypt for free SSL
-- Ensure certificate covers subdomain
-- Check certificate chain completion
+---
 
-For additional support, please open an issue in the repository.
+**Last Updated:** 2025-10-29
+**Ontology Version:** 3.1.0 (consolidated)
