@@ -54,6 +54,7 @@ This repository uses a **consolidated v3.1.0 layout**:
 - **Contents:** Consolidated (Core + Context + Workflow + Roles)
 - **SHACL Shapes:** Comprehensive validation constraints (456 lines)
 - **Test Coverage:** 14 tests, all passing
+- **Production URL:** 🌐 https://clearhead.us/vocab/actions/v3/
 - **Use for:** **ALL NEW DEVELOPMENT**
 
 **What's Complete:**
@@ -61,6 +62,8 @@ This repository uses a **consolidated v3.1.0 layout**:
 - ✅ V3 SHACL Shapes: Comprehensive constraint validation
 - ✅ Test Suite: Full coverage with valid/invalid examples
 - ✅ ActionPlan vs ActionProcess separation (key BFO distinction)
+- ✅ Production Deployment: Live at clearhead.us with content negotiation
+- ✅ Cloudflare Infrastructure: Pages + Worker for semantic web compliance
 
 **What's Next:**
 - 🚧 JTD generation from V3 + SHACL
@@ -190,14 +193,27 @@ This ontology serves as the **minimal stable interface** between different imple
 - **CLAUDE.md** - This file (development guide for AI & humans)
 - **actions-vocabulary.owl** - Consolidated v3.1.0 ontology (OWL/XML)
   - Includes: Core + Context + Workflow + Roles (all integrated)
+- **actions-shapes-v3.ttl** - SHACL validation constraints
 - **BFO_CCO_ALIGNMENT.md** - Technical BFO/CCO mapping
 - **SCHEMA_ORG_ALIGNMENT.md** - Schema.org integration strategy
 - **SCHEMA_GENERATION_DECISION.md** - JSON Schema vs JTD rationale (⚠️ experimental)
 - **PHASE2_DESIGN.md** - Extension design rationale
 - **PHASE2_IMPLEMENTATION.md** - Extension implementation details
-- **DEPLOYMENT.md** - Vocabulary hosting and deployment guide
+- **DEPLOYMENT.md** - Vocabulary hosting and deployment guide (Cloudflare)
 - **tests/test_poc.py** - Validation script
 - **imports/** - BFO and CCO ontology files
+
+### Deployment Files
+- **wrangler.jsonc** - Cloudflare Pages configuration
+- **site/** - Built static site for deployment
+  - **site/_headers** - HTTP headers and CORS configuration
+  - **site/_redirects** - URL redirects and basic content negotiation
+  - **site/vocab/actions/v3/** - All vocabulary formats (OWL, TTL, JSON-LD, RDF)
+- **workers/content-negotiation/** - Cloudflare Worker for semantic web content negotiation
+  - **worker.js** - Content negotiation logic (Accept header routing)
+  - **wrangler.jsonc** - Worker configuration
+  - **README.md** - Worker deployment guide
+- **tasks.py** - Invoke tasks for building, testing, and deployment
 
 ### Shared Files
 - **docs/** - Additional documentation
@@ -310,6 +326,32 @@ cd v2
 uv run pytest
 ```
 
+### Deploy to Production (Cloudflare)
+```bash
+# 1. Build the site with all vocabulary formats
+uv run invoke build-site
+
+# 2. Deploy to Cloudflare Pages
+wrangler pages deploy site --project-name actions-vocabulary --branch main
+
+# 3. Update Worker (if content negotiation logic changed)
+cd workers/content-negotiation
+wrangler deploy
+cd ../..
+
+# Production URLs after deployment:
+# - Main: https://clearhead.us/vocab/actions/v3/
+# - OWL: https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl
+# - TTL: https://clearhead.us/vocab/actions/v3/actions-vocabulary.ttl
+# - JSON-LD: https://clearhead.us/vocab/actions/v3/actions-vocabulary.jsonld
+```
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete deployment guide, including:
+- Custom domain configuration
+- Content negotiation Worker setup
+- Testing content negotiation
+- Troubleshooting
+
 ### Generate JTD Schemas (Code Generation)
 ```bash
 # Generate JTD from V3 ontology + SHACL shapes
@@ -389,9 +431,64 @@ See [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md) for full details.
 
 ### Our Docs
 - [README.md](./README.md) - User guide
+- [DEPLOYMENT.md](./DEPLOYMENT.md) - Production deployment guide (Cloudflare)
 - [BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md) - Technical mapping
 - [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md) - Web integration
 - [SCHEMA_GENERATION_DECISION.md](./SCHEMA_GENERATION_DECISION.md) - JSON Schema vs JTD (⚠️ experimental)
+- [workers/content-negotiation/README.md](./workers/content-negotiation/README.md) - Worker setup
 - [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md) - Migration guide
 - [v2/ONTOLOGY.md](./v2/ONTOLOGY.md) - v2 semantic documentation
+
+## Production Usage
+
+### Accessing the Published Vocabulary
+
+The Actions Vocabulary v3.1.0 is live at **https://clearhead.us/vocab/actions/v3/**
+
+**Import in Protégé:**
+```
+File → Open from URL → https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl
+```
+
+**Import in other ontologies:**
+```xml
+<owl:Ontology rdf:about="https://example.com/my-ontology">
+  <owl:imports rdf:resource="https://clearhead.us/vocab/actions/v3"/>
+</owl:Ontology>
+```
+
+**Content Negotiation:**
+```bash
+# Request Turtle format
+curl -H "Accept: text/turtle" https://clearhead.us/vocab/actions/v3/
+
+# Request JSON-LD format
+curl -H "Accept: application/ld+json" https://clearhead.us/vocab/actions/v3/
+
+# Request OWL/XML (default)
+curl https://clearhead.us/vocab/actions/v3/
+```
+
+**Direct File Access:**
+```bash
+# OWL/XML (canonical)
+curl https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl
+
+# Turtle (human-readable)
+curl https://clearhead.us/vocab/actions/v3/actions-vocabulary.ttl
+
+# JSON-LD (web-friendly)
+curl https://clearhead.us/vocab/actions/v3/actions-vocabulary.jsonld
+
+# SHACL Shapes (validation)
+curl https://clearhead.us/vocab/actions/v3/shapes.ttl
+```
+
+### When to Use Each Format
+
+- **OWL/XML** - Protégé, reasoning tools, formal ontology work
+- **Turtle** - Version control, manual editing, human readability
+- **JSON-LD** - Web applications, JavaScript, REST APIs
+- **RDF/XML** - Legacy RDF tools, compatibility
+- **SHACL** - Data validation, quality constraints
 

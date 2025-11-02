@@ -1,8 +1,9 @@
 # Actions Vocabulary v3 - BFO/CCO-Aligned Ontology
 
 **Current Version**: 3.1.0 (Production)
-**Namespace**: `https://vocab.clearhead.io/actions/v3#`
-**Status**: Production-ready, consolidated ontology
+**Namespace**: `https://clearhead.us/vocab/actions/v3#`
+**Production URL**: 🌐 https://clearhead.us/vocab/actions/v3/
+**Status**: ✅ Live and operational with semantic web content negotiation
 
 ## What is This?
 
@@ -33,7 +34,33 @@ This ontology serves as the **"small waist" architecture** - a minimal, semantic
   - See: [v2/README.md](./v2/README.md), [v2/ONTOLOGY.md](./v2/ONTOLOGY.md)
   - Migration guide: [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md)
 
-## Quick Start
+## Accessing the Published Ontology
+
+The Actions Vocabulary v3.1.0 is publicly available at **https://clearhead.us/vocab/actions/v3/**
+
+### Import in Protégé
+```
+File → Open from URL → https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl
+```
+
+### Import in Your Ontology
+```xml
+<owl:Ontology rdf:about="https://example.com/my-ontology">
+  <owl:imports rdf:resource="https://clearhead.us/vocab/actions/v3"/>
+</owl:Ontology>
+```
+
+### Available Formats
+- **OWL/XML** (canonical): `https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl`
+- **Turtle**: `https://clearhead.us/vocab/actions/v3/actions-vocabulary.ttl`
+- **JSON-LD**: `https://clearhead.us/vocab/actions/v3/actions-vocabulary.jsonld`
+- **SHACL Shapes**: `https://clearhead.us/vocab/actions/v3/shapes.ttl`
+
+**Content Negotiation Supported:** Send an `Accept` header to get your preferred format automatically.
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for deployment details and [CLAUDE.md](./CLAUDE.md) for usage examples.
+
+## Quick Start (Local Development)
 
 ### Prerequisites
 ```bash

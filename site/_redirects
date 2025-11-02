@@ -1,0 +1,28 @@
+# Content negotiation for Actions Vocabulary v3
+# Cloudflare Pages uses format: [from] [to] [status] [condition]
+
+# Root redirects to vocab
+/  /vocab/  302
+
+# Content negotiation for /vocab/actions/v3/
+# Match Accept header and redirect to appropriate format
+/vocab/actions/v3  /vocab/actions/v3/actions-vocabulary.owl  200  Accept: application/rdf+xml
+/vocab/actions/v3  /vocab/actions/v3/actions-vocabulary.owl  200  Accept: application/xml
+/vocab/actions/v3  /vocab/actions/v3/actions-vocabulary.ttl  200  Accept: text/turtle
+/vocab/actions/v3  /vocab/actions/v3/actions-vocabulary.jsonld  200  Accept: application/ld+json
+/vocab/actions/v3  /vocab/actions/v3/actions-vocabulary.jsonld  200  Accept: application/json
+/vocab/actions/v3  /vocab/actions/index.html  200
+
+# Trailing slash variants
+/vocab/actions/v3/  /vocab/actions/v3/actions-vocabulary.owl  200  Accept: application/rdf+xml
+/vocab/actions/v3/  /vocab/actions/v3/actions-vocabulary.owl  200  Accept: application/xml
+/vocab/actions/v3/  /vocab/actions/v3/actions-vocabulary.ttl  200  Accept: text/turtle
+/vocab/actions/v3/  /vocab/actions/v3/actions-vocabulary.jsonld  200  Accept: application/ld+json
+/vocab/actions/v3/  /vocab/actions/v3/actions-vocabulary.jsonld  200  Accept: application/json
+/vocab/actions/v3/  /vocab/actions/index.html  200
+
+# Convenience URLs
+/vocab  /vocab/  301
+/actions  /vocab/actions/  301
+/ontology  /vocab/actions/  301
+

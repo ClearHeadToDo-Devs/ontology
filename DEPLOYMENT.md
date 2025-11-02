@@ -2,6 +2,96 @@
 
 This document explains how to deploy the Actions Vocabulary as a hosted semantic vocabulary with proper content negotiation and discovery.
 
+## 🌐 Production Deployment (Cloudflare)
+
+The Actions Vocabulary v3.1.0 is **live and operational** at **`clearhead.us`**.
+
+✅ **Status:** Production-ready with full semantic web content negotiation
+🌐 **URL:** https://clearhead.us/vocab/actions/v3/
+📅 **Last Updated:** 2025-11-02
+🔒 **SSL:** Automatic HTTPS via Cloudflare
+
+### Current Deployment Status
+
+**Pages Deployment:**
+- **Project:** `actions-vocabulary` (Cloudflare Pages)
+- **URL:** https://actions-vocabulary.pages.dev
+- **Custom Domain:** clearhead.us (configure in Cloudflare dashboard)
+- **Build Command:** `uv run invoke build-site`
+- **Output Directory:** `site/`
+
+**Content Negotiation Worker:**
+- **Worker:** `vocab-content-negotiation`
+- **Worker URL:** https://vocab-content-negotiation.darrionburgess.workers.dev
+- **Route:** `clearhead.us/vocab/actions/v3*` (configure in dashboard)
+- **Function:** Serves different RDF formats based on Accept headers
+
+### Access URLs
+
+**With Content Negotiation (via Worker):**
+```bash
+# Turtle format
+curl -H "Accept: text/turtle" https://clearhead.us/vocab/actions/v3/
+
+# JSON-LD format
+curl -H "Accept: application/ld+json" https://clearhead.us/vocab/actions/v3/
+
+# OWL/XML format (default)
+curl -H "Accept: application/rdf+xml" https://clearhead.us/vocab/actions/v3/
+curl https://clearhead.us/vocab/actions/v3/
+
+# HTML documentation (browser)
+open https://clearhead.us/vocab/actions/v3/
+```
+
+**Direct File Access (always works):**
+- OWL/XML: `https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl`
+- Turtle: `https://clearhead.us/vocab/actions/v3/actions-vocabulary.ttl`
+- JSON-LD: `https://clearhead.us/vocab/actions/v3/actions-vocabulary.jsonld`
+- RDF/XML: `https://clearhead.us/vocab/actions/v3/actions-vocabulary.rdf`
+- SHACL Shapes: `https://clearhead.us/vocab/actions/v3/shapes.ttl`
+
+### Deploying Updates
+
+**1. Update Pages Deployment:**
+```bash
+# Build the site
+uv run invoke build-site
+
+# Deploy to Cloudflare Pages
+wrangler pages deploy site --project-name actions-vocabulary --branch main
+```
+
+**2. Update Content Negotiation Worker (if needed):**
+```bash
+cd workers/content-negotiation
+wrangler deploy
+```
+
+See [workers/content-negotiation/README.md](./workers/content-negotiation/README.md) for Worker setup details.
+
+### Custom Domain Configuration
+
+**To configure `clearhead.us` custom domain:**
+
+1. **Add Custom Domain to Pages Project:**
+   - Go to: Cloudflare Dashboard → Pages → `actions-vocabulary` project
+   - Click **"Custom domains"** tab
+   - Click **"Set up a custom domain"**
+   - Enter: `clearhead.us`
+   - Cloudflare will auto-configure DNS if domain is in your account
+   - Wait for SSL certificate to provision (usually < 1 minute)
+
+2. **Configure Worker Route:**
+   - Go to: Cloudflare Dashboard → Workers & Pages → `vocab-content-negotiation`
+   - Click **"Triggers"** tab → **"Routes"** → **"Add route"**
+   - **Route pattern:** `clearhead.us/vocab/actions/v3*`
+   - **Zone:** clearhead.us
+   - **Worker:** vocab-content-negotiation
+   - Click **"Add route"**
+
+Once configured, content negotiation will work on the custom domain.
+
 ## 🎯 Quick Start
 
 The Actions Vocabulary v3 is now consolidated into a single OWL file for easier deployment and use.
@@ -90,16 +180,20 @@ https://[username].github.io/[repo]/actions/v3/actions-vocabulary.owl
 
 For production deployments with w3id.org or custom domains:
 
-**URI Strategy:**
+**URI Strategy (Production at clearhead.us):**
 ```
-https://vocab.clearhead.io/
-└── actions/
-    └── v3/                           # Version 3.1.0
-        ├── actions-vocabulary.owl     # OWL/XML format (canonical)
-        ├── actions-vocabulary.ttl     # Turtle format
-        ├── actions-vocabulary.rdf     # RDF/XML format
-        └── actions-vocabulary.jsonld  # JSON-LD format
+https://clearhead.us/
+└── vocab/
+    └── actions/
+        └── v3/                           # Version 3.1.0
+            ├── actions-vocabulary.owl     # OWL/XML format (canonical)
+            ├── actions-vocabulary.ttl     # Turtle format
+            ├── actions-vocabulary.rdf     # RDF/XML format
+            ├── actions-vocabulary.jsonld  # JSON-LD format
+            └── shapes.ttl                 # SHACL validation shapes
 ```
+
+**Note:** This is the current production deployment. See "Production Deployment" section above for details.
 
 **Content Negotiation (.htaccess example):**
 ```apache
@@ -132,10 +226,12 @@ For permanent, community-maintained URIs:
 2. Create `.htaccess` in `/actions/`:
    ```apache
    # Redirect to your hosted vocabulary
-   RewriteRule ^v3$ https://vocab.clearhead.io/actions/v3/ [R=302,L]
+   RewriteRule ^v3$ https://clearhead.us/vocab/actions/v3/ [R=302,L]
    ```
 3. Submit pull request to w3id.org
 4. Once merged, use `https://w3id.org/actions/v3` in your ontologies
+
+**Note:** Currently using `clearhead.us` directly. Consider w3id.org for long-term persistence and community trust.
 
 ## 🔍 Content Negotiation Testing
 
@@ -143,14 +239,26 @@ Test that your deployment serves the correct format:
 
 ```bash
 # Request OWL/XML
-curl -H "Accept: application/rdf+xml" https://vocab.clearhead.io/actions/v3/
+curl -H "Accept: application/rdf+xml" https://clearhead.us/vocab/actions/v3/
 
 # Request Turtle
-curl -H "Accept: text/turtle" https://vocab.clearhead.io/actions/v3/
+curl -H "Accept: text/turtle" https://clearhead.us/vocab/actions/v3/
 
 # Request JSON-LD
-curl -H "Accept: application/ld+json" https://vocab.clearhead.io/actions/v3/
+curl -H "Accept: application/ld+json" https://clearhead.us/vocab/actions/v3/
+
+# No Accept header (should default to OWL/XML)
+curl https://clearhead.us/vocab/actions/v3/
+
+# Verify correct Content-Type in response
+curl -I -H "Accept: text/turtle" https://clearhead.us/vocab/actions/v3/
 ```
+
+**Expected Behavior:**
+- Turtle request → Returns Turtle format, starts with `@prefix`
+- JSON-LD request → Returns JSON-LD format, starts with `[` or `{`
+- OWL/XML request → Returns OWL/XML format, starts with `<?xml`
+- Browser (HTML) → Returns HTML documentation page
 
 ## 📦 Generating Alternative Formats
 
@@ -177,20 +285,26 @@ g.serialize('actions-vocabulary.jsonld', format='json-ld')
 
 ## 🔗 Using in Protégé
 
-For local development with Protégé, use the provided catalog file:
+**Load from Production URL:**
+```
+File → Open from URL → https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl
+```
 
-**File: `catalog-v001.xml`**
+**For Offline Development (Optional Catalog File):**
+
+Create `catalog-v001.xml` in your project directory:
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-  <uri name="https://vocab.clearhead.io/actions/v3" uri="actions-vocabulary.owl"/>
+  <uri name="https://clearhead.us/vocab/actions/v3" uri="actions-vocabulary.owl"/>
 </catalog>
 ```
 
 This allows you to:
-- Work offline with the ontology
-- Reference production URIs in your ontology files
-- Protégé automatically resolves to local files
+- Work offline with a local copy of the ontology
+- Reference production URIs (`https://clearhead.us/vocab/actions/v3`) in your ontology files
+- Protégé automatically resolves to local files when offline
+- Switch to production URL when online without changing imports
 
 ## 📝 Importing in Other Ontologies
 
@@ -198,12 +312,16 @@ To use the Actions Vocabulary in your ontology:
 
 ```xml
 <owl:Ontology rdf:about="https://example.com/my-ontology">
-  <!-- Import the consolidated vocabulary -->
-  <owl:imports rdf:resource="https://vocab.clearhead.io/actions/v3"/>
+  <!-- Import the consolidated vocabulary from production -->
+  <owl:imports rdf:resource="https://clearhead.us/vocab/actions/v3"/>
 </owl:Ontology>
 ```
 
-The consolidated vocabulary includes all core classes and extensions, so you only need one import.
+**What you get:**
+- All core classes (ActionPlan, ActionProcess, etc.)
+- All extensions (Context, Workflow, Roles)
+- Full BFO/CCO alignment
+- SHACL shapes available separately at `/vocab/actions/v3/shapes.ttl`
 
 ## 🔄 Version Management
 
@@ -216,12 +334,16 @@ The consolidated ontology includes:
 ### Version URIs
 
 ```
-https://vocab.clearhead.io/actions/v3         # Current version (3.1.0)
-https://vocab.clearhead.io/actions/v3/3.1.0   # Specific version
-https://vocab.clearhead.io/actions/latest     # Always redirects to current
+https://clearhead.us/vocab/actions/v3         # Current version (3.1.0) - PRODUCTION
+https://clearhead.us/vocab/actions/v3/3.1.0   # Specific version (future)
+https://clearhead.us/vocab/actions/latest     # Always redirects to current (future)
 ```
 
-**Best Practice:** Use version-specific URIs in production imports for stability.
+**Current Deployment:**
+- Version 3.1.0 is served at `/vocab/actions/v3/`
+- Version-specific URIs and `/latest` redirect will be added in future updates
+
+**Best Practice:** Use the stable `/v3/` URI for imports. The major version (v3) will remain stable while minor updates are added.
 
 ## 🧪 Validation
 
@@ -263,21 +385,66 @@ uv run python tests/test_poc.py
 
 ### Issue: Ontology won't load in Protégé
 
-**Solution:** Uncomment the BFO/CCO import statements in `actions-vocabulary.owl` and ensure you have the import files in the `imports/` directory.
+**Solution:**
+1. Use the direct OWL file URL: `https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl`
+2. If using imports, ensure BFO/CCO import statements are uncommented in local file
+3. Check that you have import files in the `imports/` directory for offline work
 
-### Issue: Content negotiation not working
+### Issue: Content negotiation not working on Cloudflare
 
-**Solution:** Check that:
-1. `.htaccess` file is in the correct directory
-2. `mod_rewrite` is enabled on your server
-3. Files have correct MIME types
+**Diagnosis:**
+```bash
+# Check if Worker is routing correctly
+curl -I -H "Accept: text/turtle" https://clearhead.us/vocab/actions/v3/
+
+# Should return Content-Type: text/turtle
+# If not, Worker may not be configured
+```
+
+**Solutions:**
+1. **Verify Worker Route:** Go to Cloudflare Dashboard → Workers → vocab-content-negotiation → Triggers
+   - Ensure route `clearhead.us/vocab/actions/v3*` exists and is active
+2. **Check Worker Deployment:** Run `cd workers/content-negotiation && wrangler deploy`
+3. **Use Direct URLs:** As fallback, use direct file URLs (always work):
+   - `https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl`
+   - `https://clearhead.us/vocab/actions/v3/actions-vocabulary.ttl`
+
+### Issue: 404 errors after deployment
+
+**Solution:**
+1. Wait 30-60 seconds for Cloudflare Pages to propagate changes
+2. Verify build succeeded: Check Cloudflare Dashboard → Pages → actions-vocabulary → Deployments
+3. Check that `site/vocab/actions/v3/` directory contains all files:
+   ```bash
+   ls -la site/vocab/actions/v3/
+   ```
+4. Redeploy if needed: `wrangler pages deploy site --project-name actions-vocabulary --branch main`
+
+### Issue: DNS not resolving (clearhead.us)
+
+**Solution:**
+1. Check custom domain configuration in Cloudflare Dashboard → Pages → Custom domains
+2. Verify DNS records are correct (should auto-configure)
+3. Wait for DNS propagation (can take up to 24 hours, usually < 5 minutes)
+4. Test with Pages URL as fallback: `https://actions-vocabulary.pages.dev/vocab/actions/v3/`
 
 ### Issue: Imports fail in other ontologies
 
 **Solution:** Ensure:
 1. The vocabulary is hosted at the exact URI used in the import statement
-2. Content negotiation returns OWL/XML by default
-3. The server supports CORS if loading from JavaScript
+2. Use the OWL/XML direct URL if content negotiation is problematic
+3. The server supports CORS (Cloudflare Pages does by default via `_headers` file)
+4. Clear browser/Protégé cache if previously loaded a different version
+
+### Issue: Worker shows "Compute server error"
+
+**Diagnosis:** Worker code has a bug or is trying to access unavailable resources
+
+**Solution:**
+1. Check Worker logs in Cloudflare Dashboard → Workers → vocab-content-negotiation → Logs
+2. Verify `VOCAB_BASE` constant in `workers/content-negotiation/worker.js` is correct
+3. Test Worker directly: `https://vocab-content-negotiation.darrionburgess.workers.dev/vocab/actions/v3/`
+4. Redeploy Worker: `cd workers/content-negotiation && wrangler deploy`
 
 ## 📧 Support
 
@@ -288,5 +455,7 @@ For issues or questions:
 
 ---
 
-**Last Updated:** 2025-10-29
+**Last Updated:** 2025-11-02
 **Ontology Version:** 3.1.0 (consolidated)
+**Production URL:** https://clearhead.us/vocab/actions/v3/
+**Status:** ✅ Live and operational

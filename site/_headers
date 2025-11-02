@@ -1,0 +1,37 @@
+# Content negotiation and security headers for Actions Vocabulary
+
+# CORS headers for all files
+/*
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, OPTIONS
+  Access-Control-Allow-Headers: Accept, Content-Type
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+
+# Cache RDF/OWL files for 1 hour
+/vocab/actions/v3/*.owl
+  Content-Type: application/rdf+xml
+  Cache-Control: public, max-age=3600
+
+/vocab/actions/v3/*.ttl
+  Content-Type: text/turtle; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/vocab/actions/v3/*.rdf
+  Content-Type: application/rdf+xml
+  Cache-Control: public, max-age=3600
+
+/vocab/actions/v3/*.jsonld
+  Content-Type: application/ld+json
+  Cache-Control: public, max-age=3600
+
+# Cache schemas for 1 hour
+/vocab/actions/schemas/*.json
+  Content-Type: application/schema+json
+  Cache-Control: public, max-age=3600
+
+# No cache for HTML
+/*.html
+  Cache-Control: no-cache, must-revalidate
+
