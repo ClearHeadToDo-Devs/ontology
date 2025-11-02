@@ -1,0 +1,48 @@
+@prefix actions: <https://vocab.clearhead.io/actions/v3#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Root action plan (project level)
+actions:plan-project-001
+    a actions:RootActionPlan ;
+    schema:name "Build new feature" ;
+    schema:description "Implement user authentication system" ;
+    actions:hasUUID "01951111-0000-7000-8000-000000000001" ;
+    actions:hasPriority 1 ;
+    actions:hasDepth 0 ;
+    actions:belongsToProject "Q1 2025 Release" .
+
+# Child action plan (major task)
+actions:plan-child-001
+    a actions:ChildActionPlan ;
+    schema:name "Design database schema" ;
+    actions:hasUUID "01951111-0000-7000-8000-000000000002" ;
+    actions:hasPriority 1 ;
+    actions:hasDepth 1 ;
+    actions:hasParentPlan actions:plan-project-001 .
+
+# Another child
+actions:plan-child-002
+    a actions:ChildActionPlan ;
+    schema:name "Implement API endpoints" ;
+    actions:hasUUID "01951111-0000-7000-8000-000000000003" ;
+    actions:hasPriority 2 ;
+    actions:hasDepth 1 ;
+    actions:hasParentPlan actions:plan-project-001 ;
+    actions:dependsOn actions:plan-child-001 .
+
+# Grandchild (subtask)
+actions:plan-grandchild-001
+    a actions:ChildActionPlan ;
+    schema:name "Write unit tests" ;
+    actions:hasUUID "01951111-0000-7000-8000-000000000004" ;
+    actions:hasPriority 2 ;
+    actions:hasDepth 2 ;
+    actions:hasParentPlan actions:plan-child-002 .
+
+# Link children to parent
+actions:plan-project-001
+    actions:hasChildPlan actions:plan-child-001, actions:plan-child-002 .
+
+actions:plan-child-002
+    actions:hasChildPlan actions:plan-grandchild-001 .

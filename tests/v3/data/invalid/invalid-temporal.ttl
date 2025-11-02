@@ -1,0 +1,12 @@
+@prefix actions: <https://vocab.clearhead.io/actions/v3#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# INVALID: Do date is after due date
+actions:plan-invalid-temporal
+    a actions:RootActionPlan ;
+    schema:name "Invalid temporal task" ;
+    actions:hasUUID "01951111-time-7bad-8bad-badbadbadtim" ;
+    actions:hasDepth 0 ;
+    actions:hasDoDateTime "2025-01-20T09:00:00"^^xsd:dateTime ;
+    actions:hasDueDateTime "2025-01-15T17:00:00"^^xsd:dateTime .  # VIOLATION: Due is before do!

@@ -46,27 +46,34 @@ This repository uses a **consolidated v3.1.0 layout**:
 
 ## Version Status
 
-**Current: v3.1.0** (Consolidated BFO/CCO-aligned ontology)
-- **Location:** Root directory (`actions-vocabulary.owl`)
-- **Status:** Production-ready, consolidated
-- **Format:** OWL/XML
+**PRODUCTION: V3.1.0** (BFO/CCO-aligned ontology)
+- **Location:** Root directory (`actions-vocabulary.owl` + `actions-shapes-v3.ttl`)
+- **Status:** ✅ **PRODUCTION - USE THIS**
+- **Format:** OWL/XML (ontology) + Turtle (SHACL shapes)
 - **Architecture:** BFO 2.0 + CCO compliant formal ontology
-- **Contents:** Core + Context extension + Workflow extension + Role integration (all in one file)
-- **Use for:** All new development, semantic web integration, production deployments
+- **Contents:** Consolidated (Core + Context + Workflow + Roles)
+- **SHACL Shapes:** Comprehensive validation constraints (456 lines)
+- **Test Coverage:** 14 tests, all passing
+- **Use for:** **ALL NEW DEVELOPMENT**
 
-**Archived: v3.0.0-poc** (Modular POC with separate extensions)
-- **Location:** `ontology-backup-modular/`
-- **Status:** Superseded by v3.1.0
-- **Note:** Separated into core + 3 extension files (now consolidated)
+**What's Complete:**
+- ✅ V3 Ontology: Complete BFO/CCO-aligned semantic model
+- ✅ V3 SHACL Shapes: Comprehensive constraint validation
+- ✅ Test Suite: Full coverage with valid/invalid examples
+- ✅ ActionPlan vs ActionProcess separation (key BFO distinction)
 
-**Legacy: v2** (Schema.org-based pragmatic ontology)
+**What's Next:**
+- 🚧 JTD generation from V3 + SHACL
+- 🚧 Parser ontology extension (adds file format concepts)
+- ⏳ Grammar generation from TypeScript types
+
+**ARCHIVED: v2** (Schema.org-based, superseded)
 - **Location:** `v2/` directory
-- **Status:** Stable, archived
+- **Status:** Archived, stable but not for new development
 - **Format:** Turtle (TTL)
-- **Architecture:** Pragmatic Schema.org-based design
-- **Use for:** Existing integrations requiring v2
+- **Use only for:** Reference or legacy integrations
 
-See [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md) for migration guide.
+See [README.md](../README.md) for current architecture and [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md) for migration guide.
 
 ## Running Components
 
@@ -303,36 +310,49 @@ cd v2
 uv run pytest
 ```
 
-### Generate Schemas
+### Generate JTD Schemas (Code Generation)
 ```bash
-# Generate JSON Schema (production-ready, for validation)
-uv run python scripts/generate_json_schema.py
-# Output: schemas/*.schema.json
-
-# Generate JTD (⚠️ EXPERIMENTAL, for code generation)
+# Generate JTD from V3 ontology + SHACL shapes
 uv run python scripts/generate_jtd.py
-# Output: schemas/jtd/*.jtd.json
 
-# Note: v3 schema generation works with OWL only (no SHACL shapes yet)
-# Both schemas are generated from the same ontology source
+# Output: schemas/jtd/*.jtd.json
+# - Reads V3 OWL + SHACL shapes
+# - Generates precise types (uint8, uint16 not generic integer)
+# - Marks required fields from sh:minCount
+# - Creates enums from sh:in constraints
 ```
 
-**Schema Generation Strategy:**
-- **JSON Schema** - Use for runtime validation, API documentation, OpenAPI specs
-- **JTD (Experimental)** - Use for code generation (Rust structs, TypeScript types)
-- See [SCHEMA_GENERATION_DECISION.md](./SCHEMA_GENERATION_DECISION.md) for full rationale
+**JTD is PRIMARY** for code generation:
+- Precise integer types map to language primitives
+- Type-safe enums (not strings)
+- Clean, minimal schemas
+- Official code generators for Rust, TypeScript, Go, Python
 
 **Code Generation from JTD:**
 ```bash
-# Rust (for clearhead-cli)
+# TypeScript types (for tree-sitter-actions)
 jtd-codegen schemas/jtd/actionplan.jtd.json \
-  --rust-out ../clearhead-cli/src/models/ \
-  --rust-edition 2021
+  --typescript-out ../tree-sitter-actions/src/types/
 
-# TypeScript (for web apps)
-jtd-codegen schemas/jtd/actionplan.jtd.json \
-  --typescript-out src/types/
+# Rust structs (for clearhead-cli)
+# Note: CLI uses type-sitter to generate from parser, not directly from JTD
+# See clearhead-cli/CLAUDE.md for details
 ```
+
+**JSON Schema (Optional):**
+```bash
+# Generate JSON Schema for API docs if needed
+uv run python scripts/generate_json_schema.py
+# Output: schemas/*.schema.json
+```
+
+**Current Status:**
+- ✅ V3 ontology complete
+- ✅ V3 SHACL shapes complete
+- 🚧 JTD generator needs update to read V3 SHACL (required/optional fields)
+- ⏳ JSON Schema generator works but not primary use case
+
+See [SCHEMA_GENERATION_DECISION.md](./SCHEMA_GENERATION_DECISION.md) for rationale on JTD vs JSON Schema.
 
 ## Decision History & Rationales
 

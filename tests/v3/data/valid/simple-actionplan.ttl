@@ -1,0 +1,23 @@
+@prefix actions: <https://vocab.clearhead.io/actions/v3#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# Simple valid action plan
+actions:plan-001
+    a actions:RootActionPlan ;
+    schema:name "Review quarterly reports" ;
+    schema:description "Review Q4 financial reports and prepare summary" ;
+    actions:hasUUID "01951111-cfa6-718d-b303-d7107f4005b3" ;
+    actions:hasPriority 2 ;
+    actions:hasDepth 0 ;
+    actions:hasDoDateTime "2025-01-15T09:00:00"^^xsd:dateTime ;
+    actions:hasDueDateTime "2025-01-20T17:00:00"^^xsd:dateTime ;
+    actions:hasDurationMinutes 120 .
+
+# Context for the action
+actions:context-office
+    a actions:LocationContext ;
+    schema:name "@office" .
+
+actions:plan-001 actions:hasContext actions:context-office .
