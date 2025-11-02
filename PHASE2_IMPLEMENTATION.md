@@ -272,18 +272,36 @@ Every class and property includes:
 
 ## File Structure
 
-```
-/home/primary_desktop/Products/platform/ontology/
-├── actions-vocabulary.owl       # v3 POC (core)
-├── actions-context.owl          # ✅ Extension 1 (Priority 1)
-├── actions-workflow.owl         # ✅ Extension 2 (Priority 3)
-├── actions-roles.owl            # ✅ Extension 3 (Priority 2)
-├── actions-agile.owl            # ⏳ Extension 4 (designed, not implemented)
-├── PHASE2_DESIGN.md             # ✅ Comprehensive design doc
-├── PHASE2_IMPLEMENTATION.md     # ✅ This file
-├── BFO_CCO_ALIGNMENT.md         # Existing v3 doc
-├── SCHEMA_ORG_ALIGNMENT.md      # Existing v3 doc
-└── V2_TO_V3_MIGRATION.md        # Existing migration guide
+```mermaid
+graph TB
+    root["/home/primary_desktop/Products/platform/ontology/"]
+    vocab["actions-vocabulary.owl<br/>(v3 POC - core)"]
+    context["actions-context.owl<br/>✅ Extension 1 (Priority 1)"]
+    workflow["actions-workflow.owl<br/>✅ Extension 2 (Priority 3)"]
+    roles["actions-roles.owl<br/>✅ Extension 3 (Priority 2)"]
+    agile["actions-agile.owl<br/>⏳ Extension 4 (designed, not implemented)"]
+    design["PHASE2_DESIGN.md<br/>✅ Comprehensive design doc"]
+    impl["PHASE2_IMPLEMENTATION.md<br/>✅ This file"]
+    bfo_doc["BFO_CCO_ALIGNMENT.md<br/>(Existing v3 doc)"]
+    schema_doc["SCHEMA_ORG_ALIGNMENT.md<br/>(Existing v3 doc)"]
+    migration["V2_TO_V3_MIGRATION.md<br/>(Existing migration guide)"]
+
+    root --> vocab
+    root --> context
+    root --> workflow
+    root --> roles
+    root --> agile
+    root --> design
+    root --> impl
+    root --> bfo_doc
+    root --> schema_doc
+    root --> migration
+
+    style vocab fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
+    style context fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style workflow fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style roles fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style agile fill:#fff3e0,stroke:#f57c00,stroke-width:2px
 ```
 
 ---

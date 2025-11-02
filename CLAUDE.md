@@ -10,38 +10,69 @@ For a large intro please see [the README](./README.md)
 
 This repository uses a **consolidated v3.1.0 layout**:
 
-```
-/
-├── # V3.1.0 ONTOLOGY (consolidated, production-ready)
-├── actions-vocabulary.owl          # Complete v3.1.0 ontology (OWL/XML)
-│                                   # Includes: Core + Context + Workflow + Roles
-├── imports/                        # BFO/CCO ontologies
-│   ├── bfo.owl
-│   ├── cco-event.owl
-│   └── cco-information.owl
-├── tests/                          # Validation tests
-│   └── test_poc.py
-├── BFO_CCO_ALIGNMENT.md           # v3 architecture docs
-├── SCHEMA_ORG_ALIGNMENT.md
-├── PHASE2_DESIGN.md               # Extension design rationale
-├── PHASE2_IMPLEMENTATION.md       # Implementation details
-│
-├── # SHARED RESOURCES
-├── docs/, examples/, schemas/      # Shared across versions
-├── scripts/                        # Shared tooling
-├── DEPLOYMENT.md                  # Deployment guide
-│
-├── # V2 LEGACY
-├── v2/                            # Legacy v2 ontology
-│   ├── actions-vocabulary.ttl
-│   ├── actions-shapes.ttl
-│   └── tests/                     # v2 test suite
-│
-├── # BACKUPS
-├── ontology-backup-modular/       # Previous modular v3.0.0-poc structure
-│
-└── migrations/                     # Version migration docs
-    └── V2_TO_V3_MIGRATION.md
+```mermaid
+graph TB
+    root["/"]
+
+    subgraph v3["V3.1.0 ONTOLOGY (consolidated, production-ready)"]
+        owl["actions-vocabulary.owl<br/>(Complete v3.1.0 ontology - OWL/XML)<br/>Includes: Core + Context + Workflow + Roles"]
+        imports["imports/<br/>(BFO/CCO ontologies)"]
+        imports_bfo["bfo.owl"]
+        imports_cco_event["cco-event.owl"]
+        imports_cco_info["cco-information.owl"]
+        tests["tests/<br/>(Validation tests)"]
+        test_poc["test_poc.py"]
+        bfo_doc["BFO_CCO_ALIGNMENT.md<br/>(v3 architecture docs)"]
+        schema_doc["SCHEMA_ORG_ALIGNMENT.md"]
+        phase2_design["PHASE2_DESIGN.md<br/>(Extension design rationale)"]
+        phase2_impl["PHASE2_IMPLEMENTATION.md<br/>(Implementation details)"]
+    end
+
+    subgraph shared["SHARED RESOURCES"]
+        docs["docs/"]
+        examples["examples/"]
+        schemas["schemas/"]
+        scripts["scripts/<br/>(Shared tooling)"]
+        deployment["DEPLOYMENT.md<br/>(Deployment guide)"]
+    end
+
+    subgraph v2["V2 LEGACY"]
+        v2_dir["v2/<br/>(Legacy v2 ontology)"]
+        v2_vocab["actions-vocabulary.ttl"]
+        v2_shapes["actions-shapes.ttl"]
+        v2_tests["tests/<br/>(v2 test suite)"]
+    end
+
+    subgraph backups["BACKUPS"]
+        backup_modular["ontology-backup-modular/<br/>(Previous modular v3.0.0-poc structure)"]
+    end
+
+    migrations["migrations/<br/>(Version migration docs)"]
+    migration_doc["V2_TO_V3_MIGRATION.md"]
+
+    root --> owl
+    root --> imports
+    imports --> imports_bfo
+    imports --> imports_cco_event
+    imports --> imports_cco_info
+    root --> tests
+    tests --> test_poc
+    root --> bfo_doc
+    root --> schema_doc
+    root --> phase2_design
+    root --> phase2_impl
+    root --> docs
+    root --> examples
+    root --> schemas
+    root --> scripts
+    root --> deployment
+    root --> v2_dir
+    v2_dir --> v2_vocab
+    v2_dir --> v2_shapes
+    v2_dir --> v2_tests
+    root --> backup_modular
+    root --> migrations
+    migrations --> migration_doc
 ```
 
 ## Version Status
@@ -65,11 +96,6 @@ This repository uses a **consolidated v3.1.0 layout**:
 - ✅ Production Deployment: Live at clearhead.us with content negotiation
 - ✅ Cloudflare Infrastructure: Pages + Worker for semantic web compliance
 
-**What's Next:**
-- 🚧 JTD generation from V3 + SHACL
-- 🚧 Parser ontology extension (adds file format concepts)
-- ⏳ Grammar generation from TypeScript types
-
 **ARCHIVED: v2** (Schema.org-based, superseded)
 - **Location:** `v2/` directory
 - **Status:** Archived, stable but not for new development
@@ -77,14 +103,6 @@ This repository uses a **consolidated v3.1.0 layout**:
 - **Use only for:** Reference or legacy integrations
 
 See [README.md](../README.md) for current architecture and [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md) for migration guide.
-
-## Running Components
-
-All submodules have their own README files - please review before doing any work to ensure proper context:
-
-- **ontology** (this repo) - Python project managed through `uv`, generates JSON schemas from ontologies and SHACL shapes
-- **tree-sitter-actions** - JavaScript project for generating tree-sitter parser
-- **clearhead-cli** - Rust CLI that uses the first two projects
 
 ## How It Is Used
 
@@ -166,18 +184,21 @@ When SHACL shapes are added to v3:
 
 This ontology serves as the **minimal stable interface** between different implementations:
 
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   File Parsers  │    │  Web APIs       │    │   Databases     │
-│   (tree-sitter) │    │  (JSON Schema)  │    │   (SQL DDL)     │
-└─────────┬───────┘    └─────────┬───────┘    └─────────┬───────┘
-          │                      │                      │
-          └──────────────────────┼──────────────────────┘
-                                 │
-                    ┌────────────▼─────────────┐
-                    │   Actions Ontology       │
-                    │   (Semantic Truth)       │
-                    └──────────────────────────┘
+```mermaid
+graph TB
+    parsers["File Parsers<br/>(tree-sitter)"]
+    apis["Web APIs<br/>(JSON Schema)"]
+    databases["Databases<br/>(SQL DDL)"]
+    ontology["Actions Ontology<br/>(Semantic Truth)"]
+
+    parsers --> ontology
+    apis --> ontology
+    databases --> ontology
+
+    style ontology fill:#e1f5ff,stroke:#333,stroke-width:3px
+    style parsers fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style apis fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style databases fill:#f9f9f9,stroke:#333,stroke-width:2px
 ```
 
 **Benefits:**
@@ -218,12 +239,6 @@ This ontology serves as the **minimal stable interface** between different imple
 ### Shared Files
 - **docs/** - Additional documentation
 - **examples/** - Example data
-- **schemas/** - Generated schemas (JSON Schema and JTD)
-  - **schemas/*.schema.json** - JSON Schema files (production)
-  - **schemas/jtd/*.jtd.json** - JTD files (⚠️ experimental)
-- **scripts/** - Tooling scripts
-  - **scripts/generate_json_schema.py** - JSON Schema generator
-  - **scripts/generate_jtd.py** - JTD generator (⚠️ experimental)
 
 ### Archived Files
 - **ontology-backup-modular/** - Previous v3.0.0-poc modular structure

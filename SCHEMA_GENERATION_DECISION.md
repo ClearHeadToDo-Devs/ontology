@@ -54,34 +54,36 @@ A single schema language cannot optimally serve both purposes:
 
 We will generate **both** JSON Schema and JTD from the same OWL+SHACL source.
 
-```
-┌─────────────────────────────────────────┐
-│  OWL Ontology + SHACL Shapes            │
-│  (Single Source of Truth)               │
-└─────────────────┬───────────────────────┘
-                  │
-      ┌───────────▼──────────┐
-      │  Schema Generators   │
-      │  (Python scripts)    │
-      └───────────┬──────────┘
-                  │
-    ┌─────────────┼─────────────┐
-    │             │             │
-┌───▼────────┐ ┌─▼──────────┐ ┌▼─────────┐
-│ JSON Schema│ │    JTD     │ │  SHACL   │
-│ (.schema   │ │ (.jtd.json)│ │ (future) │
-│  .json)    │ │            │ │          │
-└───┬────────┘ └─┬──────────┘ └┬─────────┘
-    │            │             │
-    │            │             │
-┌───▼──────┐ ┌──▼─────────┐ ┌─▼────────┐
-│ Runtime  │ │ Compile    │ │ RDF      │
-│ Validate │ │ Codegen    │ │ Validate │
-│          │ │            │ │ (future) │
-│ • APIs   │ │ • Rust     │ │          │
-│ • Forms  │ │ • TypeScrip│ │          │
-│ • Input  │ │ • Go       │ │          │
-└──────────┘ └────────────┘ └──────────┘
+```mermaid
+graph TB
+    source["<b>OWL Ontology + SHACL Shapes</b><br/>(Single Source of Truth)"]
+    generators["<b>Schema Generators</b><br/>(Python scripts)"]
+
+    json_schema["<b>JSON Schema</b><br/>(.schema.json)"]
+    jtd["<b>JTD</b><br/>(.jtd.json)"]
+    shacl["<b>SHACL</b><br/>(future)"]
+
+    runtime["<b>Runtime Validate</b><br/>• APIs<br/>• Forms<br/>• Input"]
+    codegen["<b>Compile Codegen</b><br/>• Rust<br/>• TypeScript<br/>• Go"]
+    rdf_validate["<b>RDF Validate</b><br/>(future)"]
+
+    source --> generators
+    generators --> json_schema
+    generators --> jtd
+    generators --> shacl
+
+    json_schema --> runtime
+    jtd --> codegen
+    shacl --> rdf_validate
+
+    style source fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
+    style generators fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style json_schema fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style jtd fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style shacl fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style runtime fill:#f9f9f9,stroke:#666,stroke-width:2px
+    style codegen fill:#f9f9f9,stroke:#666,stroke-width:2px
+    style rdf_validate fill:#f9f9f9,stroke:#666,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
 ## Use Cases

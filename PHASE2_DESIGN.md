@@ -1036,13 +1036,26 @@ actions-agile:Sprint rdfs:subClassOf bfo:Process .
 
 ### Module Organization
 
-```
-actions-vocabulary-v3/
-├── actions-vocabulary.owl          # Core (POC classes)
-├── actions-context.owl             # Extension 1: Context formalization
-├── actions-workflow.owl            # Extension 2: Dependencies
-├── actions-roles.owl               # Extension 3: Role integration
-└── actions-agile.owl               # Extension 4: Agile support
+```mermaid
+graph TB
+    root["actions-vocabulary-v3/"]
+    vocab["actions-vocabulary.owl<br/>(Core - POC classes)"]
+    context["actions-context.owl<br/>(Extension 1: Context formalization)"]
+    workflow["actions-workflow.owl<br/>(Extension 2: Dependencies)"]
+    roles["actions-roles.owl<br/>(Extension 3: Role integration)"]
+    agile["actions-agile.owl<br/>(Extension 4: Agile support)"]
+
+    root --> vocab
+    root --> context
+    root --> workflow
+    root --> roles
+    root --> agile
+
+    style vocab fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
+    style context fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style workflow fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style roles fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style agile fill:#fff3e0,stroke:#f57c00,stroke-width:2px
 ```
 
 ### Import Structure

@@ -118,17 +118,31 @@ uv run invoke serve-local
 
 The v3 ontology is now **consolidated** for simplicity:
 
-```
-/
-├── actions-vocabulary.owl          # Complete v3 ontology (core + extensions)
-├── imports/                        # BFO and CCO ontology files
-│   ├── bfo.owl
-│   ├── cco-event.owl
-│   └── cco-information.owl
-├── tests/                          # Validation tests
-├── docs/                          # Human documentation
-├── examples/                       # Example data
-└── v2/                            # Legacy v2 ontology (archived)
+```mermaid
+graph TB
+    root["/"]
+    owl["actions-vocabulary.owl<br/>(Complete v3 ontology - core + extensions)"]
+    imports["imports/<br/>(BFO and CCO ontology files)"]
+    bfo["bfo.owl"]
+    cco_event["cco-event.owl"]
+    cco_info["cco-information.owl"]
+    tests["tests/<br/>(Validation tests)"]
+    docs["docs/<br/>(Human documentation)"]
+    examples["examples/<br/>(Example data)"]
+    v2["v2/<br/>(Legacy v2 ontology - archived)"]
+
+    root --> owl
+    root --> imports
+    imports --> bfo
+    imports --> cco_event
+    imports --> cco_info
+    root --> tests
+    root --> docs
+    root --> examples
+    root --> v2
+
+    style owl fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
+    style imports fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
 ```
 
 ### What's Included in actions-vocabulary.owl
@@ -181,16 +195,29 @@ https://[username].github.io/[repo]/actions/v3/actions-vocabulary.owl
 For production deployments with w3id.org or custom domains:
 
 **URI Strategy (Production at clearhead.us):**
-```
-https://clearhead.us/
-└── vocab/
-    └── actions/
-        └── v3/                           # Version 3.1.0
-            ├── actions-vocabulary.owl     # OWL/XML format (canonical)
-            ├── actions-vocabulary.ttl     # Turtle format
-            ├── actions-vocabulary.rdf     # RDF/XML format
-            ├── actions-vocabulary.jsonld  # JSON-LD format
-            └── shapes.ttl                 # SHACL validation shapes
+```mermaid
+graph TB
+    domain["https://clearhead.us/"]
+    vocab["vocab/"]
+    actions["actions/"]
+    v3["v3/<br/>(Version 3.1.0)"]
+    owl["actions-vocabulary.owl<br/>(OWL/XML format - canonical)"]
+    ttl["actions-vocabulary.ttl<br/>(Turtle format)"]
+    rdf["actions-vocabulary.rdf<br/>(RDF/XML format)"]
+    jsonld["actions-vocabulary.jsonld<br/>(JSON-LD format)"]
+    shapes["shapes.ttl<br/>(SHACL validation shapes)"]
+
+    domain --> vocab
+    vocab --> actions
+    actions --> v3
+    v3 --> owl
+    v3 --> ttl
+    v3 --> rdf
+    v3 --> jsonld
+    v3 --> shapes
+
+    style v3 fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style owl fill:#fff3e0,stroke:#f57c00,stroke-width:3px
 ```
 
 **Note:** This is the current production deployment. See "Production Deployment" section above for details.

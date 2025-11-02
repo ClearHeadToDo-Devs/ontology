@@ -32,26 +32,18 @@ This guide explains how the Actions Vocabulary v3 aligns with Basic Formal Ontol
 
 ### Why Both?
 
-```
-┌─────────────────────────────────────────────────┐
-│ Actions Vocabulary (Domain)                    │
-│ • Specific to personal/productivity actions    │
-│ • Our contribution to the ecosystem             │
-└────────────┬────────────────────────────────────┘
-             │ uses patterns from
-             ↓
-┌─────────────────────────────────────────────────┐
-│ Common Core Ontologies (Mid-Level)             │
-│ • Act, Plan, DirectiveICE                      │
-│ • Proven patterns, reusable                    │
-└────────────┬────────────────────────────────────┘
-             │ extends
-             ↓
-┌─────────────────────────────────────────────────┐
-│ Basic Formal Ontology (Upper)                  │
-│ • Continuant, Occurrent, Process, Quality      │
-│ • Formal philosophical foundations             │
-└─────────────────────────────────────────────────┘
+```mermaid
+graph TB
+    actions["<b>Actions Vocabulary (Domain)</b><br/>• Specific to personal/productivity actions<br/>• Our contribution to the ecosystem"]
+    cco["<b>Common Core Ontologies (Mid-Level)</b><br/>• Act, Plan, DirectiveICE<br/>• Proven patterns, reusable"]
+    bfo["<b>Basic Formal Ontology (Upper)</b><br/>• Continuant, Occurrent, Process, Quality<br/>• Formal philosophical foundations"]
+
+    actions -->|uses patterns from| cco
+    cco -->|extends| bfo
+
+    style actions fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style cco fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style bfo fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
 ```
 
 ---
@@ -60,25 +52,56 @@ This guide explains how the Actions Vocabulary v3 aligns with Basic Formal Ontol
 
 ### Core BFO Structure
 
-```
-bfo:Entity
-├── bfo:Continuant (exists in full at any time)
-│   ├── bfo:IndependentContinuant
-│   │   └── bfo:MaterialEntity (physical objects)
-│   ├── bfo:SpecificallyDependentContinuant
-│   │   ├── bfo:Quality (temperature, color, state)
-│   │   └── bfo:RealizableEntity
-│   │       ├── bfo:Disposition
-│   │       ├── bfo:Role
-│   │       └── bfo:Function
-│   └── bfo:GenericallyDependentContinuant
-│       └── bfo:InformationContentEntity (plans, specs, data)
-│
-└── bfo:Occurrent (unfolds over time, has temporal parts)
-    ├── bfo:Process (events, activities, changes)
-    ├── bfo:ProcessBoundary (instants, endpoints)
-    ├── bfo:TemporalRegion (time intervals)
-    └── bfo:SpatiotemporalRegion (4D regions)
+```mermaid
+graph TB
+    entity["bfo:Entity"]
+
+    continuant["bfo:Continuant<br/>(exists in full at any time)"]
+    occurrent["bfo:Occurrent<br/>(unfolds over time, has temporal parts)"]
+
+    independent["bfo:IndependentContinuant"]
+    material["bfo:MaterialEntity<br/>(physical objects)"]
+
+    specDependent["bfo:SpecificallyDependentContinuant"]
+    quality["bfo:Quality<br/>(temperature, color, state)"]
+    realizable["bfo:RealizableEntity"]
+    disposition["bfo:Disposition"]
+    role["bfo:Role"]
+    function["bfo:Function"]
+
+    genDependent["bfo:GenericallyDependentContinuant"]
+    ice["bfo:InformationContentEntity<br/>(plans, specs, data)"]
+
+    process["bfo:Process<br/>(events, activities, changes)"]
+    boundary["bfo:ProcessBoundary<br/>(instants, endpoints)"]
+    temporal["bfo:TemporalRegion<br/>(time intervals)"]
+    spatiotemporal["bfo:SpatiotemporalRegion<br/>(4D regions)"]
+
+    entity --> continuant
+    entity --> occurrent
+
+    continuant --> independent
+    continuant --> specDependent
+    continuant --> genDependent
+
+    independent --> material
+
+    specDependent --> quality
+    specDependent --> realizable
+    realizable --> disposition
+    realizable --> role
+    realizable --> function
+
+    genDependent --> ice
+
+    occurrent --> process
+    occurrent --> boundary
+    occurrent --> temporal
+    occurrent --> spatiotemporal
+
+    style entity fill:#fff3e0,stroke:#e65100,stroke-width:3px
+    style continuant fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style occurrent fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
 ```
 
 ### Key BFO Distinctions
@@ -113,20 +136,34 @@ bfo:Entity
 
 ### CCO Modules We Use
 
-```
-cco:InformationEntityOntology
-├── cco:InformationContentEntity (extends bfo:InformationContentEntity)
-│   ├── cco:DirectiveInformationContentEntity (ont00000965) ← ActionPlan extends this
-│   │   ├── cco:PerformanceSpecification
-│   │   ├── cco:Algorithm
-│   │   └── cco:Language
-│   └── cco:DescriptiveInformationContentEntity
-│
-cco:EventOntology
-└── bfo:Process
-    └── cco:Act
-        └── cco:PlannedAct (ont00000228) ← ActionProcess extends this
-            └── [aka: Intentional Act]
+```mermaid
+graph TB
+    subgraph info["cco:InformationEntityOntology"]
+        cco_ice["cco:InformationContentEntity<br/>(extends bfo:InformationContentEntity)"]
+        directive["cco:DirectiveInformationContentEntity<br/>(ont00000965)<br/><b>← ActionPlan extends this</b>"]
+        perf["cco:PerformanceSpecification"]
+        algo["cco:Algorithm"]
+        lang["cco:Language"]
+        descriptive["cco:DescriptiveInformationContentEntity"]
+
+        cco_ice --> directive
+        cco_ice --> descriptive
+        directive --> perf
+        directive --> algo
+        directive --> lang
+    end
+
+    subgraph event["cco:EventOntology"]
+        bfo_process["bfo:Process"]
+        cco_act["cco:Act"]
+        planned["cco:PlannedAct<br/>(ont00000228)<br/><b>← ActionProcess extends this</b><br/>[aka: Intentional Act]"]
+
+        bfo_process --> cco_act
+        cco_act --> planned
+    end
+
+    style directive fill:#ffecb3,stroke:#f57c00,stroke-width:3px
+    style planned fill:#ffecb3,stroke:#f57c00,stroke-width:3px
 ```
 
 **Note:** CCO does not define a `Plan` class. Plans are represented as specialized `DirectiveInformationContentEntity` subclasses in domain ontologies.
@@ -181,33 +218,67 @@ actions:ActionProcess rdfs:subClassOf cco:ont00000228 .
 
 ### Complete Class Hierarchy
 
-```
-bfo:Entity
-│
-├── bfo:Continuant
-│   └── bfo:GenericallyDependentContinuant
-│       └── bfo:InformationContentEntity
-│           └── cco:InformationContentEntity
-│               └── cco:DirectiveInformationContentEntity (ont00000965)
-│                   └── actions:ActionPlan
-│                       ├── actions:RootActionPlan
-│                       ├── actions:ChildActionPlan
-│                       └── actions:LeafActionPlan
-│
-├── bfo:SpecificallyDependentContinuant
-│   └── bfo:Quality
-│       └── actions:ActionState (quality of processes)
-│           ├── actions:NotStarted
-│           ├── actions:InProgress
-│           ├── actions:Completed
-│           ├── actions:Blocked
-│           └── actions:Cancelled
-│
-└── bfo:Occurrent
-    └── bfo:Process
-        └── cco:Act
-            └── cco:PlannedAct (ont00000228)
-                └── actions:ActionProcess
+```mermaid
+graph TB
+    entity["bfo:Entity"]
+
+    continuant["bfo:Continuant"]
+    genDependent["bfo:GenericallyDependentContinuant"]
+    bfo_ice["bfo:InformationContentEntity"]
+    cco_ice["cco:InformationContentEntity"]
+    directive["cco:DirectiveInformationContentEntity<br/>(ont00000965)"]
+    actionPlan["<b>actions:ActionPlan</b>"]
+    rootPlan["actions:RootActionPlan"]
+    childPlan["actions:ChildActionPlan"]
+    leafPlan["actions:LeafActionPlan"]
+
+    specDependent["bfo:SpecificallyDependentContinuant"]
+    quality["bfo:Quality"]
+    actionState["<b>actions:ActionState</b><br/>(quality of processes)"]
+    notStarted["actions:NotStarted"]
+    inProgress["actions:InProgress"]
+    completed["actions:Completed"]
+    blocked["actions:Blocked"]
+    cancelled["actions:Cancelled"]
+
+    occurrent["bfo:Occurrent"]
+    process["bfo:Process"]
+    act["cco:Act"]
+    plannedAct["cco:PlannedAct<br/>(ont00000228)"]
+    actionProcess["<b>actions:ActionProcess</b>"]
+
+    entity --> continuant
+    entity --> specDependent
+    entity --> occurrent
+
+    continuant --> genDependent
+    genDependent --> bfo_ice
+    bfo_ice --> cco_ice
+    cco_ice --> directive
+    directive --> actionPlan
+    actionPlan --> rootPlan
+    actionPlan --> childPlan
+    actionPlan --> leafPlan
+
+    specDependent --> quality
+    quality --> actionState
+    actionState --> notStarted
+    actionState --> inProgress
+    actionState --> completed
+    actionState --> blocked
+    actionState --> cancelled
+
+    occurrent --> process
+    process --> act
+    act --> plannedAct
+    plannedAct --> actionProcess
+
+    style entity fill:#fff3e0,stroke:#e65100,stroke-width:3px
+    style continuant fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style occurrent fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    style actionPlan fill:#ffecb3,stroke:#f57c00,stroke-width:3px
+    style actionState fill:#ffecb3,stroke:#f57c00,stroke-width:3px
+    style actionProcess fill:#ffecb3,stroke:#f57c00,stroke-width:3px
 ```
 
 **Key Points:**

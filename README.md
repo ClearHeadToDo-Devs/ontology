@@ -1,5 +1,4 @@
 # Actions Vocabulary v3 - BFO/CCO-Aligned Ontology
-
 **Current Version**: 3.1.0 (Production)
 **Namespace**: `https://clearhead.us/vocab/actions/v3#`
 **Production URL**: 🌐 https://clearhead.us/vocab/actions/v3/
@@ -12,12 +11,10 @@ The Actions Vocabulary provides a **formal semantic foundation** for task manage
 - **BFO 2.0 Compliance** - ISO standard upper ontology (ISO/IEC 21838-2:2021)
 - **CCO Integration** - Common Core Ontologies mid-level framework
 - **Schema.org Alignment** - SKOS-mapped for web/SEO benefits
-- **Practical Tooling** - JSON Schema generation for APIs, databases, and applications
 
 This ontology serves as the **"small waist" architecture** - a minimal, semantically rigorous interface that enables scientific-grade reasoning while supporting practical code generation.
 
-## Version History
-
+### Version History
 - **v3.1.0** (Current) - Consolidated BFO/CCO-aligned ontology
   - Location: Root directory (`actions-vocabulary.owl`)
   - Format: OWL/XML
@@ -33,10 +30,6 @@ This ontology serves as the **"small waist" architecture** - a minimal, semantic
   - Format: Turtle (`.ttl`)
   - See: [v2/README.md](./v2/README.md), [v2/ONTOLOGY.md](./v2/ONTOLOGY.md)
   - Migration guide: [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md)
-
-## Accessing the Published Ontology
-
-The Actions Vocabulary v3.1.0 is publicly available at **https://clearhead.us/vocab/actions/v3/**
 
 ### Import in Protégé
 ```
@@ -136,18 +129,33 @@ cd v2 && uv run pytest
 
 ## Files Structure
 
-```
-/
-├── actions-vocabulary.owl          # v3.1.0 consolidated ontology (OWL/XML)
-├── imports/                        # BFO and CCO imports
-│   ├── bfo.owl
-│   ├── cco-event.owl
-│   └── cco-information.owl
-├── tests/                          # Validation tests
-├── docs/, examples/, schemas/      # Shared resources
-├── v2/                             # Legacy v2 ontology
-├── migrations/                     # Version migration guides
-└── ontology-backup-modular/        # Backup of previous modular structure
+```mermaid
+graph TB
+    root["/"]
+    owl["actions-vocabulary.owl<br/>(v3.1.0 consolidated ontology - OWL/XML)"]
+    imports["imports/<br/>(BFO and CCO imports)"]
+    bfo["bfo.owl"]
+    cco_event["cco-event.owl"]
+    cco_info["cco-information.owl"]
+    tests["tests/<br/>(Validation tests)"]
+    docs["docs/, examples/, schemas/<br/>(Shared resources)"]
+    v2["v2/<br/>(Legacy v2 ontology)"]
+    migrations["migrations/<br/>(Version migration guides)"]
+    backup["ontology-backup-modular/<br/>(Backup of previous modular structure)"]
+
+    root --> owl
+    root --> imports
+    imports --> bfo
+    imports --> cco_event
+    imports --> cco_info
+    root --> tests
+    root --> docs
+    root --> v2
+    root --> migrations
+    root --> backup
+
+    style owl fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
+    style imports fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
 ```
 
 ### Consolidated Ontology Contents
