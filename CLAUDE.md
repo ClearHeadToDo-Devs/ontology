@@ -148,9 +148,7 @@ Check `pyproject.toml` for additional commands.
 
 See [BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md) for detailed technical mapping.
 
-### OWL vs SHACL Boundaries (Future)
-
-When SHACL shapes are added to v3:
+### OWL vs SHACL Boundaries 
 
 **OWL Responsibilities (Logical Domain Model)**
 - Class hierarchy and relationships - what CAN exist
