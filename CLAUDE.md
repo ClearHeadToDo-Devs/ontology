@@ -374,3 +374,4 @@ See [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md) for full details.
 - [SCHEMA_GENERATION_DECISION.md](./SCHEMA_GENERATION_DECISION.md) - JSON Schema vs JTD (⚠️ experimental)
 - [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md) - Migration guide
 - [v2/ONTOLOGY.md](./v2/ONTOLOGY.md) - v2 semantic documentation
+
