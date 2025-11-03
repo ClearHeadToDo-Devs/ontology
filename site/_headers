@@ -26,11 +26,6 @@
   Content-Type: application/ld+json
   Cache-Control: public, max-age=3600
 
-# Cache schemas for 1 hour
-/vocab/actions/schemas/*.json
-  Content-Type: application/schema+json
-  Cache-Control: public, max-age=3600
-
 # No cache for HTML
 /*.html
   Cache-Control: no-cache, must-revalidate

@@ -31,7 +31,6 @@ graph TB
     subgraph shared["SHARED RESOURCES"]
         docs["docs/"]
         examples["examples/"]
-        schemas["schemas/"]
         scripts["scripts/<br/>(Shared tooling)"]
         deployment["DEPLOYMENT.md<br/>(Deployment guide)"]
     end
@@ -63,7 +62,6 @@ graph TB
     root --> phase2_impl
     root --> docs
     root --> examples
-    root --> schemas
     root --> scripts
     root --> deployment
     root --> v2_dir
@@ -192,8 +190,8 @@ This ontology serves as the **minimal stable interface** between different imple
 ```mermaid
 graph TB
     parsers["File Parsers<br/>(tree-sitter)"]
-    apis["Web APIs<br/>(JSON Schema)"]
-    databases["Databases<br/>(SQL DDL)"]
+    apis["Web APIs<br/>(RDF/JSON-LD)"]
+    databases["Databases<br/>(Semantic Stores)"]
     ontology["Actions Ontology<br/>(Semantic Truth)"]
 
     parsers --> ontology
@@ -207,10 +205,10 @@ graph TB
 ```
 
 **Benefits:**
-- **Code Generation:** Schemas and classes generated from semantic definitions
-- **Interoperability:** Consistent data exchange between implementations
-- **Testing:** Unified validation across all tools
-- **Evolution:** Backward-compatible extensions
+- **Code Generation:** Types and validators generated from ontology + SHACL
+- **Interoperability:** Consistent RDF data exchange between implementations
+- **Testing:** Unified SHACL validation across all tools
+- **Evolution:** Backward-compatible extensions via OWL reasoning
 
 ## Key Files
 
@@ -221,8 +219,7 @@ graph TB
   - Includes: Core + Context + Workflow + Roles (all integrated)
 - **actions-shapes-v3.ttl** - SHACL validation constraints
 - **BFO_CCO_ALIGNMENT.md** - Technical BFO/CCO mapping
-- **SCHEMA_ORG_ALIGNMENT.md** - Schema.org integration strategy
-- **SCHEMA_GENERATION_DECISION.md** - JSON Schema vs JTD rationale (⚠️ experimental)
+- **SCHEMA_ORG_ALIGNMENT.md** - Schema.org vocabulary alignment via SKOS
 - **PHASE2_DESIGN.md** - Extension design rationale
 - **PHASE2_IMPLEMENTATION.md** - Extension implementation details
 - **DEPLOYMENT.md** - Vocabulary hosting and deployment guide (Cloudflare)
@@ -382,50 +379,6 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete deployment guide, including:
 - Testing content negotiation
 - Troubleshooting
 
-### Generate JTD Schemas (Code Generation)
-```bash
-# Generate JTD from V3 ontology + SHACL shapes
-uv run python scripts/generate_jtd.py
-
-# Output: schemas/jtd/*.jtd.json
-# - Reads V3 OWL + SHACL shapes
-# - Generates precise types (uint8, uint16 not generic integer)
-# - Marks required fields from sh:minCount
-# - Creates enums from sh:in constraints
-```
-
-**JTD is PRIMARY** for code generation:
-- Precise integer types map to language primitives
-- Type-safe enums (not strings)
-- Clean, minimal schemas
-- Official code generators for Rust, TypeScript, Go, Python
-
-**Code Generation from JTD:**
-```bash
-# TypeScript types (for tree-sitter-actions)
-jtd-codegen schemas/jtd/actionplan.jtd.json \
-  --typescript-out ../tree-sitter-actions/src/types/
-
-# Rust structs (for clearhead-cli)
-# Note: CLI uses type-sitter to generate from parser, not directly from JTD
-# See clearhead-cli/CLAUDE.md for details
-```
-
-**JSON Schema (Optional):**
-```bash
-# Generate JSON Schema for API docs if needed
-uv run python scripts/generate_json_schema.py
-# Output: schemas/*.schema.json
-```
-
-**Current Status:**
-- ✅ V3 ontology complete
-- ✅ V3 SHACL shapes complete
-- 🚧 JTD generator needs update to read V3 SHACL (required/optional fields)
-- ⏳ JSON Schema generator works but not primary use case
-
-See [SCHEMA_GENERATION_DECISION.md](./SCHEMA_GENERATION_DECISION.md) for rationale on JTD vs JSON Schema.
-
 ## Decision History & Rationales
 
 ### Why BFO/CCO for v3?
@@ -463,8 +416,7 @@ See [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md) for full details.
 - [README.md](./README.md) - User guide
 - [DEPLOYMENT.md](./DEPLOYMENT.md) - Production deployment guide (Cloudflare)
 - [BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md) - Technical mapping
-- [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md) - Web integration
-- [SCHEMA_GENERATION_DECISION.md](./SCHEMA_GENERATION_DECISION.md) - JSON Schema vs JTD (⚠️ experimental)
+- [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md) - Schema.org vocabulary alignment
 - [workers/content-negotiation/README.md](./workers/content-negotiation/README.md) - Worker setup
 - [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md) - Migration guide
 - [v2/ONTOLOGY.md](./v2/ONTOLOGY.md) - v2 semantic documentation

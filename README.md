@@ -144,7 +144,7 @@ graph TB
     cco_event["cco-event.owl"]
     cco_info["cco-information.owl"]
     tests["tests/<br/>(Validation tests)"]
-    docs["docs/, examples/, schemas/<br/>(Shared resources)"]
+    docs["docs/, examples/<br/>(Shared resources)"]
     v2["v2/<br/>(Legacy v2 ontology)"]
     migrations["migrations/<br/>(Version migration guides)"]
     backup["ontology-backup-modular/<br/>(Backup of previous modular structure)"]
@@ -192,13 +192,15 @@ uv run pytest
 
 ### For Application Developers
 ```bash
-# Generate JSON schemas (future feature)
-uv run invoke generate-schemas
+# Load the vocabulary via content negotiation
+curl -H "Accept: text/turtle" https://clearhead.us/vocab/actions/v3/
+curl -H "Accept: application/ld+json" https://clearhead.us/vocab/actions/v3/
 
-# Integrate with your application
-# - Parse actions-vocabulary.owl for class/property definitions
-# - Use generated JSON schemas for data validation
-# - See examples/ for integration patterns
+# Validate your data against SHACL shapes using pyshacl
+pip install pyshacl
+python -c "from pyshacl import validate; ..."
+
+# See examples/v3/ for reference data and validation patterns
 ```
 
 ## Why v3.1.0?

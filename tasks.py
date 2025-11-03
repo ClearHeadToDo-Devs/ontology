@@ -4,17 +4,13 @@ Invoke tasks for Actions Vocabulary ontology validation and deployment.
 Usage:
     # Validation & Testing
     uv run invoke test           # Run all validation tests
-    uv run invoke validate       # Quick TTL syntax check
+    uv run invoke validate       # Quick syntax check
     uv run invoke clean          # Clean artifacts
 
     # Building & Deployment
     uv run invoke build-site     # Build site for deployment
     uv run invoke deploy         # Deploy to Cloudflare Pages
     uv run invoke serve-local    # Test locally before deployment
-
-    # Schema Generation
-    uv run invoke generate-schemas        # Generate JSON schemas
-    uv run invoke generate-additional-formats  # Generate RDF/XML, JSON-LD
 
     # View all tasks
     uv run invoke --list
@@ -32,33 +28,33 @@ def test(c):
 
 @task
 def validate(c):
-    """Validate TTL file syntax."""
-    print("🔍 Validating ontology syntax...")
+    """Validate ontology and SHACL shapes syntax."""
+    print("🔍 Validating v3 ontology (OWL/XML)...")
     result1 = c.run(
-        "python -c \"import rdflib; rdflib.Graph().parse('actions-vocabulary.ttl')\"",
+        "python -c \"import rdflib; rdflib.Graph().parse('actions-vocabulary.owl', format='xml')\"",
         warn=True,
     )
 
-    print("🔍 Validating SHACL shapes syntax...")
+    print("🔍 Validating v3 SHACL shapes...")
     result2 = c.run(
-        "python -c \"import rdflib; rdflib.Graph().parse('actions-shapes.ttl')\"",
+        "python -c \"import rdflib; rdflib.Graph().parse('actions-shapes-v3.ttl', format='turtle')\"",
         warn=True,
     )
 
     if result1.ok and result2.ok:
-        print("✅ All TTL files are valid")
+        print("✅ Ontology and SHACL shapes are valid")
     else:
-        print("❌ TTL validation failed")
+        print("❌ Validation failed")
         sys.exit(1)
 
 
 @task
 def clean(c):
-    """Clean test artifacts."""
-    patterns = ["tests/__pycache__", ".pytest_cache", "htmlcov", ".coverage", "schemas"]
+    """Clean test artifacts and build output."""
+    patterns = ["tests/__pycache__", ".pytest_cache", "htmlcov", ".coverage", "site"]
     for pattern in patterns:
         c.run(f"rm -rf {pattern}", warn=True)
-    print("🧹 Cleaned test artifacts and schemas")
+    print("🧹 Cleaned test artifacts and build output")
 
 
 @task
@@ -69,53 +65,6 @@ def quick(c):
 
 
 @task
-def validate_schemas(c):
-    """Validate generated JSON schemas."""
-    if not c.run("test -f schemas/actions-combined.schema.json", warn=True).ok:
-        print("❌ No schemas found. Run 'uv run invoke generate-schemas' first.")
-        return
-    # Basic validation - check if files are valid JSON
-    c.run(
-        "python -c \"import json; json.load(open('schemas/actions-combined.schema.json'))\""
-    )
-    print("✅ Generated schemas are valid JSON")
-
-
-@task
-def generate_additional_formats(c):
-    """Generate additional vocabulary formats (RDF/XML, JSON-LD)."""
-    print("🔄 Generating additional vocabulary formats...")
-
-    # Generate RDF/XML
-    try:
-        c.run(
-            '''python -c "
-import rdflib
-g = rdflib.Graph()
-g.parse('actions-vocabulary.ttl', format='turtle')
-g.serialize('actions-vocabulary.rdf', format='xml')
-print('✅ Generated RDF/XML format')
-"'''
-        )
-    except Exception as e:
-        print(f"⚠️ Could not generate RDF/XML: {e}")
-
-    # Generate JSON-LD
-    try:
-        c.run(
-            '''python -c "
-import rdflib
-g = rdflib.Graph()
-g.parse('actions-vocabulary.ttl', format='turtle')
-g.serialize('actions-vocabulary.jsonld', format='json-ld')
-print('✅ Generated JSON-LD format')
-"'''
-        )
-    except Exception as e:
-        print(f"⚠️ Could not generate JSON-LD: {e}")
-
-
-@task
 def build_site(c):
     """Build the complete vocabulary site for deployment (v3.1.0 consolidated)."""
     print("🏗️ Building vocabulary site for v3.1.0...")
@@ -123,36 +72,28 @@ def build_site(c):
     # Clean and recreate site structure
     c.run("rm -rf site")
     c.run(
-        "mkdir -p site/vocab/actions/v3 site/vocab/actions/schemas site/vocab/actions/examples/v3/valid site/vocab/actions/examples/v3/invalid site/.well-known"
+        "mkdir -p site/vocab/actions/v3 site/vocab/actions/examples/v3/valid site/vocab/actions/examples/v3/invalid site/.well-known"
     )
 
     # Generate additional formats from v3.1.0 OWL ontology
     print("🔄 Generating RDF formats from v3.1.0 ontology...")
-
-
+    c.run(
+        '''python -c "
 import rdflib
-
 g = rdflib.Graph()
-g.parse("actions-vocabulary.owl", format="xml")
-g.serialize("site/vocab/actions/v3/actions-vocabulary.ttl", format="turtle")
-g.serialize("site/vocab/actions/v3/actions-vocabulary.rdf", format="xml")
-g.serialize("site/vocab/actions/v3/actions-vocabulary.jsonld", format="json-ld")
-print("✅ Generated Turtle, RDF/XML, and JSON-LD formats")
+g.parse('actions-vocabulary.owl', format='xml')
+g.serialize('site/vocab/actions/v3/actions-vocabulary.ttl', format='turtle')
+g.serialize('site/vocab/actions/v3/actions-vocabulary.rdf', format='xml')
+g.serialize('site/vocab/actions/v3/actions-vocabulary.jsonld', format='json-ld')
+print('✅ Generated Turtle, RDF/XML, and JSON-LD formats')
+"'''
+    )
 
+    # Copy v3.1.0 OWL ontology (canonical format)
+    c.run("cp actions-vocabulary.owl site/vocab/actions/v3/")
 
-# Copy v3.1.0 OWL ontology (canonical format)
-c.run("cp actions-vocabulary.owl site/vocab/actions/v3/")
-
-# Copy v3 SHACL shapes
-c.run("cp actions-shapes-v3.ttl site/vocab/actions/v3/shapes.ttl")
-
-# Generate schemas if needed
-if c.run("test -d schemas && ls schemas/*.json 2>/dev/null", warn=True).ok:
-    c.run("cp schemas/*.json site/vocab/actions/schemas/ 2>/dev/null || true")
-
-    # Copy examples (legacy JSON examples)
-    c.run("cp examples/*.json site/vocab/actions/examples/ 2>/dev/null || true")
-    c.run("cp examples/README.md site/vocab/actions/examples/ 2>/dev/null || true")
+    # Copy v3 SHACL shapes
+    c.run("cp actions-shapes-v3.ttl site/vocab/actions/v3/shapes.ttl")
 
     # Copy v3 Turtle examples (used for testing and documentation)
     c.run(
@@ -311,11 +252,6 @@ def _create_cloudflare_config(c):
   Content-Type: application/ld+json
   Cache-Control: public, max-age=3600
 
-# Cache schemas for 1 hour
-/vocab/actions/schemas/*.json
-  Content-Type: application/schema+json
-  Cache-Control: public, max-age=3600
-
 # No cache for HTML
 /*.html
   Cache-Control: no-cache, must-revalidate
@@ -379,11 +315,10 @@ def test_content_negotiation(c):
     base_url = "http://localhost:8000"
 
     tests = [
-        ("text/turtle", "vocabulary.ttl", "TTL format"),
-        ("application/json", "actions-combined.schema.json", "JSON Schema"),
+        ("text/turtle", "actions-vocabulary.ttl", "Turtle format"),
+        ("application/rdf+xml", "actions-vocabulary.owl", "OWL/XML format"),
+        ("application/ld+json", "actions-vocabulary.jsonld", "JSON-LD format"),
         ("text/html", "index.html", "HTML documentation"),
-        ("application/rdf+xml", "vocabulary.rdf", "RDF/XML format"),
-        ("application/ld+json", "vocabulary.jsonld", "JSON-LD format"),
     ]
 
     for accept_header, expected_file, description in tests:
@@ -407,9 +342,9 @@ def deploy_check(c):
     print("🔍 Checking deployment readiness...")
 
     required_files = [
-        "site/actions/vocabulary.ttl",
-        "site/actions/shapes.ttl",
-        "site/actions/schemas/actions-combined.schema.json",
+        "site/vocab/actions/v3/actions-vocabulary.owl",
+        "site/vocab/actions/v3/actions-vocabulary.ttl",
+        "site/vocab/actions/v3/shapes.ttl",
         "site/.well-known/vocab-catalog.json",
         "site/index.html",
     ]
@@ -422,19 +357,7 @@ def deploy_check(c):
             print(f"  ❌ Missing: {file_path}")
             all_good = False
 
-    # Check JSON validity
-    json_files = c.run("find site -name '*.json'", hide=True).stdout.strip().split("\n")
-    for json_file in json_files:
-        if json_file:  # Skip empty lines
-            if c.run(
-                f"python -c 'import json; json.load(open(\"{json_file}\"))'", warn=True
-            ).ok:
-                print(f"  ✅ Valid JSON: {json_file}")
-            else:
-                print(f"  ❌ Invalid JSON: {json_file}")
-                all_good = False
-
-    # Check TTL validity
+    # Check Turtle/OWL validity
     ttl_files = c.run("find site -name '*.ttl'", hide=True).stdout.strip().split("\n")
     for ttl_file in ttl_files:
         if ttl_file:  # Skip empty lines
