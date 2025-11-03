@@ -1,0 +1,17 @@
+@prefix actions: <https://clearhead.us/vocab/actions/v3#> .
+@prefix schema: <http://schema.org/> .
+
+# Parent
+actions:plan-root
+    a actions:RootActionPlan ;
+    schema:name "Root task" ;
+    actions:hasUUID "01951111-0000-7000-8000-000000000200" ;
+    actions:hasDepth 0 .
+
+# INVALID: Says depth 3 but parent chain is only 1 level
+actions:plan-depth-mismatch
+    a actions:ChildActionPlan ;
+    schema:name "Depth mismatch task" ;
+    actions:hasUUID "01951111-0000-7000-8000-000000000201" ;
+    actions:hasDepth 3 ;  # VIOLATION: Claims depth 3 but only 1 level deep
+    actions:hasParentPlan actions:plan-root .

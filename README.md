@@ -64,7 +64,13 @@ uv sync
 ### Validation
 ```bash
 # Run v3 validation tests
-uv run python tests/test_poc.py
+uv run pytest
+
+# Run with verbose output
+uv run pytest -v
+
+# Run only unit tests (skip slow reasoning)
+uv run pytest -m "not slow"
 
 # Expected results:
 # ✅ 12 classes + 8 annotated BFO/CCO classes
@@ -179,7 +185,7 @@ The `actions-vocabulary.owl` file includes:
 # Or edit OWL/XML directly with understanding of the format
 
 # Validate changes
-uv run python tests/test_poc.py
+uv run pytest
 
 # Check consistency with HermiT reasoner in Protégé
 ```

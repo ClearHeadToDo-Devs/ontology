@@ -1,0 +1,40 @@
+@prefix actions: <https://clearhead.us/vocab/actions/v3#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
+
+# The plan (information/directive)
+actions:plan-recurring-001
+    a actions:RootActionPlan ;
+    schema:name "Weekly team standup" ;
+    actions:hasUUID "01951111-1111-7111-8111-111111111111" ;
+    actions:hasPriority 2 ;
+    actions:hasDepth 0 ;
+    actions:hasRecurrenceFrequency "WEEKLY" ;
+    actions:hasRecurrenceInterval 1 .
+
+# The process (actual execution on 2025-01-15)
+actions:process-001
+    a actions:ActionProcess ;
+    schema:name "Weekly team standup (2025-01-15)" ;
+    actions:hasUUID "01951111-2222-7222-8222-222222222222" ;
+    actions:hasState actions:Completed ;
+    actions:hasCompletedDateTime "2025-01-15T10:30:00"^^xsd:dateTime ;
+    cco:prescribed_by actions:plan-recurring-001 .
+
+# State individual
+actions:Completed a actions:ActionState .
+
+# The process (execution on 2025-01-22)
+actions:process-002
+    a actions:ActionProcess ;
+    schema:name "Weekly team standup (2025-01-22)" ;
+    actions:hasUUID "01951111-3333-7333-8333-333333333333" ;
+    actions:hasState actions:InProgress ;
+    cco:prescribed_by actions:plan-recurring-001 .
+
+# State individual
+actions:InProgress a actions:ActionState .
+
+# Relationship: plan prescribes processes
+actions:plan-recurring-001 cco:prescribes actions:process-001, actions:process-002 .

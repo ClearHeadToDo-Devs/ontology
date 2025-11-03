@@ -126,7 +126,7 @@ Archived:
 │   ├── cco-event.owl
 │   └── cco-information.owl
 ├── tests/
-│   └── test_poc.py                # Validation script
+│   └── test_poc.py                # Test suite (pytest)
 ├── docs/
 ├── examples/
 ├── schemas/
@@ -213,7 +213,10 @@ Update any references from `vocab.example.org` to `vocab.clearhead.io`.
 
 ```bash
 # Validate consolidated ontology
-uv run python tests/test_poc.py
+uv run pytest
+
+# Run with verbose output
+uv run pytest -v
 
 # Expected results:
 # ✅ 12 classes loaded

@@ -1,0 +1,11 @@
+@prefix actions: <https://clearhead.us/vocab/actions/v3#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# INVALID: Priority is 5 (must be 1-4)
+actions:plan-invalid-priority
+    a actions:RootActionPlan ;
+    schema:name "Invalid priority task" ;
+    actions:hasUUID "01951111-bad0-7bad-8bad-badbadbadbad" ;
+    actions:hasPriority 5 ;  # VIOLATION: Priority must be 1-4
+    actions:hasDepth 0 .

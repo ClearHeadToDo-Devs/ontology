@@ -105,7 +105,7 @@ cd ontology
 uv sync
 
 # Validate the ontology
-uv run python tests/test_poc.py
+uv run pytest
 
 # Build the complete site (if needed for web hosting)
 uv run invoke build-site
@@ -378,7 +378,7 @@ After deployment, validate your vocabulary:
 
 ```bash
 # Test loading
-uv run python tests/test_poc.py
+uv run pytest
 
 # Test reasoning (requires Protégé or owlready2)
 # Open in Protégé → Reasoner → HermiT → Start reasoner

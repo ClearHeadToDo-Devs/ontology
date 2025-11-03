@@ -14,8 +14,8 @@ from pyshacl import validate
 ONTOLOGY_DIR = Path(__file__).parent.parent.parent
 SHAPES_FILE = ONTOLOGY_DIR / "actions-shapes-v3.ttl"
 ONTOLOGY_FILE = ONTOLOGY_DIR / "actions-vocabulary.owl"
-VALID_DATA_DIR = Path(__file__).parent / "data" / "valid"
-INVALID_DATA_DIR = Path(__file__).parent / "data" / "invalid"
+VALID_DATA_DIR = ONTOLOGY_DIR / "examples" / "v3" / "valid"
+INVALID_DATA_DIR = ONTOLOGY_DIR / "examples" / "v3" / "invalid"
 
 
 def load_shapes_graph():
@@ -190,7 +190,7 @@ class TestConstraintCoverage:
         """Test that hierarchical constraints exist."""
         query = """
         PREFIX sh: <http://www.w3.org/ns/shacl#>
-        PREFIX actions: <https://vocab.clearhead.io/actions/v3#>
+        PREFIX actions: <https://clearhead.us/vocab/actions/v3#>
         ASK {
             ?shape sh:targetClass ?class .
             FILTER(?class IN (actions:RootActionPlan, actions:ChildActionPlan, actions:LeafActionPlan))

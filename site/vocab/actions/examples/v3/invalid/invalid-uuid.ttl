@@ -1,0 +1,9 @@
+@prefix actions: <https://clearhead.us/vocab/actions/v3#> .
+@prefix schema: <http://schema.org/> .
+
+# INVALID: UUID is not version 7 format
+actions:plan-invalid-uuid
+    a actions:RootActionPlan ;
+    schema:name "Invalid UUID task" ;
+    actions:hasUUID "not-a-valid-uuid-v7-format" ;  # VIOLATION: Must be UUID v7
+    actions:hasDepth 0 .

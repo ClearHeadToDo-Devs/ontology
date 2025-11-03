@@ -147,7 +147,7 @@ def build_site(c):
 
     # Clean and recreate site structure
     c.run("rm -rf site")
-    c.run("mkdir -p site/vocab/actions/v3 site/vocab/actions/schemas site/vocab/actions/examples site/.well-known")
+    c.run("mkdir -p site/vocab/actions/v3 site/vocab/actions/schemas site/vocab/actions/examples/v3/valid site/vocab/actions/examples/v3/invalid site/.well-known")
 
     # Generate additional formats from v3.1.0 OWL ontology
     print("🔄 Generating RDF formats from v3.1.0 ontology...")
@@ -171,9 +171,17 @@ print('✅ Generated Turtle, RDF/XML, and JSON-LD formats')
     if c.run("test -d schemas && ls schemas/*.json 2>/dev/null", warn=True).ok:
         c.run("cp schemas/*.json site/vocab/actions/schemas/ 2>/dev/null || true")
 
-    # Copy examples
+    # Copy examples (legacy JSON examples)
     c.run("cp examples/*.json site/vocab/actions/examples/ 2>/dev/null || true")
     c.run("cp examples/README.md site/vocab/actions/examples/ 2>/dev/null || true")
+
+    # Copy v3 Turtle examples (used for testing and documentation)
+    c.run("cp examples/v3/valid/*.ttl site/vocab/actions/examples/v3/valid/ 2>/dev/null || true")
+    c.run("cp examples/v3/invalid/*.ttl site/vocab/actions/examples/v3/invalid/ 2>/dev/null || true")
+
+    # Create v3 examples README if it exists
+    if c.run("test -f examples/v3/README.md", warn=True).ok:
+        c.run("cp examples/v3/README.md site/vocab/actions/examples/v3/")
 
     # Copy well-known files
     c.run("cp .well-known/vocab-catalog.json site/.well-known/")

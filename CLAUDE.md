@@ -117,13 +117,19 @@ We also use code editors (neovim/VSCode) to edit the ontology by hand for struct
 ### v3.1.0 Tests
 ```bash
 # Run v3.1.0 validation (consolidated ontology)
-uv run python tests/test_poc.py
+uv run pytest
+
+# Run with verbose output to see details
+uv run pytest -v
+
+# Run only unit tests (skip slow reasoning tests)
+uv run pytest -m "not slow"
 
 # Expected results:
 # ✅ 12 classes loaded (core + extensions)
 # ✅ 20 properties defined (core + extensions)
 # ✅ Logically consistent (HermiT reasoner)
-# ✅ ~229 RDF triples
+# ✅ ~260 RDF triples
 ```
 
 ### v2 Tests (Legacy)
@@ -170,13 +176,14 @@ See [BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md) for detailed technical mappin
 
 ### Testing Strategy
 
-**Current (POC Phase):**
-1. Python validation script (`tests/test_poc.py`)
-2. Protégé + HermiT reasoner validation
+**Current:**
+1. Pytest test suite (`tests/test_poc.py`) - Automated validation with fixtures
+2. Protégé + HermiT reasoner validation - Manual visual verification
 
-**Future (Full v3):**
-1. **OWL Reasoning Tests** - Ontology satisfiability, class disjointness, property correctness
-2. **SHACL Validation Tests** - Data quality constraints, business rules
+**Test Organization:**
+1. **OWL Reasoning Tests** (Unit) - Ontology satisfiability, class disjointness, property correctness
+2. **SHACL Validation Tests** (Validation) - Data quality constraints, business rules
+3. **Integration Tests** (Slow) - HermiT reasoner consistency checking
 
 ## "Small Waist" Architecture
 
@@ -219,7 +226,7 @@ graph TB
 - **PHASE2_DESIGN.md** - Extension design rationale
 - **PHASE2_IMPLEMENTATION.md** - Extension implementation details
 - **DEPLOYMENT.md** - Vocabulary hosting and deployment guide (Cloudflare)
-- **tests/test_poc.py** - Validation script
+- **tests/test_poc.py** - Test suite (pytest)
 - **imports/** - BFO and CCO ontology files
 
 ### Deployment Files
@@ -286,7 +293,7 @@ The consolidated v3.1.0 ontology is now the single source of truth.
 2. **Separate plans from processes** - Information vs occurrents
 3. **Test both layers** - Syntax validation + reasoning
 4. **Update documentation** - Always sync markdown files with changes
-5. **Validate frequently** - `uv run python tests/test_poc.py`
+5. **Validate frequently** - `uv run pytest`
 
 ## Integration Guidelines
 
@@ -311,9 +318,19 @@ The consolidated v3.1.0 ontology is now the single source of truth.
 
 ### Validate v3.1.0 Ontology
 ```bash
-uv run python tests/test_poc.py
+# Run all tests
+uv run pytest
 
-# Expected: 12 classes, 20 properties, ~229 triples
+# Run with verbose output
+uv run pytest -v
+
+# Run only unit tests (skip slow reasoning)
+uv run pytest -m "not slow"
+
+# Run specific test file
+uv run pytest tests/test_poc.py -v
+
+# Expected: 12 classes, 20 properties, ~260 triples
 # All tests should pass (logically consistent)
 ```
 
@@ -324,11 +341,11 @@ uv run python tests/test_poc.py
 # - Make changes visually
 # - Run HermiT reasoner to check consistency
 # - Save
-# - Run: uv run python tests/test_poc.py
+# - Run: uv run pytest
 
 # Option 2: Direct OWL/XML editing
 # - Edit actions-vocabulary.owl (use your editor)
-# - Validate: uv run python tests/test_poc.py
+# - Validate: uv run pytest
 # - Check reasoning in Protégé if making structural changes
 ```
 

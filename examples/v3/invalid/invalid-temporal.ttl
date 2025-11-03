@@ -1,4 +1,4 @@
-@prefix actions: <https://vocab.clearhead.io/actions/v3#> .
+@prefix actions: <https://clearhead.us/vocab/actions/v3#> .
 @prefix schema: <http://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 

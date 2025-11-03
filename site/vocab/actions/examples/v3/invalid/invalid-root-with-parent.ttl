@@ -1,0 +1,17 @@
+@prefix actions: <https://clearhead.us/vocab/actions/v3#> .
+@prefix schema: <http://schema.org/> .
+
+# Parent plan
+actions:plan-parent
+    a actions:RootActionPlan ;
+    schema:name "Parent task" ;
+    actions:hasUUID "01951111-0000-7000-8000-000000000099" ;
+    actions:hasDepth 0 .
+
+# INVALID: Root plan with a parent
+actions:plan-invalid-root
+    a actions:RootActionPlan ;  # Says it's a root
+    schema:name "Invalid root with parent" ;
+    actions:hasUUID "01951111-0000-7000-8000-000000000100" ;
+    actions:hasDepth 0 ;
+    actions:hasParentPlan actions:plan-parent .  # VIOLATION: Roots can't have parents
