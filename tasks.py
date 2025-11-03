@@ -30,21 +30,21 @@ def test(c):
     c.run("pytest")
 
 
-@task  
+@task
 def validate(c):
     """Validate TTL file syntax."""
     print("🔍 Validating ontology syntax...")
     result1 = c.run(
-        'python -c "import rdflib; rdflib.Graph().parse(\'actions-vocabulary.ttl\')"',
-        warn=True
+        "python -c \"import rdflib; rdflib.Graph().parse('actions-vocabulary.ttl')\"",
+        warn=True,
     )
-    
+
     print("🔍 Validating SHACL shapes syntax...")
     result2 = c.run(
-        'python -c "import rdflib; rdflib.Graph().parse(\'actions-shapes.ttl\')"', 
-        warn=True
+        "python -c \"import rdflib; rdflib.Graph().parse('actions-shapes.ttl')\"",
+        warn=True,
     )
-    
+
     if result1.ok and result2.ok:
         print("✅ All TTL files are valid")
     else:
@@ -55,13 +55,7 @@ def validate(c):
 @task
 def clean(c):
     """Clean test artifacts."""
-    patterns = [
-        "tests/__pycache__",
-        ".pytest_cache", 
-        "htmlcov",
-        ".coverage",
-        "schemas"
-    ]
+    patterns = ["tests/__pycache__", ".pytest_cache", "htmlcov", ".coverage", "schemas"]
     for pattern in patterns:
         c.run(f"rm -rf {pattern}", warn=True)
     print("🧹 Cleaned test artifacts and schemas")
@@ -74,14 +68,6 @@ def quick(c):
     c.run("pytest --quick")
 
 
-
-@task
-def generate_schemas(c):
-    """Generate JSON schemas from OWL ontology and SHACL shapes."""
-    c.run("mkdir -p schemas")
-    c.run("uv run python scripts/generate_json_schema.py")
-
-
 @task
 def validate_schemas(c):
     """Validate generated JSON schemas."""
@@ -89,55 +75,44 @@ def validate_schemas(c):
         print("❌ No schemas found. Run 'uv run invoke generate-schemas' first.")
         return
     # Basic validation - check if files are valid JSON
-    c.run("python -c \"import json; json.load(open('schemas/actions-combined.schema.json'))\"")
+    c.run(
+        "python -c \"import json; json.load(open('schemas/actions-combined.schema.json'))\""
+    )
     print("✅ Generated schemas are valid JSON")
-
-
-@task
-def test_examples(c):
-    """Test JSON Schema validation with example data."""
-    c.run("uv run python examples/test_validation.py")
-
-
-@task
-def full_pipeline(c):
-    """Run complete pipeline: validate ontology -> generate schemas -> test examples."""
-    print("🚀 Running full JSON Schema generation pipeline...")
-    validate(c)
-    generate_schemas(c)
-    test_examples(c)
-    print("🎉 Full pipeline completed successfully!")
 
 
 @task
 def generate_additional_formats(c):
     """Generate additional vocabulary formats (RDF/XML, JSON-LD)."""
     print("🔄 Generating additional vocabulary formats...")
-    
+
     # Generate RDF/XML
     try:
-        c.run('''python -c "
+        c.run(
+            '''python -c "
 import rdflib
 g = rdflib.Graph()
 g.parse('actions-vocabulary.ttl', format='turtle')
 g.serialize('actions-vocabulary.rdf', format='xml')
 print('✅ Generated RDF/XML format')
-"''')
+"'''
+        )
     except Exception as e:
         print(f"⚠️ Could not generate RDF/XML: {e}")
-    
+
     # Generate JSON-LD
     try:
-        c.run('''python -c "
+        c.run(
+            '''python -c "
 import rdflib
 g = rdflib.Graph()
 g.parse('actions-vocabulary.ttl', format='turtle')
 g.serialize('actions-vocabulary.jsonld', format='json-ld')
 print('✅ Generated JSON-LD format')
-"''')
+"'''
+        )
     except Exception as e:
         print(f"⚠️ Could not generate JSON-LD: {e}")
-
 
 
 @task
@@ -147,37 +122,45 @@ def build_site(c):
 
     # Clean and recreate site structure
     c.run("rm -rf site")
-    c.run("mkdir -p site/vocab/actions/v3 site/vocab/actions/schemas site/vocab/actions/examples/v3/valid site/vocab/actions/examples/v3/invalid site/.well-known")
+    c.run(
+        "mkdir -p site/vocab/actions/v3 site/vocab/actions/schemas site/vocab/actions/examples/v3/valid site/vocab/actions/examples/v3/invalid site/.well-known"
+    )
 
     # Generate additional formats from v3.1.0 OWL ontology
     print("🔄 Generating RDF formats from v3.1.0 ontology...")
-    c.run('''python -c "
+
+
 import rdflib
+
 g = rdflib.Graph()
-g.parse('actions-vocabulary.owl', format='xml')
-g.serialize('site/vocab/actions/v3/actions-vocabulary.ttl', format='turtle')
-g.serialize('site/vocab/actions/v3/actions-vocabulary.rdf', format='xml')
-g.serialize('site/vocab/actions/v3/actions-vocabulary.jsonld', format='json-ld')
-print('✅ Generated Turtle, RDF/XML, and JSON-LD formats')
-"''')
+g.parse("actions-vocabulary.owl", format="xml")
+g.serialize("site/vocab/actions/v3/actions-vocabulary.ttl", format="turtle")
+g.serialize("site/vocab/actions/v3/actions-vocabulary.rdf", format="xml")
+g.serialize("site/vocab/actions/v3/actions-vocabulary.jsonld", format="json-ld")
+print("✅ Generated Turtle, RDF/XML, and JSON-LD formats")
 
-    # Copy v3.1.0 OWL ontology (canonical format)
-    c.run("cp actions-vocabulary.owl site/vocab/actions/v3/")
 
-    # Copy v3 SHACL shapes
-    c.run("cp actions-shapes-v3.ttl site/vocab/actions/v3/shapes.ttl")
+# Copy v3.1.0 OWL ontology (canonical format)
+c.run("cp actions-vocabulary.owl site/vocab/actions/v3/")
 
-    # Generate schemas if needed
-    if c.run("test -d schemas && ls schemas/*.json 2>/dev/null", warn=True).ok:
-        c.run("cp schemas/*.json site/vocab/actions/schemas/ 2>/dev/null || true")
+# Copy v3 SHACL shapes
+c.run("cp actions-shapes-v3.ttl site/vocab/actions/v3/shapes.ttl")
+
+# Generate schemas if needed
+if c.run("test -d schemas && ls schemas/*.json 2>/dev/null", warn=True).ok:
+    c.run("cp schemas/*.json site/vocab/actions/schemas/ 2>/dev/null || true")
 
     # Copy examples (legacy JSON examples)
     c.run("cp examples/*.json site/vocab/actions/examples/ 2>/dev/null || true")
     c.run("cp examples/README.md site/vocab/actions/examples/ 2>/dev/null || true")
 
     # Copy v3 Turtle examples (used for testing and documentation)
-    c.run("cp examples/v3/valid/*.ttl site/vocab/actions/examples/v3/valid/ 2>/dev/null || true")
-    c.run("cp examples/v3/invalid/*.ttl site/vocab/actions/examples/v3/invalid/ 2>/dev/null || true")
+    c.run(
+        "cp examples/v3/valid/*.ttl site/vocab/actions/examples/v3/valid/ 2>/dev/null || true"
+    )
+    c.run(
+        "cp examples/v3/invalid/*.ttl site/vocab/actions/examples/v3/invalid/ 2>/dev/null || true"
+    )
 
     # Create v3 examples README if it exists
     if c.run("test -f examples/v3/README.md", warn=True).ok:
@@ -199,7 +182,7 @@ print('✅ Generated Turtle, RDF/XML, and JSON-LD formats')
 def _create_index_pages(c):
     """Create HTML index pages for the vocabulary site."""
     # Main index
-    main_index = '''<!DOCTYPE html>
+    main_index = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -288,7 +271,7 @@ def _create_index_pages(c):
         <p>Actions Vocabulary v3.1.0 | Licensed under MIT | <a href="https://clearhead.us">Clearhead Platform</a></p>
     </footer>
 </body>
-</html>'''
+</html>"""
 
     c.run(f"cat > site/index.html << 'EOF'\n{main_index}\nEOF")
     c.run(f"cat > site/vocab/index.html << 'EOF'\n{main_index}\nEOF")
@@ -300,7 +283,7 @@ def _create_cloudflare_config(c):
     """Create Cloudflare Pages configuration files."""
 
     # _headers file for content negotiation and CORS
-    headers = '''# Content negotiation and security headers for Actions Vocabulary
+    headers = """# Content negotiation and security headers for Actions Vocabulary
 
 # CORS headers for all files
 /*
@@ -336,10 +319,10 @@ def _create_cloudflare_config(c):
 # No cache for HTML
 /*.html
   Cache-Control: no-cache, must-revalidate
-'''
+"""
 
     # _redirects file for content negotiation
-    redirects = '''# Content negotiation for Actions Vocabulary v3
+    redirects = """# Content negotiation for Actions Vocabulary v3
 # Cloudflare Pages uses format: [from] [to] [status] [condition]
 
 # Root redirects to vocab
@@ -366,7 +349,7 @@ def _create_cloudflare_config(c):
 /vocab  /vocab/  301
 /actions  /vocab/actions/  301
 /ontology  /vocab/actions/  301
-'''
+"""
 
     c.run(f"cat > site/_headers << 'EOF'\n{headers}\nEOF")
     c.run(f"cat > site/_redirects << 'EOF'\n{redirects}\nEOF")
@@ -382,7 +365,7 @@ def serve_local(c, port=8000):
     print(f"   curl -H 'Accept: text/turtle' http://localhost:{port}/actions/")
     print(f"   curl -H 'Accept: application/json' http://localhost:{port}/actions/")
     print("\n⏹️ Press Ctrl+C to stop")
-    
+
     try:
         c.run(f"python -m http.server {port} --directory site")
     except KeyboardInterrupt:
@@ -394,24 +377,26 @@ def test_content_negotiation(c):
     """Test content negotiation locally (requires site to be running)."""
     print("🧪 Testing content negotiation...")
     base_url = "http://localhost:8000"
-    
+
     tests = [
         ("text/turtle", "vocabulary.ttl", "TTL format"),
         ("application/json", "actions-combined.schema.json", "JSON Schema"),
         ("text/html", "index.html", "HTML documentation"),
         ("application/rdf+xml", "vocabulary.rdf", "RDF/XML format"),
-        ("application/ld+json", "vocabulary.jsonld", "JSON-LD format")
+        ("application/ld+json", "vocabulary.jsonld", "JSON-LD format"),
     ]
-    
+
     for accept_header, expected_file, description in tests:
         print(f"  Testing {description}...")
         result = c.run(
             f"curl -s -H 'Accept: {accept_header}' {base_url}/actions/ -w '%{{content_type}}'",
             warn=True,
-            hide=True
+            hide=True,
         )
         if result.ok:
-            print(f"    ✅ {description}: {result.stdout.split()[-1] if result.stdout else 'OK'}")
+            print(
+                f"    ✅ {description}: {result.stdout.split()[-1] if result.stdout else 'OK'}"
+            )
         else:
             print(f"    ❌ {description}: Failed")
 
@@ -420,15 +405,15 @@ def test_content_negotiation(c):
 def deploy_check(c):
     """Validate deployment readiness."""
     print("🔍 Checking deployment readiness...")
-    
+
     required_files = [
         "site/actions/vocabulary.ttl",
-        "site/actions/shapes.ttl", 
+        "site/actions/shapes.ttl",
         "site/actions/schemas/actions-combined.schema.json",
         "site/.well-known/vocab-catalog.json",
-        "site/index.html"
+        "site/index.html",
     ]
-    
+
     all_good = True
     for file_path in required_files:
         if c.run(f"test -f {file_path}", warn=True).ok:
@@ -436,27 +421,32 @@ def deploy_check(c):
         else:
             print(f"  ❌ Missing: {file_path}")
             all_good = False
-    
+
     # Check JSON validity
-    json_files = c.run("find site -name '*.json'", hide=True).stdout.strip().split('\n')
+    json_files = c.run("find site -name '*.json'", hide=True).stdout.strip().split("\n")
     for json_file in json_files:
         if json_file:  # Skip empty lines
-            if c.run(f"python -c 'import json; json.load(open(\"{json_file}\"))'", warn=True).ok:
+            if c.run(
+                f"python -c 'import json; json.load(open(\"{json_file}\"))'", warn=True
+            ).ok:
                 print(f"  ✅ Valid JSON: {json_file}")
             else:
                 print(f"  ❌ Invalid JSON: {json_file}")
                 all_good = False
-    
+
     # Check TTL validity
-    ttl_files = c.run("find site -name '*.ttl'", hide=True).stdout.strip().split('\n')
+    ttl_files = c.run("find site -name '*.ttl'", hide=True).stdout.strip().split("\n")
     for ttl_file in ttl_files:
         if ttl_file:  # Skip empty lines
-            if c.run(f"python -c 'import rdflib; rdflib.Graph().parse(\"{ttl_file}\")'", warn=True).ok:
+            if c.run(
+                f"python -c 'import rdflib; rdflib.Graph().parse(\"{ttl_file}\")'",
+                warn=True,
+            ).ok:
                 print(f"  ✅ Valid TTL: {ttl_file}")
             else:
                 print(f"  ❌ Invalid TTL: {ttl_file}")
                 all_good = False
-    
+
     if all_good:
         print("\n🎉 Deployment ready!")
         return True
@@ -490,13 +480,15 @@ def deploy(c):
     # Deploy using correct wrangler command
     result = c.run(
         "wrangler pages deploy site --project-name actions-vocabulary --branch main",
-        warn=True
+        warn=True,
     )
 
     if result.ok:
         print()
         print("✅ Deployment successful!")
-        print("📦 View deployment: https://dash.cloudflare.com/.../pages/view/actions-vocabulary")
+        print(
+            "📦 View deployment: https://dash.cloudflare.com/.../pages/view/actions-vocabulary"
+        )
         print("🌐 Production: https://clearhead.us/vocab/actions/v3/")
         print()
         print("💡 To update Worker (if content negotiation changed):")
@@ -506,5 +498,3 @@ def deploy(c):
         print("💡 Check wrangler authentication: wrangler whoami")
         print("💡 Ensure site is built: uv run invoke build-site")
         sys.exit(1)
-
-

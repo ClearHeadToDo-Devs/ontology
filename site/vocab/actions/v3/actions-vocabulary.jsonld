@@ -1,5 +1,337 @@
 [
   {
+    "@id": "http://purl.obolibrary.org/obo/BFO_0000019",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "BFO: A specifically dependent continuant that inheres in a bearer. Examples: temperature, color, state."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Quality"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#Completed",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://clearhead.us/vocab/actions/v3#ActionState"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Action process has been successfully completed."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Completed"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#ChildActionPlan",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "An intermediate action plan at hierarchical depths 1-4. Child action plans must have a parent action and may have child or leaf action plans as parts."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Child Action Plan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#disjointWith": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#LeafActionPlan"
+      }
+    ]
+  },
+  {
+    "@id": "https://www.commoncoreontologies.org/ont00000001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "CCO: A material entity that has been designed to have a specific function. Examples: computer, telephone, tool."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Artifact"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#requiresFacility",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Links to cco:Facility (ont00000192). Can specify facility TYPE or specific INSTANCE."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#LocationContext"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "requires facility"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://www.commoncoreontologies.org/ont00000192"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Specifies the type of facility needed for action execution."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#blockedBy",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Runtime blocking relationship between processes (occurrents). Descriptive (what IS happening). Can be blocked by external event (delivery, weather, approval process)."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionProcess"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "blocked by"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://purl.obolibrary.org/obo/BFO_0000003"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Indicates that this action process cannot continue until the specified occurrent completes."
+      }
+    ]
+  },
+  {
+    "@id": "https://www.commoncoreontologies.org/ont00000228",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "CCO: An act in which at least one agent plays a causative role and which is prescribed by some directive information content entity."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Planned Act"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#altLabel": [
+      {
+        "@language": "en",
+        "@value": "Intentional Act"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#delegatedBy",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Tracks delegation chain. Original owner still accountable even though delegated."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "delegated by"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://www.commoncoreontologies.org/ont00000374"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Indicates the original responsible party who delegated this action to another agent."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#ActionState",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "An enumeration of states that an action process can be in. These are BFO qualities that inhere in action processes."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Action State"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "http://purl.obolibrary.org/obo/BFO_0000019"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "ActionPlans are BFO continuants (generically dependent continuants) that exist across time and can prescribe multiple action processes. An action plan can be executed multiple times (e.g., recurring actions). Closely aligned with Schema.org Action semantics via SKOS mapping."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Action Plan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://www.commoncoreontologies.org/ont00000965"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#closeMatch": [
+      {
+        "@id": "http://schema.org/Action"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A directive information content entity that prescribes an action to be performed."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#Blocked",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://clearhead.us/vocab/actions/v3#ActionState"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Action process is blocked waiting for external dependency."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Blocked"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#LocationContext",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Links to CCO Facility hierarchy (47+ facility types). GTD use case: @office, @home, @errands contexts."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Location Context"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionContext"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A context specifying that an action requires being performed at a particular type of facility or geospatial location."
+      }
+    ]
+  },
+  {
+    "@id": "https://www.commoncoreontologies.org/ont00000965",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "CCO: An information content entity that consists of propositions or images that prescribe some entity. Examples: plans, specifications, algorithms."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Directive Information Content Entity"
+      }
+    ]
+  },
+  {
     "@id": "https://clearhead.us/vocab/actions/v3#InProgress",
     "@type": [
       "http://www.w3.org/2002/07/owl#NamedIndividual",
@@ -15,102 +347,6 @@
       {
         "@language": "en",
         "@value": "In Progress"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#hasProject",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#DatatypeProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Project or story name that this root action plan belongs to. Only available for root action plans to maintain hierarchical clarity."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#RootActionPlan"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "has project"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "http://www.w3.org/2001/XMLSchema#string"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#preferredAfter",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Weakest constraint - optimization hint, not requirement. Recommendation, not mandate."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "preferred after"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Soft constraint: this action is preferably done after the target, but not required."
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#inRoleContext",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "GTD Areas of Focus pattern using CCO Roles. Enables work-life balance tracking and weekly review by area."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "in role context"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://www.commoncoreontologies.org/ont00001366"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Indicates which role or area of responsibility this action belongs to."
       }
     ]
   },
@@ -144,89 +380,56 @@
     ]
   },
   {
-    "@id": "https://clearhead.us/vocab/actions/v3#ToolContext",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Links to CCO Artifact hierarchy (200+ artifact types). GTD use case: @computer, @phone, @online contexts."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Tool Context"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionContext"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "A context specifying that an action requires the use of particular artifacts or tools."
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#requiresContext",
+    "@id": "https://www.commoncoreontologies.org/ont00001942",
     "@type": [
       "http://www.w3.org/2002/07/owl#ObjectProperty"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Replaces v2's string-based hasContext property. Multiple contexts can be specified (AND relationship)."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+        "@value": "CCO: Relates a directive information content entity to the entity it prescribes. If the prescribed entity is an occurrent, the ICE serves as a rule/guide; if continuant, it serves as a model."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "requires context"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionContext"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Links an action plan to the contexts required for its execution."
+        "@value": "prescribes"
       }
     ]
   },
   {
-    "@id": "https://www.commoncoreontologies.org/ont00000228",
+    "@id": "http://purl.obolibrary.org/obo/BFO_0000003",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "CCO: An act in which at least one agent plays a causative role and which is prescribed by some directive information content entity."
+        "@value": "BFO: An entity that unfolds over time and has temporal parts. Processes, events, and temporal regions are occurrents."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Planned Act"
+        "@value": "Occurrent"
       }
+    ]
+  },
+  {
+    "@id": "https://www.commoncoreontologies.org/ont00000192",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
     ],
-    "http://www.w3.org/2004/02/skos/core#altLabel": [
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Intentional Act"
+        "@value": "CCO: A material entity that is designed to support some process or activity. Examples: office, home, retail store."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Facility"
       }
     ]
   },
@@ -284,744 +487,64 @@
     ]
   },
   {
-    "@id": "https://www.commoncoreontologies.org/ont00000965",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "CCO: An information content entity that consists of propositions or images that prescribe some entity. Examples: plans, specifications, algorithms."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Directive Information Content Entity"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#hasState",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "http://www.w3.org/2002/07/owl#FunctionalProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Relates an action process to its current state. Functional property - each process has exactly one state."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionProcess"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "has state"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionState"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
-      {
-        "@id": "http://schema.org/actionStatus"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#ChildActionPlan",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "An intermediate action plan at hierarchical depths 1-4. Child action plans must have a parent action and may have child or leaf action plans as parts."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Child Action Plan"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#disjointWith": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#LeafActionPlan"
-      }
-    ]
-  },
-  {
-    "@id": "https://www.commoncoreontologies.org/ont00000192",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "CCO: A material entity that is designed to support some process or activity. Examples: office, home, retail store."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Facility"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#NotStarted",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#NamedIndividual",
-      "https://clearhead.us/vocab/actions/v3#ActionState"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Action process has not been initiated."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Not Started"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#EnergyContext",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Based on GTD principle that energy is a limiting resource alongside time and tools. Levels: high, medium, low."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Energy Context"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionContext"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "A context specifying the cognitive or physical energy level required to perform an action."
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#Blocked",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#NamedIndividual",
-      "https://clearhead.us/vocab/actions/v3#ActionState"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Action process is blocked waiting for external dependency."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Blocked"
-      }
-    ]
-  },
-  {
-    "@id": "http://purl.obolibrary.org/obo/BFO_0000003",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "BFO: An entity that unfolds over time and has temporal parts. Processes, events, and temporal regions are occurrents."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Occurrent"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#hasEnergyLevel",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "http://www.w3.org/2002/07/owl#FunctionalProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Enumerated values: high, medium, low. GTD principle that energy is a limiting resource alongside time and tools."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#EnergyContext"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "has energy level"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "_:Nf98350a0e4e64e558f8d07284ce386a2"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Specifies the energy level required for an action."
-      }
-    ]
-  },
-  {
-    "@id": "_:Nf98350a0e4e64e558f8d07284ce386a2",
-    "@type": [
-      "http://www.w3.org/2000/01/rdf-schema#Datatype"
-    ],
-    "http://www.w3.org/2002/07/owl#oneOf": [
-      {
-        "@list": [
-          {
-            "@value": "high"
-          },
-          {
-            "@value": "medium"
-          },
-          {
-            "@value": "low"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#performedBy",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Descriptive agent tracking at process level. WHO ACTUALLY performed this action."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionProcess"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "performed by"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://www.commoncoreontologies.org/ont00000374"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Specifies which agent actually executed this action process."
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "ActionPlans are BFO continuants (generically dependent continuants) that exist across time and can prescribe multiple action processes. An action plan can be executed multiple times (e.g., recurring actions). Closely aligned with Schema.org Action semantics via SKOS mapping."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Action Plan"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://www.commoncoreontologies.org/ont00000965"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#closeMatch": [
-      {
-        "@id": "http://schema.org/Action"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "A directive information content entity that prescribes an action to be performed."
-      }
-    ]
-  },
-  {
-    "@id": "https://www.commoncoreontologies.org/ont00001942",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "CCO: Relates a directive information content entity to the entity it prescribes. If the prescribed entity is an occurrent, the ICE serves as a rule/guide; if continuant, it serves as a model."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "prescribes"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#Cancelled",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#NamedIndividual",
-      "https://clearhead.us/vocab/actions/v3#ActionState"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Action process has been cancelled and will not be completed."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Cancelled"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#ActionState",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "An enumeration of states that an action process can be in. These are BFO qualities that inhere in action processes."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Action State"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "http://purl.obolibrary.org/obo/BFO_0000019"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#ActionProcess",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "ActionProcesses are BFO occurrents (processes) that unfold over time and have temporal parts. They are prescribed by ActionPlans and represent the concrete realization of the plan's directives. Each execution of an action plan creates a distinct action process."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Action Process"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://www.commoncoreontologies.org/ont00000228"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "A planned act that is the actual execution of an action plan."
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#requiresAgent",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Links to cco:Agent (ont00000374). Multiple agents can be required."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#SocialContext"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "requires agent"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://www.commoncoreontologies.org/ont00000374"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Specifies other agents whose presence or participation is needed."
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#RootActionPlan",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "A top-level action plan at hierarchical depth 0. Root action plans can belong to projects and serve as parents to child action plans. They cannot have parent actions."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Root Action Plan"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#disjointWith": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ChildActionPlan"
-      },
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#LeafActionPlan"
-      }
-    ]
-  },
-  {
-    "@id": "https://www.commoncoreontologies.org/ont00000001",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "CCO: A material entity that has been designed to have a specific function. Examples: computer, telephone, tool."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Artifact"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#hasPriority",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#DatatypeProperty",
-      "http://www.w3.org/2002/07/owl#FunctionalProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Priority level (1-4) based on Eisenhower Decision Matrix. 1=Urgent&Important, 2=Important, 3=Urgent, 4=Neither."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "has priority"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "http://www.w3.org/2001/XMLSchema#positiveInteger"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#cannotStartUntil",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Stronger than dependsOn - CANNOT vs SHOULD NOT. Mandatory constraint."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "cannot start until"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#inverseOf": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#mustCompleteBefore"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Hard constraint: this action plan cannot begin until the target plan completes."
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#delegatedBy",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Tracks delegation chain. Original owner still accountable even though delegated."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "delegated by"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://www.commoncoreontologies.org/ont00000374"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Indicates the original responsible party who delegated this action to another agent."
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#hasContext",
+    "@id": "https://clearhead.us/vocab/actions/v3#hasProject",
     "@type": [
       "http://www.w3.org/2002/07/owl#DatatypeProperty"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "DEPRECATED: Use requiresContext instead. GTD-style context tag indicating where, when, or with what tools this action can be performed (e.g., @phone, @computer, @office)."
+        "@value": "Project or story name that this root action plan belongs to. Only available for root action plans to maintain hierarchical clarity."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+        "@id": "https://clearhead.us/vocab/actions/v3#RootActionPlan"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "has context"
+        "@value": "has project"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "http://www.w3.org/2001/XMLSchema#string"
       }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
-      {
-        "@id": "http://schema.org/location"
-      }
-    ],
-    "http://www.w3.org/2002/07/owl#deprecated": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
-        "@value": true
-      }
     ]
   },
   {
-    "@id": "https://clearhead.us/vocab/actions/v3#LocationContext",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Links to CCO Facility hierarchy (47+ facility types). GTD use case: @office, @home, @errands contexts."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Location Context"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionContext"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "A context specifying that an action requires being performed at a particular type of facility or geospatial location."
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#LeafActionPlan",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "A terminal action plan at hierarchical depth 5 (maximum). Leaf action plans must have a parent child action and cannot have children of their own."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Leaf Action Plan"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ]
-  },
-  {
-    "@id": "https://www.commoncoreontologies.org/ont00000374",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "CCO: A material entity that has the capability to perform actions. Includes persons, organizations, and groups."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Agent"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#blockedBy",
+    "@id": "https://clearhead.us/vocab/actions/v3#requiresArtifact",
     "@type": [
       "http://www.w3.org/2002/07/owl#ObjectProperty"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Runtime blocking relationship between processes (occurrents). Descriptive (what IS happening). Can be blocked by external event (delivery, weather, approval process)."
+        "@value": "Links to cco:Artifact (ont00000001). Can specify artifact TYPE or specific INSTANCE."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionProcess"
+        "@id": "https://clearhead.us/vocab/actions/v3#ToolContext"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "blocked by"
+        "@value": "requires artifact"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "http://purl.obolibrary.org/obo/BFO_0000003"
+        "@id": "https://www.commoncoreontologies.org/ont00000001"
       }
     ],
     "http://www.w3.org/2004/02/skos/core#definition": [
       {
         "@language": "en",
-        "@value": "Indicates that this action process cannot continue until the specified occurrent completes."
-      }
-    ]
-  },
-  {
-    "@id": "https://www.commoncoreontologies.org/ont00001449",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "CCO: Relates an act to an agent that participates in or performs it."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "has agent"
+        "@value": "Specifies artifacts or tools needed for action execution."
       }
     ]
   },
@@ -1065,20 +588,620 @@
     ]
   },
   {
-    "@id": "http://purl.obolibrary.org/obo/BFO_0000019",
+    "@id": "https://clearhead.us/vocab/actions/v3#dependsOn",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "http://www.w3.org/2002/07/owl#TransitiveProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "General dependency relation for plans (continuants). Transitive property. Prescriptive information (what SHOULD happen)."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "depends on"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Indicates that this action plan should not begin execution until the target action plan has been completed."
+      }
+    ]
+  },
+  {
+    "@id": "https://www.commoncoreontologies.org/ont00001449",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "CCO: Relates an act to an agent that participates in or performs it."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "has agent"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#hasContext",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "DEPRECATED: Use requiresContext instead. GTD-style context tag indicating where, when, or with what tools this action can be performed (e.g., @phone, @computer, @office)."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "has context"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+      {
+        "@id": "http://schema.org/location"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#deprecated": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+        "@value": true
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#hasPriority",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Priority level (1-4) based on Eisenhower Decision Matrix. 1=Urgent&Important, 2=Important, 3=Urgent, 4=Neither."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "has priority"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#positiveInteger"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#canRunInParallel",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "http://www.w3.org/2002/07/owl#SymmetricProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Explicit declaration that actions are independent. Symmetric property. Optimization hint for parallel execution."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "can run in parallel"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Indicates these actions have no ordering constraints and can be executed simultaneously."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#LeafActionPlan",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "BFO: A specifically dependent continuant that inheres in a bearer. Examples: temperature, color, state."
+        "@value": "A terminal action plan at hierarchical depth 5 (maximum). Leaf action plans must have a parent child action and cannot have children of their own."
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Quality"
+        "@value": "Leaf Action Plan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#ActionProcess",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "ActionProcesses are BFO occurrents (processes) that unfold over time and have temporal parts. They are prescribed by ActionPlans and represent the concrete realization of the plan's directives. Each execution of an action plan creates a distinct action process."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Action Process"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://www.commoncoreontologies.org/ont00000228"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A planned act that is the actual execution of an action plan."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#EnergyContext",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Based on GTD principle that energy is a limiting resource alongside time and tools. Levels: high, medium, low."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Energy Context"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionContext"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A context specifying the cognitive or physical energy level required to perform an action."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#preferredAfter",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Weakest constraint - optimization hint, not requirement. Recommendation, not mandate."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "preferred after"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Soft constraint: this action is preferably done after the target, but not required."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#Milestone",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Milestones represent completion of a set of actions and mark significant progress points. Typically don't prescribe processes themselves."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Milestone"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#RootActionPlan"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A significant checkpoint or goal in a project, often used as a dependency target for multiple actions."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#RootActionPlan",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A top-level action plan at hierarchical depth 0. Root action plans can belong to projects and serve as parents to child action plans. They cannot have parent actions."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Root Action Plan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#disjointWith": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ChildActionPlan"
+      },
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#LeafActionPlan"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#hasEnergyLevel",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Enumerated values: high, medium, low. GTD principle that energy is a limiting resource alongside time and tools."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#EnergyContext"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "has energy level"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "_:Nfccc80c6f34f470c92f05fff7f9a72f9"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Specifies the energy level required for an action."
+      }
+    ]
+  },
+  {
+    "@id": "_:Nfccc80c6f34f470c92f05fff7f9a72f9",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Datatype"
+    ],
+    "http://www.w3.org/2002/07/owl#oneOf": [
+      {
+        "@list": [
+          {
+            "@value": "high"
+          },
+          {
+            "@value": "medium"
+          },
+          {
+            "@value": "low"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#Cancelled",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://clearhead.us/vocab/actions/v3#ActionState"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Action process has been cancelled and will not be completed."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Cancelled"
+      }
+    ]
+  },
+  {
+    "@id": "https://www.commoncoreontologies.org/ont00000374",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "CCO: A material entity that has the capability to perform actions. Includes persons, organizations, and groups."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Agent"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#requiresContext",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Replaces v2's string-based hasContext property. Multiple contexts can be specified (AND relationship)."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "requires context"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionContext"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Links an action plan to the contexts required for its execution."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#cannotStartUntil",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Stronger than dependsOn - CANNOT vs SHOULD NOT. Mandatory constraint."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "cannot start until"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#inverseOf": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#mustCompleteBefore"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Hard constraint: this action plan cannot begin until the target plan completes."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#inRoleContext",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "GTD Areas of Focus pattern using CCO Roles. Enables work-life balance tracking and weekly review by area."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "in role context"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://www.commoncoreontologies.org/ont00001366"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Indicates which role or area of responsibility this action belongs to."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#requiresAgent",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Links to cco:Agent (ont00000374). Multiple agents can be required."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#SocialContext"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "requires agent"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://www.commoncoreontologies.org/ont00000374"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Specifies other agents whose presence or participation is needed."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#NotStarted",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://clearhead.us/vocab/actions/v3#ActionState"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Action process has not been initiated."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Not Started"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#performedBy",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Descriptive agent tracking at process level. WHO ACTUALLY performed this action."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionProcess"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "performed by"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://www.commoncoreontologies.org/ont00000374"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Specifies which agent actually executed this action process."
       }
     ]
   },
@@ -1122,220 +1245,6 @@
     ]
   },
   {
-    "@id": "https://clearhead.us/vocab/actions/v3#canRunInParallel",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "http://www.w3.org/2002/07/owl#SymmetricProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Explicit declaration that actions are independent. Symmetric property. Optimization hint for parallel execution."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "can run in parallel"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Indicates these actions have no ordering constraints and can be executed simultaneously."
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#dependsOn",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty",
-      "http://www.w3.org/2002/07/owl#TransitiveProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "General dependency relation for plans (continuants). Transitive property. Prescriptive information (what SHOULD happen)."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "depends on"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionPlan"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Indicates that this action plan should not begin execution until the target action plan has been completed."
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#Milestone",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Milestones represent completion of a set of actions and mark significant progress points. Typically don't prescribe processes themselves."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Milestone"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#RootActionPlan"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "A significant checkpoint or goal in a project, often used as a dependency target for multiple actions."
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#SocialContext",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Links to CCO Agent (Person, Organization, Group). GTD use case: @agenda contexts (discuss with specific person)."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Social Context"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ActionContext"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "A context specifying that an action requires the presence or participation of particular agents."
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#requiresFacility",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Links to cco:Facility (ont00000192). Can specify facility TYPE or specific INSTANCE."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#LocationContext"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "requires facility"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://www.commoncoreontologies.org/ont00000192"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Specifies the type of facility needed for action execution."
-      }
-    ]
-  },
-  {
-    "@id": "https://www.commoncoreontologies.org/ont00001366",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "CCO: A realizable entity that exists because there is some corresponding social norm or expectation. Examples: occupation, organization membership, social position."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Role"
-      }
-    ]
-  },
-  {
-    "@id": "https://clearhead.us/vocab/actions/v3#requiresArtifact",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#ObjectProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#comment": [
-      {
-        "@language": "en",
-        "@value": "Links to cco:Artifact (ont00000001). Can specify artifact TYPE or specific INSTANCE."
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "https://clearhead.us/vocab/actions/v3#ToolContext"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "requires artifact"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "https://www.commoncoreontologies.org/ont00000001"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Specifies artifacts or tools needed for action execution."
-      }
-    ]
-  },
-  {
     "@id": "https://clearhead.us/vocab/actions/v3#mustCompleteBefore",
     "@type": [
       "http://www.w3.org/2002/07/owl#ObjectProperty"
@@ -1375,21 +1284,112 @@
     ]
   },
   {
-    "@id": "https://clearhead.us/vocab/actions/v3#Completed",
+    "@id": "https://clearhead.us/vocab/actions/v3#hasState",
     "@type": [
-      "http://www.w3.org/2002/07/owl#NamedIndividual",
-      "https://clearhead.us/vocab/actions/v3#ActionState"
+      "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
     ],
     "http://www.w3.org/2000/01/rdf-schema#comment": [
       {
         "@language": "en",
-        "@value": "Action process has been successfully completed."
+        "@value": "Relates an action process to its current state. Functional property - each process has exactly one state."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionProcess"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
       {
         "@language": "en",
-        "@value": "Completed"
+        "@value": "has state"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionState"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+      {
+        "@id": "http://schema.org/actionStatus"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#SocialContext",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Links to CCO Agent (Person, Organization, Group). GTD use case: @agenda contexts (discuss with specific person)."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Social Context"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionContext"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A context specifying that an action requires the presence or participation of particular agents."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v3#ToolContext",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Links to CCO Artifact hierarchy (200+ artifact types). GTD use case: @computer, @phone, @online contexts."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Tool Context"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v3#ActionContext"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A context specifying that an action requires the use of particular artifacts or tools."
+      }
+    ]
+  },
+  {
+    "@id": "https://www.commoncoreontologies.org/ont00001366",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "CCO: A realizable entity that exists because there is some corresponding social norm or expectation. Examples: occupation, organization membership, social position."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Role"
       }
     ]
   }
