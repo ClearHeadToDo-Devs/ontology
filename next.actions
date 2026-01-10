@@ -1,0 +1,2 @@
+[x] Re-hydrate ontology with missing properties $ Port Recurrence, Temporal, and Hierarchy properties from v2/design docs to actions-vocabulary.owl !1 +ontology +fix %2026-01-10T00:15 ^2026-01-09T23:55 #019ba6f8-9366-7080-87b4-3685951d3885
+[x] Validate and deploy updated ontology to Cloudflare $ Ensure SHACL shapes are valid and site is pushed to actions-vocabulary.pages.dev !1 +ontology +deployment %2026-01-10T08:08 ^2026-01-10T07:55 #019ba714-c157-76b3-ba5f-93283526b6ca

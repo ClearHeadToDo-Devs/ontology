@@ -66,6 +66,51 @@
     rdfs:range bfo:0000003 ;
     skos:definition "Indicates that this action process cannot continue until the specified occurrent completes."@en .
 
+:byDay a owl:DatatypeProperty ;
+    rdfs:label "by day"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:string .
+
+:byHour a owl:DatatypeProperty ;
+    rdfs:label "by hour"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:string .
+
+:byMinute a owl:DatatypeProperty ;
+    rdfs:label "by minute"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:string .
+
+:byMonth a owl:DatatypeProperty ;
+    rdfs:label "by month"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:string .
+
+:byMonthDay a owl:DatatypeProperty ;
+    rdfs:label "by month day"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:string .
+
+:bySecond a owl:DatatypeProperty ;
+    rdfs:label "by second"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:string .
+
+:bySetPos a owl:DatatypeProperty ;
+    rdfs:label "by set position"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:string .
+
+:byWeekNo a owl:DatatypeProperty ;
+    rdfs:label "by week number"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:string .
+
+:byYearDay a owl:DatatypeProperty ;
+    rdfs:label "by year day"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:string .
+
 :canRunInParallel a owl:ObjectProperty,
         owl:SymmetricProperty ;
     rdfs:label "can run in parallel"@en ;
@@ -89,6 +134,12 @@
     rdfs:range :ActionPlan ;
     skos:definition "Indicates that this action plan should not begin execution until the target action plan has been completed."@en .
 
+:hasCompletedDateTime a owl:DatatypeProperty ;
+    rdfs:label "has completed date time"@en ;
+    rdfs:comment "Records the actual instant an action process reached the completed state."@en ;
+    rdfs:domain :ActionProcess ;
+    rdfs:range xsd:dateTime .
+
 :hasContext a owl:DatatypeProperty ;
     rdfs:label "has context"@en ;
     rdfs:comment "DEPRECATED: Use requiresContext instead. GTD-style context tag indicating where, when, or with what tools this action can be performed (e.g., @phone, @computer, @office)."@en ;
@@ -96,6 +147,17 @@
     rdfs:range xsd:string ;
     rdfs:subPropertyOf schema1:location ;
     owl:deprecated true .
+
+:hasDoDateTime a owl:DatatypeProperty ;
+    rdfs:label "has do date time"@en ;
+    rdfs:comment "Prescribes when an action process should be initiated."@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:dateTime .
+
+:hasDurationMinutes a owl:DatatypeProperty ;
+    rdfs:label "has duration minutes"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:positiveInteger .
 
 :hasEnergyLevel a owl:DatatypeProperty,
         owl:FunctionalProperty ;
@@ -125,6 +187,27 @@
     rdfs:domain :RootActionPlan ;
     rdfs:range xsd:string .
 
+:hasRecurrenceCount a owl:DatatypeProperty ;
+    rdfs:label "has recurrence count"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:positiveInteger .
+
+:hasRecurrenceFrequency a owl:DatatypeProperty ;
+    rdfs:label "has recurrence frequency"@en ;
+    rdfs:comment "iCalendar RRULE frequency (DAILY, WEEKLY, etc.)"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:string .
+
+:hasRecurrenceInterval a owl:DatatypeProperty ;
+    rdfs:label "has recurrence interval"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:positiveInteger .
+
+:hasRecurrenceUntil a owl:DatatypeProperty ;
+    rdfs:label "has recurrence until"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:dateTime .
+
 :hasState a owl:FunctionalProperty,
         owl:ObjectProperty ;
     rdfs:label "has state"@en ;
@@ -139,6 +222,13 @@
     rdfs:domain :ActionPlan ;
     rdfs:range cco:ont00001366 ;
     skos:definition "Indicates which role or area of responsibility this action belongs to."@en .
+
+:parentAction a owl:ObjectProperty ;
+    rdfs:label "parent action"@en ;
+    rdfs:comment "A sub-property of bfo:part_of representing the hierarchical nesting of plans."@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range :ActionPlan ;
+    rdfs:subPropertyOf bfo:0000050 .
 
 :performedBy a owl:ObjectProperty ;
     rdfs:label "performed by"@en ;
@@ -189,6 +279,11 @@
     rdfs:domain :LocationContext ;
     rdfs:range cco:ont00000192 ;
     skos:definition "Specifies the type of facility needed for action execution."@en .
+
+:weekStart a owl:DatatypeProperty ;
+    rdfs:label "week start"@en ;
+    rdfs:domain :ActionPlan ;
+    rdfs:range xsd:string .
 
 bfo:0000003 a owl:Class ;
     rdfs:label "Occurrent"@en ;
@@ -285,12 +380,6 @@ cco:ont00000965 a owl:Class ;
     rdfs:label "Directive Information Content Entity"@en ;
     rdfs:comment "CCO: An information content entity that consists of propositions or images that prescribe some entity. Examples: plans, specifications, algorithms."@en .
 
-:ActionProcess a owl:Class ;
-    rdfs:label "Action Process"@en ;
-    rdfs:comment "ActionProcesses are BFO occurrents (processes) that unfold over time and have temporal parts. They are prescribed by ActionPlans and represent the concrete realization of the plan's directives. Each execution of an action plan creates a distinct action process."@en ;
-    rdfs:subClassOf cco:ont00000228 ;
-    skos:definition "A planned act that is the actual execution of an action plan."@en .
-
 cco:ont00000374 a owl:Class ;
     rdfs:label "Agent"@en ;
     rdfs:comment "CCO: A material entity that has the capability to perform actions. Includes persons, organizations, and groups."@en .
@@ -300,6 +389,12 @@ cco:ont00000374 a owl:Class ;
     rdfs:comment "Contexts are continuants (information entities) that persist and can be reused across multiple action plans. They prescribe what resources or conditions are needed for execution. GTD pattern: Replaces string-based @context tags with typed entities."@en ;
     rdfs:subClassOf cco:ont00000965 ;
     skos:definition "A directive information content entity that prescribes environmental, resource, or situational requirements for performing an action."@en .
+
+:ActionProcess a owl:Class ;
+    rdfs:label "Action Process"@en ;
+    rdfs:comment "ActionProcesses are BFO occurrents (processes) that unfold over time and have temporal parts. They are prescribed by ActionPlans and represent the concrete realization of the plan's directives. Each execution of an action plan creates a distinct action process."@en ;
+    rdfs:subClassOf cco:ont00000228 ;
+    skos:definition "A planned act that is the actual execution of an action plan."@en .
 
 :ActionState a owl:Class ;
     rdfs:label "Action State"@en ;
