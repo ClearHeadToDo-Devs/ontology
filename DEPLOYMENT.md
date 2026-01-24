@@ -2,14 +2,14 @@
 
 This document explains how to deploy the Actions Vocabulary as a hosted semantic vocabulary with proper content negotiation and discovery.
 
-## 🌐 Production Deployment (Cloudflare)
+## Production Deployment (Cloudflare)
 
 The Actions Vocabulary v3.1.0 is **live and operational** at **`clearhead.us`**.
 
-✅ **Status:** Production-ready with full semantic web content negotiation
-🌐 **URL:** https://clearhead.us/vocab/actions/v3/
-📅 **Last Updated:** 2025-11-02
-🔒 **SSL:** Automatic HTTPS via Cloudflare
+ **Status:** Production-ready with full semantic web content negotiation
+ **URL:** https://clearhead.us/vocab/actions/v3/
+ **Last Updated:** 2025-11-02
+ **SSL:** Automatic HTTPS via Cloudflare
 
 ### Current Deployment Status
 
@@ -23,7 +23,7 @@ The Actions Vocabulary v3.1.0 is **live and operational** at **`clearhead.us`**.
 **Content Negotiation Worker:**
 - **Worker:** `vocab-content-negotiation`
 - **Worker URL:** https://vocab-content-negotiation.darrionburgess.workers.dev
-- **Route:** `clearhead.us/vocab/actions/v3*` (configure in dashboard)
+- **Route:** `clearhead.us/vocab/actions/v4*` (configure in dashboard)
 - **Function:** Serves different RDF formats based on Accept headers
 
 ### Access URLs
