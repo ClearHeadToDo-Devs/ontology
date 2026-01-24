@@ -1,0 +1,470 @@
+[
+  {
+    "@id": "https://clearhead.us/vocab/actions/v4#hasPhase",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "http://www.w3.org/2002/07/owl#FunctionalProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Functional property - each Planned Act has exactly one current phase at any time. This is how we track action state/progress."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://www.commoncoreontologies.org/ont00000228"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "has phase"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v4#ActPhase"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Relates a Planned Act to its current lifecycle phase."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v4#Blocked",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://clearhead.us/vocab/actions/v4#ActPhase"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The Planned Act cannot proceed due to an external dependency or blocker. File format: [=]"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Blocked"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v4#Completed",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://clearhead.us/vocab/actions/v4#ActPhase"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The Planned Act finished successfully. Terminal state. File format: [x]"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Completed"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v4#ActPhase",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "ActPhase represents where a Planned Act is in its lifecycle - from not yet started through completion or cancellation. This is the primary custom extension to CCO in this vocabulary.\n\nMaps to state markers in the .actions file format:\n- NotStarted = [ ]\n- InProgress = [-]\n- Completed  = [x]\n- Blocked    = [=]\n- Cancelled  = [_]"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Act Phase"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "http://purl.obolibrary.org/obo/BFO_0000019"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A quality that describes the lifecycle state of a Planned Act's execution."
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v4",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Ontology"
+    ],
+    "http://purl.org/dc/terms/contributor": [
+      {
+        "@value": "Claude (AI Assistant)"
+      }
+    ],
+    "http://purl.org/dc/terms/created": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#date",
+        "@value": "2025-01-21"
+      }
+    ],
+    "http://purl.org/dc/terms/creator": [
+      {
+        "@value": "Darrion Burgess"
+      }
+    ],
+    "http://purl.org/dc/terms/title": [
+      {
+        "@value": "Actions Vocabulary v4 - Minimal CCO Extension"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A minimal extension to the Common Core Ontologies (CCO) for tracking action commitments.\n\nThis ontology follows a disciplined approach: reference CCO classes directly rather than wrapping them.\nWe add only what CCO lacks - specifically, lifecycle phase tracking for planned acts.\n\nCore CCO classes used (by reference):\n- Plan (ont00000974): Action definitions / task templates\n- Planned Act (ont00000228): Action instances / executions\n- Objective (ont00000476): Projects / desired outcomes\n\nCustom extension:\n- ActPhase: Lifecycle states (NotStarted, InProgress, Completed, Blocked, Cancelled)\n- hasPhase: Links a Planned Act to its current phase\n- hasObjective: Links a Plan to the Objective it serves\n\nFor full CCO definitions, see: https://github.com/CommonCoreOntology/CommonCoreOntologies"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@value": "Actions Vocabulary v4"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#versionIRI": [
+      {
+        "@id": "https://clearhead.us/vocab/actions/v4/4.0.0"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#versionInfo": [
+      {
+        "@value": "4.0.0"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v4#Cancelled",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://clearhead.us/vocab/actions/v4#ActPhase"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The Planned Act was abandoned without completion. Terminal state. File format: [_]"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Cancelled"
+      }
+    ]
+  },
+  {
+    "@id": "https://www.commoncoreontologies.org/ont00000974",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "CCO: A Directive Information Content Entity that prescribes some set of intended Intentional Acts through which some Agent expects to achieve some Objective.\n\nIn this vocabulary: Represents an action definition or task template. Maps to \"Action\" in the .actions file format."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "https://www.commoncoreontologies.org/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Plan"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://www.commoncoreontologies.org/ont00000965"
+      }
+    ]
+  },
+  {
+    "@id": "https://www.commoncoreontologies.org/ont00000965",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "CCO: An Information Content Entity that consists of a set of propositions or images (as in the case of a blueprint) that prescribe some Entity. Parent class of Plan and Objective."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "https://www.commoncoreontologies.org/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Directive Information Content Entity"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.obolibrary.org/obo/BFO_0000051",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "BFO: A core relation between a whole and its part.\n\nIn this vocabulary: Use for plan decomposition - parent actions have child actions as parts. Maps to the \">\" children syntax in the .actions file format."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "http://purl.obolibrary.org/obo/bfo.owl"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "has part"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v4#hasObjective",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Links action definitions to their parent project or story. Maps to the \"*\" marker in the .actions file format. A Plan may have zero objectives (standalone task) or multiple objectives."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://www.commoncoreontologies.org/ont00000974"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "has objective"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://www.commoncoreontologies.org/ont00000476"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Relates a Plan to the Objective (project/story) it works toward."
+      }
+    ]
+  },
+  {
+    "@id": "https://www.commoncoreontologies.org/ont00000832",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "CCO: A Process in which an Agent plays a causative role."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "https://www.commoncoreontologies.org/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Act"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v4#NotStarted",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://clearhead.us/vocab/actions/v4#ActPhase"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The Planned Act has not begun execution. File format: [ ]"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Not Started"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.obolibrary.org/obo/BFO_0000050",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "BFO: Inverse of has_part. A core relation between a part and its whole."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "http://purl.obolibrary.org/obo/bfo.owl"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "part of"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#inverseOf": [
+      {
+        "@id": "http://purl.obolibrary.org/obo/BFO_0000051"
+      }
+    ]
+  },
+  {
+    "@id": "https://www.commoncoreontologies.org/ont00000228",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "CCO: An Act in which at least one Agent plays a causative role and which is prescribed by some Directive Information Content Entity.\n\nIn this vocabulary: Represents an action instance - the actual execution of a plan. For recurring actions, one Plan produces multiple Planned Acts."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "https://www.commoncoreontologies.org/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Planned Act"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://www.commoncoreontologies.org/ont00000832"
+      }
+    ]
+  },
+  {
+    "@id": "https://www.commoncoreontologies.org/ont00000476",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "CCO: A Directive Information Content Entity that prescribes some projected state of affairs that an Agent intends to realize.\n\nIn this vocabulary: Represents a project or story - the desired outcome that plans work toward. Maps to the \"*\" story/project marker in the .actions file format."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "https://www.commoncoreontologies.org/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Objective"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://www.commoncoreontologies.org/ont00000965"
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.obolibrary.org/obo/BFO_0000019",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "BFO: A specifically dependent continuant that inheres in its bearer. Qualities are properties that exist in and depend on their bearers."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "http://purl.obolibrary.org/obo/bfo.owl"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Quality"
+      }
+    ]
+  },
+  {
+    "@id": "https://www.commoncoreontologies.org/ont00001942",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "CCO: A relation between a Directive ICE and the entity it prescribes.\n\nIn this vocabulary: Links a Plan to the Planned Acts it prescribes. One Plan can prescribe many Planned Acts (e.g., recurring actions)."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "https://www.commoncoreontologies.org/"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "prescribes"
+      }
+    ]
+  },
+  {
+    "@id": "https://clearhead.us/vocab/actions/v4#InProgress",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#NamedIndividual",
+      "https://clearhead.us/vocab/actions/v4#ActPhase"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "The Planned Act is currently being executed. File format: [-]"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "In Progress"
+      }
+    ]
+  }
+]

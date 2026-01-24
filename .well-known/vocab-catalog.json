@@ -2,7 +2,7 @@
   "@context": [
     "https://www.w3.org/ns/dcat",
     {
-      "@base": "https://vocab.clearhead.io/"
+      "@base": "https://clearhead.us/vocab/"
     }
   ],
   "@type": "Catalog",
@@ -11,119 +11,118 @@
   "publisher": {
     "@type": "Organization",
     "name": "Clearhead Platform",
-    "url": "https://clearhead.io"
+    "url": "https://clearhead.us"
   },
   "issued": "2024-01-01",
-  "modified": "2025-10-20",
+  "modified": "2025-01-24",
   "license": "https://opensource.org/licenses/MIT",
-  "homepage": "https://vocab.clearhead.io/",
+  "homepage": "https://clearhead.us/vocab/",
   "dataset": [
     {
-      "@id": "actions-vocabulary",
+      "@id": "actions-vocabulary-v3",
       "@type": "Dataset",
-      "title": "Actions Vocabulary",
-      "description": "W3C-compliant RDF/OWL vocabulary for hierarchical task management with GTD-style contexts, project organization, and iCalendar recurrence patterns",
-      "keyword": ["task management", "ontology", "actions", "GTD", "hierarchical", "RDF", "OWL", "SHACL"],
+      "title": "Actions Vocabulary v3.1.0",
+      "description": "BFO/CCO-aligned ontology for personal and organizational productivity, task management, and workflow automation. Includes Core + Context + Workflow + Roles extensions",
+      "keyword": ["task management", "ontology", "actions", "GTD", "hierarchical", "BFO", "CCO", "RDF", "OWL", "SHACL"],
       "theme": "http://publications.europa.eu/resource/authority/data-theme/TECH",
-      "landingPage": "https://vocab.clearhead.io/actions/",
-      "issued": "2024-01-01",
-      "modified": "2025-10-20",
-      "version": "1.0.0",
-      "versionInfo": "Stable release with core action hierarchy and temporal model",
+      "landingPage": "https://clearhead.us/vocab/actions/v3/",
+      "issued": "2024-11-02",
+      "modified": "2025-01-24",
+      "version": "3.1.0",
+      "versionInfo": "Stable release with core action hierarchy, contexts, workflow, and roles",
       "conformsTo": [
         "https://www.w3.org/TR/owl2-overview/",
-        "https://www.w3.org/TR/shacl/",
-        "https://schema.org/Action"
+        "https://www.w3.org/TR/shacl/"
       ],
       "distribution": [
         {
           "@type": "Distribution",
-          "title": "OWL Ontology (Turtle)",
+          "title": "OWL Ontology (OWL/XML)",
           "description": "Core ontology defining Action classes and properties",
+          "format": "application/rdf+xml",
+          "mediaType": "application/rdf+xml",
+          "downloadURL": "https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl",
+          "accessURL": "https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl",
+          "conformsTo": "https://www.w3.org/TR/owl2-overview/"
+        },
+        {
+          "@type": "Distribution",
+          "title": "OWL Ontology (Turtle)",
+          "description": "Human-readable Turtle format",
           "format": "text/turtle",
           "mediaType": "text/turtle",
-          "downloadURL": "https://vocab.clearhead.io/actions/vocabulary.ttl",
-          "accessURL": "https://vocab.clearhead.io/actions/vocabulary.ttl",
+          "downloadURL": "https://clearhead.us/vocab/actions/v3/actions-vocabulary.ttl",
+          "accessURL": "https://clearhead.us/vocab/actions/v3/actions-vocabulary.ttl",
           "conformsTo": "https://www.w3.org/TR/turtle/"
         },
         {
-          "@type": "Distribution", 
+          "@type": "Distribution",
+          "title": "OWL Ontology (JSON-LD)",
+          "description": "JSON-based linked data format",
+          "format": "application/ld+json",
+          "mediaType": "application/ld+json",
+          "downloadURL": "https://clearhead.us/vocab/actions/v3/actions-vocabulary.jsonld",
+          "accessURL": "https://clearhead.us/vocab/actions/v3/actions-vocabulary.jsonld",
+          "conformsTo": "https://www.w3.org/TR/json-ld/"
+        },
+        {
+          "@type": "Distribution",
           "title": "SHACL Constraints (Turtle)",
           "description": "Validation shapes and constraints for Action data",
           "format": "text/turtle",
           "mediaType": "text/turtle",
-          "downloadURL": "https://vocab.clearhead.io/actions/shapes.ttl",
-          "accessURL": "https://vocab.clearhead.io/actions/shapes.ttl",
+          "downloadURL": "https://clearhead.us/vocab/actions/v3/shapes.ttl",
+          "accessURL": "https://clearhead.us/vocab/actions/v3/shapes.ttl",
           "conformsTo": "https://www.w3.org/TR/shacl/"
-        },
-        {
-          "@type": "Distribution",
-          "title": "JSON Schema (Combined)",
-          "description": "Generated JSON schemas for all Action types with validation constraints",
-          "format": "application/json",
-          "mediaType": "application/schema+json",
-          "downloadURL": "https://vocab.clearhead.io/actions/schemas/actions-combined.schema.json",
-          "accessURL": "https://vocab.clearhead.io/actions/schemas/actions-combined.schema.json",
-          "conformsTo": "https://json-schema.org/draft/2020-12/schema"
-        },
-        {
-          "@type": "Distribution",
-          "title": "Action Schema (Individual)",
-          "description": "JSON schema for base Action class",
-          "format": "application/json",
-          "mediaType": "application/schema+json", 
-          "downloadURL": "https://vocab.clearhead.io/actions/schemas/action.schema.json",
-          "accessURL": "https://vocab.clearhead.io/actions/schemas/action.schema.json"
-        },
-        {
-          "@type": "Distribution",
-          "title": "Root Action Schema",
-          "description": "JSON schema for root-level actions with project organization",
-          "format": "application/json",
-          "mediaType": "application/schema+json",
-          "downloadURL": "https://vocab.clearhead.io/actions/schemas/rootaction.schema.json", 
-          "accessURL": "https://vocab.clearhead.io/actions/schemas/rootaction.schema.json"
-        },
-        {
-          "@type": "Distribution",
-          "title": "Child Action Schema", 
-          "description": "JSON schema for child actions with parent relationships",
-          "format": "application/json",
-          "mediaType": "application/schema+json",
-          "downloadURL": "https://vocab.clearhead.io/actions/schemas/childaction.schema.json",
-          "accessURL": "https://vocab.clearhead.io/actions/schemas/childaction.schema.json"
-        },
-        {
-          "@type": "Distribution",
-          "title": "Leaf Action Schema",
-          "description": "JSON schema for leaf actions (deepest hierarchy level)",
-          "format": "application/json", 
-          "mediaType": "application/schema+json",
-          "downloadURL": "https://vocab.clearhead.io/actions/schemas/leafaction.schema.json",
-          "accessURL": "https://vocab.clearhead.io/actions/schemas/leafaction.schema.json"
-        },
-        {
-          "@type": "Distribution",
-          "title": "Documentation (HTML)",
-          "description": "Human-readable documentation with examples and integration guides", 
-          "format": "text/html",
-          "mediaType": "text/html",
-          "downloadURL": "https://vocab.clearhead.io/docs/",
-          "accessURL": "https://vocab.clearhead.io/docs/"
         }
+      ]
+    },
+    {
+      "@id": "actions-vocabulary-v4",
+      "@type": "Dataset",
+      "title": "Actions Vocabulary v4.0.0 - Minimal CCO Extension",
+      "description": "Minimal extension to Common Core Ontologies (CCO) for tracking action commitments. References CCO classes directly, adds only lifecycle phase tracking",
+      "keyword": ["task management", "ontology", "actions", "CCO", "BFO", "RDF", "OWL", "minimal"],
+      "theme": "http://publications.europa.eu/resource/authority/data-theme/TECH",
+      "landingPage": "https://clearhead.us/vocab/actions/v4/",
+      "issued": "2025-01-24",
+      "modified": "2025-01-24",
+      "version": "4.0.0",
+      "versionInfo": "Minimal CCO extension with lifecycle phase tracking",
+      "conformsTo": [
+        "https://www.w3.org/TR/owl2-overview/",
+        "https://www.commoncoreontologies.org/"
       ],
-      "example": [
+      "distribution": [
         {
-          "@type": "CreativeWork",
-          "name": "Valid Action Examples",
-          "description": "Example JSON data demonstrating valid Action structures",
-          "url": "https://vocab.clearhead.io/actions/examples/valid/"
+          "@type": "Distribution",
+          "title": "OWL Ontology (OWL/XML)",
+          "description": "Minimal CCO extension ontology",
+          "format": "application/rdf+xml",
+          "mediaType": "application/rdf+xml",
+          "downloadURL": "https://clearhead.us/vocab/actions/v4/actions-vocabulary.owl",
+          "accessURL": "https://clearhead.us/vocab/actions/v4/actions-vocabulary.owl",
+          "conformsTo": "https://www.w3.org/TR/owl2-overview/"
         },
         {
-          "@type": "CreativeWork", 
-          "name": "Integration Patterns",
-          "description": "Code examples for common integration scenarios",
-          "url": "https://vocab.clearhead.io/docs/integration.html"
+          "@type": "Distribution",
+          "title": "OWL Ontology (Turtle)",
+          "description": "Human-readable Turtle format",
+          "format": "text/turtle",
+          "mediaType": "text/turtle",
+          "downloadURL": "https://clearhead.us/vocab/actions/v4/actions-vocabulary.ttl",
+          "accessURL": "https://clearhead.us/vocab/actions/v4/actions-vocabulary.ttl",
+          "conformsTo": "https://www.w3.org/TR/turtle/"
+        },
+        {
+          "@type": "Distribution",
+          "title": "OWL Ontology (JSON-LD)",
+          "description": "JSON-based linked data format",
+          "format": "application/ld+json",
+          "mediaType": "application/ld+json",
+          "downloadURL": "https://clearhead.us/vocab/actions/v4/actions-vocabulary.jsonld",
+          "accessURL": "https://clearhead.us/vocab/actions/v4/actions-vocabulary.jsonld",
+          "conformsTo": "https://www.w3.org/TR/json-ld/"
         }
       ]
     }
@@ -131,28 +130,67 @@
   "service": [
     {
       "@type": "DataService",
-      "title": "Content Negotiation Service",
-      "description": "Automatic format selection based on Accept headers",
-      "endpointURL": "https://vocab.clearhead.io/actions/",
-      "servesDataset": "actions-vocabulary",
+      "title": "v3 Content Negotiation Service",
+      "description": "Automatic format selection based on Accept headers for v3 vocabulary",
+      "endpointURL": "https://clearhead.us/vocab/actions/v3/",
+      "servesDataset": "actions-vocabulary-v3",
       "supportedOperation": [
         {
           "@type": "Operation",
           "method": "GET",
           "expects": "text/turtle",
-          "returns": "https://vocab.clearhead.io/actions/vocabulary.ttl"
-        },
-        {
-          "@type": "Operation", 
-          "method": "GET",
-          "expects": "application/json",
-          "returns": "https://vocab.clearhead.io/actions/schemas/actions-combined.schema.json"
+          "returns": "https://clearhead.us/vocab/actions/v3/actions-vocabulary.ttl"
         },
         {
           "@type": "Operation",
-          "method": "GET", 
+          "method": "GET",
+          "expects": "application/rdf+xml",
+          "returns": "https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl"
+        },
+        {
+          "@type": "Operation",
+          "method": "GET",
+          "expects": "application/ld+json",
+          "returns": "https://clearhead.us/vocab/actions/v3/actions-vocabulary.jsonld"
+        },
+        {
+          "@type": "Operation",
+          "method": "GET",
           "expects": "text/html",
-          "returns": "https://vocab.clearhead.io/actions/index.html"
+          "returns": "https://clearhead.us/vocab/actions/v3/index.html"
+        }
+      ]
+    },
+    {
+      "@type": "DataService",
+      "title": "v4 Content Negotiation Service",
+      "description": "Automatic format selection based on Accept headers for v4 vocabulary",
+      "endpointURL": "https://clearhead.us/vocab/actions/v4/",
+      "servesDataset": "actions-vocabulary-v4",
+      "supportedOperation": [
+        {
+          "@type": "Operation",
+          "method": "GET",
+          "expects": "text/turtle",
+          "returns": "https://clearhead.us/vocab/actions/v4/actions-vocabulary.ttl"
+        },
+        {
+          "@type": "Operation",
+          "method": "GET",
+          "expects": "application/rdf+xml",
+          "returns": "https://clearhead.us/vocab/actions/v4/actions-vocabulary.owl"
+        },
+        {
+          "@type": "Operation",
+          "method": "GET",
+          "expects": "application/ld+json",
+          "returns": "https://clearhead.us/vocab/actions/v4/actions-vocabulary.jsonld"
+        },
+        {
+          "@type": "Operation",
+          "method": "GET",
+          "expects": "text/html",
+          "returns": "https://clearhead.us/vocab/actions/v4/index.html"
         }
       ]
     }

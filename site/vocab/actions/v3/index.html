@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actions Vocabulary v3.1.0 - BFO/CCO-Aligned Ontology</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; max-width: 900px; margin: 0 auto; padding: 2rem; line-height: 1.6; color: #333; }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.5rem; }
+        h2 { color: #34495e; margin-top: 2rem; }
+        code { background: #e9ecef; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+        a { color: #3498db; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .badge { background: #27ae60; color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <h1>Actions Vocabulary <span class="badge">v3.1.0</span></h1>
+
+    <p>A BFO/CCO-aligned ontology for personal and organizational productivity, task management, and workflow automation.</p>
+
+    <h2>Available Formats</h2>
+
+    <ul>
+        <li>🔗 <a href="actions-vocabulary.owl">OWL/XML (Canonical)</a> - Compatible with Protégé</li>
+        <li>🔗 <a href="actions-vocabulary.ttl">Turtle (RDF)</a> - Human-readable, version control friendly</li>
+        <li>🔗 <a href="actions-vocabulary.jsonld">JSON-LD</a> - Web applications, JavaScript</li>
+        <li>🔗 <a href="shapes.ttl">SHACL Shapes</a> - Validation constraints</li>
+    </ul>
+
+    <h2>What's Included</h2>
+    <ul>
+        <li><strong>Core Classes:</strong> ActionPlan, ActionProcess, hierarchical structure (Root/Child/Leaf), action states</li>
+        <li><strong>Context Extension:</strong> GTD-style contexts (Location, Tool, Energy, Social)</li>
+        <li><strong>Workflow Extension:</strong> Dependencies, milestones, blocking relationships, parallel execution</li>
+        <li><strong>Role Integration:</strong> Agent assignment, delegation, Areas of Focus (via CCO infrastructure)</li>
+        <li><strong>BFO/CCO Alignment:</strong> Formal upper ontology foundation for interoperability</li>
+    </ul>
+
+    <h2>Using the Vocabulary</h2>
+
+    <h3>Import in Your Ontology</h3>
+    <pre><code>&lt;owl:Ontology rdf:about="https://example.com/my-ontology"&gt;
+  &lt;owl:imports rdf:resource="https://clearhead.us/vocab/actions/v3"/&gt;
+&lt;/owl:Ontology&gt;</code></pre>
+
+    <h3>Load in Protégé</h3>
+    <p>File → Open from URL → <code>https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl</code></p>
+
+    <p><a href="/">← Back to all versions</a></p>
+</body>
+</html>

@@ -14,7 +14,15 @@
   Content-Type: application/rdf+xml
   Cache-Control: public, max-age=3600
 
+/vocab/actions/v4/*.owl
+  Content-Type: application/rdf+xml
+  Cache-Control: public, max-age=3600
+
 /vocab/actions/v3/*.ttl
+  Content-Type: text/turtle; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/vocab/actions/v4/*.ttl
   Content-Type: text/turtle; charset=utf-8
   Cache-Control: public, max-age=3600
 
@@ -22,11 +30,19 @@
   Content-Type: application/rdf+xml
   Cache-Control: public, max-age=3600
 
+/vocab/actions/v4/*.rdf
+  Content-Type: application/rdf+xml
+  Cache-Control: public, max-age=3600
+
 /vocab/actions/v3/*.jsonld
+  Content-Type: application/ld+json
+  Cache-Control: public, max-age=3600
+
+/vocab/actions/v4/*.jsonld
   Content-Type: application/ld+json
   Cache-Control: public, max-age=3600
 
 # No cache for HTML
 /*.html
   Cache-Control: no-cache, must-revalidate
-
+ 

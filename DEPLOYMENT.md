@@ -4,12 +4,21 @@ This document explains how to deploy the Actions Vocabulary as a hosted semantic
 
 ## Production Deployment (Cloudflare)
 
-The Actions Vocabulary v3.1.0 is **live and operational** at **`clearhead.us`**.
+The Actions Vocabulary is **live and operational** at **`clearhead.us`** with multiple versions available.
 
- **Status:** Production-ready with full semantic web content negotiation
- **URL:** https://clearhead.us/vocab/actions/v3/
- **Last Updated:** 2025-11-02
- **SSL:** Automatic HTTPS via Cloudflare
+### Available Versions
+
+**Actions Vocabulary v3.1.0 (Stable):**
+- **URL:** https://clearhead.us/vocab/actions/v3/
+- **Status:** Production-ready with full semantic web content negotiation
+- **Description:** Full-featured ontology with Core + Context + Workflow + Roles extensions
+- **Best for:** Complete productivity systems, complex workflows, GTD-style task management
+
+**Actions Vocabulary v4.0.0 (Minimal CCO Extension):**
+- **URL:** https://clearhead.us/vocab/actions/v4/
+- **Status:** Production-ready with content negotiation
+- **Description:** Minimal extension to Common Core Ontologies (CCO)
+- **Best for:** Interoperability with CCO ecosystem, semantic web applications, lightweight integrations
 
 ### Current Deployment Status
 
@@ -23,12 +32,16 @@ The Actions Vocabulary v3.1.0 is **live and operational** at **`clearhead.us`**.
 **Content Negotiation Worker:**
 - **Worker:** `vocab-content-negotiation`
 - **Worker URL:** https://vocab-content-negotiation.darrionburgess.workers.dev
-- **Route:** `clearhead.us/vocab/actions/v4*` (configure in dashboard)
+- **Routes:** 
+  - `clearhead.us/vocab/actions/v3*`
+  - `clearhead.us/vocab/actions/v4*`
 - **Function:** Serves different RDF formats based on Accept headers
 
 ### Access URLs
 
-**With Content Negotiation (via Worker):**
+**v3 Access:**
+
+With Content Negotiation (via Worker):
 ```bash
 # Turtle format
 curl -H "Accept: text/turtle" https://clearhead.us/vocab/actions/v3/
@@ -44,12 +57,33 @@ curl https://clearhead.us/vocab/actions/v3/
 open https://clearhead.us/vocab/actions/v3/
 ```
 
-**Direct File Access (always works):**
+Direct File Access (always works):
 - OWL/XML: `https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl`
 - Turtle: `https://clearhead.us/vocab/actions/v3/actions-vocabulary.ttl`
 - JSON-LD: `https://clearhead.us/vocab/actions/v3/actions-vocabulary.jsonld`
 - RDF/XML: `https://clearhead.us/vocab/actions/v3/actions-vocabulary.rdf`
 - SHACL Shapes: `https://clearhead.us/vocab/actions/v3/shapes.ttl`
+
+**v4 Access:**
+
+With Content Negotiation (via Worker):
+```bash
+# Turtle format
+curl -H "Accept: text/turtle" https://clearhead.us/vocab/actions/v4/
+
+# JSON-LD format
+curl -H "Accept: application/ld+json" https://clearhead.us/vocab/actions/v4/
+
+# OWL/XML format (default)
+curl -H "Accept: application/rdf+xml" https://clearhead.us/vocab/actions/v4/
+curl https://clearhead.us/vocab/actions/v4/
+```
+
+Direct File Access (always works):
+- OWL/XML: `https://clearhead.us/vocab/actions/v4/actions-vocabulary.owl`
+- Turtle: `https://clearhead.us/vocab/actions/v4/actions-vocabulary.ttl`
+- JSON-LD: `https://clearhead.us/vocab/actions/v4/actions-vocabulary.jsonld`
+- RDF/XML: `https://clearhead.us/vocab/actions/v4/actions-vocabulary.rdf`
 
 ### Deploying Updates
 
@@ -94,7 +128,10 @@ Once configured, content negotiation will work on the custom domain.
 
 ## 🎯 Quick Start
 
-The Actions Vocabulary v3 is now consolidated into a single OWL file for easier deployment and use.
+The Actions Vocabulary provides multiple versions to suit different use cases:
+
+- **v3.1.0:** Full-featured ontology with Core + Context + Workflow + Roles extensions
+- **v4.0.0:** Minimal extension to Common Core Ontologies (CCO)
 
 ### Build and Test Locally
 
@@ -104,10 +141,10 @@ cd ontology
 # Install dependencies
 uv sync
 
-# Validate the ontology
+# Validate the v3 ontology
 uv run pytest
 
-# Build the complete site (if needed for web hosting)
+# Build the complete site (includes both v3 and v4)
 uv run invoke build-site
 
 # Serve locally for testing

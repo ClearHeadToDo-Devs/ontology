@@ -1,0 +1,146 @@
+@prefix : <https://clearhead.us/vocab/actions/v4#> .
+@prefix bfo: <http://purl.obolibrary.org/obo/> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+bfo:BFO_0000050 a owl:ObjectProperty ;
+    rdfs:label "part of"@en ;
+    rdfs:comment "BFO: Inverse of has_part. A core relation between a part and its whole."@en ;
+    rdfs:isDefinedBy bfo:bfo.owl ;
+    owl:inverseOf bfo:BFO_0000051 .
+
+<https://clearhead.us/vocab/actions/v4> a owl:Ontology ;
+    rdfs:label "Actions Vocabulary v4" ;
+    dcterms:contributor "Claude (AI Assistant)" ;
+    dcterms:created "2025-01-21"^^xsd:date ;
+    dcterms:creator "Darrion Burgess" ;
+    dcterms:title "Actions Vocabulary v4 - Minimal CCO Extension" ;
+    rdfs:comment """A minimal extension to the Common Core Ontologies (CCO) for tracking action commitments.
+
+This ontology follows a disciplined approach: reference CCO classes directly rather than wrapping them.
+We add only what CCO lacks - specifically, lifecycle phase tracking for planned acts.
+
+Core CCO classes used (by reference):
+- Plan (ont00000974): Action definitions / task templates
+- Planned Act (ont00000228): Action instances / executions
+- Objective (ont00000476): Projects / desired outcomes
+
+Custom extension:
+- ActPhase: Lifecycle states (NotStarted, InProgress, Completed, Blocked, Cancelled)
+- hasPhase: Links a Planned Act to its current phase
+- hasObjective: Links a Plan to the Objective it serves
+
+For full CCO definitions, see: https://github.com/CommonCoreOntology/CommonCoreOntologies"""@en ;
+    owl:versionIRI <https://clearhead.us/vocab/actions/v4/4.0.0> ;
+    owl:versionInfo "4.0.0" .
+
+:Blocked a owl:NamedIndividual,
+        :ActPhase ;
+    rdfs:label "Blocked"@en ;
+    rdfs:comment "The Planned Act cannot proceed due to an external dependency or blocker. File format: [=]"@en .
+
+:Cancelled a owl:NamedIndividual,
+        :ActPhase ;
+    rdfs:label "Cancelled"@en ;
+    rdfs:comment "The Planned Act was abandoned without completion. Terminal state. File format: [_]"@en .
+
+:Completed a owl:NamedIndividual,
+        :ActPhase ;
+    rdfs:label "Completed"@en ;
+    rdfs:comment "The Planned Act finished successfully. Terminal state. File format: [x]"@en .
+
+:InProgress a owl:NamedIndividual,
+        :ActPhase ;
+    rdfs:label "In Progress"@en ;
+    rdfs:comment "The Planned Act is currently being executed. File format: [-]"@en .
+
+:NotStarted a owl:NamedIndividual,
+        :ActPhase ;
+    rdfs:label "Not Started"@en ;
+    rdfs:comment "The Planned Act has not begun execution. File format: [ ]"@en .
+
+:hasObjective a owl:ObjectProperty ;
+    rdfs:label "has objective"@en ;
+    rdfs:comment "Links action definitions to their parent project or story. Maps to the \"*\" marker in the .actions file format. A Plan may have zero objectives (standalone task) or multiple objectives."@en ;
+    rdfs:domain cco:ont00000974 ;
+    rdfs:range cco:ont00000476 ;
+    skos:definition "Relates a Plan to the Objective (project/story) it works toward."@en .
+
+:hasPhase a owl:FunctionalProperty,
+        owl:ObjectProperty ;
+    rdfs:label "has phase"@en ;
+    rdfs:comment "Functional property - each Planned Act has exactly one current phase at any time. This is how we track action state/progress."@en ;
+    rdfs:domain cco:ont00000228 ;
+    rdfs:range :ActPhase ;
+    skos:definition "Relates a Planned Act to its current lifecycle phase."@en .
+
+cco:ont00001942 a owl:ObjectProperty ;
+    rdfs:label "prescribes"@en ;
+    rdfs:comment """CCO: A relation between a Directive ICE and the entity it prescribes.
+
+In this vocabulary: Links a Plan to the Planned Acts it prescribes. One Plan can prescribe many Planned Acts (e.g., recurring actions)."""@en ;
+    rdfs:isDefinedBy cco: .
+
+bfo:BFO_0000019 a owl:Class ;
+    rdfs:label "Quality"@en ;
+    rdfs:comment "BFO: A specifically dependent continuant that inheres in its bearer. Qualities are properties that exist in and depend on their bearers."@en ;
+    rdfs:isDefinedBy bfo:bfo.owl .
+
+bfo:BFO_0000051 a owl:ObjectProperty ;
+    rdfs:label "has part"@en ;
+    rdfs:comment """BFO: A core relation between a whole and its part.
+
+In this vocabulary: Use for plan decomposition - parent actions have child actions as parts. Maps to the ">" children syntax in the .actions file format."""@en ;
+    rdfs:isDefinedBy bfo:bfo.owl .
+
+cco:ont00000228 a owl:Class ;
+    rdfs:label "Planned Act"@en ;
+    rdfs:comment """CCO: An Act in which at least one Agent plays a causative role and which is prescribed by some Directive Information Content Entity.
+
+In this vocabulary: Represents an action instance - the actual execution of a plan. For recurring actions, one Plan produces multiple Planned Acts."""@en ;
+    rdfs:isDefinedBy cco: ;
+    rdfs:subClassOf cco:ont00000832 .
+
+cco:ont00000476 a owl:Class ;
+    rdfs:label "Objective"@en ;
+    rdfs:comment """CCO: A Directive Information Content Entity that prescribes some projected state of affairs that an Agent intends to realize.
+
+In this vocabulary: Represents a project or story - the desired outcome that plans work toward. Maps to the "*" story/project marker in the .actions file format."""@en ;
+    rdfs:isDefinedBy cco: ;
+    rdfs:subClassOf cco:ont00000965 .
+
+cco:ont00000832 a owl:Class ;
+    rdfs:label "Act"@en ;
+    rdfs:comment "CCO: A Process in which an Agent plays a causative role."@en ;
+    rdfs:isDefinedBy cco: .
+
+cco:ont00000974 a owl:Class ;
+    rdfs:label "Plan"@en ;
+    rdfs:comment """CCO: A Directive Information Content Entity that prescribes some set of intended Intentional Acts through which some Agent expects to achieve some Objective.
+
+In this vocabulary: Represents an action definition or task template. Maps to "Action" in the .actions file format."""@en ;
+    rdfs:isDefinedBy cco: ;
+    rdfs:subClassOf cco:ont00000965 .
+
+cco:ont00000965 a owl:Class ;
+    rdfs:label "Directive Information Content Entity"@en ;
+    rdfs:comment "CCO: An Information Content Entity that consists of a set of propositions or images (as in the case of a blueprint) that prescribe some Entity. Parent class of Plan and Objective."@en ;
+    rdfs:isDefinedBy cco: .
+
+:ActPhase a owl:Class ;
+    rdfs:label "Act Phase"@en ;
+    rdfs:comment """ActPhase represents where a Planned Act is in its lifecycle - from not yet started through completion or cancellation. This is the primary custom extension to CCO in this vocabulary.
+
+Maps to state markers in the .actions file format:
+- NotStarted = [ ]
+- InProgress = [-]
+- Completed  = [x]
+- Blocked    = [=]
+- Cancelled  = [_]"""@en ;
+    rdfs:subClassOf bfo:BFO_0000019 ;
+    skos:definition "A quality that describes the lifecycle state of a Planned Act's execution."@en .
+
