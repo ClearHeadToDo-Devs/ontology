@@ -6,50 +6,6 @@
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
 >
-  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000228">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000832"/>
-    <rdfs:label xml:lang="en">Planned Act</rdfs:label>
-    <rdfs:comment xml:lang="en">CCO: An Act in which at least one Agent plays a causative role and which is prescribed by some Directive Information Content Entity.
-
-In this vocabulary: Represents an action instance - the actual execution of a plan. For recurring actions, one Plan produces multiple Planned Acts.</rdfs:comment>
-    <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00001942">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label xml:lang="en">prescribes</rdfs:label>
-    <rdfs:comment xml:lang="en">CCO: A relation between a Directive ICE and the entity it prescribes.
-
-In this vocabulary: Links a Plan to the Planned Acts it prescribes. One Plan can prescribe many Planned Acts (e.g., recurring actions).</rdfs:comment>
-    <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000051">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label xml:lang="en">has part</rdfs:label>
-    <rdfs:comment xml:lang="en">BFO: A core relation between a whole and its part.
-
-In this vocabulary: Use for plan decomposition - parent actions have child actions as parts. Maps to the "&gt;" children syntax in the .actions file format.</rdfs:comment>
-    <rdfs:isDefinedBy rdf:resource="http://purl.obolibrary.org/obo/bfo.owl"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#InProgress">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v4#ActPhase"/>
-    <rdfs:label xml:lang="en">In Progress</rdfs:label>
-    <rdfs:comment xml:lang="en">The Planned Act is currently being executed. File format: [-]</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label xml:lang="en">part of</rdfs:label>
-    <rdfs:comment xml:lang="en">BFO: Inverse of has_part. A core relation between a part and its whole.</rdfs:comment>
-    <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
-    <rdfs:isDefinedBy rdf:resource="http://purl.obolibrary.org/obo/bfo.owl"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#Blocked">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v4#ActPhase"/>
-    <rdfs:label xml:lang="en">Blocked</rdfs:label>
-    <rdfs:comment xml:lang="en">The Planned Act cannot proceed due to an external dependency or blocker. File format: [=]</rdfs:comment>
-  </rdf:Description>
   <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#hasPhase">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
@@ -59,33 +15,39 @@ In this vocabulary: Use for plan decomposition - parent actions have child actio
     <skos:definition xml:lang="en">Relates a Planned Act to its current lifecycle phase.</skos:definition>
     <rdfs:comment xml:lang="en">Functional property - each Planned Act has exactly one current phase at any time. This is how we track action state/progress.</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#Completed">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v4#ActPhase"/>
-    <rdfs:label xml:lang="en">Completed</rdfs:label>
-    <rdfs:comment xml:lang="en">The Planned Act finished successfully. Terminal state. File format: [x]</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#hasObjective">
+  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000051">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
-    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000476"/>
-    <rdfs:label xml:lang="en">has objective</rdfs:label>
-    <skos:definition xml:lang="en">Relates a Plan to the Objective (project/story) it works toward.</skos:definition>
-    <rdfs:comment xml:lang="en">Links action definitions to their parent project or story. Maps to the "*" marker in the .actions file format. A Plan may have zero objectives (standalone task) or multiple objectives.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#ActPhase">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
-    <rdfs:label xml:lang="en">Act Phase</rdfs:label>
-    <skos:definition xml:lang="en">A quality that describes the lifecycle state of a Planned Act's execution.</skos:definition>
-    <rdfs:comment xml:lang="en">ActPhase represents where a Planned Act is in its lifecycle - from not yet started through completion or cancellation. This is the primary custom extension to CCO in this vocabulary.
+    <rdfs:label xml:lang="en">has part</rdfs:label>
+    <rdfs:comment xml:lang="en">BFO: A core relation between a whole and its part.
 
-Maps to state markers in the .actions file format:
-- NotStarted = [ ]
-- InProgress = [-]
-- Completed  = [x]
-- Blocked    = [=]
-- Cancelled  = [_]</rdfs:comment>
+In this vocabulary: Use for plan decomposition - parent actions have child actions as parts. Maps to the "&gt;" children syntax in the .actions file format.</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="http://purl.obolibrary.org/obo/bfo.owl"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00001942">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">prescribes</rdfs:label>
+    <rdfs:comment xml:lang="en">CCO: A relation between a Directive ICE and the entity it prescribes.
+
+In this vocabulary: Links a Plan to the Planned Acts it prescribes. One Plan can prescribe many Planned Acts (e.g., recurring actions).</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000476">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
+    <rdfs:label xml:lang="en">Objective</rdfs:label>
+    <rdfs:comment xml:lang="en">CCO: A Directive Information Content Entity that prescribes some projected state of affairs that an Agent intends to realize.
+
+In this vocabulary: Represents a project or story - the desired outcome that plans work toward. Maps to the "*" story/project marker in the .actions file format.</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000228">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000832"/>
+    <rdfs:label xml:lang="en">Planned Act</rdfs:label>
+    <rdfs:comment xml:lang="en">CCO: An Act in which at least one Agent plays a causative role and which is prescribed by some Directive Information Content Entity.
+
+In this vocabulary: Represents an action instance - the actual execution of a plan. For recurring actions, one Plan produces multiple Planned Acts.</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
   </rdf:Description>
   <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
@@ -113,10 +75,61 @@ Custom extension:
 
 For full CCO definitions, see: https://github.com/CommonCoreOntology/CommonCoreOntologies</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000832">
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#NotStarted">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v4#ActPhase"/>
+    <rdfs:label xml:lang="en">Not Started</rdfs:label>
+    <rdfs:comment xml:lang="en">The Planned Act has not begun execution. File format: [ ]</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#Completed">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v4#ActPhase"/>
+    <rdfs:label xml:lang="en">Completed</rdfs:label>
+    <rdfs:comment xml:lang="en">The Planned Act finished successfully. Terminal state. File format: [x]</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#Blocked">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v4#ActPhase"/>
+    <rdfs:label xml:lang="en">Blocked</rdfs:label>
+    <rdfs:comment xml:lang="en">The Planned Act cannot proceed due to an external dependency or blocker. File format: [=]</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#ActPhase">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label xml:lang="en">Act</rdfs:label>
-    <rdfs:comment xml:lang="en">CCO: A Process in which an Agent plays a causative role.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+    <rdfs:label xml:lang="en">Act Phase</rdfs:label>
+    <skos:definition xml:lang="en">A quality that describes the lifecycle state of a Planned Act's execution.</skos:definition>
+    <rdfs:comment xml:lang="en">ActPhase represents where a Planned Act is in its lifecycle - from not yet started through completion or cancellation. This is the primary custom extension to CCO in this vocabulary.
+
+Maps to state markers in the .actions file format:
+- NotStarted = [ ]
+- InProgress = [-]
+- Completed  = [x]
+- Blocked    = [=]
+- Cancelled  = [_]</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000019">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Quality</rdfs:label>
+    <rdfs:comment xml:lang="en">BFO: A specifically dependent continuant that inheres in its bearer. Qualities are properties that exist in and depend on their bearers.</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="http://purl.obolibrary.org/obo/bfo.owl"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#InProgress">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v4#ActPhase"/>
+    <rdfs:label xml:lang="en">In Progress</rdfs:label>
+    <rdfs:comment xml:lang="en">The Planned Act is currently being executed. File format: [-]</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000050">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">part of</rdfs:label>
+    <rdfs:comment xml:lang="en">BFO: Inverse of has_part. A core relation between a part and its whole.</rdfs:comment>
+    <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
+    <rdfs:isDefinedBy rdf:resource="http://purl.obolibrary.org/obo/bfo.owl"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000965">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Directive Information Content Entity</rdfs:label>
+    <rdfs:comment xml:lang="en">CCO: An Information Content Entity that consists of a set of propositions or images (as in the case of a blueprint) that prescribe some Entity. Parent class of Plan and Objective.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
   </rdf:Description>
   <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000974">
@@ -128,31 +141,10 @@ For full CCO definitions, see: https://github.com/CommonCoreOntology/CommonCoreO
 In this vocabulary: Represents an action definition or task template. Maps to "Action" in the .actions file format.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
   </rdf:Description>
-  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000965">
+  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000832">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label xml:lang="en">Directive Information Content Entity</rdfs:label>
-    <rdfs:comment xml:lang="en">CCO: An Information Content Entity that consists of a set of propositions or images (as in the case of a blueprint) that prescribe some Entity. Parent class of Plan and Objective.</rdfs:comment>
-    <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000019">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label xml:lang="en">Quality</rdfs:label>
-    <rdfs:comment xml:lang="en">BFO: A specifically dependent continuant that inheres in its bearer. Qualities are properties that exist in and depend on their bearers.</rdfs:comment>
-    <rdfs:isDefinedBy rdf:resource="http://purl.obolibrary.org/obo/bfo.owl"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#NotStarted">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v4#ActPhase"/>
-    <rdfs:label xml:lang="en">Not Started</rdfs:label>
-    <rdfs:comment xml:lang="en">The Planned Act has not begun execution. File format: [ ]</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000476">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
-    <rdfs:label xml:lang="en">Objective</rdfs:label>
-    <rdfs:comment xml:lang="en">CCO: A Directive Information Content Entity that prescribes some projected state of affairs that an Agent intends to realize.
-
-In this vocabulary: Represents a project or story - the desired outcome that plans work toward. Maps to the "*" story/project marker in the .actions file format.</rdfs:comment>
+    <rdfs:label xml:lang="en">Act</rdfs:label>
+    <rdfs:comment xml:lang="en">CCO: A Process in which an Agent plays a causative role.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
   </rdf:Description>
   <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#Cancelled">
@@ -160,5 +152,13 @@ In this vocabulary: Represents a project or story - the desired outcome that pla
     <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v4#ActPhase"/>
     <rdfs:label xml:lang="en">Cancelled</rdfs:label>
     <rdfs:comment xml:lang="en">The Planned Act was abandoned without completion. Terminal state. File format: [_]</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#hasObjective">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000476"/>
+    <rdfs:label xml:lang="en">has objective</rdfs:label>
+    <skos:definition xml:lang="en">Relates a Plan to the Objective (project/story) it works toward.</skos:definition>
+    <rdfs:comment xml:lang="en">Links action definitions to their parent project or story. Maps to the "*" marker in the .actions file format. A Plan may have zero objectives (standalone task) or multiple objectives.</rdfs:comment>
   </rdf:Description>
 </rdf:RDF>

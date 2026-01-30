@@ -34,7 +34,7 @@ The Actions Vocabulary v4 has been implemented as a **minimal CCO extension**. T
 - **Contents:** Full exploration of design alternatives and rationale
 
 ### 3. Ontology File
-- **File:** `ontology/actions-vocabulary-v4.owl`
+- **File:** `ontology/v4/actions-vocabulary.owl`
 - **Status:** ✅ Complete
 - **Features:**
   - Self-documenting (CCO/BFO classes declared with labels and comments)
@@ -47,7 +47,7 @@ The Actions Vocabulary v4 has been implemented as a **minimal CCO extension**. T
 
 ### Phase 1: Core Ontology ✅
 - [x] Design minimal approach (reference CCO, don't wrap)
-- [x] Create `ontology/actions-vocabulary-v4.owl`
+- [x] Create `ontology/v4/actions-vocabulary.owl`
 - [x] Add 1 custom class (ActPhase)
 - [x] Add 2 custom properties (hasPhase, hasObjective)
 - [x] Add 5 named individuals (phase states)
@@ -60,7 +60,7 @@ The Actions Vocabulary v4 has been implemented as a **minimal CCO extension**. T
 - [x] Update this status document
 
 ### Phase 3: Integration (Future)
-- [ ] Create SHACL shapes (if needed for validation)
+- [x] Create SHACL shapes (if needed for validation)
 - [ ] Update parser to emit RDF using v4 vocabulary
 - [ ] Update CLAUDE.md with v4 guidance
 - [ ] Deploy to production URL
@@ -100,7 +100,8 @@ The Actions Vocabulary v4 has been implemented as a **minimal CCO extension**. T
 
 | File | Purpose |
 |------|---------|
-| `actions-vocabulary-v4.owl` | The ontology |
+| `v4/actions-vocabulary.owl` | The ontology |
+| `v4/actions-shapes-v4.ttl` | SHACL validation shapes |
 | `V4_DESIGN.md` | Design specification |
 | `V4_DESIGN_EXPLORATION.md` | Historical design exploration |
 | `V4_TRANSITION_STATUS.md` | This file |

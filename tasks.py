@@ -35,13 +35,25 @@ def validate(c):
         warn=True,
     )
 
-    print("🔍 Validating v3 SHACL shapes...")
+    print("🔍 Validating v4 ontology (OWL/XML)...")
     result2 = c.run(
-        "python -c \"import rdflib; rdflib.Graph().parse('actions-shapes-v3.ttl', format='turtle')\"",
+        "python -c \"import rdflib; rdflib.Graph().parse('v4/actions-vocabulary.owl', format='xml')\"",
         warn=True,
     )
 
-    if result1.ok and result2.ok:
+    print("🔍 Validating v3 SHACL shapes...")
+    result3 = c.run(
+        "python -c \"import rdflib; rdflib.Graph().parse('v3/actions-shapes-v3.ttl', format='turtle')\"",
+        warn=True,
+    )
+
+    print("🔍 Validating v4 SHACL shapes...")
+    result4 = c.run(
+        "python -c \"import rdflib; rdflib.Graph().parse('v4/actions-shapes-v4.ttl', format='turtle')\"",
+        warn=True,
+    )
+
+    if result1.ok and result2.ok and result3.ok and result4.ok:
         print("✅ Ontology and SHACL shapes are valid")
     else:
         print("❌ Validation failed")
@@ -101,7 +113,7 @@ print('✅ Generated v3 Turtle, RDF/XML, and JSON-LD formats')
         '''python -c "
 import rdflib
 g = rdflib.Graph()
-g.parse('actions-vocabulary-v4.owl', format='xml')
+g.parse('v4/actions-vocabulary.owl', format='xml')
 g.serialize('site/vocab/actions/v4/actions-vocabulary.ttl', format='turtle')
 g.serialize('site/vocab/actions/v4/actions-vocabulary.rdf', format='xml')
 g.serialize('site/vocab/actions/v4/actions-vocabulary.jsonld', format='json-ld')
@@ -110,7 +122,14 @@ print('✅ Generated v4 Turtle, RDF/XML, and JSON-LD formats')
     )
 
     # Copy v4 OWL ontology (canonical format)
-    c.run("cp actions-vocabulary-v4.owl site/vocab/actions/v4/")
+    c.run("cp v4/actions-vocabulary.owl site/vocab/actions/v4/")
+
+    # Copy v4 SHACL shapes
+    c.run("cp v4/actions-shapes-v4.ttl site/vocab/actions/v4/shapes.ttl")
+
+    # Copy v4 JSON-LD context and JSON schema
+    c.run("cp v4/actions.context.json site/vocab/actions/v4/")
+    c.run("cp v4/actions.schema.json site/vocab/actions/v4/")
 
     # Copy v3 Turtle examples
     c.run(
@@ -221,6 +240,24 @@ def _create_index_pages(c):
         <p>🔗 <a href="/vocab/actions/v4/actions-vocabulary.ttl">Download Turtle</a></p>
     </div>
 
+    <div class="format">
+        <h3>SHACL Shapes</h3>
+        <p>Validation constraints and data quality rules for Action instances.</p>
+        <p>🔗 <a href="/vocab/actions/v4/shapes.ttl">Download SHACL Shapes</a></p>
+    </div>
+
+    <div class="format">
+        <h3>JSON-LD Context</h3>
+        <p>Context map for ontology-out JSON exports.</p>
+        <p>🔗 <a href="/vocab/actions/v4/actions.context.json">Download JSON-LD Context</a></p>
+    </div>
+
+    <div class="format">
+        <h3>JSON Schema</h3>
+        <p>Structural validation for ontology-out JSON exports.</p>
+        <p>🔗 <a href="/vocab/actions/v4/actions.schema.json">Download JSON Schema</a></p>
+    </div>
+
     <h2>Version Comparison</h2>
 
     <table style="border-collapse: collapse; width: 100%; margin: 1rem 0;">
@@ -310,6 +347,8 @@ def _create_index_pages(c):
         <li>🔗 <a href="actions-vocabulary.ttl">Turtle (RDF)</a> - Human-readable, version control friendly</li>
         <li>🔗 <a href="actions-vocabulary.jsonld">JSON-LD</a> - Web applications, JavaScript</li>
         <li>🔗 <a href="shapes.ttl">SHACL Shapes</a> - Validation constraints</li>
+        <li>🔗 <a href="actions.context.json">JSON-LD Context</a></li>
+        <li>🔗 <a href="actions.schema.json">JSON Schema</a></li>
     </ul>
 
     <h2>What's Included</h2>
@@ -366,6 +405,7 @@ def _create_index_pages(c):
         <li>🔗 <a href="actions-vocabulary.owl">OWL/XML (Canonical)</a> - Compatible with Protégé</li>
         <li>🔗 <a href="actions-vocabulary.ttl">Turtle (RDF)</a> - Human-readable, version control friendly</li>
         <li>🔗 <a href="actions-vocabulary.jsonld">JSON-LD</a> - Web applications, JavaScript</li>
+        <li>🔗 <a href="shapes.ttl">SHACL Shapes</a> - Validation constraints</li>
     </ul>
 
     <h2>Core Concepts</h2>
@@ -461,6 +501,14 @@ def _create_cloudflare_config(c):
 
 /vocab/actions/v4/*.jsonld
   Content-Type: application/ld+json
+  Cache-Control: public, max-age=3600
+
+ /vocab/actions/v4/actions.context.json
+  Content-Type: application/ld+json
+  Cache-Control: public, max-age=3600
+
+ /vocab/actions/v4/actions.schema.json
+  Content-Type: application/schema+json
   Cache-Control: public, max-age=3600
 
 # No cache for HTML
@@ -571,6 +619,11 @@ def deploy_check(c):
         "site/vocab/actions/v3/actions-vocabulary.owl",
         "site/vocab/actions/v3/actions-vocabulary.ttl",
         "site/vocab/actions/v3/shapes.ttl",
+        "site/vocab/actions/v4/actions-vocabulary.owl",
+        "site/vocab/actions/v4/actions-vocabulary.ttl",
+        "site/vocab/actions/v4/shapes.ttl",
+        "site/vocab/actions/v4/actions.context.json",
+        "site/vocab/actions/v4/actions.schema.json",
         "site/.well-known/vocab-catalog.json",
         "site/index.html",
     ]

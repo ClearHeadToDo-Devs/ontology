@@ -1,4 +1,4 @@
-# Actions Vocabulary v3 - Development Guide
+# Actions Vocabulary - Development Guide
 
 ## Context
 
@@ -8,13 +8,18 @@ For a large intro please see [the README](./README.md)
 
 ### Repository Structure
 
-This repository uses a **consolidated v3.1.0 layout**:
+This repository uses a **versioned layout** (v4 current, v3 legacy):
 
 ```mermaid
 graph TB
     root["/"]
 
-    subgraph v3["V3.1.0 ONTOLOGY (consolidated, production-ready)"]
+    subgraph v4["V4 ONTOLOGY (current)"]
+        v4_owl["v4/actions-vocabulary.owl<br/>(Minimal CCO extension - OWL/XML)"]
+        v4_shapes["v4/actions-shapes-v4.ttl<br/>(SHACL validation)"]
+    end
+
+    subgraph v3["V3.1.0 ONTOLOGY (legacy)"]
         owl["actions-vocabulary.owl<br/>(Complete v3.1.0 ontology - OWL/XML)<br/>Includes: Core + Context + Workflow + Roles"]
         imports["imports/<br/>(BFO/CCO ontologies)"]
         imports_bfo["bfo.owl"]
@@ -49,6 +54,8 @@ graph TB
     migrations["migrations/<br/>(Version migration docs)"]
     migration_doc["V2_TO_V3_MIGRATION.md"]
 
+    root --> v4_owl
+    root --> v4_shapes
     root --> owl
     root --> imports
     imports --> imports_bfo
@@ -75,22 +82,28 @@ graph TB
 
 ## Version Status
 
-**PRODUCTION: V3.1.0** (BFO/CCO-aligned ontology)
-- **Location:** Root directory (`actions-vocabulary.owl` + `actions-shapes-v3.ttl`)
-- **Status:** ✅ **PRODUCTION - USE THIS**
+**CURRENT: V4** (Minimal CCO extension)
+- **Location:** `v4/` directory (`v4/actions-vocabulary.owl` + `v4/actions-shapes-v4.ttl`)
+- **Status:** ✅ **CURRENT - USE THIS**
+- **Format:** OWL/XML (ontology) + Turtle (SHACL shapes)
+- **Architecture:** Minimal extension to CCO
+- **Contents:** Core CCO classes + ActPhase
+- **Production URL:** 🌐 https://clearhead.us/vocab/actions/v4/
+- **Use for:** **ALL NEW DEVELOPMENT**
+
+**LEGACY: V3.1.0** (BFO/CCO-aligned ontology)
+- **Location:** Root directory (`actions-vocabulary.owl` + `v3/actions-shapes-v3.ttl`)
+- **Status:** ✅ **LEGACY - MAINTAIN ONLY**
 - **Format:** OWL/XML (ontology) + Turtle (SHACL shapes)
 - **Architecture:** BFO 2.0 + CCO compliant formal ontology
 - **Contents:** Consolidated (Core + Context + Workflow + Roles)
 - **SHACL Shapes:** Comprehensive validation constraints (456 lines)
-- **Test Coverage:** 14 tests, all passing
 - **Production URL:** 🌐 https://clearhead.us/vocab/actions/v3/
-- **Use for:** **ALL NEW DEVELOPMENT**
 
 **What's Complete:**
-- ✅ V3 Ontology: Complete BFO/CCO-aligned semantic model
-- ✅ V3 SHACL Shapes: Comprehensive constraint validation
-- ✅ Test Suite: Full coverage with valid/invalid examples
-- ✅ ActionPlan vs ActionProcess separation (key BFO distinction)
+- ✅ V4 Ontology: Minimal CCO-aligned semantic model
+- ✅ V4 SHACL Shapes: Core validation constraints
+- ✅ V3 Ontology + Shapes: Stable legacy reference
 - ✅ Production Deployment: Live at clearhead.us with content negotiation
 - ✅ Cloudflare Infrastructure: Pages + Worker for semantic web compliance
 
@@ -100,7 +113,7 @@ graph TB
 - **Format:** Turtle (TTL)
 - **Use only for:** Reference or legacy integrations
 
-See [README.md](../README.md) for current architecture and [migrations/V2_TO_V3_MIGRATION.md](./migrations/V2_TO_V3_MIGRATION.md) for migration guide.
+See [README.md](../README.md) for current architecture and [migrations/V3_TO_V4_MIGRATION.md](./migrations/V3_TO_V4_MIGRATION.md) for migration guide.
 
 ## How It Is Used
 
@@ -108,11 +121,11 @@ The vocabulary is primarily imported into Protégé ontology editor to get the s
 
 We also use code editors (neovim/VSCode) to edit the ontology by hand for structured edits.
 
-**For v3:** OWL/XML format is preferred for Protégé compatibility and industry standards.
+**For v4:** OWL/XML format is preferred for Protégé compatibility and industry standards.
 
 ## Testing
 
-### v3.1.0 Tests
+### v3.1.0 Tests (Legacy)
 ```bash
 # Run v3.1.0 validation (consolidated ontology)
 uv run pytest
@@ -138,7 +151,7 @@ uv run pytest
 
 Check `pyproject.toml` for additional commands.
 
-## v3 Architecture Principles
+## v3 Architecture Principles (Legacy)
 
 ### Semantic Web Design Philosophy
 
@@ -212,12 +225,19 @@ graph TB
 
 ## Key Files
 
-### v3.1.0 Files (Current at Root)
+### v4 Files (Current)
+- **v4/actions-vocabulary.owl** - Minimal CCO extension (OWL/XML)
+- **v4/actions-shapes-v4.ttl** - SHACL validation constraints
+- **V4_DESIGN.md** - v4 design rationale
+- **V4_DESIGN_EXPLORATION.md** - v4 design alternatives
+- **V4_TRANSITION_STATUS.md** - v4 transition status
+
+### v3.1.0 Files (Legacy at Root)
 - **README.md** - Project overview and quick start
 - **CLAUDE.md** - This file (development guide for AI & humans)
 - **actions-vocabulary.owl** - Consolidated v3.1.0 ontology (OWL/XML)
   - Includes: Core + Context + Workflow + Roles (all integrated)
-- **actions-shapes-v3.ttl** - SHACL validation constraints
+- **v3/actions-shapes-v3.ttl** - SHACL validation constraints
 - **BFO_CCO_ALIGNMENT.md** - Technical BFO/CCO mapping
 - **SCHEMA_ORG_ALIGNMENT.md** - Schema.org vocabulary alignment via SKOS
 - **PHASE2_DESIGN.md** - Extension design rationale
@@ -259,14 +279,16 @@ graph TB
 
 ## Which Version to Work On?
 
-**Work on v3.1.0 (root) for:**
-- All new development (core + extensions consolidated)
-- BFO compliance and semantic web integrations
+**Work on v4 (v4/ directory) for:**
+- All new development
+- Interoperability-first integrations
 - Production deployments
 - New projects and features
-- Bug fixes and improvements
 
-The consolidated v3.1.0 ontology is now the single source of truth.
+**Work on v3.1.0 (root) only if:**
+- Maintaining existing v3 deployments
+- Supporting legacy integrations
+- You need the full workflow/context/roles extensions
 
 **Work on v2 (v2/ directory) only if:**
 - Maintaining existing v2 deployments
@@ -313,36 +335,27 @@ The consolidated v3.1.0 ontology is now the single source of truth.
 
 ## Common Tasks
 
-### Validate v3.1.0 Ontology
+### Validate Ontologies
 ```bash
-# Run all tests
+# Validate v3 + v4 OWL and SHACL syntax
+uv run invoke validate
+
+# Run legacy v3 tests
 uv run pytest
-
-# Run with verbose output
-uv run pytest -v
-
-# Run only unit tests (skip slow reasoning)
-uv run pytest -m "not slow"
-
-# Run specific test file
-uv run pytest tests/test_poc.py -v
-
-# Expected: 12 classes, 20 properties, ~260 triples
-# All tests should pass (logically consistent)
 ```
 
-### Edit v3.1.0 Ontology
+### Edit v4 Ontology
 ```bash
 # Option 1: Protégé (recommended)
-# - Open actions-vocabulary.owl
+# - Open v4/actions-vocabulary.owl
 # - Make changes visually
 # - Run HermiT reasoner to check consistency
 # - Save
 # - Run: uv run pytest
 
 # Option 2: Direct OWL/XML editing
-# - Edit actions-vocabulary.owl (use your editor)
-# - Validate: uv run pytest
+# - Edit v4/actions-vocabulary.owl (use your editor)
+# - Validate: uv run invoke validate
 # - Check reasoning in Protégé if making structural changes
 ```
 
@@ -368,9 +381,8 @@ cd ../..
 
 # Production URLs after deployment:
 # - Main: https://clearhead.us/vocab/actions/v3/
-# - OWL: https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl
-# - TTL: https://clearhead.us/vocab/actions/v3/actions-vocabulary.ttl
-# - JSON-LD: https://clearhead.us/vocab/actions/v3/actions-vocabulary.jsonld
+# - v4: https://clearhead.us/vocab/actions/v4/
+# - v3: https://clearhead.us/vocab/actions/v3/
 ```
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete deployment guide, including:
@@ -425,45 +437,45 @@ See [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md) for full details.
 
 ### Accessing the Published Vocabulary
 
-The Actions Vocabulary v3.1.0 is live at **https://clearhead.us/vocab/actions/v3/**
+The Actions Vocabulary v4 is live at **https://clearhead.us/vocab/actions/v4/**
 
 **Import in Protégé:**
 ```
-File → Open from URL → https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl
+File → Open from URL → https://clearhead.us/vocab/actions/v4/actions-vocabulary.owl
 ```
 
 **Import in other ontologies:**
 ```xml
 <owl:Ontology rdf:about="https://example.com/my-ontology">
-  <owl:imports rdf:resource="https://clearhead.us/vocab/actions/v3"/>
+  <owl:imports rdf:resource="https://clearhead.us/vocab/actions/v4"/>
 </owl:Ontology>
 ```
 
 **Content Negotiation:**
 ```bash
 # Request Turtle format
-curl -H "Accept: text/turtle" https://clearhead.us/vocab/actions/v3/
+curl -H "Accept: text/turtle" https://clearhead.us/vocab/actions/v4/
 
 # Request JSON-LD format
-curl -H "Accept: application/ld+json" https://clearhead.us/vocab/actions/v3/
+curl -H "Accept: application/ld+json" https://clearhead.us/vocab/actions/v4/
 
 # Request OWL/XML (default)
-curl https://clearhead.us/vocab/actions/v3/
+curl https://clearhead.us/vocab/actions/v4/
 ```
 
 **Direct File Access:**
 ```bash
 # OWL/XML (canonical)
-curl https://clearhead.us/vocab/actions/v3/actions-vocabulary.owl
+curl https://clearhead.us/vocab/actions/v4/actions-vocabulary.owl
 
 # Turtle (human-readable)
-curl https://clearhead.us/vocab/actions/v3/actions-vocabulary.ttl
+curl https://clearhead.us/vocab/actions/v4/actions-vocabulary.ttl
 
 # JSON-LD (web-friendly)
-curl https://clearhead.us/vocab/actions/v3/actions-vocabulary.jsonld
+curl https://clearhead.us/vocab/actions/v4/actions-vocabulary.jsonld
 
 # SHACL Shapes (validation)
-curl https://clearhead.us/vocab/actions/v3/shapes.ttl
+curl https://clearhead.us/vocab/actions/v4/shapes.ttl
 ```
 
 ### When to Use Each Format
@@ -473,4 +485,3 @@ curl https://clearhead.us/vocab/actions/v3/shapes.ttl
 - **JSON-LD** - Web applications, JavaScript, REST APIs
 - **RDF/XML** - Legacy RDF tools, compatibility
 - **SHACL** - Data validation, quality constraints
-

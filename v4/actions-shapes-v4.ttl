@@ -1,0 +1,61 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix actions: <https://clearhead.us/vocab/actions/v4#> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+#################################################################
+#    SHACL Shapes for Actions Vocabulary v4
+#    Minimal CCO Extension
+#################################################################
+#
+# These shapes validate the minimal v4 model:
+# - Plans use CCO Plan (ont00000974)
+# - Planned Acts use CCO Planned Act (ont00000228)
+# - Objectives use CCO Objective (ont00000476)
+# - ActPhase is the only custom class
+# - hasPhase and hasObjective are the only custom properties
+# - prescribes uses the CCO property ont00001942
+#
+#################################################################
+
+#################################################################
+#    Planned Act Shapes
+#################################################################
+
+actions:PlannedActPhaseShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000228 ;
+    sh:property [
+        sh:path actions:hasPhase ;
+        sh:class actions:ActPhase ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( actions:NotStarted actions:InProgress actions:Completed actions:Blocked actions:Cancelled ) ;
+        sh:message "Planned Act must have exactly one phase (NotStarted, InProgress, Completed, Blocked, Cancelled)" ;
+    ] .
+
+#################################################################
+#    Plan Shapes
+#################################################################
+
+actions:PlanObjectiveShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000974 ;
+    sh:property [
+        sh:path actions:hasObjective ;
+        sh:class cco:ont00000476 ;
+        sh:message "Plan objectives must be CCO Objective instances" ;
+    ] .
+
+actions:PlanPrescribesShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000974 ;
+    sh:property [
+        sh:path cco:ont00001942 ;
+        sh:class cco:ont00000228 ;
+        sh:message "Plan prescribes targets must be CCO Planned Act instances" ;
+    ] .
+
+#################################################################
+#    End of SHACL Shapes for Actions Vocabulary v4
+#################################################################

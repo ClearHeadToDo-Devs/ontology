@@ -42,6 +42,14 @@
   Content-Type: application/ld+json
   Cache-Control: public, max-age=3600
 
+ /vocab/actions/v4/actions.context.json
+  Content-Type: application/ld+json
+  Cache-Control: public, max-age=3600
+
+ /vocab/actions/v4/actions.schema.json
+  Content-Type: application/schema+json
+  Cache-Control: public, max-age=3600
+
 # No cache for HTML
 /*.html
   Cache-Control: no-cache, must-revalidate

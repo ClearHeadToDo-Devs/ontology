@@ -381,7 +381,7 @@ These are business rules, not ontological truths. They belong in SHACL:
 
 ```
 ontology/
-├── actions-vocabulary-v4.owl    # The ontology (OWL/XML)
+├── v4/actions-vocabulary.owl    # The ontology (OWL/XML)
 ├── actions-shapes-v4.ttl        # SHACL constraints
 ├── imports/
 │   ├── bfo.owl                  # BFO 2.0
@@ -448,7 +448,7 @@ The ontology is small because CCO already did the hard work. We're standing on t
 
 #### 1.1 Core Structure
 
-- [ ] Create `ontology/actions-vocabulary-v4.owl` with:
+- [ ] Create `ontology/v4/actions-vocabulary.owl` with:
   - Namespace: `https://clearhead.us/vocab/actions/v4#`
   - Imports: BFO, CCO (ont00000974, ont00000476, ont00000228, ont00000965)
   - Version: 4.0.0

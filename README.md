@@ -1,7 +1,7 @@
 # Actions Vocabulary v4 - CCO-Aligned Ontology
-**Current Version**: 4.0.0 (Development)
+**Current Version**: 4.0.0 (Current)
 **Namespace**: `https://clearhead.us/vocab/actions/v4#`
-**Status**: In development
+**Status**: Current
 
 ## What is This?
 
@@ -89,6 +89,9 @@ Instead, we use CCO directly and add value through custom properties and SHACL c
 - **[V4_DESIGN_EXPLORATION.md](./V4_DESIGN_EXPLORATION.md)** - Design exploration and alternatives
 - **[CLAUDE.md](./CLAUDE.md)** - Development guide
 - **[BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md)** - Technical mapping to BFO/CCO
+- **[v4/actions-shapes-v4.ttl](./v4/actions-shapes-v4.ttl)** - SHACL validation shapes
+- **[v4/actions.context.json](./v4/actions.context.json)** - JSON-LD context map
+- **[v4/actions.schema.json](./v4/actions.schema.json)** - JSON Schema for ontology-out exports
 
 ## Quick Start
 

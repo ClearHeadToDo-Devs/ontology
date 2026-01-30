@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clearhead.us/vocab/actions/v4/actions.schema.json",
+  "title": "Actions Vocabulary v4 (Ontology-Out)",
+  "type": "object",
+  "properties": {
+    "@context": {
+      "oneOf": [
+        {"type": "string"},
+        {"type": "object"}
+      ]
+    },
+    "@graph": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/node"}
+    }
+  },
+  "required": ["@context", "@graph"],
+  "additionalProperties": true,
+  "$defs": {
+    "node": {
+      "type": "object",
+      "properties": {
+        "id": {"type": "string"},
+        "type": {"type": "string"},
+        "name": {"type": "string"},
+        "objective": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "array", "items": {"type": "string"}}
+          ]
+        },
+        "execution": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "array", "items": {"type": "string"}}
+          ]
+        },
+        "phase": {
+          "type": "string",
+          "enum": ["NotStarted", "InProgress", "Completed", "Blocked", "Cancelled"]
+        },
+        "partOf": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "array", "items": {"type": "string"}}
+          ]
+        },
+        "hasPart": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "array", "items": {"type": "string"}}
+          ]
+        }
+      },
+      "required": ["id", "type"],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {"properties": {"type": {"const": "PlannedAct"}}},
+          "then": {"required": ["phase"]}
+        }
+      ]
+    }
+  }
+}

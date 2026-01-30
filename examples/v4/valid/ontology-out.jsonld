@@ -1,0 +1,45 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "id": "@id",
+    "type": "@type",
+    "actions": "https://clearhead.us/vocab/actions/v4#",
+    "cco": "https://www.commoncoreontologies.org/",
+    "bfo": "http://purl.obolibrary.org/obo/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "Plan": "https://www.commoncoreontologies.org/ont00000974",
+    "PlannedAct": "https://www.commoncoreontologies.org/ont00000228",
+    "Objective": "https://www.commoncoreontologies.org/ont00000476",
+    "ActPhase": "https://clearhead.us/vocab/actions/v4#ActPhase",
+    "NotStarted": "https://clearhead.us/vocab/actions/v4#NotStarted",
+    "InProgress": "https://clearhead.us/vocab/actions/v4#InProgress",
+    "Completed": "https://clearhead.us/vocab/actions/v4#Completed",
+    "Blocked": "https://clearhead.us/vocab/actions/v4#Blocked",
+    "Cancelled": "https://clearhead.us/vocab/actions/v4#Cancelled",
+    "name": "rdfs:label",
+    "objective": {"@id": "actions:hasObjective", "@type": "@id"},
+    "execution": {"@id": "cco:ont00001942", "@type": "@id"},
+    "phase": {"@id": "actions:hasPhase", "@type": "@id"},
+    "partOf": {"@id": "bfo:BFO_0000050", "@type": "@id"},
+    "hasPart": {"@id": "bfo:BFO_0000051", "@type": "@id"}
+  },
+  "@graph": [
+    {
+      "id": "urn:uuid:plan-1",
+      "type": "Plan",
+      "name": "Buy milk",
+      "objective": "urn:objective:groceries",
+      "execution": "urn:uuid:act-1"
+    },
+    {
+      "id": "urn:uuid:act-1",
+      "type": "PlannedAct",
+      "phase": "Completed"
+    },
+    {
+      "id": "urn:objective:groceries",
+      "type": "Objective",
+      "name": "groceries"
+    }
+  ]
+}

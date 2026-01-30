@@ -333,7 +333,7 @@ uv run pytest tests/v4/test_shacl_validation.py -v
 
 ```bash
 # Load v4 ontology in Protégé
-# File → Open → actions-vocabulary-v4.owl
+# File → Open → v4/actions-vocabulary.owl
 # Reasoner → HermiT → Start reasoner
 # Verify no inconsistencies
 ```
