@@ -2,6 +2,7 @@
 @prefix actions: <https://clearhead.us/vocab/actions/v4#> .
 @prefix cco: <https://www.commoncoreontologies.org/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 #################################################################
 #    SHACL Shapes for Actions Vocabulary v4
@@ -54,6 +55,140 @@ actions:PlanPrescribesShape
         sh:path cco:ont00001942 ;
         sh:class cco:ont00000228 ;
         sh:message "Plan prescribes targets must be CCO Planned Act instances" ;
+    ] .
+
+#################################################################
+#    Extended Validation Rules for New Properties
+#################################################################
+
+# Validate UUID format (UUIDv7 preferred)
+actions:PlanUUIDShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000974 ;
+    sh:property [
+        sh:path actions:hasUUID ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" ;
+        sh:message "UUID must follow standard UUID format (UUIDv7 preferred)" ;
+    ] .
+
+# Prevent circular dependencies
+actions:NoCyclicDependenciesShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000974 ;
+    sh:sparql [
+        sh:message "Plans cannot have circular dependencies" ;
+        sh:select """
+            PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
+            SELECT $this WHERE {
+                $this actions:dependsOn+ $this .
+            }
+        """ ;
+    ] .
+
+# Validate completion date logic (completed acts should have completion date)
+actions:CompletedActDateShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000228 ;
+    sh:sparql [
+        sh:message "PlannedActs with phase=Completed should have hasCompletedDateTime" ;
+        sh:select """
+            PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
+            SELECT $this WHERE {
+                $this actions:hasPhase actions:Completed .
+                FILTER NOT EXISTS { $this actions:hasCompletedDateTime ?date }
+            }
+        """ ;
+    ] .
+
+# Validate alias uniqueness within workspace (informational - tooling responsibility)
+actions:PlanAliasShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000974 ;
+    sh:property [
+        sh:path actions:hasAlias ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern "^[a-zA-Z0-9_-]+$" ;
+        sh:message "Aliases must contain only alphanumeric characters, hyphens, and underscores" ;
+    ] .
+
+# Validate duration is positive
+actions:DurationPositiveShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000974 ;
+    sh:property [
+        sh:path actions:hasDurationMinutes ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:message "Duration must be positive integer (minutes)" ;
+    ] .
+
+# Validate RRULE format (basic pattern check)
+actions:RecurrenceRuleShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000974 ;
+    sh:property [
+        sh:path actions:hasRecurrenceRule ;
+        sh:datatype xsd:string ;
+        sh:pattern "^FREQ=(SECONDLY|MINUTELY|HOURLY|DAILY|WEEKLY|MONTHLY|YEARLY)(;.*)?$" ;
+        sh:message "Recurrence rule must be valid RFC 5545 RRULE format starting with FREQ=" ;
+    ] .
+
+# Ensure Plans with recurrence have do date (DTSTART required for RRULE)
+actions:RecurrenceRequiresDoDateShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000974 ;
+    sh:sparql [
+        sh:message "Plans with recurrence rules must have hasDoDateTime (DTSTART)" ;
+        sh:select """
+            PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
+            SELECT $this WHERE {
+                $this actions:hasRecurrenceRule ?rrule .
+                FILTER NOT EXISTS { $this actions:hasDoDateTime ?date }
+            }
+        """ ;
+    ] .
+
+# Validate priority is integer 1-4 (Eisenhower Matrix)
+actions:PriorityRangeShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000974 ;
+    sh:property [
+        sh:path actions:hasPriority ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 4 ;
+        sh:maxCount 1 ;
+        sh:message "Priority must be integer 1-4 (1=Urgent+Important, 2=Important+NotUrgent, 3=Urgent+NotImportant, 4=NotUrgent+NotImportant)" ;
+    ] .
+
+# Validate context identifier uniqueness and format
+actions:ContextIdentifierShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Context ;
+    sh:property [
+        sh:path actions:hasContextIdentifier ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:pattern "^[a-zA-Z0-9_@-]+$" ;
+        sh:message "Context identifiers must contain only alphanumeric characters, hyphens, underscores, and @ symbols" ;
+    ] .
+
+# Prevent circular context hierarchies
+actions:NoCircularContextHierarchyShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Context ;
+    sh:sparql [
+        sh:message "Contexts cannot have circular hierarchies" ;
+        sh:select """
+            PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
+            SELECT $this WHERE {
+                $this actions:contextBroader+ $this .
+            }
+        """ ;
     ] .
 
 #################################################################

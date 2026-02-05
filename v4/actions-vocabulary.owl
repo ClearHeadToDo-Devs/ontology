@@ -92,6 +92,8 @@ In this vocabulary: Represents an action instance - the actual execution of a pl
         <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
     </owl:Class>
 
+
+
     <!-- ╔══════════════════════════════════════════════════════════════════╗
          ║                   BFO CLASSES (BY REFERENCE)                     ║
          ╚══════════════════════════════════════════════════════════════════╝ -->
@@ -133,10 +135,7 @@ In this vocabulary: Links a Plan to the Planned Acts it prescribes. One Plan can
     </owl:ObjectProperty>
 
     <!-- ╔══════════════════════════════════════════════════════════════════╗
-         ║                      CUSTOM CLASS: ActPhase                      ║
-         ║                                                                  ║
-         ║  This is the one class we add to CCO. It represents lifecycle   ║
-         ║  states for tracking action execution progress.                 ║
+         ║                      CUSTOM CLASSES                              ║
          ╚══════════════════════════════════════════════════════════════════╝ -->
 
     <owl:Class rdf:about="https://clearhead.us/vocab/actions/v4#ActPhase">
@@ -151,6 +150,21 @@ Maps to state markers in the .actions file format:
 - Completed  = [x]
 - Blocked    = [=]
 - Cancelled  = [_]</rdfs:comment>
+    </owl:Class>
+
+    <!-- Context: GTD context entities supporting tag hierarchies -->
+    <owl:Class rdf:about="https://clearhead.us/vocab/actions/v4#Context">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+        <rdfs:label xml:lang="en">Context</rdfs:label>
+        <skos:definition xml:lang="en">A resource, location, tool, or person required for plan execution (GTD context methodology).</skos:definition>
+        <rdfs:comment xml:lang="en">Context represents execution requirements following Getting Things Done (GTD) methodology. Contexts support hierarchical relationships for tag organization and inheritance. Maps to "+" syntax in .actions file format.</rdfs:comment>
+    </owl:Class>
+
+    <!-- ContextType: Categories of contexts (Facility, Agent, Tool, etc.) -->
+    <owl:Class rdf:about="https://clearhead.us/vocab/actions/v4#ContextType">
+        <rdfs:label xml:lang="en">Context Type</rdfs:label>
+        <skos:definition xml:lang="en">A classification for Context entities (facility, agent, tool, etc.).</skos:definition>
+        <rdfs:comment xml:lang="en">Enables typed contexts that can map to specific CCO classes. Examples: facility (@office), agent (@bob), tool (computer).</rdfs:comment>
     </owl:Class>
 
     <!-- ╔══════════════════════════════════════════════════════════════════╗
@@ -188,6 +202,34 @@ Maps to state markers in the .actions file format:
     </owl:NamedIndividual>
 
     <!-- ╔══════════════════════════════════════════════════════════════════╗
+         ║                    CONTEXT TYPE INDIVIDUALS                      ║
+         ╚══════════════════════════════════════════════════════════════════╝ -->
+
+    <owl:NamedIndividual rdf:about="https://clearhead.us/vocab/actions/v4#FacilityContextType">
+        <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v4#ContextType"/>
+        <rdfs:label xml:lang="en">Facility Context Type</rdfs:label>
+        <rdfs:comment xml:lang="en">Physical locations required for execution. DSL syntax: +@office, +@home. Maps to CCO Facility.</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="https://clearhead.us/vocab/actions/v4#AgentContextType">
+        <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v4#ContextType"/>
+        <rdfs:label xml:lang="en">Agent Context Type</rdfs:label>
+        <rdfs:comment xml:lang="en">People required for execution. DSL syntax: +@bob, +@manager. Maps to CCO Agent.</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="https://clearhead.us/vocab/actions/v4#ToolContextType">
+        <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v4#ContextType"/>
+        <rdfs:label xml:lang="en">Tool Context Type</rdfs:label>
+        <rdfs:comment xml:lang="en">Tools, equipment, or software required for execution. DSL syntax: +computer, +phone. Maps to CCO Artifact.</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="https://clearhead.us/vocab/actions/v4#CategoryContextType">
+        <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v4#ContextType"/>
+        <rdfs:label xml:lang="en">Category Context Type</rdfs:label>
+        <rdfs:comment xml:lang="en">General categories or domains. DSL syntax: +work, +personal, +urgent. For organization and filtering.</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <!-- ╔══════════════════════════════════════════════════════════════════╗
          ║                     CUSTOM PROPERTIES                            ║
          ╚══════════════════════════════════════════════════════════════════╝ -->
 
@@ -209,5 +251,175 @@ Maps to state markers in the .actions file format:
         <skos:definition xml:lang="en">Relates a Plan to the Objective (project/story) it works toward.</skos:definition>
         <rdfs:comment xml:lang="en">Links action definitions to their parent project or story. Maps to the "*" marker in the .actions file format. A Plan may have zero objectives (standalone task) or multiple objectives.</rdfs:comment>
     </owl:ObjectProperty>
+
+    <!-- dependsOn: Plan dependency relationships -->
+    <owl:ObjectProperty rdf:about="https://clearhead.us/vocab/actions/v4#dependsOn">
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:label xml:lang="en">depends on</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Plan to another Plan that must be completed before this Plan can proceed.</skos:definition>
+        <rdfs:comment xml:lang="en">Maps to the "&lt;" predecessor syntax in the .actions file format. A Plan may depend on multiple other Plans. Circular dependencies are invalid.</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- hasAlias: Human-readable plan references -->
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasAlias">
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has alias</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Plan to a human-readable alias that can be used for reference.</skos:definition>
+        <rdfs:comment xml:lang="en">Maps to the "=" syntax in the .actions file format. Aliases provide stable references that persist when plan names change. Must be unique within workspace scope.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- requiresContext: Entity-based context for tag hierarchies -->
+    <owl:ObjectProperty rdf:about="https://clearhead.us/vocab/actions/v4#requiresContext">
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v4#Context"/>
+        <rdfs:label xml:lang="en">requires context</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Plan to a Context entity required for execution.</skos:definition>
+        <rdfs:comment xml:lang="en">Maps to the "+" syntax in the .actions file format. Context entities enable tag hierarchies and typed contexts (facilities, agents, tools, etc.).</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- hasSequentialChildren: Sequential processing flag -->
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasSequentialChildren">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:label xml:lang="en">has sequential children</rdfs:label>
+        <skos:definition xml:lang="en">Indicates whether child Plans should be processed sequentially.</skos:definition>
+        <rdfs:comment xml:lang="en">Maps to the "~" syntax in the .actions file format. When true, each child Plan implicitly depends on the previous sibling completing.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- hasRecurrenceRule: RRULE for recurring plans -->
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasRecurrenceRule">
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has recurrence rule</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Plan to an RFC 5545 RRULE string defining recurrence pattern.</skos:definition>
+        <rdfs:comment xml:lang="en">Maps to the "R:" syntax in the .actions file format. When present, the Plan generates multiple PlannedActs according to the recurrence rule.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- hasUUID: Plan identifier -->
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasUUID">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has UUID</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Plan to its unique identifier (UUIDv7 preferred).</skos:definition>
+        <rdfs:comment xml:lang="en">Maps to the "#" syntax in the .actions file format. Provides universal uniqueness across systems and time. UUIDv7 encodes creation timestamp.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- ╔══════════════════════════════════════════════════════════════════╗
+         ║                   CCO TEMPORAL PROPERTIES                        ║
+         ║                                                                  ║
+         ║  Declare CCO temporal properties used by Plans and PlannedActs   ║
+         ╚══════════════════════════════════════════════════════════════════╝ -->
+
+    <!-- CCO has datetime value - used for do dates, completion dates, etc. -->
+    <owl:DatatypeProperty rdf:about="https://www.commoncoreontologies.org/ont00001767">
+        <rdfs:label xml:lang="en">has datetime value</rdfs:label>
+        <rdfs:comment xml:lang="en">CCO property for datetime values. Used for hasDoDateTime, hasCompletedDateTime, hasCreatedDateTime in .actions format.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
+    </owl:DatatypeProperty>
+
+    <!-- ╔══════════════════════════════════════════════════════════════════╗
+         ║                   CUSTOM TEMPORAL SPECIALIZATIONS                ║
+         ║                                                                  ║
+         ║  Specialized subproperties of CCO datetime for specific uses     ║
+         ╚══════════════════════════════════════════════════════════════════╝ -->
+
+    <!-- hasDoDateTime: When to execute the plan -->
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasDoDateTime">
+        <rdfs:subPropertyOf rdf:resource="https://www.commoncoreontologies.org/ont00001767"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label xml:lang="en">has do date time</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Plan to the date/time when it should be executed.</skos:definition>
+        <rdfs:comment xml:lang="en">Maps to the "@" syntax in the .actions file format. Specializes CCO has datetime value for scheduling purposes.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- hasCompletedDateTime: When the planned act was completed -->
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasCompletedDateTime">
+        <rdfs:subPropertyOf rdf:resource="https://www.commoncoreontologies.org/ont00001767"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000228"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label xml:lang="en">has completed date time</rdfs:label>
+        <skos:definition xml:lang="en">Relates a PlannedAct to the date/time when it was completed.</skos:definition>
+        <rdfs:comment xml:lang="en">Maps to the "%" syntax in the .actions file format. Should only be present when hasPhase is Completed.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- hasCreatedDateTime: When the plan was created -->
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasCreatedDateTime">
+        <rdfs:subPropertyOf rdf:resource="https://www.commoncoreontologies.org/ont00001767"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label xml:lang="en">has created date time</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Plan to the date/time when it was first created.</skos:definition>
+        <rdfs:comment xml:lang="en">Maps to the "^" syntax in the .actions file format. Can be derived from UUIDv7 if not explicitly set.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- hasDurationMinutes: Expected execution duration -->
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasDurationMinutes">
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="en">has duration minutes</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Plan to its expected execution duration in minutes.</skos:definition>
+        <rdfs:comment xml:lang="en">Maps to the "D" syntax in the .actions file format (D60 = 60 minutes). Used for time blocking and capacity planning.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- ╔══════════════════════════════════════════════════════════════════╗
+         ║                   CONTEXT HIERARCHY PROPERTIES                   ║
+         ╚══════════════════════════════════════════════════════════════════╝ -->
+
+    <!-- hasContextType: Links context to its type -->
+    <owl:ObjectProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasContextType">
+        <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v4#Context"/>
+        <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v4#ContextType"/>
+        <rdfs:label xml:lang="en">has context type</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Context to its type classification.</skos:definition>
+        <rdfs:comment xml:lang="en">Enables typed contexts for better organization and CCO alignment.</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- contextBroader: Context hierarchy (tag inheritance) -->
+    <owl:ObjectProperty rdf:about="https://clearhead.us/vocab/actions/v4#contextBroader">
+        <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v4#Context"/>
+        <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v4#Context"/>
+        <rdfs:label xml:lang="en">context broader</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Context to its parent in the context hierarchy.</skos:definition>
+        <rdfs:comment xml:lang="en">Enables tag hierarchies where child contexts inherit from parents. Similar to SKOS broader concept. Example: +neovim contextBroader +terminal contextBroader +computer.</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- contextNarrower: Inverse of contextBroader -->
+    <owl:ObjectProperty rdf:about="https://clearhead.us/vocab/actions/v4#contextNarrower">
+        <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v4#Context"/>
+        <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v4#Context"/>
+        <owl:inverseOf rdf:resource="https://clearhead.us/vocab/actions/v4#contextBroader"/>
+        <rdfs:label xml:lang="en">context narrower</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Context to its children in the context hierarchy.</skos:definition>
+        <rdfs:comment xml:lang="en">Inverse of contextBroader. Enables queries to find all child contexts.</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- hasContextIdentifier: String identifier for contexts -->
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasContextIdentifier">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v4#Context"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label xml:lang="en">has context identifier</rdfs:label>
+        <skos:definition xml:lang="en">The string identifier used to reference this context in the DSL.</skos:definition>
+        <rdfs:comment xml:lang="en">Maps the DSL tag name (e.g., "work", "computer") to the Context entity. Must be unique within workspace scope.</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- ╔══════════════════════════════════════════════════════════════════╗
+         ║                   CCO PRIORITY RELATIONSHIP                      ║
+         ╚══════════════════════════════════════════════════════════════════╝ -->
+
+    <!-- hasPriority: Simple integer priority -->
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasPriority">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label xml:lang="en">has priority</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Plan to its priority level (1-4, Eisenhower Matrix).</skos:definition>
+        <rdfs:comment xml:lang="en">Maps to the "!" syntax in the .actions file format. 1=Urgent+Important, 2=Important+NotUrgent, 3=Urgent+NotImportant, 4=NotUrgent+NotImportant.</rdfs:comment>
+    </owl:DatatypeProperty>
 
 </rdf:RDF>

@@ -3,24 +3,57 @@
     "@version": 1.1,
     "id": "@id",
     "type": "@type",
+    
     "actions": "https://clearhead.us/vocab/actions/v4#",
     "cco": "https://www.commoncoreontologies.org/",
     "bfo": "http://purl.obolibrary.org/obo/",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    
     "Plan": "https://www.commoncoreontologies.org/ont00000974",
-    "PlannedAct": "https://www.commoncoreontologies.org/ont00000228",
+    "PlannedAct": "https://www.commoncoreontologies.org/ont00000228", 
     "Objective": "https://www.commoncoreontologies.org/ont00000476",
+    "Context": "https://clearhead.us/vocab/actions/v4#Context",
+    "ContextType": "https://clearhead.us/vocab/actions/v4#ContextType",
+    
     "ActPhase": "https://clearhead.us/vocab/actions/v4#ActPhase",
     "NotStarted": "https://clearhead.us/vocab/actions/v4#NotStarted",
-    "InProgress": "https://clearhead.us/vocab/actions/v4#InProgress",
+    "InProgress": "https://clearhead.us/vocab/actions/v4#InProgress", 
     "Completed": "https://clearhead.us/vocab/actions/v4#Completed",
     "Blocked": "https://clearhead.us/vocab/actions/v4#Blocked",
     "Cancelled": "https://clearhead.us/vocab/actions/v4#Cancelled",
+    
+    "FacilityContextType": "https://clearhead.us/vocab/actions/v4#FacilityContextType",
+    "AgentContextType": "https://clearhead.us/vocab/actions/v4#AgentContextType", 
+    "ToolContextType": "https://clearhead.us/vocab/actions/v4#ToolContextType",
+    "CategoryContextType": "https://clearhead.us/vocab/actions/v4#CategoryContextType",
+    
     "name": "rdfs:label",
+    "description": "rdfs:comment",
+    
     "objective": {"@id": "actions:hasObjective", "@type": "@id"},
     "execution": {"@id": "cco:ont00001942", "@type": "@id"},
     "phase": {"@id": "actions:hasPhase", "@type": "@id"},
+    "priority": {"@id": "actions:hasPriority", "@type": "xsd:integer"},
+    
+    "context": {"@id": "actions:requiresContext", "@type": "@id"},
+    "contextType": {"@id": "actions:hasContextType", "@type": "@id"},
+    "contextIdentifier": {"@id": "actions:hasContextIdentifier", "@type": "xsd:string"},
+    "contextBroader": {"@id": "actions:contextBroader", "@type": "@id"},
+    "contextNarrower": {"@id": "actions:contextNarrower", "@type": "@id"},
+    
     "partOf": {"@id": "bfo:BFO_0000050", "@type": "@id"},
-    "hasPart": {"@id": "bfo:BFO_0000051", "@type": "@id"}
+    "hasPart": {"@id": "bfo:BFO_0000051", "@type": "@id"},
+    "dependsOn": {"@id": "actions:dependsOn", "@type": "@id"},
+    
+    "uuid": {"@id": "actions:hasUUID", "@type": "xsd:string"},
+    "alias": {"@id": "actions:hasAlias", "@type": "xsd:string"}, 
+    "sequentialChildren": {"@id": "actions:hasSequentialChildren", "@type": "xsd:boolean"},
+    "recurrence": {"@id": "actions:hasRecurrenceRule", "@type": "xsd:string"},
+    "durationMinutes": {"@id": "actions:hasDurationMinutes", "@type": "xsd:integer"},
+    
+    "doDate": {"@id": "actions:hasDoDateTime", "@type": "xsd:dateTime"},
+    "completedDate": {"@id": "actions:hasCompletedDateTime", "@type": "xsd:dateTime"},
+    "createdDate": {"@id": "actions:hasCreatedDateTime", "@type": "xsd:dateTime"}
   }
 }

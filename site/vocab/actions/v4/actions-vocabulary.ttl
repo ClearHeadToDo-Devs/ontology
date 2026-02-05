@@ -38,6 +38,11 @@ For full CCO definitions, see: https://github.com/CommonCoreOntology/CommonCoreO
     owl:versionIRI <https://clearhead.us/vocab/actions/v4/4.0.0> ;
     owl:versionInfo "4.0.0" .
 
+:AgentContextType a owl:NamedIndividual,
+        :ContextType ;
+    rdfs:label "Agent Context Type"@en ;
+    rdfs:comment "People required for execution. DSL syntax: +@bob, +@manager. Maps to CCO Agent."@en .
+
 :Blocked a owl:NamedIndividual,
         :ActPhase ;
     rdfs:label "Blocked"@en ;
@@ -48,10 +53,20 @@ For full CCO definitions, see: https://github.com/CommonCoreOntology/CommonCoreO
     rdfs:label "Cancelled"@en ;
     rdfs:comment "The Planned Act was abandoned without completion. Terminal state. File format: [_]"@en .
 
+:CategoryContextType a owl:NamedIndividual,
+        :ContextType ;
+    rdfs:label "Category Context Type"@en ;
+    rdfs:comment "General categories or domains. DSL syntax: +work, +personal, +urgent. For organization and filtering."@en .
+
 :Completed a owl:NamedIndividual,
         :ActPhase ;
     rdfs:label "Completed"@en ;
     rdfs:comment "The Planned Act finished successfully. Terminal state. File format: [x]"@en .
+
+:FacilityContextType a owl:NamedIndividual,
+        :ContextType ;
+    rdfs:label "Facility Context Type"@en ;
+    rdfs:comment "Physical locations required for execution. DSL syntax: +@office, +@home. Maps to CCO Facility."@en .
 
 :InProgress a owl:NamedIndividual,
         :ActPhase ;
@@ -62,6 +77,79 @@ For full CCO definitions, see: https://github.com/CommonCoreOntology/CommonCoreO
         :ActPhase ;
     rdfs:label "Not Started"@en ;
     rdfs:comment "The Planned Act has not begun execution. File format: [ ]"@en .
+
+:ToolContextType a owl:NamedIndividual,
+        :ContextType ;
+    rdfs:label "Tool Context Type"@en ;
+    rdfs:comment "Tools, equipment, or software required for execution. DSL syntax: +computer, +phone. Maps to CCO Artifact."@en .
+
+:contextNarrower a owl:ObjectProperty ;
+    rdfs:label "context narrower"@en ;
+    rdfs:comment "Inverse of contextBroader. Enables queries to find all child contexts."@en ;
+    rdfs:domain :Context ;
+    rdfs:range :Context ;
+    owl:inverseOf :contextBroader ;
+    skos:definition "Relates a Context to its children in the context hierarchy."@en .
+
+:dependsOn a owl:ObjectProperty ;
+    rdfs:label "depends on"@en ;
+    rdfs:comment "Maps to the \"<\" predecessor syntax in the .actions file format. A Plan may depend on multiple other Plans. Circular dependencies are invalid."@en ;
+    rdfs:domain cco:ont00000974 ;
+    rdfs:range cco:ont00000974 ;
+    skos:definition "Relates a Plan to another Plan that must be completed before this Plan can proceed."@en .
+
+:hasAlias a owl:DatatypeProperty ;
+    rdfs:label "has alias"@en ;
+    rdfs:comment "Maps to the \"=\" syntax in the .actions file format. Aliases provide stable references that persist when plan names change. Must be unique within workspace scope."@en ;
+    rdfs:domain cco:ont00000974 ;
+    rdfs:range xsd:string ;
+    skos:definition "Relates a Plan to a human-readable alias that can be used for reference."@en .
+
+:hasCompletedDateTime a owl:DatatypeProperty ;
+    rdfs:label "has completed date time"@en ;
+    rdfs:comment "Maps to the \"%\" syntax in the .actions file format. Should only be present when hasPhase is Completed."@en ;
+    rdfs:domain cco:ont00000228 ;
+    rdfs:range xsd:dateTime ;
+    rdfs:subPropertyOf cco:ont00001767 ;
+    skos:definition "Relates a PlannedAct to the date/time when it was completed."@en .
+
+:hasContextIdentifier a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "has context identifier"@en ;
+    rdfs:comment "Maps the DSL tag name (e.g., \"work\", \"computer\") to the Context entity. Must be unique within workspace scope."@en ;
+    rdfs:domain :Context ;
+    rdfs:range xsd:string ;
+    skos:definition "The string identifier used to reference this context in the DSL."@en .
+
+:hasContextType a owl:ObjectProperty ;
+    rdfs:label "has context type"@en ;
+    rdfs:comment "Enables typed contexts for better organization and CCO alignment."@en ;
+    rdfs:domain :Context ;
+    rdfs:range :ContextType ;
+    skos:definition "Relates a Context to its type classification."@en .
+
+:hasCreatedDateTime a owl:DatatypeProperty ;
+    rdfs:label "has created date time"@en ;
+    rdfs:comment "Maps to the \"^\" syntax in the .actions file format. Can be derived from UUIDv7 if not explicitly set."@en ;
+    rdfs:domain cco:ont00000974 ;
+    rdfs:range xsd:dateTime ;
+    rdfs:subPropertyOf cco:ont00001767 ;
+    skos:definition "Relates a Plan to the date/time when it was first created."@en .
+
+:hasDoDateTime a owl:DatatypeProperty ;
+    rdfs:label "has do date time"@en ;
+    rdfs:comment "Maps to the \"@\" syntax in the .actions file format. Specializes CCO has datetime value for scheduling purposes."@en ;
+    rdfs:domain cco:ont00000974 ;
+    rdfs:range xsd:dateTime ;
+    rdfs:subPropertyOf cco:ont00001767 ;
+    skos:definition "Relates a Plan to the date/time when it should be executed."@en .
+
+:hasDurationMinutes a owl:DatatypeProperty ;
+    rdfs:label "has duration minutes"@en ;
+    rdfs:comment "Maps to the \"D\" syntax in the .actions file format (D60 = 60 minutes). Used for time blocking and capacity planning."@en ;
+    rdfs:domain cco:ont00000974 ;
+    rdfs:range xsd:integer ;
+    skos:definition "Relates a Plan to its expected execution duration in minutes."@en .
 
 :hasObjective a owl:ObjectProperty ;
     rdfs:label "has objective"@en ;
@@ -78,17 +166,50 @@ For full CCO definitions, see: https://github.com/CommonCoreOntology/CommonCoreO
     rdfs:range :ActPhase ;
     skos:definition "Relates a Planned Act to its current lifecycle phase."@en .
 
+:hasPriority a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "has priority"@en ;
+    rdfs:comment "Maps to the \"!\" syntax in the .actions file format. 1=Urgent+Important, 2=Important+NotUrgent, 3=Urgent+NotImportant, 4=NotUrgent+NotImportant."@en ;
+    rdfs:domain cco:ont00000974 ;
+    rdfs:range xsd:integer ;
+    skos:definition "Relates a Plan to its priority level (1-4, Eisenhower Matrix)."@en .
+
+:hasRecurrenceRule a owl:DatatypeProperty ;
+    rdfs:label "has recurrence rule"@en ;
+    rdfs:comment "Maps to the \"R:\" syntax in the .actions file format. When present, the Plan generates multiple PlannedActs according to the recurrence rule."@en ;
+    rdfs:domain cco:ont00000974 ;
+    rdfs:range xsd:string ;
+    skos:definition "Relates a Plan to an RFC 5545 RRULE string defining recurrence pattern."@en .
+
+:hasSequentialChildren a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "has sequential children"@en ;
+    rdfs:comment "Maps to the \"~\" syntax in the .actions file format. When true, each child Plan implicitly depends on the previous sibling completing."@en ;
+    rdfs:domain cco:ont00000974 ;
+    rdfs:range xsd:boolean ;
+    skos:definition "Indicates whether child Plans should be processed sequentially."@en .
+
+:hasUUID a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "has UUID"@en ;
+    rdfs:comment "Maps to the \"#\" syntax in the .actions file format. Provides universal uniqueness across systems and time. UUIDv7 encodes creation timestamp."@en ;
+    rdfs:domain cco:ont00000974 ;
+    rdfs:range xsd:string ;
+    skos:definition "Relates a Plan to its unique identifier (UUIDv7 preferred)."@en .
+
+:requiresContext a owl:ObjectProperty ;
+    rdfs:label "requires context"@en ;
+    rdfs:comment "Maps to the \"+\" syntax in the .actions file format. Context entities enable tag hierarchies and typed contexts (facilities, agents, tools, etc.)."@en ;
+    rdfs:domain cco:ont00000974 ;
+    rdfs:range :Context ;
+    skos:definition "Relates a Plan to a Context entity required for execution."@en .
+
 cco:ont00001942 a owl:ObjectProperty ;
     rdfs:label "prescribes"@en ;
     rdfs:comment """CCO: A relation between a Directive ICE and the entity it prescribes.
 
 In this vocabulary: Links a Plan to the Planned Acts it prescribes. One Plan can prescribe many Planned Acts (e.g., recurring actions)."""@en ;
     rdfs:isDefinedBy cco: .
-
-bfo:BFO_0000019 a owl:Class ;
-    rdfs:label "Quality"@en ;
-    rdfs:comment "BFO: A specifically dependent continuant that inheres in its bearer. Qualities are properties that exist in and depend on their bearers."@en ;
-    rdfs:isDefinedBy bfo:bfo.owl .
 
 bfo:BFO_0000051 a owl:ObjectProperty ;
     rdfs:label "has part"@en ;
@@ -97,13 +218,12 @@ bfo:BFO_0000051 a owl:ObjectProperty ;
 In this vocabulary: Use for plan decomposition - parent actions have child actions as parts. Maps to the ">" children syntax in the .actions file format."""@en ;
     rdfs:isDefinedBy bfo:bfo.owl .
 
-cco:ont00000228 a owl:Class ;
-    rdfs:label "Planned Act"@en ;
-    rdfs:comment """CCO: An Act in which at least one Agent plays a causative role and which is prescribed by some Directive Information Content Entity.
-
-In this vocabulary: Represents an action instance - the actual execution of a plan. For recurring actions, one Plan produces multiple Planned Acts."""@en ;
-    rdfs:isDefinedBy cco: ;
-    rdfs:subClassOf cco:ont00000832 .
+:contextBroader a owl:ObjectProperty ;
+    rdfs:label "context broader"@en ;
+    rdfs:comment "Enables tag hierarchies where child contexts inherit from parents. Similar to SKOS broader concept. Example: +neovim contextBroader +terminal contextBroader +computer."@en ;
+    rdfs:domain :Context ;
+    rdfs:range :Context ;
+    skos:definition "Relates a Context to its parent in the context hierarchy."@en .
 
 cco:ont00000476 a owl:Class ;
     rdfs:label "Objective"@en ;
@@ -118,18 +238,33 @@ cco:ont00000832 a owl:Class ;
     rdfs:comment "CCO: A Process in which an Agent plays a causative role."@en ;
     rdfs:isDefinedBy cco: .
 
-cco:ont00000974 a owl:Class ;
-    rdfs:label "Plan"@en ;
-    rdfs:comment """CCO: A Directive Information Content Entity that prescribes some set of intended Intentional Acts through which some Agent expects to achieve some Objective.
+bfo:BFO_0000019 a owl:Class ;
+    rdfs:label "Quality"@en ;
+    rdfs:comment "BFO: A specifically dependent continuant that inheres in its bearer. Qualities are properties that exist in and depend on their bearers."@en ;
+    rdfs:isDefinedBy bfo:bfo.owl .
 
-In this vocabulary: Represents an action definition or task template. Maps to "Action" in the .actions file format."""@en ;
+cco:ont00000228 a owl:Class ;
+    rdfs:label "Planned Act"@en ;
+    rdfs:comment """CCO: An Act in which at least one Agent plays a causative role and which is prescribed by some Directive Information Content Entity.
+
+In this vocabulary: Represents an action instance - the actual execution of a plan. For recurring actions, one Plan produces multiple Planned Acts."""@en ;
     rdfs:isDefinedBy cco: ;
-    rdfs:subClassOf cco:ont00000965 .
+    rdfs:subClassOf cco:ont00000832 .
 
 cco:ont00000965 a owl:Class ;
     rdfs:label "Directive Information Content Entity"@en ;
     rdfs:comment "CCO: An Information Content Entity that consists of a set of propositions or images (as in the case of a blueprint) that prescribe some Entity. Parent class of Plan and Objective."@en ;
     rdfs:isDefinedBy cco: .
+
+cco:ont00001767 a owl:DatatypeProperty ;
+    rdfs:label "has datetime value"@en ;
+    rdfs:comment "CCO property for datetime values. Used for hasDoDateTime, hasCompletedDateTime, hasCreatedDateTime in .actions format."@en ;
+    rdfs:isDefinedBy cco: .
+
+:ContextType a owl:Class ;
+    rdfs:label "Context Type"@en ;
+    rdfs:comment "Enables typed contexts that can map to specific CCO classes. Examples: facility (@office), agent (@bob), tool (computer)."@en ;
+    skos:definition "A classification for Context entities (facility, agent, tool, etc.)."@en .
 
 :ActPhase a owl:Class ;
     rdfs:label "Act Phase"@en ;
@@ -143,4 +278,18 @@ Maps to state markers in the .actions file format:
 - Cancelled  = [_]"""@en ;
     rdfs:subClassOf bfo:BFO_0000019 ;
     skos:definition "A quality that describes the lifecycle state of a Planned Act's execution."@en .
+
+:Context a owl:Class ;
+    rdfs:label "Context"@en ;
+    rdfs:comment "Context represents execution requirements following Getting Things Done (GTD) methodology. Contexts support hierarchical relationships for tag organization and inheritance. Maps to \"+\" syntax in .actions file format."@en ;
+    rdfs:subClassOf bfo:BFO_0000019 ;
+    skos:definition "A resource, location, tool, or person required for plan execution (GTD context methodology)."@en .
+
+cco:ont00000974 a owl:Class ;
+    rdfs:label "Plan"@en ;
+    rdfs:comment """CCO: A Directive Information Content Entity that prescribes some set of intended Intentional Acts through which some Agent expects to achieve some Objective.
+
+In this vocabulary: Represents an action definition or task template. Maps to "Action" in the .actions file format."""@en ;
+    rdfs:isDefinedBy cco: ;
+    rdfs:subClassOf cco:ont00000965 .
 

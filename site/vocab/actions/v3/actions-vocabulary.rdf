@@ -6,107 +6,6 @@
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
 >
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byMonth">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:label xml:lang="en">by month</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#requiresContext">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionContext"/>
-    <rdfs:label xml:lang="en">requires context</rdfs:label>
-    <skos:definition xml:lang="en">Links an action plan to the contexts required for its execution.</skos:definition>
-    <rdfs:comment xml:lang="en">Replaces v2's string-based hasContext property. Multiple contexts can be specified (AND relationship).</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byMonthDay">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:label xml:lang="en">by month day</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000001">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label xml:lang="en">Artifact</rdfs:label>
-    <rdfs:comment xml:lang="en">CCO: A material entity that has been designed to have a specific function. Examples: computer, telephone, tool.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#requiresFacility">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#LocationContext"/>
-    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000192"/>
-    <rdfs:label xml:lang="en">requires facility</rdfs:label>
-    <skos:definition xml:lang="en">Specifies the type of facility needed for action execution.</skos:definition>
-    <rdfs:comment xml:lang="en">Links to cco:Facility (ont00000192). Can specify facility TYPE or specific INSTANCE.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#Cancelled">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v3#ActionState"/>
-    <rdfs:label xml:lang="en">Cancelled</rdfs:label>
-    <rdfs:comment xml:lang="en">Action process has been cancelled and will not be completed.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#preferredAfter">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:label xml:lang="en">preferred after</rdfs:label>
-    <skos:definition xml:lang="en">Soft constraint: this action is preferably done after the target, but not required.</skos:definition>
-    <rdfs:comment xml:lang="en">Weakest constraint - optimization hint, not requirement. Recommendation, not mandate.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#bySecond">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:label xml:lang="en">by second</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N33ea4f642b6a474e898075ba226a9651">
-    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
-    <owl:oneOf rdf:nodeID="N2c913ae27e784209b3c07542be79383a"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#ChildActionPlan">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <owl:disjointWith rdf:resource="https://clearhead.us/vocab/actions/v3#LeafActionPlan"/>
-    <rdfs:label xml:lang="en">Child Action Plan</rdfs:label>
-    <rdfs:comment xml:lang="en">An intermediate action plan at hierarchical depths 1-4. Child action plans must have a parent action and may have child or leaf action plans as parts.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="Nc4a9161dc7894f23a1eacb0a1a40ff09">
-    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-    <rdf:first>medium</rdf:first>
-    <rdf:rest rdf:nodeID="N89098e4a7de9469fa72ad8957fbc4a5d"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000019">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label xml:lang="en">Quality</rdfs:label>
-    <rdfs:comment xml:lang="en">BFO: A specifically dependent continuant that inheres in a bearer. Examples: temperature, color, state.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byMinute">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:label xml:lang="en">by minute</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#ActionState">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
-    <rdfs:label xml:lang="en">Action State</rdfs:label>
-    <rdfs:comment xml:lang="en">An enumeration of states that an action process can be in. These are BFO qualities that inhere in action processes.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#EnergyContext">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#ActionContext"/>
-    <rdfs:label xml:lang="en">Energy Context</rdfs:label>
-    <skos:definition xml:lang="en">A context specifying the cognitive or physical energy level required to perform an action.</skos:definition>
-    <rdfs:comment xml:lang="en">Based on GTD principle that energy is a limiting resource alongside time and tools. Levels: high, medium, low.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#performedBy">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionProcess"/>
-    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000374"/>
-    <rdfs:label xml:lang="en">performed by</rdfs:label>
-    <skos:definition xml:lang="en">Specifies which agent actually executed this action process.</skos:definition>
-    <rdfs:comment xml:lang="en">Descriptive agent tracking at process level. WHO ACTUALLY performed this action.</rdfs:comment>
-  </rdf:Description>
   <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#ActionContext">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
@@ -114,128 +13,20 @@
     <skos:definition xml:lang="en">A directive information content entity that prescribes environmental, resource, or situational requirements for performing an action.</skos:definition>
     <rdfs:comment xml:lang="en">Contexts are continuants (information entities) that persist and can be reused across multiple action plans. They prescribe what resources or conditions are needed for execution. GTD pattern: Replaces string-based @context tags with typed entities.</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#InProgress">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v3#ActionState"/>
-    <rdfs:label xml:lang="en">In Progress</rdfs:label>
-    <rdfs:comment xml:lang="en">Action process is currently being executed.</rdfs:comment>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#LeafActionPlan">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:label xml:lang="en">Leaf Action Plan</rdfs:label>
+    <rdfs:comment xml:lang="en">A terminal action plan at hierarchical depth 5 (maximum). Leaf action plans must have a parent child action and cannot have children of their own.</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#Completed">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v3#ActionState"/>
-    <rdfs:label xml:lang="en">Completed</rdfs:label>
-    <rdfs:comment xml:lang="en">Action process has been successfully completed.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N2c913ae27e784209b3c07542be79383a">
-    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-    <rdf:first>high</rdf:first>
-    <rdf:rest rdf:nodeID="Nc4a9161dc7894f23a1eacb0a1a40ff09"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#requiresArtifact">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ToolContext"/>
-    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000001"/>
-    <rdfs:label xml:lang="en">requires artifact</rdfs:label>
-    <skos:definition xml:lang="en">Specifies artifacts or tools needed for action execution.</skos:definition>
-    <rdfs:comment xml:lang="en">Links to cco:Artifact (ont00000001). Can specify artifact TYPE or specific INSTANCE.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byWeekNo">
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasContext">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:label xml:lang="en">by week number</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000374">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label xml:lang="en">Agent</rdfs:label>
-    <rdfs:comment xml:lang="en">CCO: A material entity that has the capability to perform actions. Includes persons, organizations, and groups.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byDay">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:label xml:lang="en">by day</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#assignedToAgent">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:subPropertyOf rdf:resource="https://www.commoncoreontologies.org/ont00001449"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000374"/>
-    <rdfs:label xml:lang="en">assigned to agent</rdfs:label>
-    <skos:definition xml:lang="en">Specifies which agent is responsible for executing this action plan.</skos:definition>
-    <rdfs:comment xml:lang="en">Prescriptive agent assignment at plan level. WHO SHOULD perform this action.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#cannotStartUntil">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <owl:inverseOf rdf:resource="https://clearhead.us/vocab/actions/v3#mustCompleteBefore"/>
-    <rdfs:label xml:lang="en">cannot start until</rdfs:label>
-    <skos:definition xml:lang="en">Hard constraint: this action plan cannot begin until the target plan completes.</skos:definition>
-    <rdfs:comment xml:lang="en">Stronger than dependsOn - CANNOT vs SHOULD NOT. Mandatory constraint.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#inRoleContext">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00001366"/>
-    <rdfs:label xml:lang="en">in role context</rdfs:label>
-    <skos:definition xml:lang="en">Indicates which role or area of responsibility this action belongs to.</skos:definition>
-    <rdfs:comment xml:lang="en">GTD Areas of Focus pattern using CCO Roles. Enables work-life balance tracking and weekly review by area.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasRecurrenceCount">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
-    <rdfs:label xml:lang="en">has recurrence count</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#canRunInParallel">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:label xml:lang="en">can run in parallel</rdfs:label>
-    <skos:definition xml:lang="en">Indicates these actions have no ordering constraints and can be executed simultaneously.</skos:definition>
-    <rdfs:comment xml:lang="en">Explicit declaration that actions are independent. Symmetric property. Optimization hint for parallel execution.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000003">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label xml:lang="en">Occurrent</rdfs:label>
-    <rdfs:comment xml:lang="en">BFO: An entity that unfolds over time and has temporal parts. Processes, events, and temporal regions are occurrents.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#ActionPlan">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
-    <skos:closeMatch rdf:resource="http://schema.org/Action"/>
-    <rdfs:label xml:lang="en">Action Plan</rdfs:label>
-    <skos:definition xml:lang="en">A directive information content entity that prescribes an action to be performed.</skos:definition>
-    <rdfs:comment xml:lang="en">ActionPlans are BFO continuants (generically dependent continuants) that exist across time and can prescribe multiple action processes. An action plan can be executed multiple times (e.g., recurring actions). Closely aligned with Schema.org Action semantics via SKOS mapping.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasDurationMinutes">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
-    <rdfs:label xml:lang="en">has duration minutes</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#Milestone">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#RootActionPlan"/>
-    <rdfs:label xml:lang="en">Milestone</rdfs:label>
-    <skos:definition xml:lang="en">A significant checkpoint or goal in a project, often used as a dependency target for multiple actions.</skos:definition>
-    <rdfs:comment xml:lang="en">Milestones represent completion of a set of actions and mark significant progress points. Typically don't prescribe processes themselves.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000228">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label xml:lang="en">Planned Act</rdfs:label>
-    <skos:altLabel xml:lang="en">Intentional Act</skos:altLabel>
-    <rdfs:comment xml:lang="en">CCO: An act in which at least one agent plays a causative role and which is prescribed by some directive information content entity.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#requiresAgent">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#SocialContext"/>
-    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000374"/>
-    <rdfs:label xml:lang="en">requires agent</rdfs:label>
-    <skos:definition xml:lang="en">Specifies other agents whose presence or participation is needed.</skos:definition>
-    <rdfs:comment xml:lang="en">Links to cco:Agent (ont00000374). Multiple agents can be required.</rdfs:comment>
+    <rdfs:label xml:lang="en">has context</rdfs:label>
+    <rdfs:comment xml:lang="en">DEPRECATED: Use requiresContext instead. GTD-style context tag indicating where, when, or with what tools this action can be performed (e.g., @phone, @computer, @office).</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/location"/>
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
   </rdf:Description>
   <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#parentAction">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -245,11 +36,34 @@
     <rdfs:label xml:lang="en">parent action</rdfs:label>
     <rdfs:comment xml:lang="en">A sub-property of bfo:part_of representing the hierarchical nesting of plans.</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasRecurrenceUntil">
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#Cancelled">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v3#ActionState"/>
+    <rdfs:label xml:lang="en">Cancelled</rdfs:label>
+    <rdfs:comment xml:lang="en">Action process has been cancelled and will not be completed.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#requiresArtifact">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ToolContext"/>
+    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000001"/>
+    <rdfs:label xml:lang="en">requires artifact</rdfs:label>
+    <skos:definition xml:lang="en">Specifies artifacts or tools needed for action execution.</skos:definition>
+    <rdfs:comment xml:lang="en">Links to cco:Artifact (ont00000001). Can specify artifact TYPE or specific INSTANCE.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasState">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionProcess"/>
+    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionState"/>
+    <rdfs:label xml:lang="en">has state</rdfs:label>
+    <rdfs:comment xml:lang="en">Relates an action process to its current state. Functional property - each process has exactly one state.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="http://schema.org/actionStatus"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byDay">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-    <rdfs:label xml:lang="en">has recurrence until</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="en">by day</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasPriority">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
@@ -259,30 +73,158 @@
     <rdfs:label xml:lang="en">has priority</rdfs:label>
     <rdfs:comment xml:lang="en">Priority level (1-4) based on Eisenhower Decision Matrix. 1=Urgent&amp;Important, 2=Important, 3=Urgent, 4=Neither.</rdfs:comment>
   </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byMonth">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="en">by month</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#RootActionPlan">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <owl:disjointWith rdf:resource="https://clearhead.us/vocab/actions/v3#ChildActionPlan"/>
+    <owl:disjointWith rdf:resource="https://clearhead.us/vocab/actions/v3#LeafActionPlan"/>
+    <rdfs:label xml:lang="en">Root Action Plan</rdfs:label>
+    <rdfs:comment xml:lang="en">A top-level action plan at hierarchical depth 0. Root action plans can belong to projects and serve as parents to child action plans. They cannot have parent actions.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#NotStarted">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v3#ActionState"/>
+    <rdfs:label xml:lang="en">Not Started</rdfs:label>
+    <rdfs:comment xml:lang="en">Action process has not been initiated.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#mustCompleteBefore">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <owl:inverseOf rdf:resource="https://clearhead.us/vocab/actions/v3#cannotStartUntil"/>
+    <rdfs:label xml:lang="en">must complete before</rdfs:label>
+    <skos:definition xml:lang="en">Hard constraint: this action must finish before the target action can start.</skos:definition>
+    <rdfs:comment xml:lang="en">Inverse of cannotStartUntil (same relationship, different direction).</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#performedBy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionProcess"/>
+    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000374"/>
+    <rdfs:label xml:lang="en">performed by</rdfs:label>
+    <skos:definition xml:lang="en">Specifies which agent actually executed this action process.</skos:definition>
+    <rdfs:comment xml:lang="en">Descriptive agent tracking at process level. WHO ACTUALLY performed this action.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nf2b45fff0e8e44e4bd5ea8ac62315844">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
+    <owl:oneOf rdf:nodeID="N21c946fb2e564375a0e697231d3c4de4"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#prescribes">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="https://www.commoncoreontologies.org/ont00001942"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionProcess"/>
+    <rdfs:label xml:lang="en">prescribes</rdfs:label>
+    <skos:definition xml:lang="en">Relates an action plan to the action process it prescribes.</skos:definition>
+    <rdfs:comment xml:lang="en">Specialized version of CCO's prescribes property (ont00001942) with domain and range restrictions. An action plan can prescribe multiple processes (e.g., recurring actions).</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#requiresAgent">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#SocialContext"/>
+    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000374"/>
+    <rdfs:label xml:lang="en">requires agent</rdfs:label>
+    <skos:definition xml:lang="en">Specifies other agents whose presence or participation is needed.</skos:definition>
+    <rdfs:comment xml:lang="en">Links to cco:Agent (ont00000374). Multiple agents can be required.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00001942">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">prescribes</rdfs:label>
+    <rdfs:comment xml:lang="en">CCO: Relates a directive information content entity to the entity it prescribes. If the prescribed entity is an occurrent, the ICE serves as a rule/guide; if continuant, it serves as a model.</rdfs:comment>
+  </rdf:Description>
   <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasRecurrenceInterval">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
     <rdfs:label xml:lang="en">has recurrence interval</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasCompletedDateTime">
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasEnergyLevel">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionProcess"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-    <rdfs:label xml:lang="en">has completed date time</rdfs:label>
-    <rdfs:comment xml:lang="en">Records the actual instant an action process reached the completed state.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#EnergyContext"/>
+    <rdfs:range rdf:nodeID="Nf2b45fff0e8e44e4bd5ea8ac62315844"/>
+    <rdfs:label xml:lang="en">has energy level</rdfs:label>
+    <skos:definition xml:lang="en">Specifies the energy level required for an action.</skos:definition>
+    <rdfs:comment xml:lang="en">Enumerated values: high, medium, low. GTD principle that energy is a limiting resource alongside time and tools.</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="N89098e4a7de9469fa72ad8957fbc4a5d">
-    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-    <rdf:first>low</rdf:first>
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#ActionProcess">
+  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000192">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000228"/>
-    <rdfs:label xml:lang="en">Action Process</rdfs:label>
-    <skos:definition xml:lang="en">A planned act that is the actual execution of an action plan.</skos:definition>
-    <rdfs:comment xml:lang="en">ActionProcesses are BFO occurrents (processes) that unfold over time and have temporal parts. They are prescribed by ActionPlans and represent the concrete realization of the plan's directives. Each execution of an action plan creates a distinct action process.</rdfs:comment>
+    <rdfs:label xml:lang="en">Facility</rdfs:label>
+    <rdfs:comment xml:lang="en">CCO: A material entity that is designed to support some process or activity. Examples: office, home, retail store.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#requiresFacility">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#LocationContext"/>
+    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000192"/>
+    <rdfs:label xml:lang="en">requires facility</rdfs:label>
+    <skos:definition xml:lang="en">Specifies the type of facility needed for action execution.</skos:definition>
+    <rdfs:comment xml:lang="en">Links to cco:Facility (ont00000192). Can specify facility TYPE or specific INSTANCE.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byMonthDay">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="en">by month day</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#dependsOn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:label xml:lang="en">depends on</rdfs:label>
+    <skos:definition xml:lang="en">Indicates that this action plan should not begin execution until the target action plan has been completed.</skos:definition>
+    <rdfs:comment xml:lang="en">General dependency relation for plans (continuants). Transitive property. Prescriptive information (what SHOULD happen).</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#Blocked">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v3#ActionState"/>
+    <rdfs:label xml:lang="en">Blocked</rdfs:label>
+    <rdfs:comment xml:lang="en">Action process is blocked waiting for external dependency.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000965">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Directive Information Content Entity</rdfs:label>
+    <rdfs:comment xml:lang="en">CCO: An information content entity that consists of propositions or images that prescribe some entity. Examples: plans, specifications, algorithms.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasDoDateTime">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdfs:label xml:lang="en">has do date time</rdfs:label>
+    <rdfs:comment xml:lang="en">Prescribes when an action process should be initiated.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#LocationContext">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#ActionContext"/>
+    <rdfs:label xml:lang="en">Location Context</rdfs:label>
+    <skos:definition xml:lang="en">A context specifying that an action requires being performed at a particular type of facility or geospatial location.</skos:definition>
+    <rdfs:comment xml:lang="en">Links to CCO Facility hierarchy (47+ facility types). GTD use case: @office, @home, @errands contexts.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#Milestone">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#RootActionPlan"/>
+    <rdfs:label xml:lang="en">Milestone</rdfs:label>
+    <skos:definition xml:lang="en">A significant checkpoint or goal in a project, often used as a dependency target for multiple actions.</skos:definition>
+    <rdfs:comment xml:lang="en">Milestones represent completion of a set of actions and mark significant progress points. Typically don't prescribe processes themselves.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#requiresContext">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionContext"/>
+    <rdfs:label xml:lang="en">requires context</rdfs:label>
+    <skos:definition xml:lang="en">Links an action plan to the contexts required for its execution.</skos:definition>
+    <rdfs:comment xml:lang="en">Replaces v2's string-based hasContext property. Multiple contexts can be specified (AND relationship).</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasProject">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#RootActionPlan"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="en">has project</rdfs:label>
+    <rdfs:comment xml:lang="en">Project or story name that this root action plan belongs to. Only available for root action plans to maintain hierarchical clarity.</rdfs:comment>
   </rdf:Description>
   <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
@@ -296,126 +238,24 @@
     <rdfs:comment>BFO and CCO-aligned ontology for action planning and execution. This consolidated ontology includes the core vocabulary plus context, workflow, and role integration extensions.</rdfs:comment>
     <owl:versionInfo>3.1.0</owl:versionInfo>
   </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasRecurrenceFrequency">
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasDurationMinutes">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
+    <rdfs:label xml:lang="en">has duration minutes</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#EnergyContext">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#ActionContext"/>
+    <rdfs:label xml:lang="en">Energy Context</rdfs:label>
+    <skos:definition xml:lang="en">A context specifying the cognitive or physical energy level required to perform an action.</skos:definition>
+    <rdfs:comment xml:lang="en">Based on GTD principle that energy is a limiting resource alongside time and tools. Levels: high, medium, low.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byYearDay">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:label xml:lang="en">has recurrence frequency</rdfs:label>
-    <rdfs:comment xml:lang="en">iCalendar RRULE frequency (DAILY, WEEKLY, etc.)</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#mustCompleteBefore">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <owl:inverseOf rdf:resource="https://clearhead.us/vocab/actions/v3#cannotStartUntil"/>
-    <rdfs:label xml:lang="en">must complete before</rdfs:label>
-    <skos:definition xml:lang="en">Hard constraint: this action must finish before the target action can start.</skos:definition>
-    <rdfs:comment xml:lang="en">Inverse of cannotStartUntil (same relationship, different direction).</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00001449">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label xml:lang="en">has agent</rdfs:label>
-    <rdfs:comment xml:lang="en">CCO: Relates an act to an agent that participates in or performs it.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#LocationContext">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#ActionContext"/>
-    <rdfs:label xml:lang="en">Location Context</rdfs:label>
-    <skos:definition xml:lang="en">A context specifying that an action requires being performed at a particular type of facility or geospatial location.</skos:definition>
-    <rdfs:comment xml:lang="en">Links to CCO Facility hierarchy (47+ facility types). GTD use case: @office, @home, @errands contexts.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000965">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label xml:lang="en">Directive Information Content Entity</rdfs:label>
-    <rdfs:comment xml:lang="en">CCO: An information content entity that consists of propositions or images that prescribe some entity. Examples: plans, specifications, algorithms.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasState">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionProcess"/>
-    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionState"/>
-    <rdfs:label xml:lang="en">has state</rdfs:label>
-    <rdfs:comment xml:lang="en">Relates an action process to its current state. Functional property - each process has exactly one state.</rdfs:comment>
-    <rdfs:subPropertyOf rdf:resource="http://schema.org/actionStatus"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#dependsOn">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:label xml:lang="en">depends on</rdfs:label>
-    <skos:definition xml:lang="en">Indicates that this action plan should not begin execution until the target action plan has been completed.</skos:definition>
-    <rdfs:comment xml:lang="en">General dependency relation for plans (continuants). Transitive property. Prescriptive information (what SHOULD happen).</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasEnergyLevel">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#EnergyContext"/>
-    <rdfs:range rdf:nodeID="N33ea4f642b6a474e898075ba226a9651"/>
-    <rdfs:label xml:lang="en">has energy level</rdfs:label>
-    <skos:definition xml:lang="en">Specifies the energy level required for an action.</skos:definition>
-    <rdfs:comment xml:lang="en">Enumerated values: high, medium, low. GTD principle that energy is a limiting resource alongside time and tools.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#RootActionPlan">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <owl:disjointWith rdf:resource="https://clearhead.us/vocab/actions/v3#ChildActionPlan"/>
-    <owl:disjointWith rdf:resource="https://clearhead.us/vocab/actions/v3#LeafActionPlan"/>
-    <rdfs:label xml:lang="en">Root Action Plan</rdfs:label>
-    <rdfs:comment xml:lang="en">A top-level action plan at hierarchical depth 0. Root action plans can belong to projects and serve as parents to child action plans. They cannot have parent actions.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#Blocked">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v3#ActionState"/>
-    <rdfs:label xml:lang="en">Blocked</rdfs:label>
-    <rdfs:comment xml:lang="en">Action process is blocked waiting for external dependency.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#ToolContext">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#ActionContext"/>
-    <rdfs:label xml:lang="en">Tool Context</rdfs:label>
-    <skos:definition xml:lang="en">A context specifying that an action requires the use of particular artifacts or tools.</skos:definition>
-    <rdfs:comment xml:lang="en">Links to CCO Artifact hierarchy (200+ artifact types). GTD use case: @computer, @phone, @online contexts.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#SocialContext">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#ActionContext"/>
-    <rdfs:label xml:lang="en">Social Context</rdfs:label>
-    <skos:definition xml:lang="en">A context specifying that an action requires the presence or participation of particular agents.</skos:definition>
-    <rdfs:comment xml:lang="en">Links to CCO Agent (Person, Organization, Group). GTD use case: @agenda contexts (discuss with specific person).</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000192">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label xml:lang="en">Facility</rdfs:label>
-    <rdfs:comment xml:lang="en">CCO: A material entity that is designed to support some process or activity. Examples: office, home, retail store.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#delegatedBy">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000374"/>
-    <rdfs:label xml:lang="en">delegated by</rdfs:label>
-    <skos:definition xml:lang="en">Indicates the original responsible party who delegated this action to another agent.</skos:definition>
-    <rdfs:comment xml:lang="en">Tracks delegation chain. Original owner still accountable even though delegated.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00001366">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:label xml:lang="en">Role</rdfs:label>
-    <rdfs:comment xml:lang="en">CCO: A realizable entity that exists because there is some corresponding social norm or expectation. Examples: occupation, organization membership, social position.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#prescribes">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:subPropertyOf rdf:resource="https://www.commoncoreontologies.org/ont00001942"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionProcess"/>
-    <rdfs:label xml:lang="en">prescribes</rdfs:label>
-    <skos:definition xml:lang="en">Relates an action plan to the action process it prescribes.</skos:definition>
-    <rdfs:comment xml:lang="en">Specialized version of CCO's prescribes property (ont00001942) with domain and range restrictions. An action plan can prescribe multiple processes (e.g., recurring actions).</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byHour">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:label xml:lang="en">by hour</rdfs:label>
+    <rdfs:label xml:lang="en">by year day</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#blockedBy">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
@@ -425,37 +265,111 @@
     <skos:definition xml:lang="en">Indicates that this action process cannot continue until the specified occurrent completes.</skos:definition>
     <rdfs:comment xml:lang="en">Runtime blocking relationship between processes (occurrents). Descriptive (what IS happening). Can be blocked by external event (delivery, weather, approval process).</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasProject">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#RootActionPlan"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:label xml:lang="en">has project</rdfs:label>
-    <rdfs:comment xml:lang="en">Project or story name that this root action plan belongs to. Only available for root action plans to maintain hierarchical clarity.</rdfs:comment>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#SocialContext">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#ActionContext"/>
+    <rdfs:label xml:lang="en">Social Context</rdfs:label>
+    <skos:definition xml:lang="en">A context specifying that an action requires the presence or participation of particular agents.</skos:definition>
+    <rdfs:comment xml:lang="en">Links to CCO Agent (Person, Organization, Group). GTD use case: @agenda contexts (discuss with specific person).</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#LeafActionPlan">
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#ChildActionPlan">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:label xml:lang="en">Leaf Action Plan</rdfs:label>
-    <rdfs:comment xml:lang="en">A terminal action plan at hierarchical depth 5 (maximum). Leaf action plans must have a parent child action and cannot have children of their own.</rdfs:comment>
+    <owl:disjointWith rdf:resource="https://clearhead.us/vocab/actions/v3#LeafActionPlan"/>
+    <rdfs:label xml:lang="en">Child Action Plan</rdfs:label>
+    <rdfs:comment xml:lang="en">An intermediate action plan at hierarchical depths 1-4. Child action plans must have a parent action and may have child or leaf action plans as parts.</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#NotStarted">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v3#ActionState"/>
-    <rdfs:label xml:lang="en">Not Started</rdfs:label>
-    <rdfs:comment xml:lang="en">Action process has not been initiated.</rdfs:comment>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#ActionPlan">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
+    <skos:closeMatch rdf:resource="http://schema.org/Action"/>
+    <rdfs:label xml:lang="en">Action Plan</rdfs:label>
+    <skos:definition xml:lang="en">A directive information content entity that prescribes an action to be performed.</skos:definition>
+    <rdfs:comment xml:lang="en">ActionPlans are BFO continuants (generically dependent continuants) that exist across time and can prescribe multiple action processes. An action plan can be executed multiple times (e.g., recurring actions). Closely aligned with Schema.org Action semantics via SKOS mapping.</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasDoDateTime">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-    <rdfs:label xml:lang="en">has do date time</rdfs:label>
-    <rdfs:comment xml:lang="en">Prescribes when an action process should be initiated.</rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byYearDay">
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#bySetPos">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:label xml:lang="en">by year day</rdfs:label>
+    <rdfs:label xml:lang="en">by set position</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#preferredAfter">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:label xml:lang="en">preferred after</rdfs:label>
+    <skos:definition xml:lang="en">Soft constraint: this action is preferably done after the target, but not required.</skos:definition>
+    <rdfs:comment xml:lang="en">Weakest constraint - optimization hint, not requirement. Recommendation, not mandate.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#InProgress">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v3#ActionState"/>
+    <rdfs:label xml:lang="en">In Progress</rdfs:label>
+    <rdfs:comment xml:lang="en">Action process is currently being executed.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasRecurrenceCount">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
+    <rdfs:label xml:lang="en">has recurrence count</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000001">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Artifact</rdfs:label>
+    <rdfs:comment xml:lang="en">CCO: A material entity that has been designed to have a specific function. Examples: computer, telephone, tool.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#Completed">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="https://clearhead.us/vocab/actions/v3#ActionState"/>
+    <rdfs:label xml:lang="en">Completed</rdfs:label>
+    <rdfs:comment xml:lang="en">Action process has been successfully completed.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#ActionState">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+    <rdfs:label xml:lang="en">Action State</rdfs:label>
+    <rdfs:comment xml:lang="en">An enumeration of states that an action process can be in. These are BFO qualities that inhere in action processes.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#canRunInParallel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:label xml:lang="en">can run in parallel</rdfs:label>
+    <skos:definition xml:lang="en">Indicates these actions have no ordering constraints and can be executed simultaneously.</skos:definition>
+    <rdfs:comment xml:lang="en">Explicit declaration that actions are independent. Symmetric property. Optimization hint for parallel execution.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasCompletedDateTime">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionProcess"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdfs:label xml:lang="en">has completed date time</rdfs:label>
+    <rdfs:comment xml:lang="en">Records the actual instant an action process reached the completed state.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000003">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Occurrent</rdfs:label>
+    <rdfs:comment xml:lang="en">BFO: An entity that unfolds over time and has temporal parts. Processes, events, and temporal regions are occurrents.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000228">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Planned Act</rdfs:label>
+    <skos:altLabel xml:lang="en">Intentional Act</skos:altLabel>
+    <rdfs:comment xml:lang="en">CCO: An act in which at least one agent plays a causative role and which is prescribed by some directive information content entity.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#assignedToAgent">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="https://www.commoncoreontologies.org/ont00001449"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000374"/>
+    <rdfs:label xml:lang="en">assigned to agent</rdfs:label>
+    <skos:definition xml:lang="en">Specifies which agent is responsible for executing this action plan.</skos:definition>
+    <rdfs:comment xml:lang="en">Prescriptive agent assignment at plan level. WHO SHOULD perform this action.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00000374">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Agent</rdfs:label>
+    <rdfs:comment xml:lang="en">CCO: A material entity that has the capability to perform actions. Includes persons, organizations, and groups.</rdfs:comment>
   </rdf:Description>
   <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#weekStart">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
@@ -463,24 +377,110 @@
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:label xml:lang="en">week start</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasContext">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:label xml:lang="en">has context</rdfs:label>
-    <rdfs:comment xml:lang="en">DEPRECATED: Use requiresContext instead. GTD-style context tag indicating where, when, or with what tools this action can be performed (e.g., @phone, @computer, @office).</rdfs:comment>
-    <rdfs:subPropertyOf rdf:resource="http://schema.org/location"/>
-    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00001366">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Role</rdfs:label>
+    <rdfs:comment xml:lang="en">CCO: A realizable entity that exists because there is some corresponding social norm or expectation. Examples: occupation, organization membership, social position.</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00001942">
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#delegatedBy">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label xml:lang="en">prescribes</rdfs:label>
-    <rdfs:comment xml:lang="en">CCO: Relates a directive information content entity to the entity it prescribes. If the prescribed entity is an occurrent, the ICE serves as a rule/guide; if continuant, it serves as a model.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000374"/>
+    <rdfs:label xml:lang="en">delegated by</rdfs:label>
+    <skos:definition xml:lang="en">Indicates the original responsible party who delegated this action to another agent.</skos:definition>
+    <rdfs:comment xml:lang="en">Tracks delegation chain. Original owner still accountable even though delegated.</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#bySetPos">
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#ActionProcess">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000228"/>
+    <rdfs:label xml:lang="en">Action Process</rdfs:label>
+    <skos:definition xml:lang="en">A planned act that is the actual execution of an action plan.</skos:definition>
+    <rdfs:comment xml:lang="en">ActionProcesses are BFO occurrents (processes) that unfold over time and have temporal parts. They are prescribed by ActionPlans and represent the concrete realization of the plan's directives. Each execution of an action plan creates a distinct action process.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nba468f1a1adb458a8826bfe51cd2eb02">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdf:first>medium</rdf:first>
+    <rdf:rest rdf:nodeID="Nbd99d92e685148c2ac661453f9ca526c"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://www.commoncoreontologies.org/ont00001449">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">has agent</rdfs:label>
+    <rdfs:comment xml:lang="en">CCO: Relates an act to an agent that participates in or performs it.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#cannotStartUntil">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <owl:inverseOf rdf:resource="https://clearhead.us/vocab/actions/v3#mustCompleteBefore"/>
+    <rdfs:label xml:lang="en">cannot start until</rdfs:label>
+    <skos:definition xml:lang="en">Hard constraint: this action plan cannot begin until the target plan completes.</skos:definition>
+    <rdfs:comment xml:lang="en">Stronger than dependsOn - CANNOT vs SHOULD NOT. Mandatory constraint.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasRecurrenceFrequency">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:label xml:lang="en">by set position</rdfs:label>
+    <rdfs:label xml:lang="en">has recurrence frequency</rdfs:label>
+    <rdfs:comment xml:lang="en">iCalendar RRULE frequency (DAILY, WEEKLY, etc.)</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#inRoleContext">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00001366"/>
+    <rdfs:label xml:lang="en">in role context</rdfs:label>
+    <skos:definition xml:lang="en">Indicates which role or area of responsibility this action belongs to.</skos:definition>
+    <rdfs:comment xml:lang="en">GTD Areas of Focus pattern using CCO Roles. Enables work-life balance tracking and weekly review by area.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byHour">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="en">by hour</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#ToolContext">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="https://clearhead.us/vocab/actions/v3#ActionContext"/>
+    <rdfs:label xml:lang="en">Tool Context</rdfs:label>
+    <skos:definition xml:lang="en">A context specifying that an action requires the use of particular artifacts or tools.</skos:definition>
+    <rdfs:comment xml:lang="en">Links to CCO Artifact hierarchy (200+ artifact types). GTD use case: @computer, @phone, @online contexts.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byMinute">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="en">by minute</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nbd99d92e685148c2ac661453f9ca526c">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdf:first>low</rdf:first>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#byWeekNo">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="en">by week number</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.obolibrary.org/obo/BFO_0000019">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="en">Quality</rdfs:label>
+    <rdfs:comment xml:lang="en">BFO: A specifically dependent continuant that inheres in a bearer. Examples: temperature, color, state.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#hasRecurrenceUntil">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdfs:label xml:lang="en">has recurrence until</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N21c946fb2e564375a0e697231d3c4de4">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdf:first>high</rdf:first>
+    <rdf:rest rdf:nodeID="Nba468f1a1adb458a8826bfe51cd2eb02"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v3#bySecond">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v3#ActionPlan"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="en">by second</rdfs:label>
   </rdf:Description>
 </rdf:RDF>
