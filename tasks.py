@@ -18,42 +18,25 @@ Usage:
 
 from invoke.tasks import task
 import sys
+import rdflib as rdf
 
 
 @task
 def test(c):
-    """Run all SHACL validation tests for v3."""
+    """Run all SHACL validation tests """
     c.run("pytest")
 
 
 @task
 def validate(c):
     """Validate ontology and SHACL shapes syntax."""
-    print("🔍 Validating v3 ontology (OWL/XML)...")
-    result1 = c.run(
-        "python -c \"import rdflib; rdflib.Graph().parse('actions-vocabulary.owl', format='xml')\"",
-        warn=True,
-    )
+    print("🔍 Validating ontology (OWL/XML)...")
+    
+    ontology = rdf.Graph().parse('v4/actions-vocabulary.owl', format='xml')
+    shapes = rdf.Graph().parse('v4/actions-shapes-v4.ttl', format='turtle')
 
-    print("🔍 Validating v4 ontology (OWL/XML)...")
-    result2 = c.run(
-        "python -c \"import rdflib; rdflib.Graph().parse('v4/actions-vocabulary.owl', format='xml')\"",
-        warn=True,
-    )
 
-    print("🔍 Validating v3 SHACL shapes...")
-    result3 = c.run(
-        "python -c \"import rdflib; rdflib.Graph().parse('v3/actions-shapes-v3.ttl', format='turtle')\"",
-        warn=True,
-    )
-
-    print("🔍 Validating v4 SHACL shapes...")
-    result4 = c.run(
-        "python -c \"import rdflib; rdflib.Graph().parse('v4/actions-shapes-v4.ttl', format='turtle')\"",
-        warn=True,
-    )
-
-    if result1.ok and result2.ok and result3.ok and result4.ok:
+    if len(ontology) > 0 and len(shapes) > 0:
         print("✅ Ontology and SHACL shapes are valid")
     else:
         print("❌ Validation failed")

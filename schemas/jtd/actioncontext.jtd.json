@@ -1,7 +1,0 @@
-{
-  "metadata": {
-    "description": "Contexts are continuants (information entities) that persist and can be reused across multiple action plans. They prescribe what resources or conditions are needed for execution. GTD pattern: Replaces string-based @context tags with typed entities.",
-    "javaPackage": "io.clearhead.actions",
-    "typescriptType": "ActionContext"
-  }
-}
