@@ -15,7 +15,7 @@
 #
 # DSL equivalent:
 # [ ] Plan vacation
-# > [ ] Research destinations  
+# > [ ] Research destinations
 # > [x] Book flights
 # > [ ] Reserve hotel
 # =============================================================================
@@ -30,7 +30,7 @@
     cco:ont00001942 <urn:uuid:act-vacation-001> .
 
 <urn:uuid:act-vacation-001> a cco:ont00000228 ;
-    actions:hasPhase actions:InProgress .
+    cco:ont00001868 actions:InProgress .
 
 # Child Plan 1
 <urn:uuid:plan-research-destinations> a cco:ont00000974 ;
@@ -39,16 +39,16 @@
     cco:ont00001942 <urn:uuid:act-research-001> .
 
 <urn:uuid:act-research-001> a cco:ont00000228 ;
-    actions:hasPhase actions:NotStarted .
+    cco:ont00001868 actions:NotStarted .
 
-# Child Plan 2  
+# Child Plan 2
 <urn:uuid:plan-book-flights> a cco:ont00000974 ;
     rdfs:label "Book flights" ;
     bfo:BFO_0000050 <urn:uuid:plan-vacation> ;  # partOf
     cco:ont00001942 <urn:uuid:act-book-flights-001> .
 
 <urn:uuid:act-book-flights-001> a cco:ont00000228 ;
-    actions:hasPhase actions:Completed ;
+    cco:ont00001868 actions:Completed ;
     actions:hasCompletedDateTime "2025-01-10T14:30:00Z"^^xsd:dateTime .
 
 # Child Plan 3
@@ -58,4 +58,4 @@
     cco:ont00001942 <urn:uuid:act-reserve-hotel-001> .
 
 <urn:uuid:act-reserve-hotel-001> a cco:ont00000228 ;
-    actions:hasPhase actions:NotStarted .
+    cco:ont00001868 actions:NotStarted .

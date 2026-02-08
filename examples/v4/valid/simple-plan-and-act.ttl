@@ -7,12 +7,12 @@
 # =============================================================================
 # Simple Plan and PlannedAct Example
 # =============================================================================
-# 
+#
 # Demonstrates the core v4 pattern:
 # 1. Plan (CCO Plan) - task definition/template
-# 2. PlannedAct (CCO Planned Act) - execution instance with phase
+# 2. PlannedAct (CCO Planned Act) - execution instance with status
 # 3. prescribes relationship linking Plan → PlannedAct
-# 4. hasPhase relationship linking PlannedAct → ActPhase
+# 4. is_measured_by_nominal linking PlannedAct → Event Status
 #
 # DSL equivalent: [ ] Buy milk
 # =============================================================================
@@ -23,10 +23,10 @@
     rdfs:comment "Purchase milk from the grocery store" ;
     cco:ont00001942 <urn:uuid:act-buy-milk-001> .  # prescribes
 
-# The PlannedAct (execution instance)  
+# The PlannedAct (execution instance)
 <urn:uuid:act-buy-milk-001> a cco:ont00000228 ;  # CCO PlannedAct
-    actions:hasPhase actions:NotStarted .
+    cco:ont00001868 actions:NotStarted .  # is_measured_by_nominal
 
-# The ActPhase individuals are defined in the ontology:
-# actions:NotStarted, actions:InProgress, actions:Completed, 
+# The Event Status individuals are defined in the ontology:
+# actions:NotStarted, actions:InProgress, actions:Completed,
 # actions:Blocked, actions:Cancelled

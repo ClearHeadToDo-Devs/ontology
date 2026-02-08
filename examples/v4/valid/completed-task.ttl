@@ -9,7 +9,7 @@
 # =============================================================================
 #
 # Demonstrates:
-# 1. A completed PlannedAct (phase = Completed)
+# 1. A completed PlannedAct (status = Completed via is_measured_by_nominal)
 # 2. Temporal properties on the Plan (scheduled time)
 # 3. Completion time tracking on the PlannedAct
 #
@@ -25,5 +25,5 @@
 
 # The completed PlannedAct
 <urn:uuid:act-call-dentist-001> a cco:ont00000228 ;
-    actions:hasPhase actions:Completed ;
+    cco:ont00001868 actions:Completed ;
     actions:hasCompletedDateTime "2025-01-15T10:15:00Z"^^xsd:dateTime .

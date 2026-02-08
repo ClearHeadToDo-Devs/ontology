@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://clearhead.us/vocab/actions/v4/actions.schema.json",
-  "title": "Actions Vocabulary v4 (Ontology-Out)",
+  "title": "Actions Vocabulary v4.1.0 (Ontology-Out)",
   "type": "object",
   "properties": {
     "@context": {
@@ -22,9 +22,12 @@
       "type": "object",
       "properties": {
         "id": {"type": "string"},
-        "type": {"type": "string"},
+        "type": {
+          "type": "string",
+          "enum": ["Plan", "PlannedAct", "Objective", "Charter", "Context", "ContextType"]
+        },
         "name": {"type": "string"},
-        "objective": {
+        "inServiceOf": {
           "oneOf": [
             {"type": "string"},
             {"type": "array", "items": {"type": "string"}}
@@ -36,7 +39,7 @@
             {"type": "array", "items": {"type": "string"}}
           ]
         },
-        "phase": {
+        "status": {
           "type": "string",
           "enum": ["NotStarted", "InProgress", "Completed", "Blocked", "Cancelled"]
         },
@@ -51,6 +54,12 @@
             {"type": "string"},
             {"type": "array", "items": {"type": "string"}}
           ]
+        },
+        "isSuccessorOf": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "array", "items": {"type": "string"}}
+          ]
         }
       },
       "required": ["id", "type"],
@@ -58,7 +67,7 @@
       "allOf": [
         {
           "if": {"properties": {"type": {"const": "PlannedAct"}}},
-          "then": {"required": ["phase"]}
+          "then": {"required": ["status"]}
         }
       ]
     }

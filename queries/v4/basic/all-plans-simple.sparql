@@ -13,15 +13,15 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT DISTINCT ?plan ?name ?priority_level ?objective WHERE {
     ?plan a cco:ont00000974 ;
           rdfs:label ?name .
-    
+
     # Optional priority (simple integer)
-    OPTIONAL { 
+    OPTIONAL {
         ?plan actions:hasPriority ?priority_level .
     }
-    
-    # Optional objective (project/story)
+
+    # Optional objective (project/story) via inServiceOf
     OPTIONAL {
-        ?plan actions:hasObjective ?obj .
+        ?plan actions:inServiceOf ?obj .
         ?obj rdfs:label ?objective .
     }
 }

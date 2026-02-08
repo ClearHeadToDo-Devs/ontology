@@ -18,4 +18,4 @@
     cco:ont00001942 <urn:act:bad-uuid> .
 
 <urn:act:bad-uuid> a cco:ont00000228 ;
-    actions:hasPhase actions:NotStarted .
+    cco:ont00001868 actions:NotStarted .

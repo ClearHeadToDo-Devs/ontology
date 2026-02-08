@@ -15,13 +15,13 @@ SELECT ?unexecuted_plan ?plan_name ?has_recurrence WHERE {
     # Find all Plans
     ?unexecuted_plan a cco:ont00000974 ;
                      rdfs:label ?plan_name .
-    
+
     # Check that no PlannedAct is prescribed by this plan
     FILTER NOT EXISTS {
         ?unexecuted_plan cco:ont00001942 ?act .
         ?act a cco:ont00000228 .
     }
-    
+
     # Check if it has recurrence (might explain lack of acts)
     OPTIONAL {
         ?unexecuted_plan actions:hasRecurrenceRule ?recurrence .

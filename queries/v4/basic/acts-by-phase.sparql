@@ -1,30 +1,30 @@
 # =============================================================================
-# Query: PlannedActs by Phase
+# Query: PlannedActs by Status
 # =============================================================================
-# Purpose: Filter PlannedActs by their execution phase
-# Parameters: 
-#   - ?PHASE_FILTER: actions:NotStarted, actions:InProgress, actions:Completed, 
-#                    actions:Blocked, actions:Cancelled
-# Returns: act, plan_name, phase, completion_date
-# Usage: Find all acts in a specific phase (e.g., in progress tasks)
+# Purpose: Filter PlannedActs by their execution status
+# Parameters:
+#   - ?STATUS_FILTER: actions:NotStarted, actions:InProgress, actions:Completed,
+#                     actions:Blocked, actions:Cancelled
+# Returns: act, plan_name, status, completion_date
+# Usage: Find all acts in a specific status (e.g., in progress tasks)
 # =============================================================================
 
 PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
 PREFIX cco: <https://www.commoncoreontologies.org/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT ?act ?plan_name ?phase ?completion_date WHERE {
+SELECT ?act ?plan_name ?status ?completion_date WHERE {
     ?act a cco:ont00000228 ;
-         actions:hasPhase ?phase .
-    
+         cco:ont00001868 ?status .  # is_measured_by_nominal
+
     # Get the plan that prescribes this act
     ?plan cco:ont00001942 ?act ;
           rdfs:label ?plan_name .
-    
-    # Filter by phase (parameter substitution)
-    # Example: FILTER(?phase = actions:InProgress)
-    # FILTER(?phase = ?PHASE_FILTER)
-    
+
+    # Filter by status (parameter substitution)
+    # Example: FILTER(?status = actions:InProgress)
+    # FILTER(?status = ?STATUS_FILTER)
+
     # Optional completion date (only for completed acts)
     OPTIONAL {
         ?act actions:hasCompletedDateTime ?completion_date .

@@ -10,10 +10,11 @@
 #
 # Demonstrates:
 # 1. Objective (CCO Objective) - project/story
-# 2. hasObjective relationship linking Plan → Objective
-# 3. Multiple plans can serve the same objective
+# 2. Charter containing Plans (via part_of)
+# 3. inServiceOf relationship linking Plan → Objective
+# 4. Multiple plans can serve the same objective
 #
-# DSL equivalent: 
+# DSL equivalent:
 # *grocery-shopping
 # [ ] Buy milk *grocery-shopping
 # [ ] Buy bread *grocery-shopping
@@ -27,17 +28,17 @@
 # First Plan contributing to the objective
 <urn:uuid:plan-buy-milk> a cco:ont00000974 ;
     rdfs:label "Buy milk" ;
-    actions:hasObjective <urn:objective:grocery-shopping> ;
+    actions:inServiceOf <urn:objective:grocery-shopping> ;
     cco:ont00001942 <urn:uuid:act-buy-milk-001> .
 
 <urn:uuid:act-buy-milk-001> a cco:ont00000228 ;
-    actions:hasPhase actions:NotStarted .
+    cco:ont00001868 actions:NotStarted .
 
-# Second Plan contributing to the same objective  
+# Second Plan contributing to the same objective
 <urn:uuid:plan-buy-bread> a cco:ont00000974 ;
     rdfs:label "Buy bread" ;
-    actions:hasObjective <urn:objective:grocery-shopping> ;
+    actions:inServiceOf <urn:objective:grocery-shopping> ;
     cco:ont00001942 <urn:uuid:act-buy-bread-001> .
 
 <urn:uuid:act-buy-bread-001> a cco:ont00000228 ;
-    actions:hasPhase actions:InProgress .
+    cco:ont00001868 actions:InProgress .

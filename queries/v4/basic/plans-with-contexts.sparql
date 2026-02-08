@@ -14,15 +14,15 @@ SELECT ?plan_name ?context_id ?context_type ?parent_context WHERE {
     ?plan a cco:ont00000974 ;
           rdfs:label ?plan_name ;
           actions:requiresContext ?context .
-    
+
     ?context actions:hasContextIdentifier ?context_id .
-    
+
     # Optional context type
     OPTIONAL {
         ?context actions:hasContextType ?type .
         ?type rdfs:label ?context_type .
     }
-    
+
     # Optional parent context (for hierarchy)
     OPTIONAL {
         ?context actions:contextBroader ?parent .

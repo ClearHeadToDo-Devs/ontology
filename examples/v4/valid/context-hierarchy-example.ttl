@@ -14,10 +14,10 @@
 #
 # Context hierarchy:
 # work
-# ├── clearhead (work project)
+# +-- clearhead (work project)
 # computer
-# ├── terminal (computer tool)
-# │   └── neovim (terminal editor)
+# +-- terminal (computer tool)
+#     +-- neovim (terminal editor)
 # =============================================================================
 
 # Context entities with hierarchy
@@ -63,7 +63,7 @@
     cco:ont00001942 <urn:act:code-review> .
 
 <urn:act:code-review> a cco:ont00000228 ;
-    actions:hasPhase actions:NotStarted .
+    cco:ont00001868 actions:NotStarted .
 
 <urn:plan:team-meeting> a cco:ont00000974 ;
     rdfs:label "Discuss ontology approach with team" ;
@@ -72,4 +72,4 @@
     cco:ont00001942 <urn:act:team-meeting> .
 
 <urn:act:team-meeting> a cco:ont00000228 ;
-    actions:hasPhase actions:NotStarted .
+    cco:ont00001868 actions:NotStarted .

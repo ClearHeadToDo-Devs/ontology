@@ -7,7 +7,7 @@
 # =============================================================================
 #
 # This example should FAIL SHACL validation:
-# PlannedAct has phase=Completed but no hasCompletedDateTime
+# PlannedAct has status=Completed but no hasCompletedDateTime
 #
 # SHACL rule: actions:CompletedActDateShape should catch this
 # =============================================================================
@@ -17,5 +17,5 @@
     cco:ont00001942 <urn:act:invalid> .
 
 <urn:act:invalid> a cco:ont00000228 ;
-    actions:hasPhase actions:Completed .
+    cco:ont00001868 actions:Completed .
     # Missing: actions:hasCompletedDateTime

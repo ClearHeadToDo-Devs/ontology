@@ -82,12 +82,12 @@ graph TB
 
 ## Version Status
 
-**CURRENT: V4** (Minimal CCO extension)
+**CURRENT: V4.1.0** (CCO Extension for Intention Information Entities)
 - **Location:** `v4/` directory (`v4/actions-vocabulary.owl` + `v4/actions-shapes-v4.ttl`)
 - **Status:** ✅ **CURRENT - USE THIS**
 - **Format:** OWL/XML (ontology) + Turtle (SHACL shapes)
-- **Architecture:** Minimal extension to CCO
-- **Contents:** Core CCO classes + ActPhase
+- **Architecture:** Disciplined CCO extension filling genuine gaps
+- **Contents:** CCO classes by reference + Charter class + inServiceOf property + Event Status individuals
 - **Production URL:** 🌐 https://clearhead.us/vocab/actions/v4/
 - **Use for:** **ALL NEW DEVELOPMENT**
 
@@ -101,8 +101,8 @@ graph TB
 - **Production URL:** 🌐 https://clearhead.us/vocab/actions/v3/
 
 **What's Complete:**
-- ✅ V4 Ontology: Minimal CCO-aligned semantic model
-- ✅ V4 SHACL Shapes: Core validation constraints
+- ✅ V4.1.0 Ontology: Charter + inServiceOf + Event Status (CCO extension)
+- ✅ V4.1.0 SHACL Shapes: Validation constraints including Charter and status
 - ✅ V3 Ontology + Shapes: Stable legacy reference
 - ✅ Production Deployment: Live at clearhead.us with content negotiation
 - ✅ Cloudflare Infrastructure: Pages + Worker for semantic web compliance
@@ -225,12 +225,13 @@ graph TB
 
 ## Key Files
 
-### v4 Files (Current)
-- **v4/actions-vocabulary.owl** - Minimal CCO extension (OWL/XML)
+### v4 Files (Current — v4.1.0)
+- **v4/actions-vocabulary.owl** - CCO Extension for Intention Information Entities (OWL/XML)
 - **v4/actions-shapes-v4.ttl** - SHACL validation constraints
-- **V4_DESIGN.md** - v4 design rationale
-- **V4_DESIGN_EXPLORATION.md** - v4 design alternatives
-- **V4_TRANSITION_STATUS.md** - v4 transition status
+- **v4/actions.context.json** - JSON-LD context map
+- **v4/actions.schema.json** - JSON Schema for ontology-out exports
+- **V4_DESIGN.md** - v4.1.0 design rationale (Charter, inServiceOf, Event Status)
+- **V4_DESIGN_EXPLORATION.md** - v4 design alternatives (historical)
 
 ### v3.1.0 Files (Legacy at Root)
 - **README.md** - Project overview and quick start

@@ -5,15 +5,17 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 # =============================================================================
-# All ActPhase States Example
+# All Event Status States Example
 # =============================================================================
 #
-# Demonstrates all 5 ActPhase individuals:
+# Demonstrates all 5 Event Status Nominal ICE individuals:
 # 1. NotStarted - default state for new tasks
 # 2. InProgress - actively being worked on
-# 3. Completed - successfully finished 
+# 3. Completed - successfully finished
 # 4. Blocked - cannot proceed due to dependency
 # 5. Cancelled - abandoned without completion
+#
+# Status is linked via CCO is_measured_by_nominal (ont00001868)
 #
 # DSL equivalent:
 # [ ] Not started task
@@ -23,50 +25,45 @@
 # [_] Cancelled task
 # =============================================================================
 
-# NotStarted phase
+# NotStarted status
 <urn:uuid:plan-not-started> a cco:ont00000974 ;
     rdfs:label "Not started task" ;
     cco:ont00001942 <urn:uuid:act-not-started-001> .
 
 <urn:uuid:act-not-started-001> a cco:ont00000228 ;
-    actions:hasPhase actions:NotStarted .
+    cco:ont00001868 actions:NotStarted .
 
-# InProgress phase
+# InProgress status
 <urn:uuid:plan-in-progress> a cco:ont00000974 ;
     rdfs:label "In progress task" ;
     cco:ont00001942 <urn:uuid:act-in-progress-001> .
 
 <urn:uuid:act-in-progress-001> a cco:ont00000228 ;
-    actions:hasPhase actions:InProgress ;
-    actions:hasStartedDateTime "2025-01-15T09:00:00Z"^^xsd:dateTime .
+    cco:ont00001868 actions:InProgress .
 
-# Completed phase
+# Completed status
 <urn:uuid:plan-completed> a cco:ont00000974 ;
     rdfs:label "Completed task" ;
     cco:ont00001942 <urn:uuid:act-completed-001> .
 
 <urn:uuid:act-completed-001> a cco:ont00000228 ;
-    actions:hasPhase actions:Completed ;
-    actions:hasStartedDateTime "2025-01-14T10:00:00Z"^^xsd:dateTime ;
+    cco:ont00001868 actions:Completed ;
     actions:hasCompletedDateTime "2025-01-14T11:30:00Z"^^xsd:dateTime .
 
-# Blocked phase  
+# Blocked status
 <urn:uuid:plan-blocked> a cco:ont00000974 ;
     rdfs:label "Blocked task" ;
     rdfs:comment "Waiting for approval from manager" ;
     cco:ont00001942 <urn:uuid:act-blocked-001> .
 
 <urn:uuid:act-blocked-001> a cco:ont00000228 ;
-    actions:hasPhase actions:Blocked ;
-    actions:hasStartedDateTime "2025-01-13T14:00:00Z"^^xsd:dateTime ;
-    actions:hasBlockedDateTime "2025-01-13T15:30:00Z"^^xsd:dateTime .
+    cco:ont00001868 actions:Blocked .
 
-# Cancelled phase
+# Cancelled status
 <urn:uuid:plan-cancelled> a cco:ont00000974 ;
     rdfs:label "Cancelled task" ;
     rdfs:comment "No longer needed due to project cancellation" ;
     cco:ont00001942 <urn:uuid:act-cancelled-001> .
 
 <urn:uuid:act-cancelled-001> a cco:ont00000228 ;
-    actions:hasPhase actions:Cancelled ;
-    actions:hasCancelledDateTime "2025-01-12T16:00:00Z"^^xsd:dateTime .
+    cco:ont00001868 actions:Cancelled .

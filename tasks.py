@@ -381,7 +381,7 @@ def _create_index_pages(c):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actions Vocabulary v4.0.0 - Minimal CCO Extension</title>
+    <title>Actions Vocabulary v4.1.0 - CCO Extension for Intention Information Entities</title>
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; max-width: 900px; margin: 0 auto; padding: 2rem; line-height: 1.6; color: #333; }
         h1 { color: #2c3e50; border-bottom: 3px solid #e67e22; padding-bottom: 0.5rem; }
@@ -393,11 +393,11 @@ def _create_index_pages(c):
     </style>
 </head>
 <body>
-    <h1>Actions Vocabulary <span class="badge">v4.0.0</span></h1>
+    <h1>Actions Vocabulary <span class="badge">v4.1.0</span></h1>
 
-    <p>A minimal extension to the Common Core Ontologies (CCO) for tracking action commitments.</p>
+    <p>A CCO Extension for Intention Information Entities — a disciplined extension to CCO for modeling intentional planning and execution.</p>
 
-    <p><strong>Philosophy:</strong> Reference CCO classes directly rather than wrapping them. Add only what CCO lacks - lifecycle phase tracking.</p>
+    <p><strong>Philosophy:</strong> Reuse CCO directly. Only add what CCO provably lacks — Charter (scope declarations) and inServiceOf (teleological relation).</p>
 
     <h2>Available Formats</h2>
 
@@ -410,27 +410,29 @@ def _create_index_pages(c):
 
     <h2>Core Concepts</h2>
 
-    <p>v4 reuses CCO classes directly:</p>
+    <p>Three Directive ICE siblings (Charter is new, Plan and Objective are CCO):</p>
     <ul>
+        <li><strong>Charter (actions:Charter):</strong> Scope of directed concern</li>
         <li><strong>Plan (CCO ont00000974):</strong> Action definitions / task templates</li>
         <li><strong>Planned Act (CCO ont00000228):</strong> Action instances / executions</li>
         <li><strong>Objective (CCO ont00000476):</strong> Projects / desired outcomes</li>
     </ul>
 
-    <h2>Custom Extension</h2>
+    <h2>Genuine Extensions</h2>
 
-    <p>Only one custom class added to CCO:</p>
     <ul>
-        <li><strong>ActPhase:</strong> Lifecycle states (NotStarted, InProgress, Completed, Blocked, Cancelled)</li>
+        <li><strong>Charter:</strong> Directive ICE declaring scope of directed concern (CCO lacks this)</li>
+        <li><strong>inServiceOf:</strong> Teleological relation linking Directive ICEs to Objectives (CCO lacks this)</li>
     </ul>
 
-    <h2>Properties</h2>
+    <h2>Key Properties</h2>
 
     <ul>
-        <li><strong>hasPhase:</strong> Links a Planned Act to its current lifecycle phase (functional)</li>
-        <li><strong>hasObjective:</strong> Links a Plan to the Objective it serves</li>
-        <li><strong>has_part (BFO):</strong> Plan hierarchy</li>
-        <li><strong>prescribes (CCO):</strong> Plan → Planned Act relationship</li>
+        <li><strong>inServiceOf (custom):</strong> Directive ICE → Objective teleological linkage</li>
+        <li><strong>is_measured_by_nominal (CCO):</strong> Planned Act → Event Status</li>
+        <li><strong>is_successor_of (CCO):</strong> Plan dependency ordering</li>
+        <li><strong>prescribes (CCO):</strong> Plan → Planned Act</li>
+        <li><strong>part_of (BFO):</strong> Plan/Charter hierarchy</li>
     </ul>
 
     <h2>Using the Vocabulary</h2>
