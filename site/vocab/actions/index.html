@@ -1,157 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actions Vocabulary - Semantic Web Ontologies</title>
-    <style>
-        body { font-family: system-ui, -apple-system, sans-serif; max-width: 900px; margin: 0 auto; padding: 2rem; line-height: 1.6; color: #333; }
-        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 0.5rem; }
-        h2 { color: #34495e; margin-top: 2rem; }
-        .version { background: #3498db; color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.9em; }
-        .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.9em; margin-left: 0.5rem; }
-        .v3 { background: #27ae60; }
-        .v4 { background: #e67e22; }
-        .format { background: #f8f9fa; padding: 1rem; margin: 0.5rem 0; border-radius: 4px; border-left: 4px solid #3498db; }
-        .format h3 { margin-top: 0; color: #2c3e50; }
-        code { background: #e9ecef; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
-        a { color: #3498db; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .info { background: #e8f4f8; border-left: 4px solid #3498db; padding: 1rem; margin: 1rem 0; }
-        ul { line-height: 1.8; }
-        .version-box { background: #f9f9f9; padding: 1.5rem; margin: 1rem 0; border-radius: 4px; border: 1px solid #ddd; }
-    </style>
-</head>
-<body>
-    <h1>Actions Vocabulary</h1>
-
-    <p>BFO/CCO-aligned ontologies for personal and organizational productivity, task management, and workflow automation.</p>
-
-    <div class="info">
-        <strong>📦 Multiple Versions Available:</strong> Choose the version that fits your use case. See version comparisons below.
-    </div>
-
-    <h2>Available Versions</h2>
-
-    <div class="version-box">
-        <h3>Actions Vocabulary <span class="version v3">v3.1.0</span> <span class="badge v3">Stable</span></h3>
-        <p>Full-featured ontology with Core + Context + Workflow + Roles extensions.</p>
-        <p><strong>Best for:</strong> Complete productivity systems, complex workflows, GTD-style task management</p>
-        <p><strong>URL:</strong> <a href="/vocab/actions/v3/">/vocab/actions/v3/</a></p>
-    </div>
-
-    <div class="version-box">
-        <h3>Actions Vocabulary <span class="version v4">v4.0.0</span> <span class="badge v4">Minimal CCO Extension</span></h3>
-        <p>Minimal extension to Common Core Ontologies. References CCO classes directly, adds only lifecycle phase tracking.</p>
-        <p><strong>Best for:</strong> Interoperability with CCO ecosystem, semantic web applications, lightweight integrations</p>
-        <p><strong>URL:</strong> <a href="/vocab/actions/v4/">/vocab/actions/v4/</a></p>
-    </div>
-
-    <h2>v3.1.0 Formats</h2>
-
-    <div class="format">
-        <h3>OWL/XML (Canonical)</h3>
-        <p>Industry-standard format, compatible with Protégé and reasoning tools.</p>
-        <p>🔗 <a href="/vocab/actions/v3/actions-vocabulary.owl">Download OWL/XML</a></p>
-    </div>
-
-    <div class="format">
-        <h3>Turtle (RDF)</h3>
-        <p>Human-readable RDF format, perfect for version control and manual editing.</p>
-        <p>🔗 <a href="/vocab/actions/v3/actions-vocabulary.ttl">Download Turtle</a></p>
-    </div>
-
-    <div class="format">
-        <h3>SHACL Shapes</h3>
-        <p>Validation constraints and data quality rules for Action instances.</p>
-        <p>🔗 <a href="/vocab/actions/v3/shapes.ttl">Download SHACL Shapes</a></p>
-    </div>
-
-    <h2>v4.0.0 Formats</h2>
-
-    <div class="format">
-        <h3>OWL/XML (Canonical)</h3>
-        <p>Industry-standard format, compatible with Protégé and reasoning tools.</p>
-        <p>🔗 <a href="/vocab/actions/v4/actions-vocabulary.owl">Download OWL/XML</a></p>
-    </div>
-
-    <div class="format">
-        <h3>Turtle (RDF)</h3>
-        <p>Human-readable RDF format, perfect for version control and manual editing.</p>
-        <p>🔗 <a href="/vocab/actions/v4/actions-vocabulary.ttl">Download Turtle</a></p>
-    </div>
-
-    <div class="format">
-        <h3>SHACL Shapes</h3>
-        <p>Validation constraints and data quality rules for Action instances.</p>
-        <p>🔗 <a href="/vocab/actions/v4/shapes.ttl">Download SHACL Shapes</a></p>
-    </div>
-
-    <div class="format">
-        <h3>JSON-LD Context</h3>
-        <p>Context map for ontology-out JSON exports.</p>
-        <p>🔗 <a href="/vocab/actions/v4/actions.context.json">Download JSON-LD Context</a></p>
-    </div>
-
-    <div class="format">
-        <h3>JSON Schema</h3>
-        <p>Structural validation for ontology-out JSON exports.</p>
-        <p>🔗 <a href="/vocab/actions/v4/actions.schema.json">Download JSON Schema</a></p>
-    </div>
-
-    <h2>Version Comparison</h2>
-
-    <table style="border-collapse: collapse; width: 100%; margin: 1rem 0;">
-        <thead>
-            <tr style="background: #f8f9fa;">
-                <th style="padding: 0.75rem; border: 1px solid #ddd; text-align: left;">Feature</th>
-                <th style="padding: 0.75rem; border: 1px solid #ddd; text-align: left;">v3.1.0</th>
-                <th style="padding: 0.75rem; border: 1px solid #ddd; text-align: left;">v4.0.0</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">Core Classes</td>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">ActionPlan ActionProcess</td>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">CCO Plan, PlannedAct</td>
-            </tr>
-            <tr>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">State Tracking</td>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">ActionState class</td>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">ActPhase quality</td>
-            </tr>
-            <tr>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">Contexts</td>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">Built-in (GTDTM)</td>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">Application layer</td>
-            </tr>
-            <tr>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">Dependencies</td>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">Built-in</td>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">Application layer</td>
-            </tr>
-            <tr>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">CCO Integration</td>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">Wraps CCO concepts</td>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">References CCO directly</td>
-            </tr>
-            <tr>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">Size</td>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">~260 triples</td>
-                <td style="padding: 0.75rem; border: 1px solid #ddd;">~50 triples</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h2>Resources</h2>
-    <ul>
-        <li>📖 <a href="https://github.com/your-org/ontology">GitHub Repository</a></li>
-        <li>📄 <a href="/vocab/actions/examples/">Example Data</a></li>
-        <li>🔍 <a href="/.well-known/vocab-catalog.json">Vocabulary Catalog (DCAT)</a></li>
-    </ul>
-
-    <footer style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #ddd; color: #777; font-size: 0.9em;">
-        <p>Actions Vocabulary | Licensed under MIT | <a href="https://clearhead.us">Clearhead Platform</a></p>
-    </footer>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Actions Vocabulary — CCO Extension for Intentional Planning</title><style>
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    max-width: 900px; margin: 0 auto; padding: 2rem;
+    line-height: 1.6; color: #333;
+}
+h1 { color: #2c3e50; border-bottom: 3px solid #e67e22; padding-bottom: 0.5rem; }
+h2 { color: #34495e; margin-top: 2rem; }
+code { background: #e9ecef; padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+pre { background: #f8f9fa; padding: 1rem; border-radius: 4px; overflow-x: auto; }
+a { color: #3498db; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.badge { background: #e67e22; color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.9em; }
+.format { background: #f8f9fa; padding: 1rem; margin: 0.5rem 0; border-radius: 4px; border-left: 4px solid #e67e22; }
+.format h3 { margin-top: 0; color: #2c3e50; }
+.info { background: #e8f4f8; border-left: 4px solid #3498db; padding: 1rem; margin: 1rem 0; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #ddd; color: #777; font-size: 0.9em; }
+ul { line-height: 1.8; }
+</style></head><body><h1>Actions Vocabulary</h1><p>A disciplined extension to <a href="https://github.com/CommonCoreOntology/CommonCoreOntologies">Common Core Ontologies</a> for modeling intentional planning and execution.</p><div class="info"><p><strong>Philosophy:</strong> Reuse CCO directly. Only add what CCO provably lacks — Charter (scope declarations) and inServiceOf (teleological relation).</p></div><h2>Available Formats</h2><div class="format"><h3>OWL/XML (Canonical)</h3><p>Industry-standard format, compatible with Protege and reasoning tools.</p><p><a href="actions-vocabulary.owl">Download OWL/XML (Canonical)</a></p></div><div class="format"><h3>Turtle (RDF)</h3><p>Human-readable RDF format, perfect for version control and manual editing.</p><p><a href="actions-vocabulary.ttl">Download Turtle (RDF)</a></p></div><div class="format"><h3>JSON-LD</h3><p>Web applications, JavaScript, REST APIs.</p><p><a href="actions-vocabulary.jsonld">Download JSON-LD</a></p></div><div class="format"><h3>RDF/XML</h3><p>Legacy RDF tools and broad compatibility.</p><p><a href="actions-vocabulary.rdf">Download RDF/XML</a></p></div><div class="format"><h3>SHACL Shapes</h3><p>Validation constraints and data quality rules for Action instances.</p><p><a href="shapes.ttl">Download SHACL Shapes</a></p></div><div class="format"><h3>JSON-LD Context</h3><p>Context map for ontology-out JSON exports.</p><p><a href="actions.context.json">Download JSON-LD Context</a></p></div><div class="format"><h3>JSON Schema</h3><p>Structural validation for ontology-out JSON exports.</p><p><a href="actions.schema.json">Download JSON Schema</a></p></div><h2>Core Concepts</h2><p>Three Directive ICE siblings (Charter is new, Plan and Objective are CCO):</p><ul><li><strong>Charter</strong> — Scope of directed concern</li><li><strong>Plan</strong> (CCO) — Action definitions / task templates</li><li><strong>Planned Act</strong> (CCO) — Action instances / executions</li><li><strong>Objective</strong> (CCO) — Projects / desired outcomes</li></ul><h2>Genuine Extensions</h2><ul><li><strong>Charter:</strong> Directive ICE declaring scope of directed concern (CCO lacks this)</li><li><strong>inServiceOf:</strong> Teleological relation linking Directive ICEs to Objectives (CCO lacks this)</li></ul><h2>Using the Vocabulary</h2><h3>Import in Your Ontology</h3><pre><code>&lt;owl:Ontology rdf:about="https://example.com/my-ontology"&gt;
+  &lt;owl:imports rdf:resource="https://clearhead.us/vocab/actions"/&gt;
+&lt;/owl:Ontology&gt;</code></pre><h3>Load in Protege</h3><p>File &rarr; Open from URL &rarr; <code>https://clearhead.us/vocab/actions/actions-vocabulary.owl</code></p><h2>Resources</h2><ul><li><a href="https://github.com/your-org/ontology">GitHub Repository</a></li><li><a href="/.well-known/vocab-catalog.json">Vocabulary Catalog (DCAT)</a></li></ul><footer><p>Actions Vocabulary | Licensed under MIT | <a href="https://clearhead.us">Clearhead Platform</a></p></footer></body></html>

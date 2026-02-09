@@ -1,43 +1,30 @@
 # Content negotiation for Actions Vocabulary
-# Cloudflare Pages uses format: [from] [to] [status] [condition]
 
 # Root redirects to vocab
-/  /vocab/  302
+/  /vocab/actions/  302
 
-# Content negotiation for /vocab/actions/v3/
-/vocab/actions/v3  /vocab/actions/v3/actions-vocabulary.owl  200  Accept: application/rdf+xml
-/vocab/actions/v3  /vocab/actions/v3/actions-vocabulary.owl  200  Accept: application/xml
-/vocab/actions/v3  /vocab/actions/v3/actions-vocabulary.ttl  200  Accept: text/turtle
-/vocab/actions/v3  /vocab/actions/v3/actions-vocabulary.jsonld  200  Accept: application/ld+json
-/vocab/actions/v3  /vocab/actions/v3/actions-vocabulary.jsonld  200  Accept: application/json
-/vocab/actions/v3  /vocab/actions/index.html  200
+# Content negotiation for /vocab/actions/
+/vocab/actions  /vocab/actions/actions-vocabulary.owl  200  Accept: application/rdf+xml
+/vocab/actions  /vocab/actions/actions-vocabulary.owl  200  Accept: application/xml
+/vocab/actions  /vocab/actions/actions-vocabulary.ttl  200  Accept: text/turtle
+/vocab/actions  /vocab/actions/actions-vocabulary.jsonld  200  Accept: application/ld+json
+/vocab/actions  /vocab/actions/actions-vocabulary.jsonld  200  Accept: application/json
+/vocab/actions  /vocab/actions/index.html  200
 
-# Content negotiation for /vocab/actions/v4/
-/vocab/actions/v4  /vocab/actions/v4/actions-vocabulary.owl  200  Accept: application/rdf+xml
-/vocab/actions/v4  /vocab/actions/v4/actions-vocabulary.owl  200  Accept: application/xml
-/vocab/actions/v4  /vocab/actions/v4/actions-vocabulary.ttl  200  Accept: text/turtle
-/vocab/actions/v4  /vocab/actions/v4/actions-vocabulary.jsonld  200  Accept: application/ld+json
-/vocab/actions/v4  /vocab/actions/v4/actions-vocabulary.jsonld  200  Accept: application/json
-/vocab/actions/v4  /vocab/actions/index.html  200
+# Trailing slash variant
+/vocab/actions/  /vocab/actions/actions-vocabulary.owl  200  Accept: application/rdf+xml
+/vocab/actions/  /vocab/actions/actions-vocabulary.owl  200  Accept: application/xml
+/vocab/actions/  /vocab/actions/actions-vocabulary.ttl  200  Accept: text/turtle
+/vocab/actions/  /vocab/actions/actions-vocabulary.jsonld  200  Accept: application/ld+json
+/vocab/actions/  /vocab/actions/actions-vocabulary.jsonld  200  Accept: application/json
+/vocab/actions/  /vocab/actions/index.html  200
 
-# Trailing slash variants for v3
-/vocab/actions/v3/  /vocab/actions/v3/actions-vocabulary.owl  200  Accept: application/rdf+xml
-/vocab/actions/v3/  /vocab/actions/v3/actions-vocabulary.owl  200  Accept: application/xml
-/vocab/actions/v3/  /vocab/actions/v3/actions-vocabulary.ttl  200  Accept: text/turtle
-/vocab/actions/v3/  /vocab/actions/v3/actions-vocabulary.jsonld  200  Accept: application/ld+json
-/vocab/actions/v3/  /vocab/actions/v3/actions-vocabulary.jsonld  200  Accept: application/json
-/vocab/actions/v3/  /vocab/actions/v3/index.html  200
-
-# Trailing slash variants for v4
-/vocab/actions/v4/  /vocab/actions/v4/actions-vocabulary.owl  200  Accept: application/rdf+xml
-/vocab/actions/v4/  /vocab/actions/v4/actions-vocabulary.owl  200  Accept: application/xml
-/vocab/actions/v4/  /vocab/actions/v4/actions-vocabulary.ttl  200  Accept: text/turtle
-/vocab/actions/v4/  /vocab/actions/v4/actions-vocabulary.jsonld  200  Accept: application/ld+json
-/vocab/actions/v4/  /vocab/actions/v4/actions-vocabulary.jsonld  200  Accept: application/json
-/vocab/actions/v4/  /vocab/actions/v4/index.html  200
+# Legacy v4 path redirects
+/vocab/actions/v4  /vocab/actions/  301
+/vocab/actions/v4/  /vocab/actions/  301
+/vocab/actions/v4/*  /vocab/actions/:splat  301
 
 # Convenience URLs
-/vocab  /vocab/  301
+/vocab  /vocab/actions/  301
 /actions  /vocab/actions/  301
 /ontology  /vocab/actions/  301
- 

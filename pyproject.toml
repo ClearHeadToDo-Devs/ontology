@@ -10,6 +10,7 @@ dependencies = [
     "pytest>=8.0.0",
     "invoke>=2.0.0",
     "jsonschema>=4.0.0",
+    "htpy>=0.9.0",
 ]
 
 [tool.pytest.ini_options]

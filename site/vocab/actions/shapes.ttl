@@ -1,21 +1,25 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix actions: <https://clearhead.us/vocab/actions/v4#> .
 @prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix bfo: <http://purl.obolibrary.org/obo/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 #################################################################
-#    SHACL Shapes for Actions Vocabulary v4
-#    Minimal CCO Extension
+#    SHACL Shapes for Actions Vocabulary v4.1.0
+#    CCO Extension for Intention Information Entities
 #################################################################
 #
-# These shapes validate the minimal v4 model:
+# These shapes validate the v4.1.0 model:
 # - Plans use CCO Plan (ont00000974)
 # - Planned Acts use CCO Planned Act (ont00000228)
 # - Objectives use CCO Objective (ont00000476)
-# - ActPhase is the only custom class
-# - hasPhase and hasObjective are the only custom properties
-# - prescribes uses the CCO property ont00001942
+# - Charters use actions:Charter (custom Directive ICE subclass)
+# - Status uses CCO Event Status Nominal ICE (ont00000203)
+# - is_measured_by_nominal (ont00001868) links acts to status
+# - inServiceOf links Directive ICEs to Objectives
+# - is_successor_of (ont00001775) for plan ordering
+# - prescribes (ont00001942) links Plans to Planned Acts
 #
 #################################################################
 
@@ -23,29 +27,29 @@
 #    Planned Act Shapes
 #################################################################
 
-actions:PlannedActPhaseShape
+actions:PlannedActStatusShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00000228 ;
     sh:property [
-        sh:path actions:hasPhase ;
-        sh:class actions:ActPhase ;
+        sh:path cco:ont00001868 ;
+        sh:class cco:ont00000203 ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:in ( actions:NotStarted actions:InProgress actions:Completed actions:Blocked actions:Cancelled ) ;
-        sh:message "Planned Act must have exactly one phase (NotStarted, InProgress, Completed, Blocked, Cancelled)" ;
+        sh:message "Planned Act must have exactly one status via is_measured_by_nominal (NotStarted, InProgress, Completed, Blocked, Cancelled)" ;
     ] .
 
 #################################################################
 #    Plan Shapes
 #################################################################
 
-actions:PlanObjectiveShape
+actions:PlanInServiceOfShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00000974 ;
     sh:property [
-        sh:path actions:hasObjective ;
+        sh:path actions:inServiceOf ;
         sh:class cco:ont00000476 ;
-        sh:message "Plan objectives must be CCO Objective instances" ;
+        sh:message "Plan inServiceOf targets must be CCO Objective instances" ;
     ] .
 
 actions:PlanPrescribesShape
@@ -58,7 +62,37 @@ actions:PlanPrescribesShape
     ] .
 
 #################################################################
-#    Extended Validation Rules for New Properties
+#    Charter Shapes
+#################################################################
+
+actions:CharterShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Charter ;
+    sh:property [
+        sh:path <http://www.w3.org/2000/01/rdf-schema#label> ;
+        sh:minCount 1 ;
+        sh:message "Charter must have a label" ;
+    ] ;
+    sh:property [
+        sh:path actions:inServiceOf ;
+        sh:class cco:ont00000476 ;
+        sh:message "Charter inServiceOf targets must be CCO Objective instances" ;
+    ] .
+
+actions:PlanCharterShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000974 ;
+    sh:property [
+        sh:path bfo:BFO_0000050 ;
+        sh:or (
+            [ sh:class cco:ont00000974 ]
+            [ sh:class actions:Charter ]
+        ) ;
+        sh:message "Plans may be part_of other Plans or Charters" ;
+    ] .
+
+#################################################################
+#    Extended Validation Rules
 #################################################################
 
 # Validate UUID format (UUIDv7 preferred)
@@ -73,16 +107,16 @@ actions:PlanUUIDShape
         sh:message "UUID must follow standard UUID format (UUIDv7 preferred)" ;
     ] .
 
-# Prevent circular dependencies
+# Prevent circular dependencies (using is_successor_of)
 actions:NoCyclicDependenciesShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00000974 ;
     sh:sparql [
         sh:message "Plans cannot have circular dependencies" ;
         sh:select """
-            PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
+            PREFIX cco: <https://www.commoncoreontologies.org/>
             SELECT $this WHERE {
-                $this actions:dependsOn+ $this .
+                $this cco:ont00001775+ $this .
             }
         """ ;
     ] .
@@ -92,11 +126,12 @@ actions:CompletedActDateShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00000228 ;
     sh:sparql [
-        sh:message "PlannedActs with phase=Completed should have hasCompletedDateTime" ;
+        sh:message "PlannedActs with status=Completed should have hasCompletedDateTime" ;
         sh:select """
             PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
+            PREFIX cco: <https://www.commoncoreontologies.org/>
             SELECT $this WHERE {
-                $this actions:hasPhase actions:Completed .
+                $this cco:ont00001868 actions:Completed .
                 FILTER NOT EXISTS { $this actions:hasCompletedDateTime ?date }
             }
         """ ;
@@ -191,6 +226,13 @@ actions:NoCircularContextHierarchyShape
         """ ;
     ] .
 
+# Constrain is_successor_of domain to Plans (pragmatic SHACL constraint)
+actions:SuccessorDomainShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf cco:ont00001775 ;
+    sh:class cco:ont00000974 ;
+    sh:message "is_successor_of should only be used between Plan instances in this vocabulary" .
+
 #################################################################
-#    End of SHACL Shapes for Actions Vocabulary v4
+#    End of SHACL Shapes for Actions Vocabulary v4.1.0
 #################################################################
