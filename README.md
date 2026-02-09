@@ -98,6 +98,7 @@ See **[V4_DESIGN.md](./V4_DESIGN.md)** for the full design rationale.
 ## Documentation
 
 - **[V4_DESIGN.md](./V4_DESIGN.md)** - Full v4 design rationale
+- **[V4_DESIGN_EXPLORATION.md](./V4_DESIGN_EXPLORATION.md)** - Design exploration and alternatives (historical)
 - **[v4/actions-shapes-v4.ttl](./v4/actions-shapes-v4.ttl)** - SHACL validation shapes
 - **[v4/actions.context.json](./v4/actions.context.json)** - JSON-LD context map
 - **[v4/actions.schema.json](./v4/actions.schema.json)** - JSON Schema for ontology-out exports

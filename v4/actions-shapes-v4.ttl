@@ -43,14 +43,6 @@ actions:PlannedActStatusShape
 #    Plan Shapes
 #################################################################
 
-actions:PlanInServiceOfShape
-    a sh:NodeShape ;
-    sh:targetClass cco:ont00000974 ;
-    sh:property [
-        sh:path actions:inServiceOf ;
-        sh:class cco:ont00000476 ;
-        sh:message "Plan inServiceOf targets must be CCO Objective instances" ;
-    ] .
 
 actions:PlanPrescribesShape
     a sh:NodeShape ;
