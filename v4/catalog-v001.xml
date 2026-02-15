@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <!--
+        XML Catalog for Actions Vocabulary v4
+
+        Maps CCO and BFO ontology IRIs to local files.
+        Protégé reads this automatically when loading ontologies from this directory.
+
+        CCO modules vendored from: https://github.com/CommonCoreOntology/CommonCoreOntologies
+        CCO version: 2.0 (2024-11-06)
+        BFO version: 2020 (bfo-core.ttl)
+    -->
+
+    <group id="Folder Repository" prefer="public" xml:base="">
+        <!-- BFO 2020 core -->
+        <uri name="http://purl.obolibrary.org/obo/bfo/2020/bfo-core.ttl" uri="imports/bfo-core.ttl"/>
+
+        <!-- CCO 2.0 modules (only those in our transitive import chain) -->
+        <uri name="https://www.commoncoreontologies.org/ExtendedRelationOntology" uri="imports/ExtendedRelationOntology.ttl"/>
+        <uri name="https://www.commoncoreontologies.org/GeospatialOntology" uri="imports/GeospatialOntology.ttl"/>
+        <uri name="https://www.commoncoreontologies.org/TimeOntology" uri="imports/TimeOntology.ttl"/>
+        <uri name="https://www.commoncoreontologies.org/InformationEntityOntology" uri="imports/InformationEntityOntology.ttl"/>
+        <uri name="https://www.commoncoreontologies.org/EventOntology" uri="imports/EventOntology.ttl"/>
+        <uri name="https://www.commoncoreontologies.org/AgentOntology" uri="imports/AgentOntology.ttl"/>
+    </group>
+</catalog>

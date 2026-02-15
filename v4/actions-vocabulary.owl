@@ -11,10 +11,12 @@
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:skos="http://www.w3.org/2004/02/skos/core#">
     <owl:Ontology rdf:about="https://clearhead.us/vocab/actions/v4">
-        <owl:versionIRI rdf:resource="https://clearhead.us/vocab/actions/v4/4.1.0"/>
+        <owl:versionIRI rdf:resource="https://clearhead.us/vocab/actions/v4/4.2.0"/>
+        <owl:imports rdf:resource="https://www.commoncoreontologies.org/AgentOntology"/>
+        <owl:imports rdf:resource="https://www.commoncoreontologies.org/EventOntology"/>
         <dc:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2025-01-21</dc:created>
         <dc:creator>Darrion Burgess</dc:creator>
-        <dc:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-02-07</dc:modified>
+        <dc:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-02-15</dc:modified>
         <dc:title>CCO Extension for Intention Information Entities</dc:title>
         <rdfs:comment xml:lang="en">A disciplined extension to the Common Core Ontologies (CCO) for modeling
 intentional planning and execution.
@@ -23,22 +25,20 @@ This ontology fills genuine gaps in CCO&apos;s coverage of intention information
 - Charter: A Directive ICE declaring scope of directed concern (CCO has Plan and Objective but no scope class)
 - inServiceOf: A teleological relation linking Directive ICEs to the Objectives they serve (CCO lacks this)
 
-Core CCO classes used (by reference):
-- Directive ICE (ont00000965): Parent class for Charter, Plan, and Objective
-- Plan (ont00000974): Prescribes intended acts
-- Objective (ont00000476): Prescribes desired states
-- Planned Act (ont00000228): Actual execution of a plan
-- Event Status Nominal ICE (ont00000203): Status of a process
+CCO modules imported (via owl:imports):
+- AgentOntology: Plan (ont00000974), Objective (ont00000476)
+- EventOntology: Planned Act (ont00000228), Act (ont00000832)
 
-CCO properties used (by reference):
-- prescribes (ont00001942): Plan → Planned Act
-- is_measured_by_nominal (ont00001868): Planned Act → Event Status
-- is_successor_of (ont00001775): Plan ordering
+Transitively available via CCO import chain:
+- InformationEntityOntology: Directive ICE (ont00000965), Event Status Nominal ICE (ont00000203), prescribes, is_measured_by_nominal
+- ExtendedRelationOntology: is_successor_of (ont00001775)
+- TimeOntology, GeospatialOntology, BFO 2020
 
+Local resolution: see catalog-v001.xml for IRI → local file mappings.
 For full CCO definitions, see: https://github.com/CommonCoreOntology/CommonCoreOntologies
 For design rationale, see: V4_DESIGN.md</rdfs:comment>
         <rdfs:label>CCO Extension for Intention Information Entities</rdfs:label>
-        <owl:versionInfo>4.1.0</owl:versionInfo>
+        <owl:versionInfo>4.2.0</owl:versionInfo>
     </owl:Ontology>
     
 
@@ -115,24 +115,15 @@ For design rationale, see: V4_DESIGN.md</rdfs:comment>
     <!-- http://purl.obolibrary.org/obo/BFO_0000050 -->
 
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/BFO_0000050">
-        <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
-        <rdfs:comment xml:lang="en">BFO: Inverse of has_part. A core relation between a part and its whole.
-
-In this vocabulary: Plans are part_of Charters (scope containment).</rdfs:comment>
-        <rdfs:isDefinedBy rdf:resource="http://purl.obolibrary.org/obo/bfo.owl"/>
-        <rdfs:label xml:lang="en">part of</rdfs:label>
+        <rdfs:comment xml:lang="en">In this vocabulary: Plans are part_of Charters (scope containment).</rdfs:comment>
     </owl:ObjectProperty>
-    
+
 
 
     <!-- http://purl.obolibrary.org/obo/BFO_0000051 -->
 
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/BFO_0000051">
-        <rdfs:comment xml:lang="en">BFO: A core relation between a whole and its part.
-
-In this vocabulary: Use for plan decomposition - parent actions have child actions as parts. Also used for Charter → Plan containment. Maps to the &quot;&gt;&quot; children syntax in the .actions file format.</rdfs:comment>
-        <rdfs:isDefinedBy rdf:resource="http://purl.obolibrary.org/obo/bfo.owl"/>
-        <rdfs:label xml:lang="en">has part</rdfs:label>
+        <rdfs:comment xml:lang="en">In this vocabulary: Plan decomposition - parent actions have child actions as parts. Also Charter → Plan containment. Maps to the &quot;&gt;&quot; children syntax in the .actions file format.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -203,11 +194,7 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
     <!-- https://www.commoncoreontologies.org/ont00001775 -->
 
     <owl:ObjectProperty rdf:about="https://www.commoncoreontologies.org/ont00001775">
-        <rdfs:comment xml:lang="en">CCO: A relation indicating temporal succession.
-
-In this vocabulary: Used for plan dependency ordering. A Plan that is_successor_of another Plan cannot proceed until the predecessor completes. Maps to the &quot;&lt;&quot; predecessor syntax in the .actions file format. Replaces custom dependsOn property.</rdfs:comment>
-        <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
-        <rdfs:label xml:lang="en">is successor of</rdfs:label>
+        <rdfs:comment xml:lang="en">In this vocabulary: Used for plan dependency ordering. A Plan that is_successor_of another Plan cannot proceed until the predecessor completes. Maps to the &quot;&lt;&quot; predecessor syntax in the .actions file format.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -215,11 +202,7 @@ In this vocabulary: Used for plan dependency ordering. A Plan that is_successor_
     <!-- https://www.commoncoreontologies.org/ont00001868 -->
 
     <owl:ObjectProperty rdf:about="https://www.commoncoreontologies.org/ont00001868">
-        <rdfs:comment xml:lang="en">CCO: A relation between an entity and a Nominal ICE that measures it.
-
-In this vocabulary: Links a Planned Act to its Event Status Nominal ICE (lifecycle phase). Replaces custom hasPhase property.</rdfs:comment>
-        <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
-        <rdfs:label xml:lang="en">is measured by nominal</rdfs:label>
+        <rdfs:comment xml:lang="en">In this vocabulary: Links a Planned Act to its Event Status Nominal ICE (lifecycle phase).</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -227,11 +210,7 @@ In this vocabulary: Links a Planned Act to its Event Status Nominal ICE (lifecyc
     <!-- https://www.commoncoreontologies.org/ont00001942 -->
 
     <owl:ObjectProperty rdf:about="https://www.commoncoreontologies.org/ont00001942">
-        <rdfs:comment xml:lang="en">CCO: A relation between a Directive ICE and the entity it prescribes.
-
-In this vocabulary: Links a Plan to the Planned Acts it prescribes. One Plan can prescribe many Planned Acts (e.g., recurring actions).</rdfs:comment>
-        <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
-        <rdfs:label xml:lang="en">prescribes</rdfs:label>
+        <rdfs:comment xml:lang="en">In this vocabulary: Links a Plan to the Planned Acts it prescribes. One Plan can prescribe many Planned Acts (e.g., recurring actions).</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -377,9 +356,7 @@ In this vocabulary: Links a Plan to the Planned Acts it prescribes. One Plan can
     <!-- https://www.commoncoreontologies.org/ont00001767 -->
 
     <owl:DatatypeProperty rdf:about="https://www.commoncoreontologies.org/ont00001767">
-        <rdfs:comment xml:lang="en">CCO property for datetime values. Used for hasDoDateTime, hasCompletedDateTime, hasCreatedDateTime in .actions format.</rdfs:comment>
-        <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
-        <rdfs:label xml:lang="en">has datetime value</rdfs:label>
+        <rdfs:comment xml:lang="en">In this vocabulary: Parent property for hasDoDateTime, hasCompletedDateTime, hasCreatedDateTime.</rdfs:comment>
     </owl:DatatypeProperty>
     
 
@@ -395,13 +372,6 @@ In this vocabulary: Links a Plan to the Planned Acts it prescribes. One Plan can
     
 
 
-    <!-- http://purl.obolibrary.org/obo/BFO_0000019 -->
-
-    <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000019">
-        <rdfs:comment xml:lang="en">a quality is a specifically dependent continuant that, in contrast to roles and dispositions, does not require any further process in order to be realized. (axiom label in BFO2 Reference: [055-001])</rdfs:comment>
-        <rdfs:label xml:lang="en">Quality</rdfs:label>
-    </owl:Class>
-    
 
 
     <!-- https://clearhead.us/vocab/actions/v4#Charter -->
@@ -424,7 +394,7 @@ CCO has Plan and Objective but lacks a class for scope-of-concern declarations. 
     <!-- https://clearhead.us/vocab/actions/v4#Context -->
 
     <owl:Class rdf:about="https://clearhead.us/vocab/actions/v4#Context">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000019"/>
+        <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
         <rdfs:comment xml:lang="en">Context represents execution requirements following Getting Things Done (GTD) methodology. Contexts support hierarchical relationships for tag organization and inheritance. Maps to &quot;+&quot; syntax in .actions file format.</rdfs:comment>
         <rdfs:label xml:lang="en">Context</rdfs:label>
         <skos:definition xml:lang="en">A resource, location, tool, or person required for plan execution (GTD context methodology).</skos:definition>
@@ -445,11 +415,7 @@ CCO has Plan and Objective but lacks a class for scope-of-concern declarations. 
     <!-- https://www.commoncoreontologies.org/ont00000203 -->
 
     <owl:Class rdf:about="https://www.commoncoreontologies.org/ont00000203">
-        <rdfs:comment xml:lang="en">CCO: A Nominal Information Content Entity whose referent is the status of a process (e.g., proposed, approved, planned, in progress, completed, failed, or successful).
-
-In this vocabulary: Used for lifecycle status values of Planned Acts (NotStarted, InProgress, Completed, Blocked, Cancelled).</rdfs:comment>
-        <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
-        <rdfs:label xml:lang="en">Event Status Nominal Information Content Entity</rdfs:label>
+        <rdfs:comment xml:lang="en">In this vocabulary: Used for lifecycle status values of Planned Acts (NotStarted, InProgress, Completed, Blocked, Cancelled).</rdfs:comment>
     </owl:Class>
     
 
@@ -457,12 +423,7 @@ In this vocabulary: Used for lifecycle status values of Planned Acts (NotStarted
     <!-- https://www.commoncoreontologies.org/ont00000228 -->
 
     <owl:Class rdf:about="https://www.commoncoreontologies.org/ont00000228">
-        <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000832"/>
-        <rdfs:comment xml:lang="en">CCO: An Act in which at least one Agent plays a causative role and which is prescribed by some Directive Information Content Entity.
-
-In this vocabulary: Represents an action instance - the actual execution of a plan. For recurring actions, one Plan produces multiple Planned Acts.</rdfs:comment>
-        <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
-        <rdfs:label xml:lang="en">Planned Act</rdfs:label>
+        <rdfs:comment xml:lang="en">In this vocabulary: Represents an action instance - the actual execution of a plan. For recurring actions, one Plan produces multiple Planned Acts.</rdfs:comment>
     </owl:Class>
     
 
@@ -470,45 +431,27 @@ In this vocabulary: Represents an action instance - the actual execution of a pl
     <!-- https://www.commoncoreontologies.org/ont00000476 -->
 
     <owl:Class rdf:about="https://www.commoncoreontologies.org/ont00000476">
-        <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
-        <rdfs:comment xml:lang="en">CCO: A Directive Information Content Entity that prescribes some projected state of affairs that an Agent intends to realize.
-
-In this vocabulary: Represents a project or story - the desired outcome that plans work toward. Maps to the &quot;*&quot; story/project marker in the .actions file format.</rdfs:comment>
-        <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
-        <rdfs:label xml:lang="en">Objective</rdfs:label>
+        <rdfs:comment xml:lang="en">In this vocabulary: Represents a project or story - the desired outcome that plans work toward. Maps to the &quot;*&quot; story/project marker in the .actions file format.</rdfs:comment>
     </owl:Class>
     
 
 
     <!-- https://www.commoncoreontologies.org/ont00000832 -->
 
-    <owl:Class rdf:about="https://www.commoncoreontologies.org/ont00000832">
-        <rdfs:comment xml:lang="en">CCO: A Process in which an Agent plays a causative role.</rdfs:comment>
-        <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
-        <rdfs:label xml:lang="en">Act</rdfs:label>
-    </owl:Class>
+    <!-- Act (ont00000832) — no local annotations needed, fully defined by CCO via imports -->
     
 
 
     <!-- https://www.commoncoreontologies.org/ont00000965 -->
 
-    <owl:Class rdf:about="https://www.commoncoreontologies.org/ont00000965">
-        <rdfs:comment xml:lang="en">CCO: An Information Content Entity that consists of a set of propositions or images (as in the case of a blueprint) that prescribe some Entity. Parent class of Plan, Objective, and Charter.</rdfs:comment>
-        <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
-        <rdfs:label xml:lang="en">Directive Information Content Entity</rdfs:label>
-    </owl:Class>
+    <!-- Directive ICE (ont00000965) — fully defined by CCO via imports. Parent of Charter, Plan, Objective, Context -->
     
 
 
     <!-- https://www.commoncoreontologies.org/ont00000974 -->
 
     <owl:Class rdf:about="https://www.commoncoreontologies.org/ont00000974">
-        <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
-        <rdfs:comment xml:lang="en">CCO: A Directive Information Content Entity that prescribes some set of intended Intentional Acts through which some Agent expects to achieve some Objective.
-
-In this vocabulary: Represents an action definition or task template. Maps to &quot;Action&quot; in the .actions file format.</rdfs:comment>
-        <rdfs:isDefinedBy rdf:resource="https://www.commoncoreontologies.org/"/>
-        <rdfs:label xml:lang="en">Plan</rdfs:label>
+        <rdfs:comment xml:lang="en">In this vocabulary: Represents an action definition or task template. Maps to &quot;Action&quot; in the .actions file format.</rdfs:comment>
     </owl:Class>
     
 
