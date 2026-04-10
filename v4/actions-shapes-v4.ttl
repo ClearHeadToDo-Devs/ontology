@@ -14,10 +14,10 @@
 # - Plans use CCO Plan (ont00000974)
 # - Planned Acts use CCO Planned Act (ont00000228)
 # - Objectives use CCO Objective (ont00000476)
-# - Charters use actions:Charter (custom Directive ICE subclass)
+# - Charters use actions:Charter (custom Prescriptive ICE subclass)
 # - Status uses CCO Event Status Nominal ICE (ont00000203)
 # - is_measured_by_nominal (ont00001868) links acts to status
-# - inServiceOf links Directive ICEs to Objectives
+# - inServiceOf links Prescriptive ICEs to Objectives
 # - is_successor_of (ont00001775) for plan ordering
 # - prescribes (ont00001942) links Plans to Planned Acts
 #
@@ -141,10 +141,10 @@ actions:PlanAliasShape
         sh:message "Aliases must contain only alphanumeric characters, hyphens, and underscores" ;
     ] .
 
-# Validate duration is positive
+# Validate PlannedAct duration is positive
 actions:DurationPositiveShape
     a sh:NodeShape ;
-    sh:targetClass cco:ont00000974 ;
+    sh:targetClass cco:ont00000228 ;
     sh:property [
         sh:path actions:hasDurationMinutes ;
         sh:datatype xsd:integer ;
@@ -152,7 +152,7 @@ actions:DurationPositiveShape
         sh:message "Duration must be positive integer (minutes)" ;
     ] .
 
-# Validate RRULE format (basic pattern check)
+# Validate Plan RRULE format (basic pattern check)
 actions:RecurrenceRuleShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00000974 ;
@@ -163,17 +163,21 @@ actions:RecurrenceRuleShape
         sh:message "Recurrence rule must be valid RFC 5545 RRULE format starting with FREQ=" ;
     ] .
 
-# Ensure Plans with recurrence have do date (DTSTART required for RRULE)
-actions:RecurrenceRequiresDoDateShape
+# Ensure Plans with recurrence prescribe at least one scheduled act (DTSTART anchor)
+actions:RecurrenceRequiresScheduledActShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00000974 ;
     sh:sparql [
-        sh:message "Plans with recurrence rules must have hasDoDateTime (DTSTART)" ;
+        sh:message "Plans with recurrence rules must prescribe at least one PlannedAct with hasDoDateTime (DTSTART anchor)" ;
         sh:select """
             PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
+            PREFIX cco: <https://www.commoncoreontologies.org/>
             SELECT $this WHERE {
                 $this actions:hasRecurrenceRule ?rrule .
-                FILTER NOT EXISTS { $this actions:hasDoDateTime ?date }
+                FILTER NOT EXISTS {
+                    $this cco:ont00001942 ?act .
+                    ?act actions:hasDoDateTime ?date .
+                }
             }
         """ ;
     ] .

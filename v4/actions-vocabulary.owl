@@ -23,11 +23,11 @@
 intentional planning and execution.
 
 This ontology fills genuine gaps in CCO&apos;s coverage of intention information entities:
-- Charter: A Directive ICE declaring scope of directed concern (CCO has Plan and Objective but no scope class)
-- inServiceOf: A teleological relation linking Directive ICEs to the Objectives they serve (CCO lacks this)
+- Charter: A Prescriptive ICE declaring scope of directed concern (CCO has Plan and Objective but no scope class)
+- inServiceOf: A teleological relation linking Prescriptive ICEs to the Objectives they serve (CCO lacks this)
 
 CCO modules imported (via owl:imports):
-- InformationEntityOntology: Directive ICE (ont00000965), Event Status Nominal ICE (ont00000203), prescribes (ont00001942), is_measured_by_nominal (ont00001868)
+- InformationEntityOntology: Prescriptive ICE (ont00000965), Event Status Nominal ICE (ont00000203), prescribes (ont00001942), is_measured_by_nominal (ont00001868)
 - AgentOntology: Plan (ont00000974), Objective (ont00000476)
 - EventOntology: Planned Act (ont00000228), Act (ont00000832)
 
@@ -35,7 +35,7 @@ Transitively available via CCO import chain:
 - ExtendedRelationOntology: is_successor_of (ont00001775)
 - TimeOntology, GeospatialOntology, BFO 2020
 
-InformationEntityOntology is imported directly (not just transitively) because Directive ICE
+InformationEntityOntology is imported directly (not just transitively) because Prescriptive ICE
 (ont00000965) is the foundational parent class for Charter, Context, Plan, and Objective —
 all core vocabulary classes. Making this dependency explicit ensures Protégé resolves it
 correctly without relying on transitive catalog lookups.
@@ -176,11 +176,11 @@ For design rationale, see: V4_DESIGN.md</rdfs:comment>
     <owl:ObjectProperty rdf:about="https://clearhead.us/vocab/actions/v4#inServiceOf">
         <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
         <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000476"/>
-        <rdfs:comment xml:lang="en">A teleological relation filling a genuine CCO gap: CCO has prescribes (plan→act) but lacks a relation for &quot;this directive entity serves that objective.&quot; Domain is Directive ICE so both Plans and Charters can serve Objectives.
+        <rdfs:comment xml:lang="en">A teleological relation filling a genuine CCO gap: CCO has prescribes (plan→act) but lacks a relation for &quot;this prescriptive entity serves that objective.&quot; Domain is Prescriptive ICE so both Plans and Charters can serve Objectives.
 
 Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve zero objectives (standalone task) or multiple objectives.</rdfs:comment>
         <rdfs:label xml:lang="en">in service of</rdfs:label>
-        <skos:definition xml:lang="en">Relates a Directive Information Content Entity to the Objective it works toward.</skos:definition>
+        <skos:definition xml:lang="en">Relates a Prescriptive Information Content Entity to the Objective it works toward.</skos:definition>
     </owl:ObjectProperty>
     
 
@@ -188,7 +188,7 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
     <!-- https://clearhead.us/vocab/actions/v4#requiresContext -->
 
     <owl:ObjectProperty rdf:about="https://clearhead.us/vocab/actions/v4#requiresContext">
-        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
         <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v4#Context"/>
         <rdfs:comment xml:lang="en">Maps to the &quot;+&quot; syntax in the .actions file format. Context entities enable tag hierarchies and typed contexts (facilities, agents, tools, etc.).</rdfs:comment>
         <rdfs:label xml:lang="en">requires context</rdfs:label>
@@ -235,7 +235,7 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
     <!-- https://clearhead.us/vocab/actions/v4#hasAlias -->
 
     <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasAlias">
-        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000001"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <rdfs:comment xml:lang="en">Maps to the &quot;=&quot; syntax in the .actions file format. Aliases provide stable references that persist when plan names change. Must be unique within workspace scope.</rdfs:comment>
         <rdfs:label xml:lang="en">has alias</rdfs:label>
@@ -278,7 +278,7 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
         <rdfs:comment xml:lang="en">Maps to the &quot;^&quot; syntax in the .actions file format. Can be derived from UUIDv7 if not explicitly set.</rdfs:comment>
         <rdfs:label xml:lang="en">has created date time</rdfs:label>
-        <skos:definition xml:lang="en">Relates a Plan to the date/time when it was first created.</skos:definition>
+        <skos:definition xml:lang="en">Relates an entity in the action model to the date/time when it was first created.</skos:definition>
     </owl:DatatypeProperty>
     
 
@@ -287,11 +287,11 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
 
     <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasDoDateTime">
         <rdfs:subPropertyOf rdf:resource="https://www.commoncoreontologies.org/ont00001767"/>
-        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000228"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
         <rdfs:comment xml:lang="en">Maps to the &quot;@&quot; syntax in the .actions file format. Specializes CCO has datetime value for scheduling purposes.</rdfs:comment>
         <rdfs:label xml:lang="en">has do date time</rdfs:label>
-        <skos:definition xml:lang="en">Relates a Plan to the date/time when it should be executed.</skos:definition>
+        <skos:definition xml:lang="en">Relates a Planned Act to the date/time when it should be executed.</skos:definition>
     </owl:DatatypeProperty>
     
 
@@ -299,11 +299,11 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
     <!-- https://clearhead.us/vocab/actions/v4#hasDurationMinutes -->
 
     <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasDurationMinutes">
-        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000228"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:comment xml:lang="en">Maps to the &quot;D&quot; syntax in the .actions file format (D60 = 60 minutes). Used for time blocking and capacity planning.</rdfs:comment>
         <rdfs:label xml:lang="en">has duration minutes</rdfs:label>
-        <skos:definition xml:lang="en">Relates a Plan to its expected execution duration in minutes.</skos:definition>
+        <skos:definition xml:lang="en">Relates a Planned Act to its duration in minutes.</skos:definition>
     </owl:DatatypeProperty>
     
 
@@ -312,7 +312,7 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
 
     <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasPriority">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:comment xml:lang="en">Maps to the &quot;!&quot; syntax in the .actions file format. 1=Urgent+Important, 2=Important+NotUrgent, 3=Urgent+NotImportant, 4=NotUrgent+NotImportant.</rdfs:comment>
         <rdfs:label xml:lang="en">has priority</rdfs:label>
@@ -324,7 +324,7 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
     <!-- https://clearhead.us/vocab/actions/v4#hasRecurrenceRule -->
 
     <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasRecurrenceRule">
-        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000001"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <rdfs:comment xml:lang="en">Maps to the &quot;R:&quot; syntax in the .actions file format. When present, the Plan generates multiple PlannedActs according to the recurrence rule.</rdfs:comment>
         <rdfs:label xml:lang="en">has recurrence rule</rdfs:label>
@@ -354,7 +354,7 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <rdfs:comment xml:lang="en">Maps to the &quot;#&quot; syntax in the .actions file format. Provides universal uniqueness across systems and time. UUIDv7 encodes creation timestamp.</rdfs:comment>
         <rdfs:label xml:lang="en">has UUID</rdfs:label>
-        <skos:definition xml:lang="en">Relates a Plan to its unique identifier (UUIDv7 preferred).</skos:definition>
+        <skos:definition xml:lang="en">Relates an entity in the action model to its unique identifier (UUIDv7 preferred).</skos:definition>
     </owl:DatatypeProperty>
     
 
@@ -392,7 +392,7 @@ Charters contain Plans (via has_part) and Plans serve Objectives (via inServiceO
 
 CCO has Plan and Objective but lacks a class for scope-of-concern declarations. Charter fills this genuine gap.</rdfs:comment>
         <rdfs:label xml:lang="en">Charter</rdfs:label>
-        <skos:definition xml:lang="en">A Directive Information Content Entity that declares the scope of directed concern for an agent or organization.</skos:definition>
+        <skos:definition xml:lang="en">A Prescriptive Information Content Entity that declares the scope of directed concern for an agent or organization.</skos:definition>
     </owl:Class>
     
 
@@ -450,7 +450,7 @@ CCO has Plan and Objective but lacks a class for scope-of-concern declarations. 
 
     <!-- https://www.commoncoreontologies.org/ont00000965 -->
 
-    <!-- Directive ICE (ont00000965) — fully defined by CCO via imports. Parent of Charter, Plan, Objective, Context -->
+    <!-- Prescriptive ICE (ont00000965) — fully defined by CCO via imports. Parent of Charter, Plan, Objective, Context -->
     
 
 
@@ -565,4 +565,3 @@ CCO has Plan and Objective but lacks a class for scope-of-concern declarations. 
 
 
 <!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
-

@@ -20,7 +20,23 @@ from invoke.tasks import task
 import sys
 import rdflib as rdf
 from htpy import (
-    a, body, code, div, footer, h1, h2, h3, head, html, li, meta, p, pre, style, title, ul,
+    a,
+    body,
+    code,
+    div,
+    footer,
+    h1,
+    h2,
+    h3,
+    head,
+    html,
+    li,
+    meta,
+    p,
+    pre,
+    style,
+    title,
+    ul,
 )
 from markupsafe import Markup
 
@@ -108,7 +124,9 @@ def _landing_page() -> str:
         h1["Actions Vocabulary"],
         p[
             "A disciplined extension to ",
-            a(href="https://github.com/CommonCoreOntology/CommonCoreOntologies")["Common Core Ontologies"],
+            a(href="https://github.com/CommonCoreOntology/CommonCoreOntologies")[
+                "Common Core Ontologies"
+            ],
             " for modeling intentional planning and execution.",
         ],
         div(".info")[
@@ -128,28 +146,56 @@ def _landing_page() -> str:
             for fmt in FORMATS
         ],
         h2["Core Concepts"],
-        p["Three Directive ICE siblings (Charter is new, Plan and Objective are CCO):"],
+        p[
+            "Three Prescriptive ICE siblings (Charter is new, Plan and Objective are CCO):"
+        ],
         ul[
             li[Markup("<strong>Charter</strong> — Scope of directed concern")],
-            li[Markup("<strong>Plan</strong> (CCO) — Action definitions / task templates")],
-            li[Markup("<strong>Planned Act</strong> (CCO) — Action instances / executions")],
-            li[Markup("<strong>Objective</strong> (CCO) — Projects / desired outcomes")],
+            li[
+                Markup(
+                    "<strong>Plan</strong> (CCO) — Action definitions / task templates"
+                )
+            ],
+            li[
+                Markup(
+                    "<strong>Planned Act</strong> (CCO) — Action instances / executions"
+                )
+            ],
+            li[
+                Markup("<strong>Objective</strong> (CCO) — Projects / desired outcomes")
+            ],
         ],
         h2["Genuine Extensions"],
         ul[
-            li[Markup("<strong>Charter:</strong> Directive ICE declaring scope of directed concern (CCO lacks this)")],
-            li[Markup("<strong>inServiceOf:</strong> Teleological relation linking Directive ICEs to Objectives (CCO lacks this)")],
+            li[
+                Markup(
+                    "<strong>Charter:</strong> Prescriptive ICE declaring scope of directed concern (CCO lacks this)"
+                )
+            ],
+            li[
+                Markup(
+                    "<strong>inServiceOf:</strong> Teleological relation linking Prescriptive ICEs to Objectives (CCO lacks this)"
+                )
+            ],
         ],
         h2["Using the Vocabulary"],
         h3["Import in Your Ontology"],
-        pre[code[Markup(
-            '&lt;owl:Ontology rdf:about="https://example.com/my-ontology"&gt;\n'
-            '  &lt;owl:imports rdf:resource="https://clearhead.us/vocab/actions"/&gt;\n'
-            '&lt;/owl:Ontology&gt;'
-        )]],
+        pre[
+            code[
+                Markup(
+                    '&lt;owl:Ontology rdf:about="https://example.com/my-ontology"&gt;\n'
+                    '  &lt;owl:imports rdf:resource="https://clearhead.us/vocab/actions"/&gt;\n'
+                    "&lt;/owl:Ontology&gt;"
+                )
+            ]
+        ],
         h3["Load in Protege"],
         p[
-            "File ", Markup("&rarr;"), " Open from URL ", Markup("&rarr;"), " ",
+            "File ",
+            Markup("&rarr;"),
+            " Open from URL ",
+            Markup("&rarr;"),
+            " ",
             code["https://clearhead.us/vocab/actions/actions-vocabulary.owl"],
         ],
         h2["Resources"],
@@ -248,9 +294,10 @@ CLOUDFLARE_REDIRECTS = """\
 # Invoke tasks
 # ---------------------------------------------------------------------------
 
+
 @task
 def test(c):
-    """Run all SHACL validation tests """
+    """Run all SHACL validation tests"""
     c.run("pytest")
 
 
@@ -259,8 +306,8 @@ def validate_ontology_and_SHACL_syntax(c):
     """Validate ontology and SHACL shapes syntax."""
     print("Validating ontology (OWL/XML)...")
 
-    ontology = rdf.Graph().parse('v4/actions-vocabulary.owl', format='xml')
-    shapes = rdf.Graph().parse('v4/actions-shapes-v4.ttl', format='turtle')
+    ontology = rdf.Graph().parse("v4/actions-vocabulary.owl", format="xml")
+    shapes = rdf.Graph().parse("v4/actions-shapes-v4.ttl", format="turtle")
 
     if len(ontology) > 0 and len(shapes) > 0:
         print("Ontology and SHACL shapes are valid")
@@ -290,11 +337,11 @@ def build_site(c):
     # Generate RDF formats from OWL source
     print("Generating RDF formats from ontology...")
     g = rdf.Graph()
-    g.parse('v4/actions-vocabulary.owl', format='xml')
-    g.serialize('site/vocab/actions/actions-vocabulary.ttl', format='turtle')
-    g.serialize('site/vocab/actions/actions-vocabulary.rdf', format='xml')
-    g.serialize('site/vocab/actions/actions-vocabulary.jsonld', format='json-ld')
-    print('Generated Turtle, RDF/XML, and JSON-LD formats')
+    g.parse("v4/actions-vocabulary.owl", format="xml")
+    g.serialize("site/vocab/actions/actions-vocabulary.ttl", format="turtle")
+    g.serialize("site/vocab/actions/actions-vocabulary.rdf", format="xml")
+    g.serialize("site/vocab/actions/actions-vocabulary.jsonld", format="json-ld")
+    print("Generated Turtle, RDF/XML, and JSON-LD formats")
 
     # Copy OWL ontology (canonical format)
     c.run("cp v4/actions-vocabulary.owl site/vocab/actions/")
@@ -333,7 +380,9 @@ def serve_local(c, port=8000):
     print(f"Visit: http://localhost:{port}")
     print("Test content negotiation with curl:")
     print(f"   curl -H 'Accept: text/turtle' http://localhost:{port}/vocab/actions/")
-    print(f"   curl -H 'Accept: application/json' http://localhost:{port}/vocab/actions/")
+    print(
+        f"   curl -H 'Accept: application/json' http://localhost:{port}/vocab/actions/"
+    )
     print("\nPress Ctrl+C to stop")
 
     try:
@@ -363,7 +412,9 @@ def test_content_negotiation(c):
             hide=True,
         )
         if result.ok:
-            print(f"    {description}: {result.stdout.split()[-1] if result.stdout else 'OK'}")
+            print(
+                f"    {description}: {result.stdout.split()[-1] if result.stdout else 'OK'}"
+            )
         else:
             print(f"    FAIL {description}")
 

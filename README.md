@@ -11,10 +11,10 @@ The Actions Vocabulary v4 is a **CCO Extension for Intention Information Entitie
 
 ## Core Concepts
 
-The core is three CCO Directive ICE siblings:
+The core is three CCO Prescriptive ICE siblings:
 
 ```
-Directive ICE (CCO ont00000965)
+Prescriptive ICE (CCO ont00000965)
 ├── Charter (actions:Charter)     — declares scope of directed concern
 ├── Plan (CCO ont00000974)        — prescribes intended acts
 └── Objective (CCO ont00000476)   — prescribes desired states
@@ -64,7 +64,7 @@ Event Status Nominal ICE (CCO ont00000203)
 
 | Property | Source | Domain → Range | Purpose |
 |----------|--------|----------------|---------|
-| `inServiceOf` | Custom | Directive ICE → Objective | Teleological linkage |
+| `inServiceOf` | Custom | Prescriptive ICE → Objective | Teleological linkage |
 | `is_measured_by_nominal` | CCO | Planned Act → Event Status | Status tracking |
 | `is_successor_of` | CCO | Plan → Plan | Dependency ordering |
 | `prescribes` | CCO | Plan → Planned Act | Links definition to execution |

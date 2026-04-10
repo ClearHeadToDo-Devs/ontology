@@ -27,6 +27,9 @@
           "enum": ["Plan", "PlannedAct", "Objective", "Charter", "Context", "ContextType"]
         },
         "name": {"type": "string"},
+        "description": {"type": "string"},
+        "uuid": {"type": "string"},
+        "alias": {"type": "string"},
         "inServiceOf": {
           "oneOf": [
             {"type": "string"},
@@ -56,6 +59,38 @@
           ]
         },
         "isSuccessorOf": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "array", "items": {"type": "string"}}
+          ]
+        },
+        "priority": {"type": "integer"},
+        "sequentialChildren": {"type": "boolean"},
+        "recurrence": {"type": "string"},
+        "durationMinutes": {"type": "integer"},
+        "doDate": {"type": "string", "format": "date-time"},
+        "completedDate": {"type": "string", "format": "date-time"},
+        "createdDate": {"type": "string", "format": "date-time"},
+        "context": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "array", "items": {"type": "string"}}
+          ]
+        },
+        "contextType": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "array", "items": {"type": "string"}}
+          ]
+        },
+        "contextIdentifier": {"type": "string"},
+        "contextBroader": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "array", "items": {"type": "string"}}
+          ]
+        },
+        "contextNarrower": {
           "oneOf": [
             {"type": "string"},
             {"type": "array", "items": {"type": "string"}}

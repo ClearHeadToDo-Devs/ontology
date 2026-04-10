@@ -71,6 +71,7 @@
 
 <urn:uuid:act-research-001> a cco:ont00000228 ;
     cco:ont00001868 actions:Completed ;
+    actions:hasDurationMinutes 150 ;
     actions:hasCompletedDateTime "2025-01-15T12:30:00Z"^^xsd:dateTime .
 
 # =====================================================
@@ -84,8 +85,6 @@
     actions:hasPriority 1 ;
     actions:requiresContext <urn:context:computer> , <urn:context:work> ;
     actions:hasAlias "extend-ontology" ;
-    actions:hasDoDateTime "2025-01-16T09:00:00Z"^^xsd:dateTime ;
-    actions:hasDurationMinutes 120 ;
     cco:ont00001775 <urn:uuid:12345678-1234-1234-1234-123456789abc> ;  # is_successor_of (depends on research)
     bfo:BFO_0000050 <urn:charter:work/clearhead> ;  # partOf Charter
     bfo:BFO_0000051 <urn:uuid:add-properties> ;  # hasPart
@@ -93,7 +92,9 @@
     cco:ont00001942 <urn:uuid:act-extend-001> .
 
 <urn:uuid:act-extend-001> a cco:ont00000228 ;
-    cco:ont00001868 actions:InProgress .
+    cco:ont00001868 actions:InProgress ;
+    actions:hasDoDateTime "2025-01-16T09:00:00Z"^^xsd:dateTime ;
+    actions:hasDurationMinutes 120 .
 
 # Child Plan 1
 <urn:uuid:add-properties> a cco:ont00000974 ;
@@ -123,7 +124,6 @@
     actions:inServiceOf <urn:objective:work/clearhead/v4-migration> ;
     actions:hasPriority 2 ;
     actions:requiresContext <urn:context:computer> ;
-    actions:hasDoDateTime "2025-01-17T09:00:00Z"^^xsd:dateTime ;
     actions:hasRecurrenceRule "FREQ=DAILY;COUNT=5" ;
     cco:ont00001775 <urn:uuid:extend-ontology> ;  # is_successor_of (depends on extend-ontology)
     bfo:BFO_0000050 <urn:charter:work/clearhead> ;  # partOf Charter
@@ -133,7 +133,8 @@
 
 # Multiple PlannedActs for recurring task
 <urn:uuid:act-examples-001> a cco:ont00000228 ;
-    cco:ont00001868 actions:NotStarted .
+    cco:ont00001868 actions:NotStarted ;
+    actions:hasDoDateTime "2025-01-17T09:00:00Z"^^xsd:dateTime .
 
 <urn:uuid:act-examples-002> a cco:ont00000228 ;
     cco:ont00001868 actions:NotStarted .

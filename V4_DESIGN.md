@@ -17,12 +17,12 @@ Rather than wrapping CCO concepts in domain-specific classes, v4 **reuses CCO di
 3. **SHACL for data quality** — use shapes for application-level constraints, not OWL axioms
 4. **Separate information from process** — Plans are continuants, Planned Acts are occurrents
 
-## The Directive ICE Family
+## The Prescriptive ICE Family
 
-All three core classes are siblings under CCO's `Directive Information Content Entity` (ont00000965):
+All three core classes are siblings under CCO's `Prescriptive Information Content Entity` (ont00000965):
 
 ```
-Directive ICE (CCO ont00000965)
+Prescriptive ICE (CCO ont00000965)
 ├── Charter (actions:Charter)     — declares scope of directed concern
 ├── Plan (CCO ont00000974)        — prescribes intended acts
 └── Objective (CCO ont00000476)   — prescribes desired states
@@ -30,7 +30,7 @@ Directive ICE (CCO ont00000965)
 
 ### Charter (NEW — `actions:Charter`)
 
-A **Charter** is a Directive ICE that declares the scope of directed concern for an agent or organization. It answers "what domain am I responsible for?" without prescribing specific acts or outcomes.
+A **Charter** is a Prescriptive ICE that declares the scope of directed concern for an agent or organization. It answers "what domain am I responsible for?" without prescribing specific acts or outcomes.
 
 **Why Charter is a genuine extension:**
 - CCO has Plan (prescribes acts) and Objective (prescribes states)
@@ -40,11 +40,11 @@ A **Charter** is a Directive ICE that declares the scope of directed concern for
 
 ### Plan (CCO ont00000974)
 
-A Directive ICE that prescribes some set of intended Intentional Acts. Used directly from CCO — represents task definitions/templates.
+A Prescriptive ICE that prescribes some set of intended Intentional Acts. Used directly from CCO — represents task definitions/templates.
 
 ### Objective (CCO ont00000476)
 
-A Directive ICE that prescribes some projected state of affairs. Used directly from CCO — represents projects/desired outcomes.
+A Prescriptive ICE that prescribes some projected state of affairs. Used directly from CCO — represents projects/desired outcomes.
 
 ## The Charter → Plan → PlannedAct Pipeline
 
@@ -80,13 +80,13 @@ This is better because:
 
 **Previous (v4.0.0):** `hasObjective` — named the range in the property (anti-pattern in ontology design).
 
-**Problem:** CCO lacks a general teleological relation connecting a Directive ICE to the Objective it serves. `prescribes` connects to acts, not outcomes. There is no CCO property for "this Plan exists in service of that Objective."
+**Problem:** CCO lacks a general teleological relation connecting a Prescriptive ICE to the Objective it serves. `prescribes` connects to acts, not outcomes. There is no CCO property for "this Plan exists in service of that Objective."
 
-**Resolution:** `inServiceOf` is a custom property with domain `Directive ICE` and range `Objective`. It fills a genuine gap: the teleological relation between any directive entity and the objective it works toward.
+**Resolution:** `inServiceOf` is a custom property with domain `Prescriptive ICE` and range `Objective`. It fills a genuine gap: the teleological relation between any prescriptive entity and the objective it works toward.
 
 This is better because:
 - Property names should not encode the range type
-- Domain is Directive ICE (not just Plan), so Charters can also serve Objectives
+- Domain is Prescriptive ICE (not just Plan), so Charters can also serve Objectives
 - "In service of" captures the teleological nature of the relationship
 
 ## `is_successor_of`: Replacing `dependsOn`
@@ -104,7 +104,7 @@ Plans are contained within Charters via BFO's `part_of` (BFO_0000050). This is n
 ### CCO Reuse (by reference)
 | Entity | CCO IRI | Role |
 |--------|---------|------|
-| Directive ICE | ont00000965 | Parent class |
+| Prescriptive ICE | ont00000965 | Parent class |
 | Plan | ont00000974 | Task definitions |
 | Objective | ont00000476 | Desired outcomes |
 | Planned Act | ont00000228 | Task executions |
@@ -130,7 +130,9 @@ These are pragmatic additions for the .actions file format, not ontological clai
 | Context / ContextType | GTD execution contexts (facility, agent, tool, category) |
 | Status individuals | NotStarted, InProgress, Completed, Blocked, Cancelled |
 | Temporal sub-properties | hasDoDateTime, hasCompletedDateTime, hasCreatedDateTime |
-| Data properties | hasUUID, hasAlias, hasPriority, hasDurationMinutes, hasRecurrenceRule, hasSequentialChildren |
+| Data properties | hasUUID, hasAlias, hasPriority, hasRecurrenceRule, hasSequentialChildren |
+
+`hasDurationMinutes` now belongs on `PlannedAct`, not `Plan`. The DSL still permits duration shorthand on an action line, but the semantic model materializes that shorthand onto the initial planned act for the plan.
 | Context properties | requiresContext, hasContextType, contextBroader/Narrower, hasContextIdentifier |
 
 ## Version History
