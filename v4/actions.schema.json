@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://clearhead.us/vocab/actions/v4/actions.schema.json",
-  "title": "Actions Vocabulary v4.1.0 (Ontology-Out)",
+  "title": "Actions Vocabulary v4.3.0 (Ontology-Out)",
   "type": "object",
   "properties": {
     "@context": {
@@ -24,7 +24,7 @@
         "id": {"type": "string"},
         "type": {
           "type": "string",
-          "enum": ["Plan", "PlannedAct", "Objective", "Charter", "Context", "ContextType"]
+          "enum": ["Plan", "PlannedAct", "Objective", "Charter"]
         },
         "name": {"type": "string"},
         "description": {"type": "string"},
@@ -36,7 +36,13 @@
             {"type": "array", "items": {"type": "string"}}
           ]
         },
-        "execution": {
+        "plannedActs": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "array", "items": {"type": "string"}}
+          ]
+        },
+        "subCharters": {
           "oneOf": [
             {"type": "string"},
             {"type": "array", "items": {"type": "string"}}
@@ -52,12 +58,6 @@
             {"type": "array", "items": {"type": "string"}}
           ]
         },
-        "hasPart": {
-          "oneOf": [
-            {"type": "string"},
-            {"type": "array", "items": {"type": "string"}}
-          ]
-        },
         "isSuccessorOf": {
           "oneOf": [
             {"type": "string"},
@@ -67,35 +67,12 @@
         "priority": {"type": "integer"},
         "sequentialChildren": {"type": "boolean"},
         "recurrence": {"type": "string"},
+        "dueRecurrence": {"type": "string"},
         "durationMinutes": {"type": "integer"},
-        "doDate": {"type": "string", "format": "date-time"},
+        "scheduledAt": {"type": "string", "format": "date-time"},
+        "dueDate": {"type": "string", "format": "date-time"},
         "completedDate": {"type": "string", "format": "date-time"},
-        "createdDate": {"type": "string", "format": "date-time"},
-        "context": {
-          "oneOf": [
-            {"type": "string"},
-            {"type": "array", "items": {"type": "string"}}
-          ]
-        },
-        "contextType": {
-          "oneOf": [
-            {"type": "string"},
-            {"type": "array", "items": {"type": "string"}}
-          ]
-        },
-        "contextIdentifier": {"type": "string"},
-        "contextBroader": {
-          "oneOf": [
-            {"type": "string"},
-            {"type": "array", "items": {"type": "string"}}
-          ]
-        },
-        "contextNarrower": {
-          "oneOf": [
-            {"type": "string"},
-            {"type": "array", "items": {"type": "string"}}
-          ]
-        }
+        "createdDate": {"type": "string", "format": "date-time"}
       },
       "required": ["id", "type"],
       "additionalProperties": true,

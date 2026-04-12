@@ -6,18 +6,25 @@
       "type": "Charter",
       "name": "Grocery Shopping",
       "inServiceOf": "urn:objective:groceries",
-      "hasPart": "urn:uuid:plan-1"
+      "subCharters": "urn:charter:groceries/fresh"
+    },
+    {
+      "id": "urn:charter:groceries/fresh",
+      "type": "Charter",
+      "name": "Fresh Foods"
     },
     {
       "id": "urn:uuid:plan-1",
       "type": "Plan",
       "name": "Buy milk",
       "partOf": "urn:charter:groceries",
-      "execution": "urn:uuid:act-1"
+      "plannedActs": "urn:uuid:act-1"
     },
     {
       "id": "urn:uuid:act-1",
       "type": "PlannedAct",
+      "scheduledAt": "2026-04-10T00:00:00Z",
+      "dueDate": "2026-04-11T00:00:00Z",
       "completedDate": "2026-04-10T00:00:00Z",
       "durationMinutes": 15,
       "status": "https://clearhead.us/vocab/actions/v4#Completed"

@@ -1,5 +1,5 @@
 # CCO Extension for Intention Information Entities
-**Current Version**: 4.1.0 (Current)
+**Current Version**: 4.3.0 (Current)
 **Namespace**: `https://clearhead.us/vocab/actions/v4#`
 **Status**: Current
 
@@ -78,7 +78,12 @@ See **[V4_DESIGN.md](./V4_DESIGN.md)** for the full design rationale.
 
 ## Version History
 
-- **v4.1.0** (Current) - CCO Extension for Intention Information Entities
+- **v4.3.0** (Current) - CCO Extension for Intention Information Entities
+  - Added `hasScheduledDateTime`, `hasDueDateTime`, `hasDueRecurrenceRule`, `hasSubCharter`
+  - Clarified act-level scheduling/due semantics and charter hierarchy
+  - See: [v4/ONTOLOGY_OUT_CONTRACT.md](./v4/ONTOLOGY_OUT_CONTRACT.md)
+
+- **v4.1.0** (Previous) - CCO Extension for Intention Information Entities
   - Added Charter class, `inServiceOf` property
   - Replaced ActPhase with CCO Event Status Nominal ICE
   - Replaced `hasObjective` with `inServiceOf`, `hasPhase` with `is_measured_by_nominal`, `dependsOn` with `is_successor_of`

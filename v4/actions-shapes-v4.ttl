@@ -6,11 +6,11 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 #################################################################
-#    SHACL Shapes for Actions Vocabulary v4.1.0
+#    SHACL Shapes for Actions Vocabulary v4.3.0
 #    CCO Extension for Intention Information Entities
 #################################################################
 #
-# These shapes validate the v4.1.0 model:
+# These shapes validate the v4.3.0 model:
 # - Plans use CCO Plan (ont00000974)
 # - Planned Acts use CCO Planned Act (ont00000228)
 # - Objectives use CCO Objective (ont00000476)
@@ -163,12 +163,34 @@ actions:RecurrenceRuleShape
         sh:message "Recurrence rule must be valid RFC 5545 RRULE format starting with FREQ=" ;
     ] .
 
+# Validate Plan due RRULE format (basic pattern check)
+actions:DueRecurrenceRuleShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000974 ;
+    sh:property [
+        sh:path actions:hasDueRecurrenceRule ;
+        sh:datatype xsd:string ;
+        sh:pattern "^FREQ=(SECONDLY|MINUTELY|HOURLY|DAILY|WEEKLY|MONTHLY|YEARLY)(;.*)?$" ;
+        sh:message "Due recurrence rule must be valid RFC 5545 RRULE format starting with FREQ=" ;
+    ] .
+
+# Validate PlannedAct due date datatype
+actions:DueDateTimeShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000228 ;
+    sh:property [
+        sh:path actions:hasDueDateTime ;
+        sh:datatype xsd:dateTime ;
+        sh:maxCount 1 ;
+        sh:message "PlannedAct hasDueDateTime must be a single xsd:dateTime value" ;
+    ] .
+
 # Ensure Plans with recurrence prescribe at least one scheduled act (DTSTART anchor)
 actions:RecurrenceRequiresScheduledActShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00000974 ;
     sh:sparql [
-        sh:message "Plans with recurrence rules must prescribe at least one PlannedAct with hasDoDateTime (DTSTART anchor)" ;
+        sh:message "Plans with recurrence rules must prescribe at least one PlannedAct with hasScheduledDateTime (DTSTART anchor)" ;
         sh:select """
             PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
             PREFIX cco: <https://www.commoncoreontologies.org/>
@@ -176,8 +198,22 @@ actions:RecurrenceRequiresScheduledActShape
                 $this actions:hasRecurrenceRule ?rrule .
                 FILTER NOT EXISTS {
                     $this cco:ont00001942 ?act .
-                    ?act actions:hasDoDateTime ?date .
+                    ?act actions:hasScheduledDateTime ?date .
                 }
+            }
+        """ ;
+    ] .
+
+# Prevent circular charter hierarchies
+actions:NoCircularCharterHierarchyShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Charter ;
+    sh:sparql [
+        sh:message "Charters cannot have circular hasSubCharter hierarchies" ;
+        sh:select """
+            PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
+            SELECT $this WHERE {
+                $this actions:hasSubCharter+ $this .
             }
         """ ;
     ] .
@@ -208,20 +244,6 @@ actions:ContextIdentifierShape
         sh:message "Context identifiers must contain only alphanumeric characters, hyphens, underscores, and @ symbols" ;
     ] .
 
-# Prevent circular context hierarchies
-actions:NoCircularContextHierarchyShape
-    a sh:NodeShape ;
-    sh:targetClass actions:Context ;
-    sh:sparql [
-        sh:message "Contexts cannot have circular hierarchies" ;
-        sh:select """
-            PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
-            SELECT $this WHERE {
-                $this actions:contextBroader+ $this .
-            }
-        """ ;
-    ] .
-
 # Constrain is_successor_of domain to Plans (pragmatic SHACL constraint)
 actions:SuccessorDomainShape
     a sh:NodeShape ;
@@ -230,5 +252,5 @@ actions:SuccessorDomainShape
     sh:message "is_successor_of should only be used between Plan instances in this vocabulary" .
 
 #################################################################
-#    End of SHACL Shapes for Actions Vocabulary v4.1.0
+#    End of SHACL Shapes for Actions Vocabulary v4.3.0
 #################################################################

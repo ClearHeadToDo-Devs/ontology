@@ -1,6 +1,6 @@
 # V4 Design: CCO Extension for Intention Information Entities
 
-**Version**: 4.1.0
+**Version**: 4.3.0
 **Date**: 2026-02-07
 **Status**: Current
 
@@ -129,7 +129,7 @@ These are pragmatic additions for the .actions file format, not ontological clai
 |--------|-------|
 | Context / ContextType | GTD execution contexts (facility, agent, tool, category) |
 | Status individuals | NotStarted, InProgress, Completed, Blocked, Cancelled |
-| Temporal sub-properties | hasDoDateTime, hasCompletedDateTime, hasCreatedDateTime |
+| Temporal sub-properties | hasScheduledDateTime, hasDueDateTime, hasCompletedDateTime, hasCreatedDateTime |
 | Data properties | hasUUID, hasAlias, hasPriority, hasRecurrenceRule, hasSequentialChildren |
 
 `hasDurationMinutes` now belongs on `PlannedAct`, not `Plan`. The DSL still permits duration shorthand on an action line, but the semantic model materializes that shorthand onto the initial planned act for the plan.
@@ -137,5 +137,6 @@ These are pragmatic additions for the .actions file format, not ontological clai
 
 ## Version History
 
+- **4.3.0** — adds hasScheduledDateTime/hasDueDateTime/hasDueRecurrenceRule, adds hasSubCharter, aligns recurrence and scheduling semantics to PlannedAct
 - **4.1.0** — Charter class, inServiceOf property, Event Status Nominal ICE, is_successor_of
 - **4.0.0** — Initial minimal CCO extension (ActPhase, hasObjective, hasPhase, dependsOn)
