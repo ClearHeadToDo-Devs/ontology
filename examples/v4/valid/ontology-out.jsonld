@@ -18,6 +18,7 @@
       "type": "Plan",
       "name": "Buy milk",
       "partOf": "urn:charter:groceries",
+      "requiresContext": ["urn:context:errands", "urn:context:grocery-store"],
       "plannedActs": "urn:uuid:act-1"
     },
     {
@@ -33,6 +34,25 @@
       "id": "urn:objective:groceries",
       "type": "Objective",
       "name": "groceries"
+    },
+    {
+      "id": "urn:context:errands",
+      "type": "Context",
+      "name": "Errands",
+      "contextIdentifier": "errands"
+    },
+    {
+      "id": "urn:context:grocery-store",
+      "type": "Context",
+      "name": "Grocery Store",
+      "contextIdentifier": "@grocery-store",
+      "contextBroader": "urn:context:errands",
+      "contextType": "urn:context-type:facility"
+    },
+    {
+      "id": "urn:context-type:facility",
+      "type": "ContextType",
+      "name": "Facility"
     }
   ]
 }

@@ -244,6 +244,20 @@ actions:ContextIdentifierShape
         sh:message "Context identifiers must contain only alphanumeric characters, hyphens, underscores, and @ symbols" ;
     ] .
 
+# Prevent circular context hierarchies
+actions:NoCircularContextHierarchyShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Context ;
+    sh:sparql [
+        sh:message "Contexts cannot have circular hierarchies" ;
+        sh:select """
+            PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
+            SELECT $this WHERE {
+                $this actions:contextBroader+ $this .
+            }
+        """ ;
+    ] .
+
 # Constrain is_successor_of domain to Plans (pragmatic SHACL constraint)
 actions:SuccessorDomainShape
     a sh:NodeShape ;

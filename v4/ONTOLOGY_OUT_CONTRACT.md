@@ -4,24 +4,20 @@ This document defines the canonical compacted JSON-LD contract for ontology-out 
 
 ## Canonical Scope
 
-The canonical seam includes only:
+The canonical seam includes:
 
 1. `Charter`
 2. `Plan`
 3. `PlannedAct`
 4. `Objective`
+5. `Context`
+6. `ContextType`
 
 This shape is graph-derived, deterministic, and stable for downstream consumers.
 
-## Deferred Scope
+Context is first-class in the canonical ontology-out contract.
 
-`Context` and `ContextType` are intentionally deferred from the canonical export for now.
-
-Rationale:
-
-1. Context is modeled in ontology source, but not yet first-class in core export semantics.
-2. Deferring avoids over-promising support at the contract seam.
-3. We can add context later as an explicit contract revision.
+`ContextType` remains optional in payloads while type taxonomy stabilizes.
 
 ## Canonical Node Fields
 
@@ -43,6 +39,7 @@ Rationale:
 - `plannedActs`
 - `isSuccessorOf`
 - `inServiceOf`
+- `requiresContext`
 - `uuid`
 - `alias`
 - `priority`
@@ -64,11 +61,25 @@ Rationale:
 - `name`
 - `description`
 
+### Context
+
+- `contextIdentifier` (required)
+- `contextType` (optional)
+- `contextBroader` (optional)
+- `contextNarrower` (optional)
+
+### ContextType
+
+- `name`
+- `description`
+
 ## Notes
 
 1. Scheduling and due semantics are act-level (`scheduledAt`, `dueDate`), not plan-level.
 2. Recurrence semantics are plan-level (`recurrence`, optional `dueRecurrence`) and anchor into acts via scheduled instances.
 3. `subCharters` is preferred over generic `hasPart` for charter hierarchy.
+4. Context hierarchy is canonical and represented via `contextBroader` / `contextNarrower`.
+5. Context typing is supported but optional while type catalog semantics are still evolving.
 
 ## Example
 
