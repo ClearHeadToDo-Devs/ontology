@@ -69,6 +69,8 @@ Event Status Nominal ICE (CCO ont00000203)
 | `is_successor_of` | CCO | Plan → Plan | Dependency ordering |
 | `prescribes` | CCO | Plan → Planned Act | Links definition to execution |
 | `part_of` | BFO | Plan → Plan/Charter | Hierarchy |
+| `hasExternalScheduleId` | Custom | Planned Act → string | Optional external schedule-series linkage |
+| `hasExternalOccurrenceKey` | Custom | Planned Act → string | Optional external occurrence linkage |
 
 ## Why This Design?
 

@@ -89,14 +89,22 @@
                      "@id": "actions:hasCompletedDateTime",
                      "@type": "xsd:dateTime"
               },
-              "createdDate": {
-                     "@id": "actions:hasCreatedDateTime",
-                     "@type": "xsd:dateTime"
-              },
-              "contextType": {
-                     "@id": "actions:hasContextType",
-                     "@type": "@id"
-              },
+               "createdDate": {
+                      "@id": "actions:hasCreatedDateTime",
+                      "@type": "xsd:dateTime"
+               },
+               "externalScheduleId": {
+                      "@id": "actions:hasExternalScheduleId",
+                      "@type": "xsd:string"
+               },
+               "externalOccurrenceKey": {
+                      "@id": "actions:hasExternalOccurrenceKey",
+                      "@type": "xsd:string"
+               },
+               "contextType": {
+                      "@id": "actions:hasContextType",
+                      "@type": "@id"
+               },
               "contextIdentifier": {
                      "@id": "actions:hasContextIdentifier",
                      "@type": "xsd:string"

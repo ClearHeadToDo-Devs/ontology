@@ -185,6 +185,23 @@ actions:DueDateTimeShape
         sh:message "PlannedAct hasDueDateTime must be a single xsd:dateTime value" ;
     ] .
 
+# Validate optional external schedule identity bridge fields
+actions:ExternalIdentityShape
+    a sh:NodeShape ;
+    sh:targetClass cco:ont00000228 ;
+    sh:property [
+        sh:path actions:hasExternalScheduleId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "PlannedAct hasExternalScheduleId must be a single string when present" ;
+    ] ;
+    sh:property [
+        sh:path actions:hasExternalOccurrenceKey ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "PlannedAct hasExternalOccurrenceKey must be a single string when present" ;
+    ] .
+
 # Ensure Plans with recurrence prescribe at least one scheduled act (DTSTART anchor)
 actions:RecurrenceRequiresScheduledActShape
     a sh:NodeShape ;

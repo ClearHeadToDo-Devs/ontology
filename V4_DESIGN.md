@@ -131,6 +131,7 @@ These are pragmatic additions for the .actions file format, not ontological clai
 | Status individuals | NotStarted, InProgress, Completed, Blocked, Cancelled |
 | Temporal sub-properties | hasScheduledDateTime, hasDueDateTime, hasCompletedDateTime, hasCreatedDateTime |
 | Data properties | hasUUID, hasAlias, hasPriority, hasRecurrenceRule, hasSequentialChildren |
+| External identity bridge | hasExternalScheduleId, hasExternalOccurrenceKey |
 
 `hasDurationMinutes` now belongs on `PlannedAct`, not `Plan`. The DSL still permits duration shorthand on an action line, but the semantic model materializes that shorthand onto the initial planned act for the plan.
 | Context properties | requiresContext, hasContextType, contextBroader/Narrower, hasContextIdentifier |

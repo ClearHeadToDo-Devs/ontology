@@ -55,6 +55,8 @@ Context is first-class in the canonical ontology-out contract.
 - `dueDate`
 - `completedDate`
 - `durationMinutes`
+- `externalScheduleId` (optional)
+- `externalOccurrenceKey` (optional)
 
 ### Objective
 
@@ -80,6 +82,7 @@ Context is first-class in the canonical ontology-out contract.
 3. `subCharters` is preferred over generic `hasPart` for charter hierarchy.
 4. Context hierarchy is canonical and represented via `contextBroader` / `contextNarrower`.
 5. Context typing is supported but optional while type catalog semantics are still evolving.
+6. External schedule linkage is optional and source-agnostic: `externalScheduleId` (series) and `externalOccurrenceKey` (instance).
 
 ## Example
 
