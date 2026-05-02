@@ -12,31 +12,31 @@
 #
 # These shapes validate the v4.3.0 model:
 # - Plans use CCO Plan (ont00000974)
-# - Planned Acts use CCO Planned Act (ont00000228)
+# - Actions use actions:Action / CCO Planned Act (ont00000228)
 # - Objectives use CCO Objective (ont00000476)
 # - Charters use actions:Charter (custom Prescriptive ICE subclass)
 # - Status uses CCO Event Status Nominal ICE (ont00000203)
 # - is_measured_by_nominal (ont00001868) links acts to status
 # - inServiceOf links Prescriptive ICEs to Objectives
 # - is_successor_of (ont00001775) for plan ordering
-# - prescribes (ont00001942) links Plans to Planned Acts
+# - prescribes (ont00001942) links Plans to Actions
 #
 #################################################################
 
 #################################################################
-#    Planned Act Shapes
+#    Action Shapes
 #################################################################
 
-actions:PlannedActStatusShape
+actions:ActionStatusShape
     a sh:NodeShape ;
-    sh:targetClass cco:ont00000228 ;
+    sh:targetClass actions:Action ;
     sh:property [
         sh:path cco:ont00001868 ;
         sh:class cco:ont00000203 ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:in ( actions:NotStarted actions:InProgress actions:Completed actions:Blocked actions:Cancelled ) ;
-        sh:message "Planned Act must have exactly one status via is_measured_by_nominal (NotStarted, InProgress, Completed, Blocked, Cancelled)" ;
+        sh:message "Action must have exactly one status via is_measured_by_nominal (NotStarted, InProgress, Completed, Blocked, Cancelled)" ;
     ] .
 
 #################################################################
@@ -49,8 +49,8 @@ actions:PlanPrescribesShape
     sh:targetClass cco:ont00000974 ;
     sh:property [
         sh:path cco:ont00001942 ;
-        sh:class cco:ont00000228 ;
-        sh:message "Plan prescribes targets must be CCO Planned Act instances" ;
+        sh:class actions:Action ;
+        sh:message "Plan prescribes targets must be Action instances" ;
     ] .
 
 #################################################################
@@ -113,12 +113,12 @@ actions:NoCyclicDependenciesShape
         """ ;
     ] .
 
-# Validate completion date logic (completed acts should have completion date)
+# Validate completion date logic (completed actions should have completion date)
 actions:CompletedActDateShape
     a sh:NodeShape ;
-    sh:targetClass cco:ont00000228 ;
+    sh:targetClass actions:Action ;
     sh:sparql [
-        sh:message "PlannedActs with status=Completed should have hasCompletedDateTime" ;
+        sh:message "Actions with status=Completed should have hasCompletedDateTime" ;
         sh:select """
             PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
             PREFIX cco: <https://www.commoncoreontologies.org/>
@@ -141,10 +141,10 @@ actions:PlanAliasShape
         sh:message "Aliases must contain only alphanumeric characters, hyphens, and underscores" ;
     ] .
 
-# Validate PlannedAct duration is positive
+# Validate Action duration is positive
 actions:DurationPositiveShape
     a sh:NodeShape ;
-    sh:targetClass cco:ont00000228 ;
+    sh:targetClass actions:Action ;
     sh:property [
         sh:path actions:hasDurationMinutes ;
         sh:datatype xsd:integer ;
@@ -174,15 +174,15 @@ actions:DueRecurrenceRuleShape
         sh:message "Due recurrence rule must be valid RFC 5545 RRULE format starting with FREQ=" ;
     ] .
 
-# Validate PlannedAct due date datatype
+# Validate Action due date datatype
 actions:DueDateTimeShape
     a sh:NodeShape ;
-    sh:targetClass cco:ont00000228 ;
+    sh:targetClass actions:Action ;
     sh:property [
         sh:path actions:hasDueDateTime ;
         sh:datatype xsd:dateTime ;
         sh:maxCount 1 ;
-        sh:message "PlannedAct hasDueDateTime must be a single xsd:dateTime value" ;
+        sh:message "Action hasDueDateTime must be a single xsd:dateTime value" ;
     ] .
 
 # Ensure Plans with recurrence prescribe at least one scheduled act (DTSTART anchor)
@@ -190,7 +190,7 @@ actions:RecurrenceRequiresScheduledActShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00000974 ;
     sh:sparql [
-        sh:message "Plans with recurrence rules must prescribe at least one PlannedAct with hasScheduledDateTime (DTSTART anchor)" ;
+        sh:message "Plans with recurrence rules must prescribe at least one Action with hasScheduledDateTime (DTSTART anchor)" ;
         sh:select """
             PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
             PREFIX cco: <https://www.commoncoreontologies.org/>

@@ -66,12 +66,12 @@ For design rationale, see: V4_DESIGN.md"""@en ;
 :Blocked a owl:NamedIndividual,
         cco:ont00000203 ;
     rdfs:label "Blocked"@en ;
-    rdfs:comment "The Planned Act cannot proceed due to an external dependency or blocker. File format: [=]"@en .
+    rdfs:comment "The Action cannot proceed due to an external dependency or blocker. File format: [=]"@en .
 
 :Cancelled a owl:NamedIndividual,
         cco:ont00000203 ;
     rdfs:label "Cancelled"@en ;
-    rdfs:comment "The Planned Act was abandoned without completion. Terminal state. File format: [_]"@en .
+    rdfs:comment "The Action was abandoned without completion. Terminal state. File format: [_]"@en .
 
 :CategoryContextType a owl:NamedIndividual,
         :ContextType ;
@@ -81,7 +81,7 @@ For design rationale, see: V4_DESIGN.md"""@en ;
 :Completed a owl:NamedIndividual,
         cco:ont00000203 ;
     rdfs:label "Completed"@en ;
-    rdfs:comment "The Planned Act finished successfully. Terminal state. File format: [x]"@en .
+    rdfs:comment "The Action finished successfully. Terminal state. File format: [x]"@en .
 
 :FacilityContextType a owl:NamedIndividual,
         :ContextType ;
@@ -91,12 +91,12 @@ For design rationale, see: V4_DESIGN.md"""@en ;
 :InProgress a owl:NamedIndividual,
         cco:ont00000203 ;
     rdfs:label "In Progress"@en ;
-    rdfs:comment "The Planned Act is currently being executed. File format: [-]"@en .
+    rdfs:comment "The Action is currently being executed. File format: [-]"@en .
 
 :NotStarted a owl:NamedIndividual,
         cco:ont00000203 ;
     rdfs:label "Not Started"@en ;
-    rdfs:comment "The Planned Act has not begun execution. File format: [ ]"@en .
+    rdfs:comment "The Action has not begun execution. File format: [ ]"@en .
 
 :ToolContextType a owl:NamedIndividual,
         :ContextType ;
@@ -124,7 +124,7 @@ For design rationale, see: V4_DESIGN.md"""@en ;
     rdfs:domain cco:ont00000228 ;
     rdfs:range xsd:dateTime ;
     rdfs:subPropertyOf cco:ont00001767 ;
-    skos:definition "Relates a PlannedAct to the date/time when it was completed."@en .
+    skos:definition "Relates an Action to the date/time when it was completed."@en .
 
 :hasContextIdentifier a owl:DatatypeProperty,
         owl:FunctionalProperty ;
@@ -155,11 +155,11 @@ For design rationale, see: V4_DESIGN.md"""@en ;
     rdfs:domain cco:ont00000228 ;
     rdfs:range xsd:dateTime ;
     rdfs:subPropertyOf cco:ont00001767 ;
-    skos:definition "Relates a Planned Act to the date/time by which it must be completed."@en .
+    skos:definition "Relates an Action to the date/time by which it must be completed."@en .
 
 :hasDueRecurrenceRule a owl:DatatypeProperty ;
     rdfs:label "has due recurrence rule"@en ;
-    rdfs:comment "Maps to the \"R:\" syntax following a \":\" due-date in the .actions file format. When present alongside hasRecurrenceRule, generates independent due-date and scheduled-date streams — enabling two separate calendar event series from one Plan. Each expanded PlannedAct receives a hasDueDateTime computed from this rule."@en ;
+    rdfs:comment "Maps to the \"R:\" syntax following a \":\" due-date in the .actions file format. When present alongside hasRecurrenceRule, generates independent due-date and scheduled-date streams. Each expanded Action may receive a hasDueDateTime computed from this rule."@en ;
     rdfs:domain cco:ont00000974 ;
     rdfs:range xsd:string ;
     skos:definition "Relates a Plan to an RFC 5545 RRULE string defining the recurrence pattern for when acts are due."@en .
@@ -169,7 +169,7 @@ For design rationale, see: V4_DESIGN.md"""@en ;
     rdfs:comment "Maps to the \"D\" syntax in the .actions file format (D60 = 60 minutes). Used for time blocking and capacity planning."@en ;
     rdfs:domain cco:ont00000228 ;
     rdfs:range xsd:integer ;
-    skos:definition "Relates a Planned Act to its duration in minutes."@en .
+    skos:definition "Relates an Action to its duration in minutes."@en .
 
 :hasPriority a owl:DatatypeProperty,
         owl:FunctionalProperty ;
@@ -181,7 +181,7 @@ For design rationale, see: V4_DESIGN.md"""@en ;
 
 :hasRecurrenceRule a owl:DatatypeProperty ;
     rdfs:label "has recurrence rule"@en ;
-    rdfs:comment "Maps to the \"R:\" syntax in the .actions file format. When present, the Plan generates multiple PlannedActs according to the recurrence rule."@en ;
+    rdfs:comment "Maps to the \"R:\" syntax in the .actions file format. When present, the Plan provides recurrence or schedule semantics that may generate related Actions."@en ;
     rdfs:domain bfo:BFO_0000001 ;
     rdfs:range xsd:string ;
     skos:definition "Relates a Plan to an RFC 5545 RRULE string defining recurrence pattern."@en .
@@ -192,7 +192,7 @@ For design rationale, see: V4_DESIGN.md"""@en ;
     rdfs:domain cco:ont00000228 ;
     rdfs:range xsd:dateTime ;
     rdfs:subPropertyOf cco:ont00001767 ;
-    skos:definition "Relates a Planned Act to the date/time when the agent intends to execute it."@en .
+    skos:definition "Relates an Action to the date/time when the agent intends to execute it."@en .
 
 :hasSequentialChildren a owl:DatatypeProperty,
         owl:FunctionalProperty ;
@@ -238,10 +238,10 @@ cco:ont00001775 a owl:ObjectProperty ;
     rdfs:comment "In this vocabulary: Used for plan dependency ordering. A Plan that is_successor_of another Plan cannot proceed until the predecessor completes. Maps to the \"<\" predecessor syntax in the .actions file format."@en .
 
 cco:ont00001868 a owl:ObjectProperty ;
-    rdfs:comment "In this vocabulary: Links a Planned Act to its Event Status Nominal ICE (lifecycle phase)."@en .
+    rdfs:comment "In this vocabulary: Links an Action to its Event Status Nominal ICE (lifecycle phase)."@en .
 
 cco:ont00001942 a owl:ObjectProperty ;
-    rdfs:comment "In this vocabulary: Links a Plan to the Planned Acts it prescribes. One Plan can prescribe many Planned Acts (e.g., recurring actions)."@en .
+    rdfs:comment "In this vocabulary: Links a Plan to the Actions it prescribes. One Plan can prescribe many Actions."@en .
 
 bfo:BFO_0000051 a owl:ObjectProperty ;
     rdfs:comment "In this vocabulary: Plan decomposition - parent actions have child actions as parts. Also Charter → Plan containment. Maps to the \">\" children syntax in the .actions file format."@en .
@@ -262,14 +262,15 @@ cco:ont00000476 a owl:Class ;
 
 Examples: "Health & Fitness", "Career Development", "Home Maintenance"
 
-Charters contain Plans (via has_part) and Plans serve Objectives (via inServiceOf). This creates the pipeline: Charter (scope) → Plan (prescription) → Planned Act (execution).
+Charters contain Plans and Actions (via has_part) and Plans serve Objectives (via inServiceOf). This creates the pipeline: Charter (scope) → Plan (prescription) → Action (execution).
 
 CCO has Plan and Objective but lacks a class for scope-of-concern declarations. Charter fills this genuine gap."""@en ;
     rdfs:subClassOf cco:ont00000965 ;
     skos:definition "A Prescriptive Information Content Entity that declares the scope of directed concern for an agent or organization."@en .
 
 cco:ont00000228 a owl:Class ;
-    rdfs:comment "In this vocabulary: Represents an action instance - the actual execution of a plan. For recurring actions, one Plan produces multiple Planned Acts."@en .
+    rdfs:label "Action"@en ;
+    rdfs:comment "In this vocabulary: Represents an action instance or executable work item. An Action may be prescribed by a Plan or exist directly within a Charter."@en .
 
 cco:ont00000974 a owl:Class ;
     rdfs:comment "In this vocabulary: Represents an action definition or task template. Maps to \"Action\" in the .actions file format."@en .
@@ -283,11 +284,10 @@ cco:ont00001767 a owl:DatatypeProperty ;
     skos:definition "A classification for Context entities (facility, agent, tool, etc.)."@en .
 
 cco:ont00000203 a owl:Class ;
-    rdfs:comment "In this vocabulary: Used for lifecycle status values of Planned Acts (NotStarted, InProgress, Completed, Blocked, Cancelled)."@en .
+    rdfs:comment "In this vocabulary: Used for lifecycle status values of Actions (NotStarted, InProgress, Completed, Blocked, Cancelled)."@en .
 
 :Context a owl:Class ;
     rdfs:label "Context"@en ;
     rdfs:comment "Context represents execution requirements following Getting Things Done (GTD) methodology. Contexts support hierarchical relationships for tag organization and inheritance. Maps to \"+\" syntax in .actions file format."@en ;
     rdfs:subClassOf cco:ont00000965 ;
     skos:definition "A resource, location, tool, or person required for plan execution (GTD context methodology)."@en .
-

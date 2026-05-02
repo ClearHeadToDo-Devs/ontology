@@ -15,7 +15,7 @@ Rather than wrapping CCO concepts in domain-specific classes, v4 **reuses CCO di
 1. **Reuse CCO directly** — don't subclass without differentiating axioms
 2. **Fill genuine gaps** — only add what CCO provably lacks
 3. **SHACL for data quality** — use shapes for application-level constraints, not OWL axioms
-4. **Separate information from process** — Plans are continuants, Planned Acts are occurrents
+4. **Separate plan semantics from execution data** — Plans remain prescriptive, while Actions carry executable and occurrence-level state
 
 ## The Prescriptive ICE Family
 
@@ -46,22 +46,25 @@ A Prescriptive ICE that prescribes some set of intended Intentional Acts. Used d
 
 A Prescriptive ICE that prescribes some projected state of affairs. Used directly from CCO — represents projects/desired outcomes.
 
-## The Charter → Plan → PlannedAct Pipeline
+## The Charter → Plan → Action Pipeline
 
 ```
 Charter (Scope)
   └─ contains ─→ Plan (Prescription)     [via bfo:part_of]
                    ├─ inServiceOf ─→ Objective (Outcome)
-                   └─ prescribes ──→ Planned Act (Execution)  [via cco:prescribes]
+                   └─ prescribes ──→ Action (Execution)  [via cco:prescribes]
                                       └─ measured by ─→ Event Status  [via cco:is_measured_by_nominal]
+
+Charter (Scope)
+  └─ contains ─→ Action (Direct work item)  [via bfo:has_part, optional plan_id]
 ```
 
 This pipeline models the full lifecycle:
 1. **Scope**: A Charter declares what matters ("Health & Fitness")
 2. **Prescription**: Plans within the Charter prescribe acts ("Run 3x/week")
 3. **Teleology**: Plans serve Objectives via `inServiceOf` ("Complete a marathon")
-4. **Execution**: Plans produce Planned Acts via `prescribes` (each run session)
-5. **Status**: Planned Acts are measured by Event Status Nominal ICEs (NotStarted, InProgress, Completed, etc.)
+4. **Execution**: Plans may prescribe Actions, and Charters may also contain planless Actions directly
+5. **Status**: Actions are measured by Event Status Nominal ICEs (NotStarted, InProgress, Completed, etc.)
 
 ## Event Status: Why ActPhase Was Removed
 
@@ -69,7 +72,7 @@ This pipeline models the full lifecycle:
 
 **Problem:** CCO already solves this. `Event Status Nominal ICE` (ont00000203) is an Information Content Entity "whose referent is the status of a process" with values like "proposed, approved, planned, in progress, completed, failed, or successful."
 
-**Resolution:** The status individuals (NotStarted, InProgress, Completed, Blocked, Cancelled) are now typed as `cco:ont00000203` (Event Status Nominal ICE), and linked to Planned Acts via CCO's `is_measured_by_nominal` (ont00001868, inverse of ont00000293's measurement relation).
+**Resolution:** The status individuals (NotStarted, InProgress, Completed, Blocked, Cancelled) are now typed as `cco:ont00000203` (Event Status Nominal ICE), and linked to Actions via CCO's `is_measured_by_nominal` (ont00001868, inverse of ont00000293's measurement relation).
 
 This is better because:
 - Status is information *about* a process, not a quality *of* a process
@@ -107,11 +110,11 @@ Plans are contained within Charters via BFO's `part_of` (BFO_0000050). This is n
 | Prescriptive ICE | ont00000965 | Parent class |
 | Plan | ont00000974 | Task definitions |
 | Objective | ont00000476 | Desired outcomes |
-| Planned Act | ont00000228 | Task executions |
+| Action | ont00000228 | Task executions or direct work items |
 | Act | ont00000832 | Parent of Planned Act |
 | Event Status Nominal ICE | ont00000203 | Status values |
-| prescribes | ont00001942 | Plan → Planned Act |
-| is_measured_by_nominal | ont00001868 | Planned Act → Status |
+| prescribes | ont00001942 | Plan → Action |
+| is_measured_by_nominal | ont00001868 | Action → Status |
 | is_successor_of | ont00001775 | Plan ordering |
 | has_part / part_of | BFO_0000051/50 | Hierarchy |
 | has datetime value | ont00001767 | Temporal base property |
@@ -133,11 +136,11 @@ These are pragmatic additions for the .actions file format, not ontological clai
 | Data properties | hasUUID, hasAlias, hasPriority, hasRecurrenceRule, hasSequentialChildren |
 | External identity bridge | hasExternalScheduleId, hasExternalOccurrenceKey |
 
-`hasDurationMinutes` now belongs on `PlannedAct`, not `Plan`. The DSL still permits duration shorthand on an action line, but the semantic model materializes that shorthand onto the initial planned act for the plan.
+`hasDurationMinutes` now belongs on `Action`, not `Plan`. The DSL still permits duration shorthand on an action line, but the semantic model materializes that shorthand onto the corresponding action.
 | Context properties | requiresContext, hasContextType, contextBroader/Narrower, hasContextIdentifier |
 
 ## Version History
 
-- **4.3.0** — adds hasScheduledDateTime/hasDueDateTime/hasDueRecurrenceRule, adds hasSubCharter, aligns recurrence and scheduling semantics to PlannedAct
+- **4.3.0** — adds hasScheduledDateTime/hasDueDateTime/hasDueRecurrenceRule, adds hasSubCharter, aligns recurrence and scheduling semantics to Action
 - **4.1.0** — Charter class, inServiceOf property, Event Status Nominal ICE, is_successor_of
 - **4.0.0** — Initial minimal CCO extension (ActPhase, hasObjective, hasPhase, dependsOn)
