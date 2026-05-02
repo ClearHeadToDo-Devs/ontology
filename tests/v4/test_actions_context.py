@@ -26,23 +26,23 @@ class TestActionsContext:
         ctx = load_context_map()
 
         assert ctx["Plan"] == "https://www.commoncoreontologies.org/ont00000974"
-        assert ctx["PlannedAct"] == "https://www.commoncoreontologies.org/ont00000228"
+        assert ctx["Action"] == "https://clearhead.us/vocab/actions/v4#Action"
         assert ctx["Objective"] == "https://www.commoncoreontologies.org/ont00000476"
         assert ctx["Charter"] == "https://clearhead.us/vocab/actions/v4#Charter"
         assert ctx["Context"] == "https://clearhead.us/vocab/actions/v4#Context"
         assert ctx["ContextType"] == "https://clearhead.us/vocab/actions/v4#ContextType"
 
-        assert ctx["plannedActs"]["@id"] == "cco:ont00001942"
-        assert ctx["requiresContext"]["@id"] == "actions:requiresContext"
-        assert ctx["subCharters"]["@id"] == "actions:hasSubCharter"
+        assert ctx["actions"]["@id"] == "cco:ont00001942"
+        assert ctx["requiresContext"]["@id"] == "actionsv:requiresContext"
+        assert ctx["subCharters"]["@id"] == "actionsv:hasSubCharter"
         assert ctx["partOf"]["@id"] == "bfo:BFO_0000050"
-        assert ctx["scheduledAt"]["@id"] == "actions:hasScheduledDateTime"
-        assert ctx["dueDate"]["@id"] == "actions:hasDueDateTime"
-        assert ctx["dueRecurrence"]["@id"] == "actions:hasDueRecurrenceRule"
-        assert ctx["contextType"]["@id"] == "actions:hasContextType"
-        assert ctx["contextIdentifier"]["@id"] == "actions:hasContextIdentifier"
-        assert ctx["contextBroader"]["@id"] == "actions:contextBroader"
-        assert ctx["contextNarrower"]["@id"] == "actions:contextNarrower"
+        assert ctx["scheduledAt"]["@id"] == "actionsv:hasScheduledDateTime"
+        assert ctx["dueDate"]["@id"] == "actionsv:hasDueDateTime"
+        assert ctx["dueRecurrence"]["@id"] == "actionsv:hasDueRecurrenceRule"
+        assert ctx["contextType"]["@id"] == "actionsv:hasContextType"
+        assert ctx["contextIdentifier"]["@id"] == "actionsv:hasContextIdentifier"
+        assert ctx["contextBroader"]["@id"] == "actionsv:contextBroader"
+        assert ctx["contextNarrower"]["@id"] == "actionsv:contextNarrower"
 
     def test_context_expands_ontology_out_compacted_payload(self):
         graph = Graph()

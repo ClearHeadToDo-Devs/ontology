@@ -17,5 +17,5 @@
     actions:hasUUID "not-a-valid-uuid-format" ;  # Invalid format
     cco:ont00001942 <urn:act:bad-uuid> .
 
-<urn:act:bad-uuid> a cco:ont00000228 ;
+<urn:act:bad-uuid> a actions:Action ;
     cco:ont00001868 actions:NotStarted .

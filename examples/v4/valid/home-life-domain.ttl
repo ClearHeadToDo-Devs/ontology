@@ -36,7 +36,7 @@
     bfo:BFO_0000050 <urn:charter:home/maintenance> ;
     cco:ont00001942 <urn:act:trash-2026-04-12> .
 
-<urn:act:trash-2026-04-12> a cco:ont00000228 ;
+<urn:act:trash-2026-04-12> a actions:Action ;
     cco:ont00001868 actions:NotStarted ;
     actions:hasScheduledDateTime "2026-04-12T19:00:00Z"^^xsd:dateTime ;
     actions:hasDueDateTime "2026-04-13T07:00:00Z"^^xsd:dateTime ;
@@ -50,7 +50,7 @@
     bfo:BFO_0000050 <urn:charter:home/maintenance> ;
     cco:ont00001942 <urn:act:file-taxes-2026> .
 
-<urn:act:file-taxes-2026> a cco:ont00000228 ;
+<urn:act:file-taxes-2026> a actions:Action ;
     cco:ont00001868 actions:InProgress ;
     actions:hasScheduledDateTime "2026-04-14T16:00:00Z"^^xsd:dateTime ;
     actions:hasDueDateTime "2026-04-15T23:59:00Z"^^xsd:dateTime ;
@@ -69,7 +69,7 @@
     bfo:BFO_0000050 <urn:plan:morning-run> ;
     cco:ont00001942 <urn:act:lace-shoes-001> .
 
-<urn:act:lace-shoes-001> a cco:ont00000228 ;
+<urn:act:lace-shoes-001> a actions:Action ;
     cco:ont00001868 actions:Completed ;
     actions:hasScheduledDateTime "2026-04-12T06:25:00Z"^^xsd:dateTime ;
     actions:hasCompletedDateTime "2026-04-12T06:27:00Z"^^xsd:dateTime ;
@@ -81,7 +81,7 @@
     bfo:BFO_0000050 <urn:plan:morning-run> ;
     cco:ont00001942 <urn:act:run-5k-001> .
 
-<urn:act:run-5k-001> a cco:ont00000228 ;
+<urn:act:run-5k-001> a actions:Action ;
     cco:ont00001868 actions:NotStarted ;
     actions:hasScheduledDateTime "2026-04-12T06:30:00Z"^^xsd:dateTime ;
     actions:hasDurationMinutes 35 .

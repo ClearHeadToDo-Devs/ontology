@@ -62,7 +62,7 @@
     actions:requiresContext <urn:context:neovim> , <urn:context:clearhead> ;
     cco:ont00001942 <urn:act:code-review> .
 
-<urn:act:code-review> a cco:ont00000228 ;
+<urn:act:code-review> a actions:Action ;
     cco:ont00001868 actions:NotStarted .
 
 <urn:plan:team-meeting> a cco:ont00000974 ;
@@ -71,5 +71,5 @@
     actions:requiresContext <urn:context:office> , <urn:context:clearhead> ;
     cco:ont00001942 <urn:act:team-meeting> .
 
-<urn:act:team-meeting> a cco:ont00000228 ;
+<urn:act:team-meeting> a actions:Action ;
     cco:ont00001868 actions:NotStarted .

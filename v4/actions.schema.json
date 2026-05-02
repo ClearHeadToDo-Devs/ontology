@@ -37,7 +37,7 @@
                                    "type": "string",
                                    "enum": [
                                           "Plan",
-                                          "PlannedAct",
+                                          "Action",
                                           "Objective",
                                           "Charter",
                                           "Context",
@@ -82,8 +82,8 @@
                                           }
                                    ]
                             },
-                            "plannedActs": {
-                                   "oneOf": [
+                            "actions": {
+                                    "oneOf": [
                                           {
                                                  "type": "string"
                                           },
@@ -235,8 +235,8 @@
                                    "if": {
                                           "properties": {
                                                  "type": {
-                                                        "const": "PlannedAct"
-                                                 }
+                                                        "const": "Action"
+                                                  }
                                           }
                                    },
                                    "then": {

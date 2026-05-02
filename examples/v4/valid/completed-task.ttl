@@ -9,9 +9,9 @@
 # =============================================================================
 #
 # Demonstrates:
-# 1. A completed PlannedAct (status = Completed via is_measured_by_nominal)
-# 2. Temporal properties on the PlannedAct (scheduled time)
-# 3. Completion time tracking on the PlannedAct
+# 1. A completed Action (status = Completed via is_measured_by_nominal)
+# 2. Temporal properties on the Action (scheduled time)
+# 3. Completion time tracking on the Action
 #
 # DSL equivalent: [x] Call dentist @2025-01-15T10:00 %2025-01-15T10:15
 # =============================================================================
@@ -22,8 +22,8 @@
     rdfs:comment "Schedule dental cleaning appointment" ;
     cco:ont00001942 <urn:uuid:act-call-dentist-001> .
 
-# The completed PlannedAct
-<urn:uuid:act-call-dentist-001> a cco:ont00000228 ;
+# The completed Action
+<urn:uuid:act-call-dentist-001> a actions:Action ;
     cco:ont00001868 actions:Completed ;
     actions:hasScheduledDateTime "2025-01-15T10:00:00Z"^^xsd:dateTime ;
     actions:hasCompletedDateTime "2025-01-15T10:15:00Z"^^xsd:dateTime .

@@ -5,13 +5,13 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 # =============================================================================
-# Comprehensive Example: Charter → Plan → PlannedAct Pipeline
+# Comprehensive Example: Charter → Plan → Action Pipeline
 # =============================================================================
 #
 # Demonstrates the full v4.3.0 feature set including:
 # - Charter declaring scope of directed concern
 # - Plans with all metadata (priority, contexts, dependencies, etc.)
-# - PlannedActs with status tracking via is_measured_by_nominal
+# - Actions with status tracking via is_measured_by_nominal
 # - Objectives (projects) with inServiceOf linkage
 # - Hierarchical plan structure (parent/child)
 # - Plan ordering via is_successor_of
@@ -68,7 +68,7 @@
     bfo:BFO_0000050 <urn:charter:work/clearhead> ;  # partOf Charter
     cco:ont00001942 <urn:uuid:act-research-001> .
 
-<urn:uuid:act-research-001> a cco:ont00000228 ;
+<urn:uuid:act-research-001> a actions:Action ;
     cco:ont00001868 actions:Completed ;
     actions:hasScheduledDateTime "2025-01-15T10:00:00Z"^^xsd:dateTime ;
     actions:hasDurationMinutes 150 ;
@@ -91,7 +91,7 @@
     bfo:BFO_0000051 <urn:uuid:update-shacl> ;    # hasPart
     cco:ont00001942 <urn:uuid:act-extend-001> .
 
-<urn:uuid:act-extend-001> a cco:ont00000228 ;
+<urn:uuid:act-extend-001> a actions:Action ;
     cco:ont00001868 actions:InProgress ;
     actions:hasScheduledDateTime "2025-01-16T09:00:00Z"^^xsd:dateTime ;
     actions:hasDurationMinutes 120 .
@@ -102,7 +102,7 @@
     bfo:BFO_0000050 <urn:uuid:extend-ontology> ;  # partOf
     cco:ont00001942 <urn:uuid:act-add-props-001> .
 
-<urn:uuid:act-add-props-001> a cco:ont00000228 ;
+<urn:uuid:act-add-props-001> a actions:Action ;
     cco:ont00001868 actions:NotStarted .
 
 # Child Plan 2
@@ -111,7 +111,7 @@
     bfo:BFO_0000050 <urn:uuid:extend-ontology> ;  # partOf
     cco:ont00001942 <urn:uuid:act-update-shacl-001> .
 
-<urn:uuid:act-update-shacl-001> a cco:ont00000228 ;
+<urn:uuid:act-update-shacl-001> a actions:Action ;
     cco:ont00001868 actions:InProgress .
 
 # =====================================================
@@ -131,13 +131,13 @@
                     <urn:uuid:act-examples-002> ,
                     <urn:uuid:act-examples-003> .
 
-# Multiple PlannedActs for recurring task
-<urn:uuid:act-examples-001> a cco:ont00000228 ;
+# Multiple Actions for recurring task
+<urn:uuid:act-examples-001> a actions:Action ;
     cco:ont00001868 actions:NotStarted ;
     actions:hasScheduledDateTime "2025-01-17T09:00:00Z"^^xsd:dateTime .
 
-<urn:uuid:act-examples-002> a cco:ont00000228 ;
+<urn:uuid:act-examples-002> a actions:Action ;
     cco:ont00001868 actions:NotStarted .
 
-<urn:uuid:act-examples-003> a cco:ont00000228 ;
+<urn:uuid:act-examples-003> a actions:Action ;
     cco:ont00001868 actions:NotStarted .

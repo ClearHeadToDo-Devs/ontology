@@ -158,7 +158,7 @@ def _landing_page() -> str:
             ],
             li[
                 Markup(
-                    "<strong>Planned Act</strong> (CCO) — Action instances / executions"
+                    "<strong>Action</strong> — Execution-level work items and direct executable records"
                 )
             ],
             li[

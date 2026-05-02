@@ -11,7 +11,7 @@
 # Demonstrates:
 # 1. Plan hierarchy using BFO partOf/hasPart relationships
 # 2. Parent plan with child plans
-# 3. Each plan has its own execution (PlannedAct)
+# 3. Each plan has its own execution (Action)
 #
 # DSL equivalent:
 # [ ] Plan vacation
@@ -29,7 +29,7 @@
     bfo:BFO_0000051 <urn:uuid:plan-reserve-hotel> ;          # hasPart
     cco:ont00001942 <urn:uuid:act-vacation-001> .
 
-<urn:uuid:act-vacation-001> a cco:ont00000228 ;
+<urn:uuid:act-vacation-001> a actions:Action ;
     cco:ont00001868 actions:InProgress .
 
 # Child Plan 1
@@ -38,7 +38,7 @@
     bfo:BFO_0000050 <urn:uuid:plan-vacation> ;  # partOf
     cco:ont00001942 <urn:uuid:act-research-001> .
 
-<urn:uuid:act-research-001> a cco:ont00000228 ;
+<urn:uuid:act-research-001> a actions:Action ;
     cco:ont00001868 actions:NotStarted .
 
 # Child Plan 2
@@ -47,7 +47,7 @@
     bfo:BFO_0000050 <urn:uuid:plan-vacation> ;  # partOf
     cco:ont00001942 <urn:uuid:act-book-flights-001> .
 
-<urn:uuid:act-book-flights-001> a cco:ont00000228 ;
+<urn:uuid:act-book-flights-001> a actions:Action ;
     cco:ont00001868 actions:Completed ;
     actions:hasCompletedDateTime "2025-01-10T14:30:00Z"^^xsd:dateTime .
 
@@ -57,5 +57,5 @@
     bfo:BFO_0000050 <urn:uuid:plan-vacation> ;  # partOf
     cco:ont00001942 <urn:uuid:act-reserve-hotel-001> .
 
-<urn:uuid:act-reserve-hotel-001> a cco:ont00000228 ;
+<urn:uuid:act-reserve-hotel-001> a actions:Action ;
     cco:ont00001868 actions:NotStarted .

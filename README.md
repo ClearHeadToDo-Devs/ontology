@@ -24,21 +24,21 @@ Prescriptive ICE (CCO ont00000965)
 |---------|-------|-----|-------------------|
 | **Charter** | Charter | `actions:Charter` | Scope of directed concern |
 | **Plan** | Plan (CCO) | `cco:ont00000974` | Task definition / template |
-| **Planned Act** | Planned Act (CCO) | `cco:ont00000228` | Actual execution (one per occurrence) |
+| **Action** | Action | `actions:Action` | Actual execution or direct work item |
 | **Objective** | Objective (CCO) | `cco:ont00000476` | Desired outcome / project |
 
-### The Charter → Plan → PlannedAct Pipeline
+### The Charter → Plan → Action Pipeline
 
 ```
-Charter (Scope) → Plan (Prescription) → Planned Act (Execution)
+Charter (Scope) → Plan (Prescription) → Action (Execution)
                    └── inServiceOf → Objective (Outcome)
 ```
 
 - A **Charter** declares a domain of concern ("Health & Fitness")
 - **Plans** within a Charter prescribe acts ("Run 3x/week")
 - Plans serve **Objectives** via `inServiceOf` ("Complete a marathon")
-- Plans produce **Planned Acts** via `prescribes` (each run session)
-- Planned Acts have status via `is_measured_by_nominal` (NotStarted, InProgress, etc.)
+- Plans produce **Actions** via `prescribes` (each run session or schedule-derived occurrence)
+- Actions have status via `is_measured_by_nominal` (NotStarted, InProgress, etc.)
 
 ### Status Tracking: Event Status Nominal ICE
 
@@ -65,12 +65,12 @@ Event Status Nominal ICE (CCO ont00000203)
 | Property | Source | Domain → Range | Purpose |
 |----------|--------|----------------|---------|
 | `inServiceOf` | Custom | Prescriptive ICE → Objective | Teleological linkage |
-| `is_measured_by_nominal` | CCO | Planned Act → Event Status | Status tracking |
+| `is_measured_by_nominal` | CCO | Action → Event Status | Status tracking |
 | `is_successor_of` | CCO | Plan → Plan | Dependency ordering |
-| `prescribes` | CCO | Plan → Planned Act | Links definition to execution |
+| `prescribes` | CCO | Plan → Action | Links definition to execution |
 | `part_of` | BFO | Plan → Plan/Charter | Hierarchy |
-| `hasExternalScheduleId` | Custom | Planned Act → string | Optional external schedule-series linkage |
-| `hasExternalOccurrenceKey` | Custom | Planned Act → string | Optional external occurrence linkage |
+| `hasExternalScheduleId` | Custom | Action → string | Optional external schedule-series linkage |
+| `hasExternalOccurrenceKey` | Custom | Action → string | Optional external occurrence linkage |
 
 ## Why This Design?
 
@@ -92,7 +92,7 @@ See **[V4_DESIGN.md](./V4_DESIGN.md)** for the full design rationale.
   - See: [V4_DESIGN.md](./V4_DESIGN.md)
 
 - **v4.0.0** (Previous) - Minimal CCO extension
-  - Uses CCO classes directly (Plan, Planned Act, Objective)
+  - Used CCO classes directly (Plan, CCO Planned Act, Objective) before the Action transition
   - Custom class: ActPhase (now replaced)
 
 - **v3.1.0** (Previous) - BFO/CCO-aligned with wrapper classes

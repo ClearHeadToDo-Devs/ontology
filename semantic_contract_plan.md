@@ -10,7 +10,7 @@ The main semantic decisions now reflected across the repo are:
 
 1. use upstream CCO "Prescriptive Information Content Entity" language where appropriate
 2. keep objective linkage at the charter level for now
-3. treat duration as `PlannedAct` data, not `Plan` data
+3. treat duration as `Action` data, not `Plan` data
 4. use `cco:is_successor_of` for dependency ordering
 5. use `actions:hasRecurrenceRule` for recurrence semantics
 6. treat recurrence as anchored by scheduled acts, not by plan-level do-date metadata alone

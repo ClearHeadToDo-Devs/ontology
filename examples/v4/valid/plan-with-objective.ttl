@@ -31,7 +31,7 @@
     actions:inServiceOf <urn:objective:grocery-shopping> ;
     cco:ont00001942 <urn:uuid:act-buy-milk-001> .
 
-<urn:uuid:act-buy-milk-001> a cco:ont00000228 ;
+<urn:uuid:act-buy-milk-001> a actions:Action ;
     cco:ont00001868 actions:NotStarted .
 
 # Second Plan contributing to the same objective
@@ -40,5 +40,5 @@
     actions:inServiceOf <urn:objective:grocery-shopping> ;
     cco:ont00001942 <urn:uuid:act-buy-bread-001> .
 
-<urn:uuid:act-buy-bread-001> a cco:ont00000228 ;
+<urn:uuid:act-buy-bread-001> a actions:Action ;
     cco:ont00001868 actions:InProgress .

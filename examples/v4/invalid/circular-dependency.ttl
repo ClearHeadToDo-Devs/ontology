@@ -17,7 +17,7 @@
     cco:ont00001775 <urn:plan:b> ;  # A is_successor_of B
     cco:ont00001942 <urn:act:a> .
 
-<urn:act:a> a cco:ont00000228 ;
+<urn:act:a> a actions:Action ;
     cco:ont00001868 actions:NotStarted .
 
 <urn:plan:b> a cco:ont00000974 ;
@@ -25,5 +25,5 @@
     cco:ont00001775 <urn:plan:a> ;  # B is_successor_of A (CIRCULAR!)
     cco:ont00001942 <urn:act:b> .
 
-<urn:act:b> a cco:ont00000228 ;
+<urn:act:b> a actions:Action ;
     cco:ont00001868 actions:NotStarted .

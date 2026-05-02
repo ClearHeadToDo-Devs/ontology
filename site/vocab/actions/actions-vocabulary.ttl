@@ -38,7 +38,10 @@ This ontology fills genuine gaps in CCO's coverage of intention information enti
 CCO modules imported (via owl:imports):
 - InformationEntityOntology: Prescriptive ICE (ont00000965), Event Status Nominal ICE (ont00000203), prescribes (ont00001942), is_measured_by_nominal (ont00001868)
 - AgentOntology: Plan (ont00000974), Objective (ont00000476)
-- EventOntology: Planned Act (ont00000228), Act (ont00000832)
+- EventOntology: Act (ont00000832)
+
+This ontology introduces Action as the canonical execution entity while remaining aligned
+with CCO's occurrent/event modeling where appropriate.
 
 Transitively available via CCO import chain:
 - ExtendedRelationOntology: is_successor_of (ont00001775)
@@ -121,7 +124,7 @@ For design rationale, see: V4_DESIGN.md"""@en ;
 :hasCompletedDateTime a owl:DatatypeProperty ;
     rdfs:label "has completed date time"@en ;
     rdfs:comment "Maps to the \"%\" syntax in the .actions file format. Should only be present when status is Completed."@en ;
-    rdfs:domain cco:ont00000228 ;
+    rdfs:domain :Action ;
     rdfs:range xsd:dateTime ;
     rdfs:subPropertyOf cco:ont00001767 ;
     skos:definition "Relates an Action to the date/time when it was completed."@en .
@@ -152,14 +155,14 @@ For design rationale, see: V4_DESIGN.md"""@en ;
 :hasDueDateTime a owl:DatatypeProperty ;
     rdfs:label "has due date time"@en ;
     rdfs:comment "Maps to the \":\" syntax in the .actions file format. The deadline by which this act must be done — distinct from hasScheduledDateTime (when the agent plans to do it). For recurring plans, this is computed from the due-recurrence rule during act expansion. Example: garbage is due Monday morning (:), but planned Sunday night (@)."@en ;
-    rdfs:domain cco:ont00000228 ;
+    rdfs:domain :Action ;
     rdfs:range xsd:dateTime ;
     rdfs:subPropertyOf cco:ont00001767 ;
     skos:definition "Relates an Action to the date/time by which it must be completed."@en .
 
 :hasDueRecurrenceRule a owl:DatatypeProperty ;
     rdfs:label "has due recurrence rule"@en ;
-    rdfs:comment "Maps to the \"R:\" syntax following a \":\" due-date in the .actions file format. When present alongside hasRecurrenceRule, generates independent due-date and scheduled-date streams. Each expanded Action may receive a hasDueDateTime computed from this rule."@en ;
+    rdfs:comment "Relates a Plan to recurrence semantics for deriving due-date streams. When present alongside hasRecurrenceRule, downstream expansion may produce distinct scheduled and due action streams."@en ;
     rdfs:domain cco:ont00000974 ;
     rdfs:range xsd:string ;
     skos:definition "Relates a Plan to an RFC 5545 RRULE string defining the recurrence pattern for when acts are due."@en .
@@ -167,9 +170,25 @@ For design rationale, see: V4_DESIGN.md"""@en ;
 :hasDurationMinutes a owl:DatatypeProperty ;
     rdfs:label "has duration minutes"@en ;
     rdfs:comment "Maps to the \"D\" syntax in the .actions file format (D60 = 60 minutes). Used for time blocking and capacity planning."@en ;
-    rdfs:domain cco:ont00000228 ;
+    rdfs:domain :Action ;
     rdfs:range xsd:integer ;
     skos:definition "Relates an Action to its duration in minutes."@en .
+
+:hasExternalOccurrenceKey a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "has external occurrence key"@en ;
+    rdfs:comment "Optional source-agnostic external occurrence identifier within a schedule series. For ICS integrations this typically maps from RECURRENCE-ID or canonicalized occurrence datetime."@en ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:string ;
+    skos:definition "Relates an Action to an external occurrence-level identifier when one exists."@en .
+
+:hasExternalScheduleId a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "has external schedule id"@en ;
+    rdfs:comment "Optional source-agnostic external schedule series identifier for acts generated from integration profiles (for example ICS UID mapping). Not required for ad-hoc acts."@en ;
+    rdfs:domain :Action ;
+    rdfs:range xsd:string ;
+    skos:definition "Relates an Action to an external schedule-series identifier when one exists."@en .
 
 :hasPriority a owl:DatatypeProperty,
         owl:FunctionalProperty ;
@@ -181,7 +200,7 @@ For design rationale, see: V4_DESIGN.md"""@en ;
 
 :hasRecurrenceRule a owl:DatatypeProperty ;
     rdfs:label "has recurrence rule"@en ;
-    rdfs:comment "Maps to the \"R:\" syntax in the .actions file format. When present, the Plan provides recurrence or schedule semantics that may generate related Actions."@en ;
+    rdfs:comment "Relates a Plan to recurrence semantics that may generate multiple related Actions in downstream expansion workflows."@en ;
     rdfs:domain bfo:BFO_0000001 ;
     rdfs:range xsd:string ;
     skos:definition "Relates a Plan to an RFC 5545 RRULE string defining recurrence pattern."@en .
@@ -189,7 +208,7 @@ For design rationale, see: V4_DESIGN.md"""@en ;
 :hasScheduledDateTime a owl:DatatypeProperty ;
     rdfs:label "has scheduled date time"@en ;
     rdfs:comment "Maps to the \"@\" syntax in the .actions file format. The time the agent intends to perform this act — distinct from hasDueDateTime (when it must be done). For recurring plans, this is computed from the do-recurrence rule during act expansion."@en ;
-    rdfs:domain cco:ont00000228 ;
+    rdfs:domain :Action ;
     rdfs:range xsd:dateTime ;
     rdfs:subPropertyOf cco:ont00001767 ;
     skos:definition "Relates an Action to the date/time when the agent intends to execute it."@en .
@@ -234,6 +253,9 @@ Maps to the "*" marker in the .actions file format. A Plan may serve zero object
     rdfs:range :Context ;
     skos:definition "Relates a Plan to a Context entity required for execution."@en .
 
+cco:ont00000228 a owl:Class ;
+    rdfs:comment "Imported CCO class retained for reference. In this vocabulary, actions:Action is the canonical execution entity used by data contracts and examples."@en .
+
 cco:ont00001775 a owl:ObjectProperty ;
     rdfs:comment "In this vocabulary: Used for plan dependency ordering. A Plan that is_successor_of another Plan cannot proceed until the predecessor completes. Maps to the \"<\" predecessor syntax in the .actions file format."@en .
 
@@ -241,7 +263,7 @@ cco:ont00001868 a owl:ObjectProperty ;
     rdfs:comment "In this vocabulary: Links an Action to its Event Status Nominal ICE (lifecycle phase)."@en .
 
 cco:ont00001942 a owl:ObjectProperty ;
-    rdfs:comment "In this vocabulary: Links a Plan to the Actions it prescribes. One Plan can prescribe many Actions."@en .
+    rdfs:comment "In this vocabulary: Links a Plan to the Actions it prescribes. One Plan can prescribe many Actions (for example recurring or schedule-derived actions)."@en .
 
 bfo:BFO_0000051 a owl:ObjectProperty ;
     rdfs:comment "In this vocabulary: Plan decomposition - parent actions have child actions as parts. Also Charter → Plan containment. Maps to the \">\" children syntax in the .actions file format."@en .
@@ -262,15 +284,11 @@ cco:ont00000476 a owl:Class ;
 
 Examples: "Health & Fitness", "Career Development", "Home Maintenance"
 
-Charters contain Plans and Actions (via has_part) and Plans serve Objectives (via inServiceOf). This creates the pipeline: Charter (scope) → Plan (prescription) → Action (execution).
+Charters contain Plans and Actions (via has_part), and Plans serve Objectives (via inServiceOf). This creates the pipeline: Charter (scope) → Plan (prescription) → Action (execution).
 
 CCO has Plan and Objective but lacks a class for scope-of-concern declarations. Charter fills this genuine gap."""@en ;
     rdfs:subClassOf cco:ont00000965 ;
     skos:definition "A Prescriptive Information Content Entity that declares the scope of directed concern for an agent or organization."@en .
-
-cco:ont00000228 a owl:Class ;
-    rdfs:label "Action"@en ;
-    rdfs:comment "In this vocabulary: Represents an action instance or executable work item. An Action may be prescribed by a Plan or exist directly within a Charter."@en .
 
 cco:ont00000974 a owl:Class ;
     rdfs:comment "In this vocabulary: Represents an action definition or task template. Maps to \"Action\" in the .actions file format."@en .
@@ -286,8 +304,14 @@ cco:ont00001767 a owl:DatatypeProperty ;
 cco:ont00000203 a owl:Class ;
     rdfs:comment "In this vocabulary: Used for lifecycle status values of Actions (NotStarted, InProgress, Completed, Blocked, Cancelled)."@en .
 
+:Action a owl:Class ;
+    rdfs:label "Action"@en ;
+    rdfs:comment "An Action is the canonical execution entity in this vocabulary. Actions may be prescribed by a Plan or exist directly within a Charter as ad-hoc work items. This class replaces PlannedAct as the primary task-level semantic surface for v4 consumers."@en ;
+    skos:definition "An execution-level work item that can carry status, timing, duration, dependency, and external schedule identity semantics."@en .
+
 :Context a owl:Class ;
     rdfs:label "Context"@en ;
     rdfs:comment "Context represents execution requirements following Getting Things Done (GTD) methodology. Contexts support hierarchical relationships for tag organization and inheritance. Maps to \"+\" syntax in .actions file format."@en ;
     rdfs:subClassOf cco:ont00000965 ;
     skos:definition "A resource, location, tool, or person required for plan execution (GTD context methodology)."@en .
+

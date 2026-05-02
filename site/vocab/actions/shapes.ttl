@@ -12,7 +12,7 @@
 #
 # These shapes validate the v4.3.0 model:
 # - Plans use CCO Plan (ont00000974)
-# - Actions use actions:Action / CCO Planned Act (ont00000228)
+# - Actions use actions:Action as the canonical execution entity
 # - Objectives use CCO Objective (ont00000476)
 # - Charters use actions:Charter (custom Prescriptive ICE subclass)
 # - Status uses CCO Event Status Nominal ICE (ont00000203)
@@ -113,7 +113,7 @@ actions:NoCyclicDependenciesShape
         """ ;
     ] .
 
-# Validate completion date logic (completed actions should have completion date)
+# Validate completion date logic (completed acts should have completion date)
 actions:CompletedActDateShape
     a sh:NodeShape ;
     sh:targetClass actions:Action ;
@@ -185,7 +185,24 @@ actions:DueDateTimeShape
         sh:message "Action hasDueDateTime must be a single xsd:dateTime value" ;
     ] .
 
-# Ensure Plans with recurrence prescribe at least one scheduled act (DTSTART anchor)
+# Validate optional external schedule identity bridge fields
+actions:ExternalIdentityShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:property [
+        sh:path actions:hasExternalScheduleId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "Action hasExternalScheduleId must be a single string when present" ;
+    ] ;
+    sh:property [
+        sh:path actions:hasExternalOccurrenceKey ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "Action hasExternalOccurrenceKey must be a single string when present" ;
+    ] .
+
+# Ensure Plans with recurrence prescribe at least one scheduled action (DTSTART anchor)
 actions:RecurrenceRequiresScheduledActShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00000974 ;

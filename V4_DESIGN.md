@@ -26,6 +26,7 @@ Prescriptive ICE (CCO ont00000965)
 ├── Charter (actions:Charter)     — declares scope of directed concern
 ├── Plan (CCO ont00000974)        — prescribes intended acts
 └── Objective (CCO ont00000476)   — prescribes desired states
+|- Action (actions:Action)        — task executions or direct work items (not prescriptive, but included here for pipeline modeling)
 ```
 
 ### Charter (NEW — `actions:Charter`)
@@ -110,8 +111,8 @@ Plans are contained within Charters via BFO's `part_of` (BFO_0000050). This is n
 | Prescriptive ICE | ont00000965 | Parent class |
 | Plan | ont00000974 | Task definitions |
 | Objective | ont00000476 | Desired outcomes |
-| Action | ont00000228 | Task executions or direct work items |
-| Act | ont00000832 | Parent of Planned Act |
+| Act | ont00000832 | Imported occurrent reference point |
+| Act | ont00000832 | Imported occurrent reference point |
 | Event Status Nominal ICE | ont00000203 | Status values |
 | prescribes | ont00001942 | Plan → Action |
 | is_measured_by_nominal | ont00001868 | Action → Status |
@@ -124,6 +125,7 @@ Plans are contained within Charters via BFO's `part_of` (BFO_0000050). This is n
 |--------|-----|-----------|
 | **Charter** | actions:Charter | No CCO class for scope-of-concern declarations |
 | **inServiceOf** | actions:inServiceOf | No CCO teleological relation to Objectives |
+| **Action** | actions:Action | CCO Planned Act is too narrow for ad-hoc and plan-optional work items in the current platform model |
 
 ### Application-Level Additions
 These are pragmatic additions for the .actions file format, not ontological claims:
@@ -142,5 +144,6 @@ These are pragmatic additions for the .actions file format, not ontological clai
 ## Version History
 
 - **4.3.0** — adds hasScheduledDateTime/hasDueDateTime/hasDueRecurrenceRule, adds hasSubCharter, aligns recurrence and scheduling semantics to Action
+- **4.4.0 (in progress)** — introduces `actions:Action` as the canonical execution entity and retires `PlannedAct` from the public contract surface
 - **4.1.0** — Charter class, inServiceOf property, Event Status Nominal ICE, is_successor_of
 - **4.0.0** — Initial minimal CCO extension (ActPhase, hasObjective, hasPhase, dependsOn)

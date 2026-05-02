@@ -8,7 +8,7 @@ The canonical seam includes:
 
 1. `Charter`
 2. `Plan`
-3. `PlannedAct`
+3. `Action`
 4. `Objective`
 5. `Context`
 6. `ContextType`
@@ -36,7 +36,7 @@ Context is first-class in the canonical ontology-out contract.
 ### Plan
 
 - `partOf`
-- `plannedActs`
+- `actions`
 - `isSuccessorOf`
 - `inServiceOf`
 - `requiresContext`
@@ -48,7 +48,7 @@ Context is first-class in the canonical ontology-out contract.
 - `dueRecurrence`
 - `createdDate`
 
-### PlannedAct
+### Action
 
 - `status`
 - `scheduledAt`
