@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <rdf:RDF xmlns="https://clearhead.us/vocab/actions/v4#"
      xml:base="https://clearhead.us/vocab/actions/v4"
-     xmlns:dc="http://purl.org/dc/terms/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
      xmlns:bfo="http://purl.obolibrary.org/obo/"
      xmlns:cco="https://www.commoncoreontologies.org/"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
@@ -12,9 +12,9 @@
      xmlns:skos="http://www.w3.org/2004/02/skos/core#">
     <owl:Ontology rdf:about="https://clearhead.us/vocab/actions/v4">
         <owl:versionIRI rdf:resource="https://clearhead.us/vocab/actions/v4/4.3.0"/>
-        <owl:imports rdf:resource="https://www.commoncoreontologies.org/InformationEntityOntology"/>
         <owl:imports rdf:resource="https://www.commoncoreontologies.org/AgentOntology"/>
         <owl:imports rdf:resource="https://www.commoncoreontologies.org/EventOntology"/>
+        <owl:imports rdf:resource="https://www.commoncoreontologies.org/InformationEntityOntology"/>
         <dc:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2025-01-21</dc:created>
         <dc:creator>Darrion Burgess</dc:creator>
         <dc:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-04-12</dc:modified>
@@ -126,7 +126,7 @@ For design rationale, see: V4_DESIGN.md</rdfs:comment>
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/BFO_0000050">
         <rdfs:comment xml:lang="en">In this vocabulary: Plans are part_of Charters (scope containment).</rdfs:comment>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- http://purl.obolibrary.org/obo/BFO_0000051 -->
@@ -180,11 +180,11 @@ For design rationale, see: V4_DESIGN.md</rdfs:comment>
         <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
         <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v4#Charter"/>
         <rdfs:range rdf:resource="https://clearhead.us/vocab/actions/v4#Charter"/>
-        <rdfs:comment xml:lang="en">A Charter contains another Charter as a sub-scope. Specializes BFO has_part for Charter hierarchy. Example: "Health" hasSubCharter "Fitness" hasSubCharter "Gym Training".</rdfs:comment>
+        <rdfs:comment xml:lang="en">A Charter contains another Charter as a sub-scope. Specializes BFO has_part for Charter hierarchy. Example: &quot;Health&quot; hasSubCharter &quot;Fitness&quot; hasSubCharter &quot;Gym Training&quot;.</rdfs:comment>
         <rdfs:label xml:lang="en">has sub charter</rdfs:label>
         <skos:definition xml:lang="en">Relates a Charter to a Charter that represents a narrower scope of directed concern within it.</skos:definition>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://clearhead.us/vocab/actions/v4#inServiceOf -->
@@ -273,19 +273,6 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
     
 
 
-    <!-- https://clearhead.us/vocab/actions/v4#hasDueDateTime -->
-
-    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasDueDateTime">
-        <rdfs:subPropertyOf rdf:resource="https://www.commoncoreontologies.org/ont00001767"/>
-        <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v4#Action"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-        <rdfs:comment xml:lang="en">Maps to the &quot;:&quot; syntax in the .actions file format. The deadline by which this act must be done — distinct from hasScheduledDateTime (when the agent plans to do it). For recurring plans, this is computed from the due-recurrence rule during act expansion. Example: garbage is due Monday morning (:), but planned Sunday night (@).</rdfs:comment>
-        <rdfs:label xml:lang="en">has due date time</rdfs:label>
-        <skos:definition xml:lang="en">Relates an Action to the date/time by which it must be completed.</skos:definition>
-    </owl:DatatypeProperty>
-
-
-
     <!-- https://clearhead.us/vocab/actions/v4#hasContextIdentifier -->
 
     <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasContextIdentifier">
@@ -312,15 +299,27 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
     
 
 
-    <!-- https://clearhead.us/vocab/actions/v4#hasScheduledDateTime -->
+    <!-- https://clearhead.us/vocab/actions/v4#hasDueDateTime -->
 
-    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasScheduledDateTime">
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasDueDateTime">
         <rdfs:subPropertyOf rdf:resource="https://www.commoncoreontologies.org/ont00001767"/>
         <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v4#Action"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-        <rdfs:comment xml:lang="en">Maps to the &quot;@&quot; syntax in the .actions file format. The time the agent intends to perform this act — distinct from hasDueDateTime (when it must be done). For recurring plans, this is computed from the do-recurrence rule during act expansion.</rdfs:comment>
-        <rdfs:label xml:lang="en">has scheduled date time</rdfs:label>
-        <skos:definition xml:lang="en">Relates an Action to the date/time when the agent intends to execute it.</skos:definition>
+        <rdfs:comment xml:lang="en">Maps to the &quot;:&quot; syntax in the .actions file format. The deadline by which this act must be done — distinct from hasScheduledDateTime (when the agent plans to do it). For recurring plans, this is computed from the due-recurrence rule during act expansion. Example: garbage is due Monday morning (:), but planned Sunday night (@).</rdfs:comment>
+        <rdfs:label xml:lang="en">has due date time</rdfs:label>
+        <skos:definition xml:lang="en">Relates an Action to the date/time by which it must be completed.</skos:definition>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://clearhead.us/vocab/actions/v4#hasDueRecurrenceRule -->
+
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasDueRecurrenceRule">
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">Relates a Plan to recurrence semantics for deriving due-date streams. When present alongside hasRecurrenceRule, downstream expansion may produce distinct scheduled and due action streams.</rdfs:comment>
+        <rdfs:label xml:lang="en">has due recurrence rule</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Plan to an RFC 5545 RRULE string defining the recurrence pattern for when acts are due.</skos:definition>
     </owl:DatatypeProperty>
     
 
@@ -334,20 +333,7 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
         <rdfs:label xml:lang="en">has duration minutes</rdfs:label>
         <skos:definition xml:lang="en">Relates an Action to its duration in minutes.</skos:definition>
     </owl:DatatypeProperty>
-
-
-
-    <!-- https://clearhead.us/vocab/actions/v4#hasExternalScheduleId -->
-
-    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasExternalScheduleId">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v4#Action"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-        <rdfs:comment xml:lang="en">Optional source-agnostic external schedule series identifier for acts generated from integration profiles (for example ICS UID mapping). Not required for ad-hoc acts.</rdfs:comment>
-        <rdfs:label xml:lang="en">has external schedule id</rdfs:label>
-        <skos:definition xml:lang="en">Relates an Action to an external schedule-series identifier when one exists.</skos:definition>
-    </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://clearhead.us/vocab/actions/v4#hasExternalOccurrenceKey -->
@@ -359,6 +345,19 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
         <rdfs:comment xml:lang="en">Optional source-agnostic external occurrence identifier within a schedule series. For ICS integrations this typically maps from RECURRENCE-ID or canonicalized occurrence datetime.</rdfs:comment>
         <rdfs:label xml:lang="en">has external occurrence key</rdfs:label>
         <skos:definition xml:lang="en">Relates an Action to an external occurrence-level identifier when one exists.</skos:definition>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://clearhead.us/vocab/actions/v4#hasExternalScheduleId -->
+
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasExternalScheduleId">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v4#Action"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">Optional source-agnostic external schedule series identifier for acts generated from integration profiles (for example ICS UID mapping). Not required for ad-hoc acts.</rdfs:comment>
+        <rdfs:label xml:lang="en">has external schedule id</rdfs:label>
+        <skos:definition xml:lang="en">Relates an Action to an external schedule-series identifier when one exists.</skos:definition>
     </owl:DatatypeProperty>
     
 
@@ -388,16 +387,17 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
     
 
 
-    <!-- https://clearhead.us/vocab/actions/v4#hasDueRecurrenceRule -->
+    <!-- https://clearhead.us/vocab/actions/v4#hasScheduledDateTime -->
 
-    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasDueRecurrenceRule">
-        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-        <rdfs:comment xml:lang="en">Relates a Plan to recurrence semantics for deriving due-date streams. When present alongside hasRecurrenceRule, downstream expansion may produce distinct scheduled and due action streams.</rdfs:comment>
-        <rdfs:label xml:lang="en">has due recurrence rule</rdfs:label>
-        <skos:definition xml:lang="en">Relates a Plan to an RFC 5545 RRULE string defining the recurrence pattern for when acts are due.</skos:definition>
+    <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasScheduledDateTime">
+        <rdfs:subPropertyOf rdf:resource="https://www.commoncoreontologies.org/ont00001767"/>
+        <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v4#Action"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:comment xml:lang="en">Maps to the &quot;@&quot; syntax in the .actions file format. The time the agent intends to perform this act — distinct from hasDueDateTime (when it must be done). For recurring plans, this is computed from the do-recurrence rule during act expansion.</rdfs:comment>
+        <rdfs:label xml:lang="en">has scheduled date time</rdfs:label>
+        <skos:definition xml:lang="en">Relates an Action to the date/time when the agent intends to execute it.</skos:definition>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://clearhead.us/vocab/actions/v4#hasSequentialChildren -->
@@ -445,6 +445,15 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
     
 
 
+    <!-- https://clearhead.us/vocab/actions/v4#Action -->
+
+    <owl:Class rdf:about="https://clearhead.us/vocab/actions/v4#Action">
+        <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
+        <rdfs:comment xml:lang="en">An Action is the canonical execution entity in this vocabulary. Actions may be prescribed by a Plan or exist directly within a Charter as ad-hoc work items. This class replaces PlannedAct as the primary task-level semantic surface for v4 consumers.</rdfs:comment>
+        <rdfs:label xml:lang="en">Action</rdfs:label>
+        <skos:definition xml:lang="en">An execution-level work item that can carry status, timing, duration, dependency, and external schedule identity semantics.</skos:definition>
+    </owl:Class>
+    
 
 
     <!-- https://clearhead.us/vocab/actions/v4#Charter -->
@@ -490,16 +499,6 @@ CCO has Plan and Objective but lacks a class for scope-of-concern declarations. 
     <owl:Class rdf:about="https://www.commoncoreontologies.org/ont00000203">
         <rdfs:comment xml:lang="en">In this vocabulary: Used for lifecycle status values of Actions (NotStarted, InProgress, Completed, Blocked, Cancelled).</rdfs:comment>
     </owl:Class>
-
-
-
-    <!-- https://clearhead.us/vocab/actions/v4#Action -->
-
-    <owl:Class rdf:about="https://clearhead.us/vocab/actions/v4#Action">
-        <rdfs:comment xml:lang="en">An Action is the canonical execution entity in this vocabulary. Actions may be prescribed by a Plan or exist directly within a Charter as ad-hoc work items. This class replaces PlannedAct as the primary task-level semantic surface for v4 consumers.</rdfs:comment>
-        <rdfs:label xml:lang="en">Action</rdfs:label>
-        <skos:definition xml:lang="en">An execution-level work item that can carry status, timing, duration, dependency, and external schedule identity semantics.</skos:definition>
-    </owl:Class>
     
 
 
@@ -516,18 +515,6 @@ CCO has Plan and Objective but lacks a class for scope-of-concern declarations. 
     <owl:Class rdf:about="https://www.commoncoreontologies.org/ont00000476">
         <rdfs:comment xml:lang="en">In this vocabulary: Represents a project or story - the desired outcome that plans work toward. Maps to the &quot;*&quot; story/project marker in the .actions file format.</rdfs:comment>
     </owl:Class>
-    
-
-
-    <!-- https://www.commoncoreontologies.org/ont00000832 -->
-
-    <!-- Act (ont00000832) — no local annotations needed, fully defined by CCO via imports -->
-    
-
-
-    <!-- https://www.commoncoreontologies.org/ont00000965 -->
-
-    <!-- Prescriptive ICE (ont00000965) — fully defined by CCO via imports. Parent of Charter, Plan, Objective, Context -->
     
 
 
@@ -642,3 +629,4 @@ CCO has Plan and Objective but lacks a class for scope-of-concern declarations. 
 
 
 <!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
