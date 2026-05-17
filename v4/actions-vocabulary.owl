@@ -290,7 +290,7 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
 
     <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasCreatedDateTime">
         <rdfs:subPropertyOf rdf:resource="https://www.commoncoreontologies.org/ont00001767"/>
-        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
         <rdfs:comment xml:lang="en">Maps to the &quot;^&quot; syntax in the .actions file format. Can be derived from UUIDv7 if not explicitly set.</rdfs:comment>
         <rdfs:label xml:lang="en">has created date time</rdfs:label>
@@ -353,11 +353,11 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
 
     <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasExternalScheduleId">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v4#Action"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-        <rdfs:comment xml:lang="en">Optional source-agnostic external schedule series identifier for acts generated from integration profiles (for example ICS UID mapping). Not required for ad-hoc acts.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Optional source-agnostic external schedule series identifier. On a Plan, this records the ICS UID of the calendar series the Plan was derived from. On an Action, this records the series UID of the schedule-derived occurrence. Not required for ad-hoc Plans or Actions.</rdfs:comment>
         <rdfs:label xml:lang="en">has external schedule id</rdfs:label>
-        <skos:definition xml:lang="en">Relates an Action to an external schedule-series identifier when one exists.</skos:definition>
+        <skos:definition xml:lang="en">Relates a Prescriptive ICE (Plan or Action) to an external schedule-series identifier when one exists.</skos:definition>
     </owl:DatatypeProperty>
     
 
@@ -404,11 +404,11 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
 
     <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasSequentialChildren">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-        <rdfs:comment xml:lang="en">Maps to the &quot;~&quot; syntax in the .actions file format. When true, each child Plan implicitly depends on the previous sibling completing.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Maps to the &quot;~&quot; syntax in the .actions file format. When true, each child Plan or Action implicitly depends on the previous sibling completing.</rdfs:comment>
         <rdfs:label xml:lang="en">has sequential children</rdfs:label>
-        <skos:definition xml:lang="en">Indicates whether child Plans should be processed sequentially.</skos:definition>
+        <skos:definition xml:lang="en">Indicates whether child Plans or Actions should be processed sequentially.</skos:definition>
     </owl:DatatypeProperty>
     
 
@@ -417,11 +417,11 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
 
     <owl:DatatypeProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasUUID">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000974"/>
+        <rdfs:domain rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-        <rdfs:comment xml:lang="en">Maps to the &quot;#&quot; syntax in the .actions file format. Provides universal uniqueness across systems and time. UUIDv7 encodes creation timestamp.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Maps to the &quot;#&quot; syntax in the .actions file format. Provides universal uniqueness across systems and time. UUIDv7 encodes creation timestamp. Domain is Prescriptive ICE so Charter, Plan, and Action all carry UUIDs.</rdfs:comment>
         <rdfs:label xml:lang="en">has UUID</rdfs:label>
-        <skos:definition xml:lang="en">Relates an entity in the action model to its unique identifier (UUIDv7 preferred).</skos:definition>
+        <skos:definition xml:lang="en">Relates a Prescriptive ICE (Charter, Plan, or Action) to its unique identifier (UUIDv7 preferred).</skos:definition>
     </owl:DatatypeProperty>
     
 

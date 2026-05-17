@@ -87,7 +87,7 @@ actions:PlanCharterShape
 #    Extended Validation Rules
 #################################################################
 
-# Validate UUID format (UUIDv7 preferred)
+# Validate UUID format (UUIDv7 preferred) — Plans
 actions:PlanUUIDShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00000974 ;
@@ -97,6 +97,30 @@ actions:PlanUUIDShape
         sh:maxCount 1 ;
         sh:pattern "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" ;
         sh:message "UUID must follow standard UUID format (UUIDv7 preferred)" ;
+    ] .
+
+# Validate UUID format — Charters
+actions:CharterUUIDShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Charter ;
+    sh:property [
+        sh:path actions:hasUUID ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" ;
+        sh:message "Charter UUID must follow standard UUID format (UUIDv7 preferred)" ;
+    ] .
+
+# Validate UUID format — Actions
+actions:ActionUUIDShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:property [
+        sh:path actions:hasUUID ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" ;
+        sh:message "Action UUID must follow standard UUID format (UUIDv7 preferred)" ;
     ] .
 
 # Prevent circular dependencies (using is_successor_of)
