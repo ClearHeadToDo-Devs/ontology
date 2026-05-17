@@ -141,6 +141,18 @@ actions:PlanAliasShape
         sh:message "Aliases must contain only alphanumeric characters, hyphens, and underscores" ;
     ] .
 
+# Validate alias format on Actions (same pattern as Plans)
+actions:ActionAliasShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:property [
+        sh:path actions:hasAlias ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern "^[a-zA-Z0-9_-]+$" ;
+        sh:message "Action aliases must contain only alphanumeric characters, hyphens, and underscores" ;
+    ] .
+
 # Validate Action duration is positive
 actions:DurationPositiveShape
     a sh:NodeShape ;
@@ -235,7 +247,7 @@ actions:NoCircularCharterHierarchyShape
         """ ;
     ] .
 
-# Validate priority is integer 1-4 (Eisenhower Matrix)
+# Validate priority is integer 1-4 (Eisenhower Matrix) — Plans
 actions:PriorityRangeShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00000974 ;
@@ -246,6 +258,20 @@ actions:PriorityRangeShape
         sh:maxInclusive 4 ;
         sh:maxCount 1 ;
         sh:message "Priority must be integer 1-4 (1=Urgent+Important, 2=Important+NotUrgent, 3=Urgent+NotImportant, 4=NotUrgent+NotImportant)" ;
+    ] .
+
+# Validate priority is integer 1-4 (Eisenhower Matrix) — Actions
+# hasPriority domain is Prescriptive ICE (covers both Plan and Action)
+actions:ActionPriorityShape
+    a sh:NodeShape ;
+    sh:targetClass actions:Action ;
+    sh:property [
+        sh:path actions:hasPriority ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 4 ;
+        sh:maxCount 1 ;
+        sh:message "Action priority must be integer 1-4 (1=Urgent+Important, 2=Important+NotUrgent, 3=Urgent+NotImportant, 4=NotUrgent+NotImportant)" ;
     ] .
 
 # Validate context identifier uniqueness and format

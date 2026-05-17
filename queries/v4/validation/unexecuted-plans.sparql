@@ -1,10 +1,12 @@
 # =============================================================================
 # Query: Unexecuted Plans
 # =============================================================================
-# Purpose: Find Plans that have no PlannedActs (potential data issue)
+# Purpose: Find Plans that have no Actions prescribed (potential data issue)
 # Returns: unexecuted_plan, plan_name, has_recurrence
-# Usage: Data validation - Plans should typically have at least one PlannedAct
-# Notes: Plans without acts might be incomplete data entry or archived plans
+# Usage: Data validation — Plans should typically prescribe at least one Action
+# Notes: Plans without actions might be incomplete data entry or archived plans.
+#        Plans with hasRecurrenceRule expect external expansion (ICS/vdir) to
+#        generate Actions — their absence may be intentional if expansion is pending.
 # =============================================================================
 
 PREFIX actions: <https://clearhead.us/vocab/actions/v4#>
@@ -16,13 +18,13 @@ SELECT ?unexecuted_plan ?plan_name ?has_recurrence WHERE {
     ?unexecuted_plan a cco:ont00000974 ;
                      rdfs:label ?plan_name .
 
-    # Check that no PlannedAct is prescribed by this plan
+    # Check that no Action is prescribed by this plan
     FILTER NOT EXISTS {
         ?unexecuted_plan cco:ont00001942 ?act .
-        ?act a cco:ont00000228 .
+        ?act a actions:Action .
     }
 
-    # Check if it has recurrence (might explain lack of acts)
+    # Check if it has recurrence (expansion may be pending from external schedule)
     OPTIONAL {
         ?unexecuted_plan actions:hasRecurrenceRule ?recurrence .
         BIND("yes" AS ?has_recurrence)
