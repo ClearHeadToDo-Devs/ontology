@@ -11,13 +11,13 @@
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:skos="http://www.w3.org/2004/02/skos/core#">
     <owl:Ontology rdf:about="https://clearhead.us/vocab/actions/v4">
-        <owl:versionIRI rdf:resource="https://clearhead.us/vocab/actions/v4/4.3.0"/>
+        <owl:versionIRI rdf:resource="https://clearhead.us/vocab/actions/v4/4.4.0"/>
         <owl:imports rdf:resource="https://www.commoncoreontologies.org/AgentOntology"/>
         <owl:imports rdf:resource="https://www.commoncoreontologies.org/EventOntology"/>
         <owl:imports rdf:resource="https://www.commoncoreontologies.org/InformationEntityOntology"/>
         <dc:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2025-01-21</dc:created>
         <dc:creator>Darrion Burgess</dc:creator>
-        <dc:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-04-12</dc:modified>
+        <dc:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-05-16</dc:modified>
         <dc:title>CCO Extension for Intention Information Entities</dc:title>
         <rdfs:comment xml:lang="en">A disciplined extension to the Common Core Ontologies (CCO) for modeling
 intentional planning and execution.
@@ -47,7 +47,7 @@ Local resolution: see catalog-v001.xml for IRI → local file mappings.
 For full CCO definitions, see: https://github.com/CommonCoreOntology/CommonCoreOntologies
 For design rationale, see: V4_DESIGN.md</rdfs:comment>
         <rdfs:label>CCO Extension for Intention Information Entities</rdfs:label>
-        <owl:versionInfo>4.3.0</owl:versionInfo>
+        <owl:versionInfo>4.4.0</owl:versionInfo>
     </owl:Ontology>
     
 

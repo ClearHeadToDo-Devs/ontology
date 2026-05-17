@@ -1,5 +1,5 @@
 # CCO Extension for Intention Information Entities
-**Current Version**: 4.3.0 (Current)
+**Current Version**: 4.4.0 (Current)
 **Namespace**: `https://clearhead.us/vocab/actions/v4#`
 **Status**: Current
 
@@ -80,12 +80,18 @@ See **[V4_DESIGN.md](./V4_DESIGN.md)** for the full design rationale.
 
 ## Version History
 
-- **v4.3.0** (Current) - CCO Extension for Intention Information Entities
+- **v4.4.0** (Current) - Action model canonical; retires PlannedAct
+  - `actions:Action` is the execution entity; SHACL shapes cover Action priority/alias
+  - All SPARQL queries migrated to `actions:Action`; Plan optional for ad-hoc actions
+  - New conformance fixtures: `ics-linked-schedule.ttl`, `ad-hoc-actions.ttl`
+  - New query: `schedule-series.sparql` for ICS series grouping
+  - Parameterized SHACL tests now cover all valid and invalid examples
+
+- **v4.3.0** (Previous) - CCO Extension for Intention Information Entities
   - Added `hasScheduledDateTime`, `hasDueDateTime`, `hasDueRecurrenceRule`, `hasSubCharter`
+  - Added external schedule bridge: `hasExternalScheduleId`, `hasExternalOccurrenceKey`
   - Clarified act-level scheduling/due semantics and charter hierarchy
   - See: [v4/ONTOLOGY_OUT_CONTRACT.md](./v4/ONTOLOGY_OUT_CONTRACT.md)
-
-- **v4.1.0** (Previous) - CCO Extension for Intention Information Entities
   - Added Charter class, `inServiceOf` property
   - Replaced ActPhase with CCO Event Status Nominal ICE
   - Replaced `hasObjective` with `inServiceOf`, `hasPhase` with `is_measured_by_nominal`, `dependsOn` with `is_successor_of`

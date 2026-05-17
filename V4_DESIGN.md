@@ -143,7 +143,7 @@ These are pragmatic additions for the .actions file format, not ontological clai
 
 ## Version History
 
-- **4.3.0** — adds hasScheduledDateTime/hasDueDateTime/hasDueRecurrenceRule, adds hasSubCharter, aligns recurrence and scheduling semantics to Action
-- **4.4.0 (in progress)** — introduces `actions:Action` as the canonical execution entity and retires `PlannedAct` from the public contract surface
-- **4.1.0** — Charter class, inServiceOf property, Event Status Nominal ICE, is_successor_of
+- **4.4.0** (Current) — introduces `actions:Action` as the canonical execution entity; retires `PlannedAct` from the public contract surface; adds `ActionPriorityShape` and `ActionAliasShape` to SHACL; updates all SPARQL queries to use `actions:Action`; adds `ics-linked-schedule.ttl` and `ad-hoc-actions.ttl` conformance fixtures; adds `schedule-series.sparql`
+- **4.3.0** — adds `hasScheduledDateTime`/`hasDueDateTime`/`hasDueRecurrenceRule`, adds `hasSubCharter`, adds external schedule bridge fields (`hasExternalScheduleId`, `hasExternalOccurrenceKey`), aligns recurrence and scheduling semantics to Action
+- **4.1.0** — Charter class, `inServiceOf` property, Event Status Nominal ICE, `is_successor_of`
 - **4.0.0** — Initial minimal CCO extension (ActPhase, hasObjective, hasPhase, dependsOn)

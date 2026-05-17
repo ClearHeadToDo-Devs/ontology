@@ -1,7 +1,7 @@
 {
        "$schema": "https://json-schema.org/draft/2020-12/schema",
        "$id": "https://clearhead.us/vocab/actions/v4/actions.schema.json",
-       "title": "Actions Vocabulary v4.3.0 (Ontology-Out)",
+       "title": "Actions Vocabulary v4.4.0 (Ontology-Out)",
        "type": "object",
        "properties": {
               "@context": {
