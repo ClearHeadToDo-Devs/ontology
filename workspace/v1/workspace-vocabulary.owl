@@ -14,18 +14,46 @@
         <dc:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-05-30</dc:created>
         <dc:creator>Darrion Burgess</dc:creator>
         <dc:title>Clearhead Workspace Vocabulary</dc:title>
-        <rdfs:comment xml:lang="en">Application-level vocabulary for clearhead workspace snapshots.
+        <rdfs:comment xml:lang="en">Application-level vocabulary for clearhead workspaces.
 
-Imports and extends the actions: vocabulary with predicates describing filesystem-layer
-facts about actions in a specific workspace: their source file and line number. These are
-workspace-snapshot properties, not ontological properties of the action itself.
+Declares the Workspace class (a named, UUID-identified collection of charters and
+actions) and datatype properties describing filesystem-layer facts about actions
+(source file path, source line number).
 
-These triples are stored in the working graph at load time by load_domain_model in
-clearhead-core, valid for the current workspace snapshot. They enable SPARQL queries
-to return file+line for editor integration (qflist, jump-to-source).</rdfs:comment>
+The Workspace class is used to project workspace identity into the RDF named graph
+so that reference resolution can find a workspace by alias without decoding graph
+URIs. Source location properties are workspace-snapshot facts, not ontological
+properties of the action itself — they are valid for the current filesystem state
+and enable editor integration (qflist, jump-to-source).</rdfs:comment>
         <rdfs:label xml:lang="en">Clearhead Workspace Vocabulary</rdfs:label>
         <owl:versionInfo>1.0.0</owl:versionInfo>
     </owl:Ontology>
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatype Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    <!--
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    <!-- https://clearhead.us/vocab/workspace/v1#Workspace -->
+
+    <owl:Class rdf:about="https://clearhead.us/vocab/workspace/v1#Workspace">
+        <rdfs:label xml:lang="en">Workspace</rdfs:label>
+        <rdfs:comment xml:lang="en">A clearhead workspace — a named, addressable collection of charters and actions with a stable UUID identity. The named graph URI is urn:clearhead:workspace:&lt;uuid&gt;. Identity (alias, label) is written once by clearhead init into .clearhead/config.json and projected as RDF triples by insert_workspace_metadata so reference resolution can find a workspace by alias across named graphs.</rdfs:comment>
+    </owl:Class>
 
 
     <!--
