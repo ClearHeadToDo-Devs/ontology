@@ -23,6 +23,11 @@ export default {
       return handleVersionNegotiation('v4', accept);
     }
 
+    // Handle /vocab/workspace/v1 and /vocab/workspace/v1/ paths
+    if (url.pathname === '/vocab/workspace/v1' || url.pathname === '/vocab/workspace/v1/') {
+      return handleWorkspaceNegotiation(accept);
+    }
+
     // For all other paths, proxy to Pages deployment
     const targetUrl = new URL(url.pathname + url.search, VOCAB_BASE);
     return fetch(targetUrl);
@@ -50,6 +55,25 @@ function handleVersionNegotiation(version, accept) {
   }
 
   // Fetch from Pages deployment
+  const targetUrl = new URL(targetPath, VOCAB_BASE);
+  return fetch(targetUrl);
+}
+
+function handleWorkspaceNegotiation(accept) {
+  let targetPath = null;
+
+  if (accept.includes('application/rdf+xml') || accept.includes('application/xml')) {
+    targetPath = '/vocab/workspace/v1/workspace-vocabulary.owl';
+  } else if (accept.includes('text/turtle')) {
+    targetPath = '/vocab/workspace/v1/workspace-vocabulary.ttl';
+  } else if (accept.includes('application/ld+json') || accept.includes('application/json')) {
+    targetPath = '/vocab/workspace/v1/workspace-vocabulary.jsonld';
+  } else if (accept.includes('text/html')) {
+    targetPath = '/vocab/workspace/v1/index.html';
+  } else {
+    targetPath = '/vocab/workspace/v1/workspace-vocabulary.owl';
+  }
+
   const targetUrl = new URL(targetPath, VOCAB_BASE);
   return fetch(targetUrl);
 }

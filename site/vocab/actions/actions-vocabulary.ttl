@@ -1,6 +1,7 @@
 @prefix : <https://clearhead.us/vocab/actions/v4#> .
 @prefix bfo: <http://purl.obolibrary.org/obo/> .
 @prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -24,10 +25,10 @@ skos:definition a owl:AnnotationProperty .
 
 <https://clearhead.us/vocab/actions/v4> a owl:Ontology ;
     rdfs:label "CCO Extension for Intention Information Entities" ;
-    dcterms:created "2025-01-21"^^xsd:date ;
-    dcterms:creator "Darrion Burgess" ;
-    dcterms:modified "2026-04-12"^^xsd:date ;
-    dcterms:title "CCO Extension for Intention Information Entities" ;
+    dc:created "2025-01-21"^^xsd:date ;
+    dc:creator "Darrion Burgess" ;
+    dc:modified "2026-05-16"^^xsd:date ;
+    dc:title "CCO Extension for Intention Information Entities" ;
     rdfs:comment """A disciplined extension to the Common Core Ontologies (CCO) for modeling
 intentional planning and execution.
 
@@ -58,8 +59,8 @@ For design rationale, see: V4_DESIGN.md"""@en ;
     owl:imports cco:AgentOntology,
         cco:EventOntology,
         cco:InformationEntityOntology ;
-    owl:versionIRI <https://clearhead.us/vocab/actions/v4/4.3.0> ;
-    owl:versionInfo "4.3.0" .
+    owl:versionIRI <https://clearhead.us/vocab/actions/v4/4.4.0> ;
+    owl:versionInfo "4.4.0" .
 
 :AgentContextType a owl:NamedIndividual,
         :ContextType ;
@@ -147,7 +148,7 @@ For design rationale, see: V4_DESIGN.md"""@en ;
 :hasCreatedDateTime a owl:DatatypeProperty ;
     rdfs:label "has created date time"@en ;
     rdfs:comment "Maps to the \"^\" syntax in the .actions file format. Can be derived from UUIDv7 if not explicitly set."@en ;
-    rdfs:domain cco:ont00000974 ;
+    rdfs:domain cco:ont00000965 ;
     rdfs:range xsd:dateTime ;
     rdfs:subPropertyOf cco:ont00001767 ;
     skos:definition "Relates an entity in the action model to the date/time when it was first created."@en .
@@ -185,10 +186,10 @@ For design rationale, see: V4_DESIGN.md"""@en ;
 :hasExternalScheduleId a owl:DatatypeProperty,
         owl:FunctionalProperty ;
     rdfs:label "has external schedule id"@en ;
-    rdfs:comment "Optional source-agnostic external schedule series identifier for acts generated from integration profiles (for example ICS UID mapping). Not required for ad-hoc acts."@en ;
-    rdfs:domain :Action ;
+    rdfs:comment "Optional source-agnostic external schedule series identifier. On a Plan, this records the ICS UID of the calendar series the Plan was derived from. On an Action, this records the series UID of the schedule-derived occurrence. Not required for ad-hoc Plans or Actions."@en ;
+    rdfs:domain cco:ont00000965 ;
     rdfs:range xsd:string ;
-    skos:definition "Relates an Action to an external schedule-series identifier when one exists."@en .
+    skos:definition "Relates a Prescriptive ICE (Plan or Action) to an external schedule-series identifier when one exists."@en .
 
 :hasPriority a owl:DatatypeProperty,
         owl:FunctionalProperty ;
@@ -216,10 +217,10 @@ For design rationale, see: V4_DESIGN.md"""@en ;
 :hasSequentialChildren a owl:DatatypeProperty,
         owl:FunctionalProperty ;
     rdfs:label "has sequential children"@en ;
-    rdfs:comment "Maps to the \"~\" syntax in the .actions file format. When true, each child Plan implicitly depends on the previous sibling completing."@en ;
-    rdfs:domain cco:ont00000974 ;
+    rdfs:comment "Maps to the \"~\" syntax in the .actions file format. When true, each child Plan or Action implicitly depends on the previous sibling completing."@en ;
+    rdfs:domain cco:ont00000965 ;
     rdfs:range xsd:boolean ;
-    skos:definition "Indicates whether child Plans should be processed sequentially."@en .
+    skos:definition "Indicates whether child Plans or Actions should be processed sequentially."@en .
 
 :hasSubCharter a owl:ObjectProperty ;
     rdfs:label "has sub charter"@en ;
@@ -232,10 +233,10 @@ For design rationale, see: V4_DESIGN.md"""@en ;
 :hasUUID a owl:DatatypeProperty,
         owl:FunctionalProperty ;
     rdfs:label "has UUID"@en ;
-    rdfs:comment "Maps to the \"#\" syntax in the .actions file format. Provides universal uniqueness across systems and time. UUIDv7 encodes creation timestamp."@en ;
-    rdfs:domain cco:ont00000974 ;
+    rdfs:comment "Maps to the \"#\" syntax in the .actions file format. Provides universal uniqueness across systems and time. UUIDv7 encodes creation timestamp. Domain is Prescriptive ICE so Charter, Plan, and Action all carry UUIDs."@en ;
+    rdfs:domain cco:ont00000965 ;
     rdfs:range xsd:string ;
-    skos:definition "Relates an entity in the action model to its unique identifier (UUIDv7 preferred)."@en .
+    skos:definition "Relates a Prescriptive ICE (Charter, Plan, or Action) to its unique identifier (UUIDv7 preferred)."@en .
 
 :inServiceOf a owl:ObjectProperty ;
     rdfs:label "in service of"@en ;
@@ -278,6 +279,9 @@ bfo:BFO_0000051 a owl:ObjectProperty ;
 cco:ont00000476 a owl:Class ;
     rdfs:comment "In this vocabulary: Represents a project or story - the desired outcome that plans work toward. Maps to the \"*\" story/project marker in the .actions file format."@en .
 
+cco:ont00000974 a owl:Class ;
+    rdfs:comment "In this vocabulary: Represents an action definition or task template. Maps to \"Action\" in the .actions file format."@en .
+
 :Charter a owl:Class ;
     rdfs:label "Charter"@en ;
     rdfs:comment """A Charter establishes the boundary of responsibility or interest without prescribing specific acts (that's Plan) or target states (that's Objective). It answers "what domain am I responsible for?"
@@ -290,11 +294,14 @@ CCO has Plan and Objective but lacks a class for scope-of-concern declarations. 
     rdfs:subClassOf cco:ont00000965 ;
     skos:definition "A Prescriptive Information Content Entity that declares the scope of directed concern for an agent or organization."@en .
 
-cco:ont00000974 a owl:Class ;
-    rdfs:comment "In this vocabulary: Represents an action definition or task template. Maps to \"Action\" in the .actions file format."@en .
-
 cco:ont00001767 a owl:DatatypeProperty ;
     rdfs:comment "In this vocabulary: Parent property for hasScheduledDateTime, hasDueDateTime, hasCompletedDateTime, hasCreatedDateTime."@en .
+
+:Action a owl:Class ;
+    rdfs:label "Action"@en ;
+    rdfs:comment "An Action is the canonical execution entity in this vocabulary. Actions may be prescribed by a Plan or exist directly within a Charter as ad-hoc work items. This class replaces PlannedAct as the primary task-level semantic surface for v4 consumers."@en ;
+    rdfs:subClassOf cco:ont00000965 ;
+    skos:definition "An execution-level work item that can carry status, timing, duration, dependency, and external schedule identity semantics."@en .
 
 :ContextType a owl:Class ;
     rdfs:label "Context Type"@en ;
@@ -303,11 +310,6 @@ cco:ont00001767 a owl:DatatypeProperty ;
 
 cco:ont00000203 a owl:Class ;
     rdfs:comment "In this vocabulary: Used for lifecycle status values of Actions (NotStarted, InProgress, Completed, Blocked, Cancelled)."@en .
-
-:Action a owl:Class ;
-    rdfs:label "Action"@en ;
-    rdfs:comment "An Action is the canonical execution entity in this vocabulary. Actions may be prescribed by a Plan or exist directly within a Charter as ad-hoc work items. This class replaces PlannedAct as the primary task-level semantic surface for v4 consumers."@en ;
-    skos:definition "An execution-level work item that can carry status, timing, duration, dependency, and external schedule identity semantics."@en .
 
 :Context a owl:Class ;
     rdfs:label "Context"@en ;

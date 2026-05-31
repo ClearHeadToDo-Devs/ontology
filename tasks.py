@@ -83,6 +83,29 @@ FORMATS = [
     },
 ]
 
+WORKSPACE_FORMATS = [
+    {
+        "label": "OWL/XML (Canonical)",
+        "href": "workspace-vocabulary.owl",
+        "desc": "Industry-standard format, compatible with Protege and reasoning tools.",
+    },
+    {
+        "label": "Turtle (RDF)",
+        "href": "workspace-vocabulary.ttl",
+        "desc": "Human-readable RDF format, perfect for version control and manual editing.",
+    },
+    {
+        "label": "JSON-LD",
+        "href": "workspace-vocabulary.jsonld",
+        "desc": "Web applications, JavaScript, REST APIs.",
+    },
+    {
+        "label": "RDF/XML",
+        "href": "workspace-vocabulary.rdf",
+        "desc": "Legacy RDF tools and broad compatibility.",
+    },
+]
+
 CSS = """
 body {
     font-family: system-ui, -apple-system, sans-serif;
@@ -198,6 +221,15 @@ def _landing_page() -> str:
             " ",
             code["https://clearhead.us/vocab/actions/actions-vocabulary.owl"],
         ],
+        h2["Extensions"],
+        ul[
+            li[
+                a(href="https://clearhead.us/vocab/workspace/v1/")[
+                    "Workspace Vocabulary (clearhead-ws:)"
+                ],
+                " — application-layer predicates for filesystem source location (hasSourceFile, hasSourceLine)",
+            ],
+        ],
         h2["Resources"],
         ul[
             li[a(href="https://github.com/your-org/ontology")["GitHub Repository"]],
@@ -206,6 +238,74 @@ def _landing_page() -> str:
         footer[
             p[
                 "Actions Vocabulary | Licensed under MIT | ",
+                a(href="https://clearhead.us")["Clearhead Platform"],
+            ],
+        ],
+    )
+
+
+def _workspace_landing_page() -> str:
+    return _page(
+        "Clearhead Workspace Vocabulary",
+        h1["Clearhead Workspace Vocabulary"],
+        p[
+            "Application-level vocabulary extending ",
+            a(href="https://clearhead.us/vocab/actions/v4/")["actions: v4"],
+            " with filesystem-layer predicates for workspace snapshots.",
+        ],
+        div(".info")[
+            p[
+                Markup("<strong>Philosophy:</strong> "),
+                "Source location is workspace-layer, not domain-layer. ",
+                "These predicates describe where an action lives on disk, ",
+                "not what the action ontologically is.",
+            ],
+        ],
+        h2["Properties"],
+        [
+            div(".format")[h3[prop["label"]], p[prop["desc"]]]
+            for prop in [
+                {
+                    "label": "clearhead-ws:hasSourceFile",
+                    "desc": "Relative path from the workspace root to the .actions file containing this action. (xsd:string)",
+                },
+                {
+                    "label": "clearhead-ws:hasSourceLine",
+                    "desc": "1-based line number of this action within its source file. (xsd:integer)",
+                },
+            ]
+        ],
+        h2["Available Formats"],
+        [
+            div(".format")[
+                h3[fmt["label"]],
+                p[fmt["desc"]],
+                p[a(href=fmt["href"])[f"Download {fmt['label']}"]],
+            ]
+            for fmt in WORKSPACE_FORMATS
+        ],
+        h2["Using the Vocabulary"],
+        h3["Namespace"],
+        pre[code["@prefix clearhead-ws: <https://clearhead.us/vocab/workspace/v1#> ."]],
+        h3["Import in Your Ontology"],
+        pre[
+            code[
+                Markup(
+                    '&lt;owl:Ontology rdf:about="https://example.com/my-ontology"&gt;\n'
+                    '  &lt;owl:imports rdf:resource="https://clearhead.us/vocab/workspace/v1"/&gt;\n'
+                    "&lt;/owl:Ontology&gt;"
+                )
+            ]
+        ],
+        h2["Parent Vocabulary"],
+        p[
+            "Imports and extends ",
+            a(href="https://clearhead.us/vocab/actions/")["Actions Vocabulary (actions:)"],
+            " — Charter, Plan, Action, and related domain classes.",
+        ],
+        footer[
+            p[
+                "Clearhead Workspace Vocabulary | Licensed under MIT | ",
                 a(href="https://clearhead.us")["Clearhead Platform"],
             ],
         ],
@@ -252,6 +352,22 @@ CLOUDFLARE_HEADERS = """\
   Content-Type: application/schema+json
   Cache-Control: public, max-age=3600
 
+/vocab/workspace/*.owl
+  Content-Type: application/rdf+xml
+  Cache-Control: public, max-age=3600
+
+/vocab/workspace/*.ttl
+  Content-Type: text/turtle; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/vocab/workspace/*.rdf
+  Content-Type: application/rdf+xml
+  Cache-Control: public, max-age=3600
+
+/vocab/workspace/*.jsonld
+  Content-Type: application/ld+json
+  Cache-Control: public, max-age=3600
+
 /*.html
   Cache-Control: no-cache, must-revalidate
 """
@@ -287,6 +403,22 @@ CLOUDFLARE_REDIRECTS = """\
 /vocab  /vocab/actions/  301
 /actions  /vocab/actions/  301
 /ontology  /vocab/actions/  301
+
+# Content negotiation for /vocab/workspace/v1/
+/vocab/workspace/v1  /vocab/workspace/v1/workspace-vocabulary.owl  200  Accept: application/rdf+xml
+/vocab/workspace/v1  /vocab/workspace/v1/workspace-vocabulary.owl  200  Accept: application/xml
+/vocab/workspace/v1  /vocab/workspace/v1/workspace-vocabulary.ttl  200  Accept: text/turtle
+/vocab/workspace/v1  /vocab/workspace/v1/workspace-vocabulary.jsonld  200  Accept: application/ld+json
+/vocab/workspace/v1  /vocab/workspace/v1/workspace-vocabulary.jsonld  200  Accept: application/json
+/vocab/workspace/v1  /vocab/workspace/v1/index.html  200
+
+# Trailing slash variant
+/vocab/workspace/v1/  /vocab/workspace/v1/workspace-vocabulary.owl  200  Accept: application/rdf+xml
+/vocab/workspace/v1/  /vocab/workspace/v1/workspace-vocabulary.owl  200  Accept: application/xml
+/vocab/workspace/v1/  /vocab/workspace/v1/workspace-vocabulary.ttl  200  Accept: text/turtle
+/vocab/workspace/v1/  /vocab/workspace/v1/workspace-vocabulary.jsonld  200  Accept: application/ld+json
+/vocab/workspace/v1/  /vocab/workspace/v1/workspace-vocabulary.jsonld  200  Accept: application/json
+/vocab/workspace/v1/  /vocab/workspace/v1/index.html  200
 """
 
 
@@ -362,6 +494,20 @@ def build_site(c):
         f.write(landing)
     with open("site/vocab/actions/index.html", "w") as f:
         f.write(landing)
+
+    # Build workspace vocabulary
+    print("Building workspace vocabulary...")
+    c.run("mkdir -p site/vocab/workspace/v1")
+    wg = rdf.Graph()
+    wg.parse("workspace/v1/workspace-vocabulary.owl", format="xml")
+    wg.serialize("site/vocab/workspace/v1/workspace-vocabulary.ttl", format="turtle")
+    wg.serialize("site/vocab/workspace/v1/workspace-vocabulary.rdf", format="xml")
+    wg.serialize("site/vocab/workspace/v1/workspace-vocabulary.jsonld", format="json-ld")
+    c.run("cp workspace/v1/workspace-vocabulary.owl site/vocab/workspace/v1/")
+    ws_landing = _workspace_landing_page()
+    with open("site/vocab/workspace/v1/index.html", "w") as f:
+        f.write(ws_landing)
+    print("Generated workspace vocabulary formats")
 
     # Create Cloudflare Pages configuration
     with open("site/_headers", "w") as f:

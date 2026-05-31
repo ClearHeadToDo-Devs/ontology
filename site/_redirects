@@ -28,3 +28,19 @@
 /vocab  /vocab/actions/  301
 /actions  /vocab/actions/  301
 /ontology  /vocab/actions/  301
+
+# Content negotiation for /vocab/workspace/v1/
+/vocab/workspace/v1  /vocab/workspace/v1/workspace-vocabulary.owl  200  Accept: application/rdf+xml
+/vocab/workspace/v1  /vocab/workspace/v1/workspace-vocabulary.owl  200  Accept: application/xml
+/vocab/workspace/v1  /vocab/workspace/v1/workspace-vocabulary.ttl  200  Accept: text/turtle
+/vocab/workspace/v1  /vocab/workspace/v1/workspace-vocabulary.jsonld  200  Accept: application/ld+json
+/vocab/workspace/v1  /vocab/workspace/v1/workspace-vocabulary.jsonld  200  Accept: application/json
+/vocab/workspace/v1  /vocab/workspace/v1/index.html  200
+
+# Trailing slash variant
+/vocab/workspace/v1/  /vocab/workspace/v1/workspace-vocabulary.owl  200  Accept: application/rdf+xml
+/vocab/workspace/v1/  /vocab/workspace/v1/workspace-vocabulary.owl  200  Accept: application/xml
+/vocab/workspace/v1/  /vocab/workspace/v1/workspace-vocabulary.ttl  200  Accept: text/turtle
+/vocab/workspace/v1/  /vocab/workspace/v1/workspace-vocabulary.jsonld  200  Accept: application/ld+json
+/vocab/workspace/v1/  /vocab/workspace/v1/workspace-vocabulary.jsonld  200  Accept: application/json
+/vocab/workspace/v1/  /vocab/workspace/v1/index.html  200
