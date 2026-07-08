@@ -44,6 +44,45 @@ class TestActionsContext:
         assert ctx["contextBroader"]["@id"] == "actionsv:contextBroader"
         assert ctx["contextNarrower"]["@id"] == "actionsv:contextNarrower"
 
+    def test_status_bare_term_expands_to_ontology_individual(self):
+        # The exporter emits display-friendly bare terms ("Completed"), relying
+        # on the context's status term definitions. That only works when status
+        # is typed @vocab — under @id the value resolves document-relative and
+        # the five status term definitions are dead letters.
+        with CONTEXT_FILE.open("r", encoding="utf-8") as f:
+            context = json.load(f)["@context"]
+        doc = {
+            "@context": context,
+            "id": "urn:uuid:act-bare-status",
+            "type": "Action",
+            "status": "Completed",
+        }
+        graph = Graph()
+        graph.parse(data=json.dumps(doc), format="json-ld")
+
+        act = URIRef("urn:uuid:act-bare-status")
+        assert (act, CCO.ont00001868, ACTIONS.Completed) in graph, (
+            "bare status term did not expand to the actions: individual; "
+            f"actual: {list(graph.objects(act, CCO.ont00001868))}"
+        )
+
+    def test_status_full_iri_still_expands(self):
+        # Full-IRI values (as in ontology-out.jsonld) must keep working after
+        # the @vocab switch: anything containing a colon is treated as an IRI.
+        with CONTEXT_FILE.open("r", encoding="utf-8") as f:
+            context = json.load(f)["@context"]
+        doc = {
+            "@context": context,
+            "id": "urn:uuid:act-full-status",
+            "type": "Action",
+            "status": str(ACTIONS.Completed),
+        }
+        graph = Graph()
+        graph.parse(data=json.dumps(doc), format="json-ld")
+
+        act = URIRef("urn:uuid:act-full-status")
+        assert (act, CCO.ont00001868, ACTIONS.Completed) in graph
+
     def test_context_expands_ontology_out_compacted_payload(self):
         graph = Graph()
         graph.parse(EXAMPLE_FILE, format="json-ld")
