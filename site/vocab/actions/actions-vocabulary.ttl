@@ -197,7 +197,7 @@ For design rationale, see: V4_DESIGN.md"""@en ;
     rdfs:comment "Maps to the \"!\" syntax in the .actions file format. 1=Urgent+Important, 2=Important+NotUrgent, 3=Urgent+NotImportant, 4=NotUrgent+NotImportant."@en ;
     rdfs:domain cco:ont00000965 ;
     rdfs:range xsd:integer ;
-    skos:definition "Relates a Plan to its priority level (1-4, Eisenhower Matrix)."@en .
+    skos:definition "Relates a prescriptive item to its RFC 5545-aligned priority level (1 highest through 9 lowest)."@en .
 
 :hasRecurrenceRule a owl:DatatypeProperty ;
     rdfs:label "has recurrence rule"@en ;

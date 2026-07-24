@@ -271,7 +271,7 @@ actions:NoCircularCharterHierarchyShape
         """ ;
     ] .
 
-# Validate priority is integer 1-4 (Eisenhower Matrix) — Plans
+# Validate priority uses RFC 5545 integer range 1-9 — Plans
 actions:PriorityRangeShape
     a sh:NodeShape ;
     sh:targetClass cco:ont00000974 ;
@@ -279,12 +279,12 @@ actions:PriorityRangeShape
         sh:path actions:hasPriority ;
         sh:datatype xsd:integer ;
         sh:minInclusive 1 ;
-        sh:maxInclusive 4 ;
+        sh:maxInclusive 9 ;
         sh:maxCount 1 ;
-        sh:message "Priority must be integer 1-4 (1=Urgent+Important, 2=Important+NotUrgent, 3=Urgent+NotImportant, 4=NotUrgent+NotImportant)" ;
+        sh:message "Priority must be integer 1-9 (1=highest, 9=lowest; RFC 5545)" ;
     ] .
 
-# Validate priority is integer 1-4 (Eisenhower Matrix) — Actions
+# Validate priority uses RFC 5545 integer range 1-9 — Actions
 # hasPriority domain is Prescriptive ICE (covers both Plan and Action)
 actions:ActionPriorityShape
     a sh:NodeShape ;
@@ -293,9 +293,9 @@ actions:ActionPriorityShape
         sh:path actions:hasPriority ;
         sh:datatype xsd:integer ;
         sh:minInclusive 1 ;
-        sh:maxInclusive 4 ;
+        sh:maxInclusive 9 ;
         sh:maxCount 1 ;
-        sh:message "Action priority must be integer 1-4 (1=Urgent+Important, 2=Important+NotUrgent, 3=Urgent+NotImportant, 4=NotUrgent+NotImportant)" ;
+        sh:message "Action priority must be integer 1-9 (1=highest, 9=lowest; RFC 5545)" ;
     ] .
 
 # Validate context identifier uniqueness and format

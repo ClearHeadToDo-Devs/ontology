@@ -803,7 +803,7 @@
     "http://www.w3.org/2004/02/skos/core#definition": [
       {
         "@language": "en",
-        "@value": "Relates a Plan to its priority level (1-4, Eisenhower Matrix)."
+        "@value": "Relates a prescriptive item to its RFC 5545-aligned priority level (1 highest through 9 lowest)."
       }
     ]
   },

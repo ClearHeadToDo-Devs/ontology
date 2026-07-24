@@ -38,7 +38,7 @@
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
     <rdfs:comment xml:lang="en">Maps to the "!" syntax in the .actions file format. 1=Urgent+Important, 2=Important+NotUrgent, 3=Urgent+NotImportant, 4=NotUrgent+NotImportant.</rdfs:comment>
     <rdfs:label xml:lang="en">has priority</rdfs:label>
-    <skos:definition xml:lang="en">Relates a Plan to its priority level (1-4, Eisenhower Matrix).</skos:definition>
+    <skos:definition xml:lang="en">Relates a prescriptive item to its RFC 5545-aligned priority level (1 highest through 9 lowest).</skos:definition>
   </rdf:Description>
   <rdf:Description rdf:about="https://clearhead.us/vocab/actions/v4#inServiceOf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
