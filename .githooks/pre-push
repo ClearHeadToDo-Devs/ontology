@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Pre-push gate for the ontology: the pytest suite (SHACL validation, example
+# conformance) must be green before pushing. Deps are provisioned from uv.lock
+# by `uv run`. This is the local half of the tech-debt #2 baseline; CI re-runs
+# the same suite in a clean environment. Bypass with:  git push --no-verify
+#
+set -eu
+
+echo "pre-push > uv run pytest"
+uv run pytest
+
+echo "pre-push > all checks passed"
