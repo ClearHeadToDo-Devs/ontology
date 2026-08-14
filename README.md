@@ -1,7 +1,5 @@
 # CCO Extension for Intention Information Entities
-**Current Version**: 4.4.0 (Current)
-**Namespace**: `https://clearhead.us/vocab/actions/v4#`
-**Status**: Current
+**Current Version**: 4.4.0 (Current) **Namespace**: `https://clearhead.us/vocab/actions/v4#` **Status**: Current
 
 ## What is This?
 

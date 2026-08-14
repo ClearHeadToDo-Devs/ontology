@@ -1,8 +1,6 @@
 # V4 Design: CCO Extension for Intention Information Entities
 
-**Version**: 4.3.0
-**Date**: 2026-07-07
-**Status**: Current
+**Version**: 4.3.0 **Date**: 2026-07-07 **Status**: Current
 
 ## Overview
 

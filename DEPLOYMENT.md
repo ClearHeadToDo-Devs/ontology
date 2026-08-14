@@ -519,7 +519,4 @@ For issues or questions:
 
 ---
 
-**Last Updated:** 2025-11-02
-**Ontology Version:** 3.1.0 (consolidated)
-**Production URL:** https://clearhead.us/vocab/actions/v3/
-**Status:** ✅ Live and operational
+**Last Updated:** 2025-11-02 **Ontology Version:** 3.1.0 (consolidated) **Production URL:** https://clearhead.us/vocab/actions/v3/ **Status:** ✅ Live and operational
