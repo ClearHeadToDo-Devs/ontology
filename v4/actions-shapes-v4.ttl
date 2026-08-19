@@ -6,11 +6,11 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 #################################################################
-#    SHACL Shapes for Actions Vocabulary v4.3.0
+#    SHACL Shapes for Actions Vocabulary v4.4.0
 #    CCO Extension for Intention Information Entities
 #################################################################
 #
-# These shapes validate the v4.3.0 model:
+# These shapes validate the v4.4.0 model:
 # - Plans use CCO Plan (ont00000974)
 # - Actions use actions:Action as the canonical execution entity
 # - Objectives use CCO Objective (ont00000476)
@@ -18,7 +18,7 @@
 # - Status uses CCO Event Status Nominal ICE (ont00000203)
 # - is_measured_by_nominal (ont00001868) links acts to status
 # - inServiceOf links Prescriptive ICEs to Objectives
-# - is_successor_of (ont00001775) for plan ordering
+# - is_successor_of (ont00001775) for Action dependency ordering
 # - prescribes (ont00001942) links Plans to Actions
 #
 #################################################################
@@ -124,11 +124,13 @@ actions:ActionUUIDShape
     ] .
 
 # Prevent circular dependencies (using is_successor_of)
+# Targets Prescriptive ICE (ont00000965) so it covers both Actions and Plans;
+# in practice is_successor_of is used between Actions.
 actions:NoCyclicDependenciesShape
     a sh:NodeShape ;
-    sh:targetClass cco:ont00000974 ;
+    sh:targetClass cco:ont00000965 ;
     sh:sparql [
-        sh:message "Plans cannot have circular dependencies" ;
+        sh:message "Prescriptive ICEs (Actions/Plans) cannot have circular is_successor_of dependencies" ;
         sh:select """
             PREFIX cco: <https://www.commoncoreontologies.org/>
             SELECT $this WHERE {
@@ -325,13 +327,16 @@ actions:NoCircularContextHierarchyShape
         """ ;
     ] .
 
-# Constrain is_successor_of domain to Plans (pragmatic SHACL constraint)
+# Constrain is_successor_of domain to Prescriptive ICEs (Actions or Plans).
+# Action is the execution entity that carries dependency ordering (the "<"
+# predecessor and "~" sequential syntax); Plan is included via the shared
+# Prescriptive ICE (ont00000965) superclass.
 actions:SuccessorDomainShape
     a sh:NodeShape ;
     sh:targetSubjectsOf cco:ont00001775 ;
-    sh:class cco:ont00000974 ;
-    sh:message "is_successor_of should only be used between Plan instances in this vocabulary" .
+    sh:class cco:ont00000965 ;
+    sh:message "is_successor_of should only relate Prescriptive ICEs (Actions or Plans) in this vocabulary" .
 
 #################################################################
-#    End of SHACL Shapes for Actions Vocabulary v4.3.0
+#    End of SHACL Shapes for Actions Vocabulary v4.4.0
 #################################################################

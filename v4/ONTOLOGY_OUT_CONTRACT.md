@@ -1,4 +1,4 @@
-# Ontology-Out Contract (v4.3.0)
+# Ontology-Out Contract (v4.4.0)
 
 This document defines the canonical compacted JSON-LD contract for ontology-out exports.
 

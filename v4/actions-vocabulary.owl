@@ -84,7 +84,13 @@ For design rationale, see: V4_DESIGN.md</rdfs:comment>
     <!-- http://purl.org/dc/terms/title -->
 
     <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/title"/>
-    
+
+
+
+    <!-- http://purl.org/dc/terms/description -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/description"/>
+
 
 
     <!-- http://www.w3.org/2004/02/skos/core#definition -->
@@ -124,7 +130,8 @@ For design rationale, see: V4_DESIGN.md</rdfs:comment>
     <!-- http://purl.obolibrary.org/obo/BFO_0000050 -->
 
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/BFO_0000050">
-        <rdfs:comment xml:lang="en">In this vocabulary: Plans are part_of Charters (scope containment).</rdfs:comment>
+        <owl:inverseOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
+        <rdfs:comment xml:lang="en">In this vocabulary: upward containment. Plans and Actions are part_of their containing Charter, and child Actions are part_of their parent Action. This is the canonical serialized direction — the JSON-LD &quot;partOf&quot; term and the SHACL PlanCharterShape both use it; has_part (BFO_0000051) is its declared inverse.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -132,7 +139,7 @@ For design rationale, see: V4_DESIGN.md</rdfs:comment>
     <!-- http://purl.obolibrary.org/obo/BFO_0000051 -->
 
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/BFO_0000051">
-        <rdfs:comment xml:lang="en">In this vocabulary: Plan decomposition - parent actions have child actions as parts. Also Charter → Plan containment. Maps to the &quot;&gt;&quot; children syntax in the .actions file format.</rdfs:comment>
+        <rdfs:comment xml:lang="en">In this vocabulary: downward containment, the inverse of part_of (BFO_0000050). A Charter has_part its Plans and Actions; a parent Action has_part its child Actions (the &quot;&gt;&quot; children syntax in the .actions file format). Canonical exports serialize the part_of direction; has_part is available by inference.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -216,7 +223,7 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
     <!-- https://www.commoncoreontologies.org/ont00001775 -->
 
     <owl:ObjectProperty rdf:about="https://www.commoncoreontologies.org/ont00001775">
-        <rdfs:comment xml:lang="en">In this vocabulary: Used for plan dependency ordering. A Plan that is_successor_of another Plan cannot proceed until the predecessor completes. Maps to the &quot;&lt;&quot; predecessor syntax in the .actions file format.</rdfs:comment>
+        <rdfs:comment xml:lang="en">In this vocabulary: dependency ordering between Prescriptive ICEs, in practice between Actions. An Action that is_successor_of another Action cannot proceed until its predecessor completes. Maps to the &quot;&lt;&quot; predecessor syntax and the implicit edges of the &quot;~&quot; sequential-children syntax in the .actions file format.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -521,7 +528,8 @@ CCO has Plan and Objective but lacks a class for scope-of-concern declarations. 
     <!-- https://www.commoncoreontologies.org/ont00000974 -->
 
     <owl:Class rdf:about="https://www.commoncoreontologies.org/ont00000974">
-        <rdfs:comment xml:lang="en">In this vocabulary: Represents an action definition or task template. Maps to &quot;Action&quot; in the .actions file format.</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="https://www.commoncoreontologies.org/ont00000965"/>
+        <rdfs:comment xml:lang="en">In this vocabulary: a recurrence prescription — a schedule-backed template that prescribes Actions. Backed by an .ics VTODO (RRULE) rather than the .actions file format; the Actions it prescribes are what appear in .actions. A Prescriptive ICE (ont00000965), like Charter and Action.</rdfs:comment>
     </owl:Class>
     
 
