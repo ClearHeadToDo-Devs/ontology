@@ -19,6 +19,11 @@
               "Completed": "https://clearhead.us/vocab/actions/v4#Completed",
               "Blocked": "https://clearhead.us/vocab/actions/v4#Blocked",
               "Cancelled": "https://clearhead.us/vocab/actions/v4#Cancelled",
+              "CharterNew": "https://clearhead.us/vocab/actions/v4#CharterNew",
+              "CharterActive": "https://clearhead.us/vocab/actions/v4#CharterActive",
+              "CharterBlocked": "https://clearhead.us/vocab/actions/v4#CharterBlocked",
+              "CharterClosed": "https://clearhead.us/vocab/actions/v4#CharterClosed",
+              "CharterCancelled": "https://clearhead.us/vocab/actions/v4#CharterCancelled",
               "name": "rdfs:label",
               "description": "http://purl.org/dc/terms/description",
               "inServiceOf": {
@@ -39,6 +44,10 @@
                },
               "status": {
                      "@id": "cco:ont00001868",
+                     "@type": "@vocab"
+              },
+              "charterState": {
+                     "@id": "actionsv:hasCharterState",
                      "@type": "@vocab"
               },
               "priority": {

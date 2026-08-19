@@ -11,13 +11,13 @@
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:skos="http://www.w3.org/2004/02/skos/core#">
     <owl:Ontology rdf:about="https://clearhead.us/vocab/actions/v4">
-        <owl:versionIRI rdf:resource="https://clearhead.us/vocab/actions/v4/4.4.0"/>
+        <owl:versionIRI rdf:resource="https://clearhead.us/vocab/actions/v4/4.5.0"/>
         <owl:imports rdf:resource="https://www.commoncoreontologies.org/AgentOntology"/>
         <owl:imports rdf:resource="https://www.commoncoreontologies.org/EventOntology"/>
         <owl:imports rdf:resource="https://www.commoncoreontologies.org/InformationEntityOntology"/>
         <dc:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2025-01-21</dc:created>
         <dc:creator>Darrion Burgess</dc:creator>
-        <dc:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-05-16</dc:modified>
+        <dc:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-08-18</dc:modified>
         <dc:title>CCO Extension for Intention Information Entities</dc:title>
         <rdfs:comment xml:lang="en">A disciplined extension to the Common Core Ontologies (CCO) for modeling
 intentional planning and execution.
@@ -47,7 +47,7 @@ Local resolution: see catalog-v001.xml for IRI → local file mappings.
 For full CCO definitions, see: https://github.com/CommonCoreOntology/CommonCoreOntologies
 For design rationale, see: V4_DESIGN.md</rdfs:comment>
         <rdfs:label>CCO Extension for Intention Information Entities</rdfs:label>
-        <owl:versionInfo>4.4.0</owl:versionInfo>
+        <owl:versionInfo>4.5.0</owl:versionInfo>
     </owl:Ontology>
     
 
@@ -239,9 +239,21 @@ Maps to the &quot;*&quot; marker in the .actions file format. A Plan may serve z
     <!-- https://www.commoncoreontologies.org/ont00001942 -->
 
     <owl:ObjectProperty rdf:about="https://www.commoncoreontologies.org/ont00001942">
-        <rdfs:comment xml:lang="en">In this vocabulary: Links a Plan to the Actions it prescribes. One Plan can prescribe many Actions (for example recurring or schedule-derived actions).</rdfs:comment>
+        <rdfs:comment xml:lang="en">In this vocabulary: Links a Plan to the Actions it prescribes. One Plan can prescribe many Actions (for example recurring or schedule-derived actions). Published in one direction only; the CCO inverse prescribed_by (ont00001920) is intentionally not projected because it is derivable.</rdfs:comment>
     </owl:ObjectProperty>
-    
+
+
+
+    <!-- https://clearhead.us/vocab/actions/v4#hasCharterState -->
+
+    <owl:ObjectProperty rdf:about="https://clearhead.us/vocab/actions/v4#hasCharterState">
+        <rdfs:domain rdf:resource="https://clearhead.us/vocab/actions/v4#Charter"/>
+        <rdfs:range rdf:resource="https://www.commoncoreontologies.org/ont00000203"/>
+        <rdfs:comment xml:lang="en">Links a Charter to its lifecycle status individual (New, Active, Blocked, Closed, Cancelled). Distinct from an Action&apos;s status property (is_measured_by_nominal, ont00001868) so the two lifecycles never share status individuals.</rdfs:comment>
+        <rdfs:label xml:lang="en">has charter state</rdfs:label>
+        <skos:definition xml:lang="en">Relates a Charter to the nominal status value describing its current lifecycle phase.</skos:definition>
+    </owl:ObjectProperty>
+
 
 
     <!-- 
@@ -504,7 +516,7 @@ CCO has Plan and Objective but lacks a class for scope-of-concern declarations. 
     <!-- https://www.commoncoreontologies.org/ont00000203 -->
 
     <owl:Class rdf:about="https://www.commoncoreontologies.org/ont00000203">
-        <rdfs:comment xml:lang="en">In this vocabulary: Used for lifecycle status values of Actions (NotStarted, InProgress, Completed, Blocked, Cancelled).</rdfs:comment>
+        <rdfs:comment xml:lang="en">In this vocabulary: Used for lifecycle status values of Actions (NotStarted, InProgress, Completed, Blocked, Cancelled) and Charters (CharterNew, CharterActive, CharterBlocked, CharterClosed, CharterCancelled). The two lifecycles use distinct individuals so a status value is never ambiguous about the kind of entity it describes.</rdfs:comment>
     </owl:Class>
     
 
@@ -571,6 +583,59 @@ CCO has Plan and Objective but lacks a class for scope-of-concern declarations. 
         <rdf:type rdf:resource="https://www.commoncoreontologies.org/ont00000203"/>
         <rdfs:comment xml:lang="en">The Action was abandoned without completion. Terminal state. File format: [_]</rdfs:comment>
         <rdfs:label xml:lang="en">Cancelled</rdfs:label>
+    </owl:NamedIndividual>
+
+
+
+    <!-- Charter lifecycle status individuals (parallel to the Action status set,
+         kept as distinct individuals so charter state and action state never collide). -->
+
+    <!-- https://clearhead.us/vocab/actions/v4#CharterNew -->
+
+    <owl:NamedIndividual rdf:about="https://clearhead.us/vocab/actions/v4#CharterNew">
+        <rdf:type rdf:resource="https://www.commoncoreontologies.org/ont00000203"/>
+        <rdfs:comment xml:lang="en">The Charter has been declared but work has not yet begun.</rdfs:comment>
+        <rdfs:label xml:lang="en">Charter New</rdfs:label>
+    </owl:NamedIndividual>
+
+
+
+    <!-- https://clearhead.us/vocab/actions/v4#CharterActive -->
+
+    <owl:NamedIndividual rdf:about="https://clearhead.us/vocab/actions/v4#CharterActive">
+        <rdf:type rdf:resource="https://www.commoncoreontologies.org/ont00000203"/>
+        <rdfs:comment xml:lang="en">The Charter is active and being pursued.</rdfs:comment>
+        <rdfs:label xml:lang="en">Charter Active</rdfs:label>
+    </owl:NamedIndividual>
+
+
+
+    <!-- https://clearhead.us/vocab/actions/v4#CharterBlocked -->
+
+    <owl:NamedIndividual rdf:about="https://clearhead.us/vocab/actions/v4#CharterBlocked">
+        <rdf:type rdf:resource="https://www.commoncoreontologies.org/ont00000203"/>
+        <rdfs:comment xml:lang="en">The Charter cannot progress due to an external dependency or blocker.</rdfs:comment>
+        <rdfs:label xml:lang="en">Charter Blocked</rdfs:label>
+    </owl:NamedIndividual>
+
+
+
+    <!-- https://clearhead.us/vocab/actions/v4#CharterClosed -->
+
+    <owl:NamedIndividual rdf:about="https://clearhead.us/vocab/actions/v4#CharterClosed">
+        <rdf:type rdf:resource="https://www.commoncoreontologies.org/ont00000203"/>
+        <rdfs:comment xml:lang="en">The Charter has been completed and closed. Terminal state.</rdfs:comment>
+        <rdfs:label xml:lang="en">Charter Closed</rdfs:label>
+    </owl:NamedIndividual>
+
+
+
+    <!-- https://clearhead.us/vocab/actions/v4#CharterCancelled -->
+
+    <owl:NamedIndividual rdf:about="https://clearhead.us/vocab/actions/v4#CharterCancelled">
+        <rdf:type rdf:resource="https://www.commoncoreontologies.org/ont00000203"/>
+        <rdfs:comment xml:lang="en">The Charter was abandoned without completion. Terminal state.</rdfs:comment>
+        <rdfs:label xml:lang="en">Charter Cancelled</rdfs:label>
     </owl:NamedIndividual>
     
 

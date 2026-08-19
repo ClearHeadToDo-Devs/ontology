@@ -6,11 +6,11 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 #################################################################
-#    SHACL Shapes for Actions Vocabulary v4.4.0
+#    SHACL Shapes for Actions Vocabulary v4.5.0
 #    CCO Extension for Intention Information Entities
 #################################################################
 #
-# These shapes validate the v4.4.0 model:
+# These shapes validate the v4.5.0 model:
 # - Plans use CCO Plan (ont00000974)
 # - Actions use actions:Action as the canonical execution entity
 # - Objectives use CCO Objective (ont00000476)
@@ -338,5 +338,5 @@ actions:SuccessorDomainShape
     sh:message "is_successor_of should only relate Prescriptive ICEs (Actions or Plans) in this vocabulary" .
 
 #################################################################
-#    End of SHACL Shapes for Actions Vocabulary v4.4.0
+#    End of SHACL Shapes for Actions Vocabulary v4.5.0
 #################################################################

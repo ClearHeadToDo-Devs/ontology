@@ -1,4 +1,4 @@
-# Ontology-Out Contract (v4.4.0)
+# Ontology-Out Contract (v4.5.0)
 
 This document defines the canonical compacted JSON-LD contract for ontology-out exports.
 
@@ -32,6 +32,7 @@ Context is first-class in the canonical ontology-out contract.
 
 - `subCharters`
 - `inServiceOf`
+- `charterState`
 
 ### Plan
 
@@ -83,6 +84,9 @@ Context is first-class in the canonical ontology-out contract.
 4. Context hierarchy is canonical and represented via `contextBroader` / `contextNarrower`.
 5. Context typing is supported but optional while type catalog semantics are still evolving.
 6. External schedule linkage is optional and source-agnostic: `externalScheduleId` (series) and `externalOccurrenceKey` (instance).
+7. `charterState` is a `@vocab` term over distinct charter-lifecycle individuals (`CharterNew`, `CharterActive`, `CharterBlocked`, `CharterClosed`, `CharterCancelled`), parallel to Action `status` but never sharing individuals with it.
+8. Relations are published in a single canonical direction; derivable inverses are omitted. In particular `prescribes` (Plan → Action) is published while its inverse `prescribed_by` (ont00001920) is not.
+9. A Plan's originating template is not published. A template today is only a filename resolved at expansion time, with no stable identity. If templates ever become referenceable entities, the natural model is a Prescriptive ICE (ont00000965) subclass that a Plan relates to via a "derived-from" predicate — not a bare string.
 
 ## Example
 

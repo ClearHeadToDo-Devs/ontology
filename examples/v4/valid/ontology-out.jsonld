@@ -6,7 +6,8 @@
       "type": "Charter",
       "name": "Grocery Shopping",
       "inServiceOf": "urn:objective:groceries",
-      "subCharters": "urn:charter:groceries/fresh"
+      "subCharters": "urn:charter:groceries/fresh",
+      "charterState": "CharterActive"
     },
     {
       "id": "urn:charter:groceries/fresh",
