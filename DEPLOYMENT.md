@@ -441,8 +441,6 @@ uv run pytest
 
 ### Documentation
 - [README.md](./README.md) - User guide and quick start
-- [BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md) - Technical BFO/CCO mapping
-- [SCHEMA_ORG_ALIGNMENT.md](./SCHEMA_ORG_ALIGNMENT.md) - Schema.org integration
 - [CLAUDE.md](./CLAUDE.md) - Development guide
 
 ## 🆘 Troubleshooting
@@ -515,7 +513,6 @@ curl -I -H "Accept: text/turtle" https://clearhead.us/vocab/actions/v3/
 For issues or questions:
 - Open an issue on GitHub
 - Consult [CLAUDE.md](./CLAUDE.md) for development guidance
-- Review [BFO_CCO_ALIGNMENT.md](./BFO_CCO_ALIGNMENT.md) for semantic questions
 
 ---
 

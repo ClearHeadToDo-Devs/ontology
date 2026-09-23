@@ -176,12 +176,6 @@ def generate_html_docs(output_dir: Path):
     <p>Import this ontology in your OWL files:</p>
     <pre><code>&lt;owl:imports rdf:resource="https://vocab.clearhead.io/actions/v3/{module}"/&gt;</code></pre>
 
-    <h2>Documentation</h2>
-    <ul>
-        <li><a href="https://github.com/yourusername/ontology/blob/main/PHASE2_DESIGN.md">Design Documentation</a></li>
-        <li><a href="https://github.com/yourusername/ontology/blob/main/BFO_CCO_ALIGNMENT.md">BFO/CCO Alignment</a></li>
-    </ul>
-
     <hr style="margin: 3rem 0;">
     <p style="color: #6c757d; font-size: 0.9rem;">
         Part of the <a href="../../..">Actions Vocabulary</a> |
@@ -253,13 +247,6 @@ def create_root_index(output_dir: Path):
 &lt;owl:imports rdf:resource="https://vocab.clearhead.io/actions/v3/context"/&gt;
 &lt;owl:imports rdf:resource="https://vocab.clearhead.io/actions/v3/workflow"/&gt;
 &lt;owl:imports rdf:resource="https://vocab.clearhead.io/actions/v3/roles"/&gt;</code></pre>
-
-    <h2>Documentation</h2>
-    <ul>
-        <li><a href="https://github.com/yourusername/ontology">GitHub Repository</a></li>
-        <li><a href="https://github.com/yourusername/ontology/blob/main/PHASE2_DESIGN.md">Phase 2 Design Document</a></li>
-        <li><a href="https://github.com/yourusername/ontology/blob/main/BFO_CCO_ALIGNMENT.md">BFO/CCO Alignment Guide</a></li>
-    </ul>
 
     <hr style="margin: 3rem 0;">
     <p style="color: #6c757d;">Version 3.1.0 | <a href="https://vocab.clearhead.io">vocab.clearhead.io</a></p>

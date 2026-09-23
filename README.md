@@ -100,16 +100,13 @@ See **[V4_DESIGN.md](./V4_DESIGN.md)** for the full design rationale.
   - Custom class: ActPhase (now replaced)
 
 - **v3.1.0** (Previous) - BFO/CCO-aligned with wrapper classes
-  - Location: `actions-vocabulary.owl`
   - Had custom ActionPlan, ActionProcess classes
 
 - **v2** (Legacy) - Schema.org-based
-  - Location: `v2/` directory
 
 ## Documentation
 
 - **[V4_DESIGN.md](./V4_DESIGN.md)** - Full v4 design rationale
-- **[V4_DESIGN_EXPLORATION.md](./V4_DESIGN_EXPLORATION.md)** - Design exploration and alternatives (historical)
 - **[v4/actions-shapes-v4.ttl](./v4/actions-shapes-v4.ttl)** - SHACL validation shapes
 - **[v4/actions.context.json](./v4/actions.context.json)** - JSON-LD context map
 - **[v4/actions.schema.json](./v4/actions.schema.json)** - JSON Schema for ontology-out exports
@@ -128,7 +125,7 @@ uv run pytest -v
 ### Visual Exploration
 ```bash
 # Open in Protégé ontology editor
-# File → Open → actions-vocabulary.owl
+# File → Open → v4/actions-vocabulary.owl
 # Reasoner → HermiT → Start reasoner
 ```
 
@@ -144,7 +141,7 @@ uv run pytest -v
 
 When making changes:
 
-1. **Understand BFO/CCO** - Review BFO_CCO_ALIGNMENT.md for design patterns
+1. **Understand BFO/CCO** - Review the current ontology and design rationale for applicable patterns
 2. **Test thoroughly** - Run validation suite and HermiT reasoner
 3. **Document decisions** - Update relevant .md files with architectural choices
 
@@ -156,4 +153,3 @@ See [LICENSE](./LICENSE)
 
 - Issues: GitHub issue tracker
 - Documentation: See [CLAUDE.md](./CLAUDE.md) for comprehensive development guide
-- v2 Support: See [v2/README.md](./v2/README.md) for legacy version
