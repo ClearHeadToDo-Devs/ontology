@@ -16,15 +16,13 @@ Usage:
 import argparse
 import shutil
 from pathlib import Path
-import sys
 
 try:
-    import rdflib
     from rdflib import Graph
 except ImportError:
     print("⚠️  rdflib not installed. Install with: uv pip install rdflib")
     print("   Continuing with basic file copying only...")
-    rdflib = None
+    Graph = None
 
 
 def create_directory_structure(output_dir: Path):
@@ -69,7 +67,7 @@ def copy_owl_files(output_dir: Path):
 
 def convert_to_formats(output_dir: Path):
     """Convert OWL files to multiple RDF formats"""
-    if not rdflib:
+    if Graph is None:
         print("\n⚠️  Skipping format conversion (rdflib not available)")
         return
 
@@ -185,8 +183,10 @@ def generate_html_docs(output_dir: Path):
 </html>
 """
 
-        with open(index_file, "w") as f:
-            f.write(html)
+        try:
+            index_file.write_text(html, encoding="utf-8")
+        except OSError as error:
+            raise RuntimeError(f"Could not write {index_file}") from error
 
         print(f"  ✓ {module}/index.html")
 
@@ -255,10 +255,12 @@ def create_root_index(output_dir: Path):
 """
 
     index_file = output_dir / "index.html"
-    with open(index_file, "w") as f:
-        f.write(index_html)
+    try:
+        index_file.write_text(index_html, encoding="utf-8")
+    except OSError as error:
+        raise RuntimeError(f"Could not write {index_file}") from error
 
-    print(f"  ✓ index.html")
+    print("  ✓ index.html")
 
 
 def main():
@@ -294,10 +296,10 @@ def main():
     create_root_index(args.output_dir)
 
     print("\n✅ Build complete!")
-    print(f"\nNext steps:")
+    print("\nNext steps:")
     print(f"  1. Test locally: cd {args.output_dir} && python -m http.server 8000")
-    print(f"  2. View at: http://localhost:8000")
-    print(f"  3. Deploy to GitHub Pages or Netlify")
+    print("  2. View at: http://localhost:8000")
+    print("  3. Deploy to GitHub Pages or Netlify")
 
 
 if __name__ == "__main__":
