@@ -1,7 +1,6 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix obo: <http://purl.obolibrary.org/obo/> .
 @prefix cco: <https://www.commoncoreontologies.org/> .
-@prefix ch: <https://clearhead.us/vocab/clearhead#> .
 @prefix : <https://clearhead.us/examples/weekly-review#> .
 
 # Darrion's weekly review (GTD: get clear, get current, get creative),
@@ -24,15 +23,14 @@
     rdfs:label "maintain planning habits to minimize the amount of unplanned planning one must do throughout the week"@en .
 
 # Phases and their steps, after the GTD Weekly Review checklist (short names
-# only). Phases run in order; within a phase only processing waits on
-# collecting, and emptying your head waits on processing.
+# only). Who waits on whom is in the conditional specifications below.
 :get-clear a obo:IAO_0000007 ; rdfs:label "get clear"@en ;
     obo:BFO_0000178 :collect , :inbox-zero , :empty-head .
 :collect a obo:IAO_0000007 ; rdfs:label "collect loose papers and materials"@en .
-:inbox-zero a obo:IAO_0000007 ; rdfs:label "get in to zero"@en ; ch:waitsOn :collect .
-:empty-head a obo:IAO_0000007 ; rdfs:label "empty your head"@en ; ch:waitsOn :inbox-zero .
+:inbox-zero a obo:IAO_0000007 ; rdfs:label "get in to zero"@en .
+:empty-head a obo:IAO_0000007 ; rdfs:label "empty your head"@en .
 
-:get-current a obo:IAO_0000007 ; rdfs:label "get current"@en ; ch:waitsOn :get-clear ;
+:get-current a obo:IAO_0000007 ; rdfs:label "get current"@en ;
     obo:BFO_0000178 :next-actions , :past-calendar , :upcoming-calendar , :waiting-for , :projects , :checklists .
 :next-actions a obo:IAO_0000007 ; rdfs:label "review next actions lists"@en .
 :past-calendar a obo:IAO_0000007 ; rdfs:label "review previous calendar data"@en .
@@ -41,10 +39,30 @@
 :projects a obo:IAO_0000007 ; rdfs:label "review project and larger outcome lists"@en .
 :checklists a obo:IAO_0000007 ; rdfs:label "review relevant checklists"@en .
 
-:get-creative a obo:IAO_0000007 ; rdfs:label "get creative"@en ; ch:waitsOn :get-current ;
+:get-creative a obo:IAO_0000007 ; rdfs:label "get creative"@en ;
     obo:BFO_0000178 :someday-maybe , :be-creative .
 :someday-maybe a obo:IAO_0000007 ; rdfs:label "review someday/maybe list"@en .
 :be-creative a obo:IAO_0000007 ; rdfs:label "be creative and courageous"@en .
+
+# Waiting, with IAO conditional specifications: each says what should happen
+# (an action) once its trigger holds (a description of another action done).
+:weekly-review obo:BFO_0000178 :after-collect , :after-inbox-zero , :after-get-clear , :after-get-current .
+
+:after-collect a obo:IAO_0000001 ;  # conditional specification
+    obo:BFO_0000178 :inbox-zero , :collect-done .
+:collect-done a cco:ont00000853 ; cco:ont00001808 :collect .  # Descriptive ICE, is about
+
+:after-inbox-zero a obo:IAO_0000001 ;
+    obo:BFO_0000178 :empty-head , :inbox-zero-done .
+:inbox-zero-done a cco:ont00000853 ; cco:ont00001808 :inbox-zero .
+
+:after-get-clear a obo:IAO_0000001 ;
+    obo:BFO_0000178 :get-current , :get-clear-done .
+:get-clear-done a cco:ont00000853 ; cco:ont00001808 :get-clear .
+
+:after-get-current a obo:IAO_0000001 ;
+    obo:BFO_0000178 :get-creative , :get-current-done .
+:get-current-done a cco:ont00000853 ; cco:ont00001808 :get-current .
 
 # What happened: one week's review, done by Darrion.
 :review-2026-09-27 a cco:ont00000511 ;  # Act of Planning

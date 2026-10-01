@@ -2,12 +2,15 @@
 # Every step under the plan, at any depth, with its phase and what it waits on.
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX obo: <http://purl.obolibrary.org/obo/>
-PREFIX ch: <https://clearhead.us/vocab/clearhead#>
+PREFIX cco: <https://www.commoncoreontologies.org/>
 SELECT ?phase ?step ?waitsOn WHERE {
   ?plan rdfs:label "weekly review"@en ;
         obo:BFO_0000178+ ?s .
   ?s a obo:IAO_0000007 ; rdfs:label ?step .
-  OPTIONAL { ?p obo:BFO_0000178 ?s ; a obo:IAO_0000007 ; rdfs:label ?phase }
-  OPTIONAL { ?s ch:waitsOn/rdfs:label ?waitsOn }
+  OPTIONAL { ?p a obo:IAO_0000007 ; obo:BFO_0000178 ?s ; rdfs:label ?phase }
+  # waits on: a conditional specification has ?s as what should happen and,
+  # as its trigger, a description about another action.
+  OPTIONAL { ?c a obo:IAO_0000001 ; obo:BFO_0000178 ?s , ?t .
+             ?t a cco:ont00000853 ; cco:ont00001808/rdfs:label ?waitsOn }
 }
 ORDER BY ?phase ?step

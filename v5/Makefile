@@ -6,11 +6,12 @@ CCO_TAG    := v2.2
 CCO_URL    := https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/$(CCO_TAG)/src/cco-merged/CommonCoreOntologiesMerged.ttl
 CCO_SHA256 := a9453382b25b40781c181d6ba44981f228abb76d90d548846713adba9baadb42
 
-# From IAO we take only action specification and its parents (MIREOT).
+# From IAO we take only the terms we use, with their parents (MIREOT).
 IAO_RELEASE := 2026-03-30
 IAO_URL     := http://purl.obolibrary.org/obo/iao/$(IAO_RELEASE)/iao.owl
 IAO_SHA256  := c27ff2964a2ad8165bc365698b628aae95108411384aa4450e6e1b1e82bf0f41
-IAO_MODULE  := imports/iao-$(IAO_RELEASE)-action-specification.owl
+IAO_TERMS   := IAO_0000007 IAO_0000001  # action specification, conditional specification
+IAO_MODULE  := imports/iao-$(IAO_RELEASE)-module.owl
 
 ROBOT    := robot --catalog catalog-v001.xml
 BUILD    := build
@@ -36,8 +37,8 @@ imports:
 	curl -sSfL $(IAO_URL) -o $(BUILD)/iao.owl
 	echo "$(IAO_SHA256)  $(BUILD)/iao.owl" | sha256sum -c -
 	robot extract --method MIREOT --input $(BUILD)/iao.owl \
-	    --lower-term http://purl.obolibrary.org/obo/IAO_0000007 --annotate-with-source true \
-	    --output-iri https://clearhead.us/vocab/clearhead/imports/iao-action-specification --output $(IAO_MODULE)
+	    $(foreach t,$(IAO_TERMS),--lower-term http://purl.obolibrary.org/obo/$(t)) --annotate-with-source true \
+	    --output-iri https://clearhead.us/vocab/clearhead/imports/iao --output $(IAO_MODULE)
 
 clean:
 	rm -rf $(BUILD)
