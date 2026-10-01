@@ -10,7 +10,7 @@ CCO_SHA256 := a9453382b25b40781c181d6ba44981f228abb76d90d548846713adba9baadb42
 IAO_RELEASE := 2026-03-30
 IAO_URL     := http://purl.obolibrary.org/obo/iao/$(IAO_RELEASE)/iao.owl
 IAO_SHA256  := c27ff2964a2ad8165bc365698b628aae95108411384aa4450e6e1b1e82bf0f41
-IAO_TERMS   := IAO_0000007 IAO_0000001  # action specification, conditional specification
+IAO_TERMS   := IAO_0000007  # action specification
 IAO_MODULE  := imports/iao-$(IAO_RELEASE)-module.owl
 
 ROBOT    := robot --catalog catalog-v001.xml

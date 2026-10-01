@@ -8,9 +8,10 @@ SELECT ?phase ?step ?waitsOn WHERE {
         obo:BFO_0000178+ ?s .
   ?s a obo:IAO_0000007 ; rdfs:label ?step .
   OPTIONAL { ?p a obo:IAO_0000007 ; obo:BFO_0000178 ?s ; rdfs:label ?phase }
-  # waits on: a conditional specification has ?s as what should happen and,
-  # as its trigger, a description about another action.
-  OPTIONAL { ?c a obo:IAO_0000001 ; obo:BFO_0000178 ?s , ?t .
-             ?t a cco:ont00000853 ; cco:ont00001808/rdfs:label ?waitsOn }
+  # waits on: a Performance Specification has ?s as the action and, as its
+  # condition, a part describing another action.
+  OPTIONAL { ?c a cco:ont00000127 ; obo:BFO_0000178 ?s , ?t .
+             ?t a cco:ont00000853 ; cco:ont00001982 ?w .
+             ?w a obo:IAO_0000007 ; rdfs:label ?waitsOn }
 }
 ORDER BY ?phase ?step

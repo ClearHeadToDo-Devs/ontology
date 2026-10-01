@@ -9,6 +9,8 @@
 3. Alignment with BFO and CCO, where CCO sharpens the domain or reveals a gap.
 4. Only then, and outside this document: how the spec and its implementations represent it.
 
+Settled choices move to [docs/DECISIONS.md](docs/DECISIONS.md); this note keeps the analysis and the open threads.
+
 The first V5 proposal (commit 4eca6e7) went the other way: it started from file formats and asked which CCO class each fit. It was withdrawn.
 
 ## Competency questions
@@ -23,6 +25,8 @@ From the human, lightly edited:
 6. Did we fulfil those plans? If not, why not?
 7. What other details does the plan need to succeed?
 8. What are the risks, dependencies and supporting materials for this objective?
+
+**Status 2026-10-01:** all eight are answered by `robot query` files in `v5/queries/` (cq1–cq8, built from the human's examples and the real ground-the-ontology charter) and run by `make test`. Question 7 already reports a true gap: the weekly review's objective has no done-condition.
 
 ## Principle
 
@@ -49,11 +53,9 @@ The system holds only information: plans, objectives, and records of what happen
 
 ## Open threads
 
-- Who declares an objective achieved? Proposed: a person, or an agent they trust, and the declaration is itself a record; the system shows evidence but never decides.
-- Values statements: an entity of their own, or a property of objectives? Proposed: an entity, because many objectives answer to one. (Areas of focus were settled 2026-09-30 as plans with maintained objectives.)
-- When does a action become a plan? Proposed: when it gains an objective of its own, which is worth stating only when doing the action does not guarantee the outcome.
+- Every plan names an objective, so the root charter needs one too (the human, 2026-10-01: "a plan without an objective is just people daydreaming"). The ontology stays strict; the cost is for the spec phase, proposed: a charter's "Done when" counts as its objective; `init` seeds the root a maintained objective once, as it seeds the root alias, editable afterward; a missing objective is a gap `doctor` reports, never a refusal to load.
 
-- Recurrence: is it an entity? Proposed: no. No BFO-family ontology has a recurrence or schedule term (CCO, IAO and all of OBO via the EBI lookup service, 2026-09-30; only schema.org's Schedule, which restates iCal). A recurring action specification prescribes many acts instead of one (CCO's Plan already prescribes "some set of intended acts"); a rate-like recurrence prescribes a CCO **Frequency**; the calendar rule saying *which* intervals is format, and iCal RRULE (RFC 5545) is its standard, so it lives in the spec. An iCal record can carry an action specification with a time, a Predictive ICE about an expected event, a recurring action specification, or a revision of one occurrence.
+Settled threads are in [docs/DECISIONS.md](docs/DECISIONS.md): objectives have state (5), every action is part of a plan and an action with its own objective is a plan (2), values and recurrence need no terms (6).
 
 ## Alignment with CCO
 
@@ -71,7 +73,7 @@ A plan does not reach its acts directly. A Planned Act is *defined* as an Act th
 | Objective (maintain) | Objective prescribing a Stasis ("a Process in which one or more Independent Continuants endure in an unchanging condition") | Good, no new term. |
 | Plan | Plan: prescribes intended acts toward some Objective; axiom *has continuant part some Objective* | Exact, and the axiom is your answer 2: no objective, no plan. |
 | Action (was "Step") | **IAO action specification** (IAO_0000007): "a directive information entity that describes an action the bearer will take", part of a plan specification beside an objective specification | **Used as is**, not reinvented: CCO lacks it, IAO (BFO-based, the lineage of CCO's information branch) has it. Imported as a MIREOT module pinned to IAO 2026-03-30. "Part of some plan" is a `robot verify` check on our data, not an axiom on IAO's term. |
-| Waiting | `precedes` holds only between occurrents (acts that happened); IAO conditional specification covers it | Standard term found: see the standards search below. |
+| Waiting | CCO **Performance Specification** with `describes condition` | CCO's own pattern; see the standards search below. |
 | Record | Report ("conveys an account of some event … or the result of some observation"); more generally a Descriptive ICE `is about` the act | Good. |
 | Status (done, in progress) | Event Status Nominal ICE: "a measurement of the current state of a process", `is a nominal measurement of` the act | Good, and it settles *planning done vs work done*: one is the status of the Act of Planning, the other the status of the planned acts. |
 | Objective achieved | Deviation Measurement ICE ("the extent to which an entity conforms to how it is expected or supposed to be"), output of an Act of Measuring with an agent | Good. The declaration is a record with an author, as proposed. |
@@ -82,7 +84,7 @@ A plan does not reach its acts directly. A Planned Act is *defined* as an Act th
 | Time | Temporal Interval / Instant; the act `occupies temporal region` | Good for single times. **Gap** for recurrence: CCO has no recurrence rule. |
 | Area of focus | Plan whose Objective prescribes a Stasis | No new term. The role behind it (household member, maintainer) is real but about the agent, and is not stored, like a habit. |
 | Values statement | BCIO personal value (a disposition) plus an information entity about it | Standard terms found: see below. |
-| Context, energy (action requirements) | IAO conditional specification / AFO condition | Standard terms found: see below. |
+| Context, energy (action requirements) | CCO **Performance Specification** ("behavior of a participant … given one or more operating conditions") | CCO's own pattern. |
 | Agent | Agent: "a Material Entity that bears an Agent Capability" | Fits people, and AI agents as the running machine: see below. |
 
 ### What the alignment pushes back on
@@ -116,3 +118,6 @@ Searched CCO v2.2 (with its extensions), IAO 2026-03-30, and all of OBO through 
 Cautions: AFO's *role* terms (precondition, condition role) are roles of information entities, which BFO does not allow (roles inhere in independent continuants), so take AFO's **condition** class only. IAO's time trigger has no definition yet. AFO's licence must be checked before importing from it. BCIO's personal value belongs with the deferred habit work, and arrives through that door.
 
 **Result:** every gap has a standard candidate. If these hold, ClearHead needs **no terms of its own**: CCO, IAO, ICO and BCIO cover the domain, the spec owns representation, and this repository reduces to examples and checks. **Tried 2026-09-30:** the weekly review was rebuilt with IAO conditional specifications in place of `ch:waitsOn`. The reasoner accepts it, both verify checks pass, and the first competency question returns the identical answer. `clearhead.ttl` now defines no terms. Cost: each wait is a conditional specification plus a trigger description (two nodes, four triples instead of one edge), and queries grow to match; the spec's compact `<` syntax can stay the file form and project to this. Caveat: the trigger is *about* the awaited action specification, standing in for its act, which may not exist yet.
+
+
+**Update 2026-09-30, later:** the reasoner classified every IAO conditional specification as a CCO **Performance Specification**: CCO's `describes condition` rule (a prescription with a descriptive part describing a condition) is the conditional pattern, already in CCO. Waiting, context and energy now use Performance Specification directly; only IAO's action specification is still imported. All competency answers were unchanged by the switch.
