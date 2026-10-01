@@ -31,27 +31,29 @@ The system holds only information: plans, objectives, and records of what happen
 ## The domain
 
 - **Objective**: a state someone wants to be true. Some are *achieved* once (get a degree, file taxes); some are *maintained* per period and never finish (run three times a week).
-- **Plan**: aims at one or more objectives and contains steps. Without an objective it is not a plan; without steps it is a plan still being planned.
-- **Step**: prescribes something to do. Steps contain steps. Splitting stops when whoever does the step can do it without further planning, so the right depth depends on the doer, not the step. A step may state where or with what it can be done (context), the energy it calls for, a time (fixed, recurring, or none), and what it waits on.
-- **Waiting**: a step waits on an event: another step being done, or something outside (a reply, a delivery). The system knows an event through a record of it.
+- **Plan**: aims at one or more objectives and contains actions. Without an objective it is not a plan; without actions it is a plan still being planned.
+- **Action** (an action specification, IAO_0000007): prescribes one thing to do; the product's word "action" means this, never the doing. Actions contain actions, and every action is part of some plan. Splitting stops when whoever does it can do it without further planning, so the right depth depends on the doer. An action may state where or with what it can be done (context), the energy it calls for, a time (fixed, recurring, or none), and what it waits on.
+- **Waiting**: a action waits on an event: another action being done, or something outside (a reply, a delivery). The system knows an event through a record of it.
 - **Record**: information that something happened: who acted, when, the outcome, and why it fell short.
-- **Area of focus**: a standing responsibility with no end ("errands"). It groups steps and objectives, and can hold steps that serve no stated objective.
+- **Area of focus**: a plan whose objective is maintained and never finishes ("keep food in the house", "keep the tools pleasant to use"). Not a separate kind of thing. Every action is part of some plan; a action never floats free.
 - **Values statement**: what objectives answer to ("be a good partner", "live with integrity"). Never achieved; only reviewed.
-- **Weekly review**: a recurring plan whose steps review the other plans: judging maintained objectives and values, and finding plans whose steps no longer lead to their objective.
+- **Weekly review**: a recurring plan whose actions review the other plans: judging maintained objectives and values, and finding plans whose actions no longer lead to their objective.
 
 ## Distinctions to keep
 
-- **Fulfilling a plan is not achieving its objective.** When every step is done and the objective is not met, either the objective is too vague (no clear done-condition) or the steps were the wrong ones. The model must tell these apart.
+- **Fulfilling a plan is not achieving its objective.** When every action is done and the objective is not met, either the objective is too vague (no clear done-condition) or the actions were the wrong ones. The model must tell these apart.
 - **Planning done is not work done.** A plan can be complete as a plan while none of its work has started, and the reverse.
-- **The doer's situation is not the step's requirement.** Current energy and whereabouts belong to the question being asked; the step states only what it calls for.
-- **A plan is sufficient when someone else could carry it out** from what it holds: objective and done-condition, steps, risks, dependencies, materials.
-- **"Context" means two things**: where or with what a step can be done, and the information a plan carries. Name them apart later.
+- **The doer's situation is not the action's requirement.** Current energy and whereabouts belong to the question being asked; the action states only what it calls for.
+- **A plan is sufficient when someone else could carry it out** from what it holds: objective and done-condition, actions, risks, dependencies, materials.
+- **"Context" means two things**: where or with what a action can be done, and the information a plan carries. Name them apart later.
 
 ## Open threads
 
 - Who declares an objective achieved? Proposed: a person, or an agent they trust, and the declaration is itself a record; the system shows evidence but never decides.
-- Areas of focus and values statements: entities of their own, or properties of objectives? Proposed: entities, because many objectives share one, and an area can hold steps with no objective at all.
-- When does a step become a plan? Proposed: when it gains an objective of its own, which is worth stating only when doing the step does not guarantee the outcome.
+- Values statements: an entity of their own, or a property of objectives? Proposed: an entity, because many objectives answer to one. (Areas of focus were settled 2026-09-30 as plans with maintained objectives.)
+- When does a action become a plan? Proposed: when it gains an objective of its own, which is worth stating only when doing the action does not guarantee the outcome.
+
+- Recurrence: is it an entity? Proposed: no. No BFO-family ontology has a recurrence or schedule term (CCO, IAO and all of OBO via the EBI lookup service, 2026-09-30; only schema.org's Schedule, which restates iCal). A recurring action specification prescribes many acts instead of one (CCO's Plan already prescribes "some set of intended acts"); a rate-like recurrence prescribes a CCO **Frequency**; the calendar rule saying *which* intervals is format, and iCal RRULE (RFC 5545) is its standard, so it lives in the spec. An iCal record can carry an action specification with a time, a Predictive ICE about an expected event, a recurring action specification, or a revision of one occurrence.
 
 ## Alignment with CCO
 
@@ -59,7 +61,7 @@ Checked against CCO `develop` at be13b74 (2026-09-25), merged file. BFO relation
 
 ### How CCO links a plan to what happened
 
-A plan does not reach its acts directly. A Planned Act is *defined* as an Act that **realizes** a role or disposition of the agent, which **concretizes** a Prescriptive Information Content Entity. A plan is followed when an agent holds it (it is concretized in them) and acts on it. `prescribes` (plan → act) is the shortcut. So who carries out a step is not a property of the step: it is the agent in whom the plan is concretized and who is `agent in` the act.
+A plan does not reach its acts directly. A Planned Act is *defined* as an Act that **realizes** a role or disposition of the agent, which **concretizes** a Prescriptive Information Content Entity. A plan is followed when an agent holds it (it is concretized in them) and acts on it. `prescribes` (plan → act) is the shortcut. So who carries out a action is not a property of the action: it is the agent in whom the plan is concretized and who is `agent in` the act.
 
 ### Mapping
 
@@ -68,8 +70,8 @@ A plan does not reach its acts directly. A Planned Act is *defined* as an Act th
 | Objective (achieve) | Objective: "prescribes some projected state that some Agent intends to achieve" | Exact. |
 | Objective (maintain) | Objective prescribing a Stasis ("a Process in which one or more Independent Continuants endure in an unchanging condition") | Good, no new term. |
 | Plan | Plan: prescribes intended acts toward some Objective; axiom *has continuant part some Objective* | Exact, and the axiom is your answer 2: no objective, no plan. |
-| Step | none | **Gap.** A step cannot be a cco:Plan without an Objective part. Needs a new Prescriptive ICE subclass, part of a plan. A step that gains an objective is then also a Plan. |
-| Waiting | `precedes` holds only between occurrents (acts that happened) | **Gap.** Waiting is stated in the plan about acts that may never exist. Needs one relation from a step to what it waits on: another step, or a description of an expected outside event. |
+| Action (was "Step") | **IAO action specification** (IAO_0000007): "a directive information entity that describes an action the bearer will take", part of a plan specification beside an objective specification | **Used as is**, not reinvented: CCO lacks it, IAO (BFO-based, the lineage of CCO's information branch) has it. Imported as a MIREOT module pinned to IAO 2026-03-30. "Part of some plan" is a `robot verify` check on our data, not an axiom on IAO's term. |
+| Waiting | `precedes` holds only between occurrents (acts that happened); IAO conditional specification covers it | Standard term found: see the standards search below. |
 | Record | Report ("conveys an account of some event … or the result of some observation"); more generally a Descriptive ICE `is about` the act | Good. |
 | Status (done, in progress) | Event Status Nominal ICE: "a measurement of the current state of a process", `is a nominal measurement of` the act | Good, and it settles *planning done vs work done*: one is the status of the Act of Planning, the other the status of the planned acts. |
 | Objective achieved | Deviation Measurement ICE ("the extent to which an entity conforms to how it is expected or supposed to be"), output of an Act of Measuring with an agent | Good. The declaration is a record with an author, as proposed. |
@@ -78,14 +80,14 @@ A plan does not reach its acts directly. A Planned Act is *defined* as an Act th
 | Risk | Predictive ICE ("describes an uncertain future event"), optionally with a Probability Measurement | Good. |
 | Supporting material | any ICE that `is about` the objective or `is input of` the act | Good. |
 | Time | Temporal Interval / Instant; the act `occupies temporal region` | Good for single times. **Gap** for recurrence: CCO has no recurrence rule. |
-| Area of focus | BFO role (a realizable entity borne because of circumstances: parent, maintainer) | Good, but it changes what an area is: see below. |
-| Values statement | none; closest is Performance Specification ("prescribes some aspect of the behavior of a participant in a Process") | **Gap.** Performance Specification is engineering-flavored; likely a new Prescriptive ICE subclass. |
-| Context, energy (step requirements) | none directly | **Gap**, small: properties on a step. |
-| Agent | Agent: "a Material Entity that bears an Agent Capability" | Fits people. Open for AI agents: see below. |
+| Area of focus | Plan whose Objective prescribes a Stasis | No new term. The role behind it (household member, maintainer) is real but about the agent, and is not stored, like a habit. |
+| Values statement | BCIO personal value (a disposition) plus an information entity about it | Standard terms found: see below. |
+| Context, energy (action requirements) | IAO conditional specification / AFO condition | Standard terms found: see below. |
+| Agent | Agent: "a Material Entity that bears an Agent Capability" | Fits people, and AI agents as the running machine: see below. |
 
 ### What the alignment pushes back on
 
-- **An area of focus is a role, not information.** "Errands" is something you bear (household member, maintainer of the platform), and the steps in it realize that role. The system stores a description of the role, not the role itself. This also explains why an area holds steps with no objective: roles are realized by acts, not by reaching states.
+- **"Errands" is a context, not an area.** It says where a action can be done (out, at the store). "Buy milk" is done in the errands context *for* the plan "keep food in the house". Context is a action requirement; the plan is the container.
 - **"Run three times a week" is a plan, not an objective.** It prescribes acts. Its objective is a state such as being fit. A true maintained objective prescribes a stasis ("inbox stays near empty").
 - **Status is a record.** It measures an act, so it is a fact with an author and a time, like any record.
 
@@ -98,8 +100,19 @@ Checked 2026-09-30 against the CCO milestones on GitHub. 3.0 (due 2026-12-31) ha
 - **Wanted from 3.0:** the re-introduced Information Structure Entity (#949, draft module on branch `information-structure-pr`, 2025-06-30) separates how information is structured from what it says. That is the layer this note keeps out of the ontology: a plan is content, and a list of lines, a document or a calendar entry is a structure carrying it. If 3.0 adopts it, the spec's formats can be stated as Information Structures in CCO's own terms. It is a draft with no discussion yet, so it is a direction to watch, not something to build on.
 - **Stale text:** some definitions still cite classes that no longer exist ("Directive Information Content Entity" in Planned Act, "Intentional Acts" in Plan). The axioms use Prescriptive ICE. Read the axioms, not the prose.
 - **Our pin is behind:** our imports are the 2024-11-06 CCO modules and BFO 2019; current tags are CCO v2.2 on BFO 2020. Align to v2.2 by tag, as the specs are pinned, and re-check when 3.0 is tagged.
-- Is an AI agent a cco:Agent? An Agent is a material entity bearing an Agent Capability (definitions under discussion in #925). The defensible reading is that the running machine bears the capability, and the model is information it concretizes. Undecided.
+- **AI agents (decided 2026-09-30):** the agent is the running machine, a cco:Agent bearing an Agent Capability. The model is part of it in two senses: the copy of the weights in memory is a material part of the machine, and the model's content is information the machine concretizes and acts on, as a person concretizes a plan. (CCO #925 questions the Agent definitions; it does not change this reading.)
 
-### Extensions needed
+### Extensions needed: standards search (2026-09-30)
 
-Five, all small: **Step** (Prescriptive ICE, part of a Plan), **waits on** (step → step or expected-event description), **Values Statement** (Prescriptive ICE), **recurrence** (on a step or plan), and **step requirements** (context, energy). Everything else is CCO or BFO as is.
+Searched CCO v2.2 (with its extensions), IAO 2026-03-30, and all of OBO through the EBI Ontology Lookup Service, before minting anything.
+
+| Gap | Existing terms found | Fit |
+| --- | --- | --- |
+| **Waits on** | IAO **conditional specification** (IAO_0000001): "a directive information entity that specifies what should happen if the trigger condition is fulfilled"; ICO **trigger condition directive** (ICO_0000252): "describes some state of affairs such that, if that state of affairs holds, some other prescription follows"; AFO **condition** (AFC_0000090): "about the portion of reality under which something occurs or is valid … restricts the possible realizations" | Good. "Get current waits on get clear" is a conditional specification with the get-current action as what should happen and, as its trigger, a description of the get-clear act being done. Standard `has part` and `is about` link them. Wordier than one edge (three nodes per wait), but nothing of ours. |
+| **Action requirements** (context, energy) | the same conditional specification / AFO condition; the doer's energy is a quality of the person (HP **fatigue**, HP_0012378) | Good. "@home", "@computer", "low energy" are conditions under which the action is to be done, so waiting, context and energy are one pattern, as GTD treats them. Only the condition's description is stored; the doer's actual energy stays part of the question asked. |
+| **Values statement** | BCIO **personal value** (BCIO_006063): "a mental disposition to regard certain things as fundamentally important in life, which informs standards for behaviour" | Good. The value is a disposition in the person (like a habit); a values statement is an information entity that `is about` it. No new class. |
+| **Recurrence** (if it is more than format) | IAO **time trigger** (IAO_0000034, a conditional specification; uncurated, no definition); AFO **repeated action specification** (AFR_0001972, "an action specification that specifies a repeated activity", count-based lab repetition); CCO **Frequency** | Partial. A scheduled time is a time-triggered conditional specification; a rate is a prescribed Frequency; the calendar rule stays iCal RRULE (see open threads). |
+
+Cautions: AFO's *role* terms (precondition, condition role) are roles of information entities, which BFO does not allow (roles inhere in independent continuants), so take AFO's **condition** class only. IAO's time trigger has no definition yet. AFO's licence must be checked before importing from it. BCIO's personal value belongs with the deferred habit work, and arrives through that door.
+
+**Result:** every gap has a standard candidate. If these hold, ClearHead needs **no terms of its own**: CCO, IAO, ICO and BCIO cover the domain, the spec owns representation, and this repository reduces to examples and checks. Next: rebuild the weekly review example with conditional specifications instead of `ch:waitsOn` and see whether the reasoner and the competency questions still hold.

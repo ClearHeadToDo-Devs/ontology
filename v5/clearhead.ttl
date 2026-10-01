@@ -1,0 +1,24 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+# ClearHead's extension of the Common Core Ontologies.
+# Only new terms live here; nothing is asserted about CCO or BFO terms.
+# The domain and its alignment are in ../V5_DESIGN.md.
+
+<https://clearhead.us/vocab/clearhead> a owl:Ontology ;
+    owl:versionIRI <https://clearhead.us/vocab/clearhead/5.0.0-draft> ;
+    owl:imports <https://www.commoncoreontologies.org/CommonCoreOntologiesMerged> ,
+        <https://clearhead.us/vocab/clearhead/imports/iao-action-specification> ;  # IAO action specification and its parents
+    rdfs:label "ClearHead"@en ;
+    dcterms:description "What ClearHead needs beyond CCO v2.2 and IAO's action specification."@en .
+
+@prefix ch: <https://clearhead.us/vocab/clearhead#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
+
+ch:waitsOn a owl:ObjectProperty ;
+    rdfs:domain <http://purl.obolibrary.org/obo/IAO_0000007> ;  # action specification
+    rdfs:range cco:ont00000958 ;  # Information Content Entity
+    rdfs:label "waits on"@en ;
+    skos:definition "x waits on y iff x is an action specification, y is an Information Content Entity (another action specification, or a description of an expected event), and the act x prescribes is not to start until the act or event y is about has happened."@en .

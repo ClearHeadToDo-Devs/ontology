@@ -10,4 +10,7 @@ set -eu
 echo "pre-push > uv run pytest"
 uv run pytest
 
+echo "pre-push > make -C v5 test (ROBOT: v5 ontology + examples must be consistent)"
+make -C v5 test
+
 echo "pre-push > all checks passed"

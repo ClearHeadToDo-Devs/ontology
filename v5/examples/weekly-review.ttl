@@ -1,0 +1,58 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix ch: <https://clearhead.us/vocab/clearhead#> .
+@prefix : <https://clearhead.us/examples/weekly-review#> .
+
+# Darrion's weekly review (GTD: get clear, get current, get creative),
+# and one week's review actually done. Labels carry the human's words.
+
+:darrion a cco:ont00001262 ;  # Person
+    cco:ont00001879 :darrion-name .  # designated by
+:darrion-name a cco:ont00000003 .  # Designative Name
+
+# Text lives on a bearer (the physical carrier), never on the information itself.
+:darrion-name-bearer a cco:ont00000253 ;  # Information Bearing Entity
+    obo:BFO_0000101 :darrion-name ;  # is carrier of
+    cco:ont00001765 "Darrion Burgess" .  # has text value
+
+# The plan and what it is for.
+:weekly-review a cco:ont00000974 ;  # Plan
+    rdfs:label "weekly review"@en ;
+    obo:BFO_0000178 :objective , :get-clear , :get-current , :get-creative .  # has continuant part
+:objective a cco:ont00000476 ;  # Objective
+    rdfs:label "maintain planning habits to minimize the amount of unplanned planning one must do throughout the week"@en .
+
+# Phases and their steps, after the GTD Weekly Review checklist (short names
+# only). Phases run in order; within a phase only processing waits on
+# collecting, and emptying your head waits on processing.
+:get-clear a obo:IAO_0000007 ; rdfs:label "get clear"@en ;
+    obo:BFO_0000178 :collect , :inbox-zero , :empty-head .
+:collect a obo:IAO_0000007 ; rdfs:label "collect loose papers and materials"@en .
+:inbox-zero a obo:IAO_0000007 ; rdfs:label "get in to zero"@en ; ch:waitsOn :collect .
+:empty-head a obo:IAO_0000007 ; rdfs:label "empty your head"@en ; ch:waitsOn :inbox-zero .
+
+:get-current a obo:IAO_0000007 ; rdfs:label "get current"@en ; ch:waitsOn :get-clear ;
+    obo:BFO_0000178 :next-actions , :past-calendar , :upcoming-calendar , :waiting-for , :projects , :checklists .
+:next-actions a obo:IAO_0000007 ; rdfs:label "review next actions lists"@en .
+:past-calendar a obo:IAO_0000007 ; rdfs:label "review previous calendar data"@en .
+:upcoming-calendar a obo:IAO_0000007 ; rdfs:label "review upcoming calendar"@en .
+:waiting-for a obo:IAO_0000007 ; rdfs:label "review waiting for list"@en .
+:projects a obo:IAO_0000007 ; rdfs:label "review project and larger outcome lists"@en .
+:checklists a obo:IAO_0000007 ; rdfs:label "review relevant checklists"@en .
+
+:get-creative a obo:IAO_0000007 ; rdfs:label "get creative"@en ; ch:waitsOn :get-current ;
+    obo:BFO_0000178 :someday-maybe , :be-creative .
+:someday-maybe a obo:IAO_0000007 ; rdfs:label "review someday/maybe list"@en .
+:be-creative a obo:IAO_0000007 ; rdfs:label "be creative and courageous"@en .
+
+# What happened: one week's review, done by Darrion.
+:review-2026-09-27 a cco:ont00000511 ;  # Act of Planning
+    rdfs:label "weekly review, week of 2026-09-21"@en ;
+    cco:ont00001833 :darrion ;  # has agent
+    cco:ont00001920 :weekly-review .  # prescribed by
+:review-2026-09-27-status a cco:ont00000203 ;  # Event Status Nominal ICE
+    cco:ont00001868 :review-2026-09-27 .  # is a nominal measurement of
+:review-2026-09-27-status-bearer a cco:ont00000253 ;  # Information Bearing Entity
+    obo:BFO_0000101 :review-2026-09-27-status ;  # is carrier of
+    cco:ont00001765 "completed" .
