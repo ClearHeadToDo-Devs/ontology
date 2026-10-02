@@ -1,6 +1,4 @@
-# Actions Vocabulary - Development Guide
-This is the primary repo for the higher level ontology as outlined in [the README](./README.md) and [V4_DESIGN](./V4_DESIGN.md)
+# ClearHead Ontology - Development Guide
+This repo holds what ClearHead's data means, in standard terms (CCO, IAO, BFO), as outlined in [the README](./README.md). Start with [docs/domain.md](./docs/domain.md) and [docs/DECISIONS.md](./docs/DECISIONS.md); never mint a term or annotate another ontology's terms (Decision 1).
 
-this is primarily to serve as a domain ontology that can be used to guide our understanding of the entities
-
-we also have a website that is hosting this work and that is covered in [the tasks](./tasks.py)
+Test with `make -C v5 test` (ROBOT). v4 and the website in `site/` (covered in [the tasks](./tasks.py)) are legacy, kept until Core and the CLI move to V5.

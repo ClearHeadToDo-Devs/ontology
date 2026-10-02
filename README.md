@@ -1,155 +1,39 @@
-# CCO Extension for Intention Information Entities
-**Current Version**: 4.4.0 (Current) **Namespace**: `https://clearhead.us/vocab/actions/v4#` **Status**: Current
+# ClearHead Ontology
 
-## What is This?
+**Current**: V5 (`5.0.0-draft`), on CCO v2.2 and IAO. **Legacy**: v4, still emitted by Core and the CLI.
 
-The Actions Vocabulary v4 is a **CCO Extension for Intention Information Entities** — a disciplined extension to the [Common Core Ontologies (CCO)](https://github.com/CommonCoreOntology/CommonCoreOntologies) that fills genuine gaps in modeling intentional planning and execution.
+What ClearHead's data means, stated in standard terms. V5 defines no terms of its own: objectives and plans are CCO, an action is IAO's action specification, and conditions, status, priority and records are CCO patterns. This repository holds the alignment, examples that use it, and checks that prove it answers the questions it must.
 
-**Design Philosophy:** Reuse CCO directly. Only add what CCO provably lacks.
+- **[docs/domain.md](docs/domain.md)**: the domain in plain words, its competency questions, and the standard term for each part.
+- **[docs/DECISIONS.md](docs/DECISIONS.md)**: the choices behind it, with alternatives rejected.
 
-## Core Concepts
+How the data is shaped (JSON schemas, SHACL shapes, the JSON-LD context) belongs to the [specifications](https://github.com/ClearHeadToDo-Devs/specifications), not here (platform Decision 42).
 
-The core is three CCO Prescriptive ICE siblings:
+## Layout
 
-```
-Prescriptive ICE (CCO ont00000965)
-├── Charter (actions:Charter)     — declares scope of directed concern
-├── Plan (CCO ont00000974)        — prescribes intended acts
-└── Objective (CCO ont00000476)   — prescribes desired states
-```
+| Path | What |
+| --- | --- |
+| `v5/clearhead.ttl` | The ontology header: imports, no terms. |
+| `v5/imports/` | CCO v2.2 and an IAO module, pinned by checksum. |
+| `v5/examples/` | Real plans written in the standard terms. |
+| `v5/queries/` | One `robot query` per competency question. |
+| `v5/verify/` | Must-never-happen checks (every action belongs to a plan, every plan names an objective). |
 
-| Concept | Class | IRI | What It Represents |
-|---------|-------|-----|-------------------|
-| **Charter** | Charter | `actions:Charter` | Scope of directed concern |
-| **Plan** | Plan (CCO) | `cco:ont00000974` | Task definition / template |
-| **Action** | Action | `actions:Action` | Actual execution or direct work item |
-| **Objective** | Objective (CCO) | `cco:ont00000476` | Desired outcome / project |
+## Testing
 
-### The Charter → Plan → Action Pipeline
+Needs [ROBOT](https://robot.obolibrary.org) and Java.
 
-```
-Charter (Scope) → Plan (Prescription) → Action (Execution)
-                   └── inServiceOf → Objective (Outcome)
-```
-
-- A **Charter** declares a domain of concern ("Health & Fitness")
-- **Plans** within a Charter prescribe acts ("Run 3x/week")
-- Plans serve **Objectives** via `inServiceOf` ("Complete a marathon")
-- Plans produce **Actions** via `prescribes` (each run session or schedule-derived occurrence)
-- Actions have status via `is_measured_by_nominal` (NotStarted, InProgress, etc.)
-
-### Status Tracking: Event Status Nominal ICE
-
-CCO's `Event Status Nominal ICE` (ont00000203) models process status. Our status individuals:
-
-```
-Event Status Nominal ICE (CCO ont00000203)
-├── NotStarted  [ ]
-├── InProgress  [-]
-├── Completed   [x]
-├── Blocked     [=]
-└── Cancelled   [_]
-```
-
-### Genuine Extensions (what CCO lacks)
-
-| Entity | IRI | Rationale |
-|--------|-----|-----------|
-| **Charter** | `actions:Charter` | No CCO class for scope-of-concern declarations |
-| **inServiceOf** | `actions:inServiceOf` | No CCO teleological relation to Objectives |
-
-### Key Properties
-
-| Property | Source | Domain → Range | Purpose |
-|----------|--------|----------------|---------|
-| `inServiceOf` | Custom | Prescriptive ICE → Objective | Teleological linkage |
-| `is_measured_by_nominal` | CCO | Action → Event Status | Status tracking |
-| `is_successor_of` | CCO | Plan → Plan | Dependency ordering |
-| `prescribes` | CCO | Plan → Action | Links definition to execution |
-| `part_of` | BFO | Plan → Plan/Charter | Hierarchy |
-| `hasExternalScheduleId` | Custom | Action → string | Optional external schedule-series linkage |
-| `hasExternalOccurrenceKey` | Custom | Action → string | Optional external occurrence linkage |
-
-## Why This Design?
-
-Most domain ontologies wrap upper ontology concepts in unnecessary subclasses. We don't. Instead, we reuse CCO directly and add only what CCO provably lacks: Charter (scope declarations) and `inServiceOf` (teleological relation). Everything else is CCO by reference.
-
-See **[V4_DESIGN.md](./V4_DESIGN.md)** for the full design rationale.
-
-## Version History
-
-- **v4.4.0** (Current) - Action model canonical; retires PlannedAct
-  - `actions:Action` is the execution entity; SHACL shapes cover Action priority/alias
-  - All SPARQL queries migrated to `actions:Action`; Plan optional for ad-hoc actions
-  - New conformance fixtures: `ics-linked-schedule.ttl`, `ad-hoc-actions.ttl`
-  - New query: `schedule-series.sparql` for ICS series grouping
-  - Parameterized SHACL tests now cover all valid and invalid examples
-
-- **v4.3.0** (Previous) - CCO Extension for Intention Information Entities
-  - Added `hasScheduledDateTime`, `hasDueDateTime`, `hasDueRecurrenceRule`, `hasSubCharter`
-  - Added external schedule bridge: `hasExternalScheduleId`, `hasExternalOccurrenceKey`
-  - Clarified act-level scheduling/due semantics and charter hierarchy
-  - See: [v4/ONTOLOGY_OUT_CONTRACT.md](./v4/ONTOLOGY_OUT_CONTRACT.md)
-  - Added Charter class, `inServiceOf` property
-  - Replaced ActPhase with CCO Event Status Nominal ICE
-  - Replaced `hasObjective` with `inServiceOf`, `hasPhase` with `is_measured_by_nominal`, `dependsOn` with `is_successor_of`
-  - See: [V4_DESIGN.md](./V4_DESIGN.md)
-
-- **v4.0.0** (Previous) - Minimal CCO extension
-  - Used CCO classes directly (Plan, CCO Planned Act, Objective) before the Action transition
-  - Custom class: ActPhase (now replaced)
-
-- **v3.1.0** (Previous) - BFO/CCO-aligned with wrapper classes
-  - Had custom ActionPlan, ActionProcess classes
-
-- **v2** (Legacy) - Schema.org-based
-
-## Documentation
-
-- **[V4_DESIGN.md](./V4_DESIGN.md)** - Full v4 design rationale
-- **[v4/actions-shapes-v4.ttl](./v4/actions-shapes-v4.ttl)** - SHACL validation shapes
-- **[v4/actions.context.json](./v4/actions.context.json)** - JSON-LD context map
-- **[v4/actions.schema.json](./v4/actions.schema.json)** - JSON Schema for ontology-out exports
-
-## Quick Start
-
-### Local Development
 ```bash
-# Python 3.12+ with uv package manager
-uv sync
-
-# Run validation tests
-uv run pytest -v
+make -C v5 test     # merge, reason with HermiT, verify, answer the competency questions
+make -C v5 imports  # re-fetch the pinned CCO and IAO; fails if the bytes changed
 ```
 
-### Visual Exploration
-```bash
-# Open in Protégé ontology editor
-# File → Open → v4/actions-vocabulary.owl
-# Reasoner → HermiT → Start reasoner
-```
+Answers land in `v5/build/*.csv`.
 
-## Tooling
+## Legacy v4
 
-### Recommended Tools
-- **[Protégé](https://protege.stanford.edu/)** - Visual ontology editor with HermiT reasoner
-- **[owlready2](https://owlready2.readthedocs.io/)** - Python library for OWL ontologies
-- **[pySHACL](https://github.com/RDFLib/pySHACL)** - SHACL constraint validation (future)
-- **Text Editors** - OWL/XML editing with understanding (VS Code, Neovim, etc.)
-
-## Contributing
-
-When making changes:
-
-1. **Understand BFO/CCO** - Review the current ontology and design rationale for applicable patterns
-2. **Test thoroughly** - Run validation suite and HermiT reasoner
-3. **Document decisions** - Update relevant .md files with architectural choices
+`v4/`, `examples/v4/`, `queries/v4/`, `tests/` (pytest + pySHACL) and `V4_DESIGN.md` describe the v4 vocabulary (`https://clearhead.us/vocab/actions/v4#`), which minted its own terms (`actions:Action`, `actions:Charter`, `inServiceOf`). Core and the CLI still project to it, and `site/` still hosts it at clearhead.us (see [DEPLOYMENT.md](DEPLOYMENT.md)). It is kept until the implementations move to V5, then removed.
 
 ## License
 
-See [LICENSE](./LICENSE)
-
-## Support
-
-- Issues: GitHub issue tracker
-- Documentation: See [CLAUDE.md](./CLAUDE.md) for comprehensive development guide
+See [LICENSE](./LICENSE).

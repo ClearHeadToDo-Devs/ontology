@@ -1,6 +1,6 @@
 # Ontology decisions
 
-Decisions that only this repository must honor. Decisions that span repositories live in the platform's `docs/DECISIONS.md`. Each entry states the choice, the alternatives rejected, and the trade-off accepted. The analysis behind them is in [V5_DESIGN.md](../V5_DESIGN.md).
+Decisions that only this repository must honor. Decisions that span repositories live in the platform's `docs/DECISIONS.md`. Each entry states the choice, the alternatives rejected, and the trade-off accepted. The domain they shape, and its standard terms, is in [domain.md](domain.md).
 
 ---
 

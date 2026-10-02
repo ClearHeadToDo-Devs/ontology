@@ -1,5 +1,5 @@
 # CQ7: What other details does the plan need to succeed?
-# The test (V5_DESIGN.md): could someone else carry it out from what it holds?
+# The test (docs/domain.md): could someone else carry it out from what it holds?
 # Lists what each plan is missing. Gaps are reported, never refused.
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX obo: <http://purl.obolibrary.org/obo/>

@@ -5,7 +5,7 @@
 # ClearHead's extension of the Common Core Ontologies.
 # Only new terms live here; nothing is asserted about CCO, IAO or BFO terms.
 # It has none yet: everything is CCO v2.2 or IAO.
-# The domain and its alignment are in ../V5_DESIGN.md.
+# The domain and its standard terms are in ../docs/domain.md.
 
 <https://clearhead.us/vocab/clearhead> a owl:Ontology ;
     owl:versionIRI <https://clearhead.us/vocab/clearhead/5.0.0-draft> ;
