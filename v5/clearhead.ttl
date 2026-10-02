@@ -12,5 +12,7 @@
     owl:imports <https://www.commoncoreontologies.org/CommonCoreOntologiesMerged> ,
         <https://clearhead.us/vocab/clearhead/imports/iao> ;  # IAO terms we use, with their parents
     rdfs:label "ClearHead"@en ;
+    dcterms:title "ClearHead"@en ;
+    dcterms:license <https://opensource.org/licenses/MIT> ;
     dcterms:description "ClearHead's use of CCO v2.2 and IAO: imports, examples and checks; no terms of its own."@en .
 

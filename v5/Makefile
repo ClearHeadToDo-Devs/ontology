@@ -18,16 +18,30 @@ BUILD    := build
 EXAMPLES := $(wildcard examples/*.ttl)
 QUERIES  := $(wildcard queries/*.rq)
 VERIFY   := $(wildcard verify/*.rq)
+EXPECTED := queries/expected
 
-.PHONY: test imports clean
+.PHONY: test lint answers imports clean
 
 # Always merges fresh: a stale merge is how a gate goes green on deleted data.
+# Each competency answer must match its expected CSV, so a query that runs
+# but answers wrong (or empty) fails.
 test:
 	mkdir -p $(BUILD)
 	$(ROBOT) merge --input clearhead.ttl $(addprefix --input ,$(EXAMPLES)) --output $(BUILD)/merged.owl
 	robot reason --reasoner HermiT --input $(BUILD)/merged.owl --output $(BUILD)/reasoned.owl
 	robot verify --input $(BUILD)/merged.owl --queries $(VERIFY) --output-dir $(BUILD)/verify
 	robot query --input $(BUILD)/merged.owl $(foreach q,$(QUERIES),--query $(q) $(BUILD)/$(notdir $(q:.rq=.csv)))
+	for q in $(QUERIES); do n=$$(basename $$q .rq); diff -u $(EXPECTED)/$$n.csv $(BUILD)/$$n.csv || exit 1; done
+	$(MAKE) lint
+
+# The ontology header only: example data has unlabelled helper nodes by design.
+lint:
+	$(ROBOT) report --input clearhead.ttl --output $(BUILD)/report.tsv
+
+# Accept the current answers as expected, after reading the diff.
+answers:
+	mkdir -p $(EXPECTED)
+	cp $(foreach q,$(QUERIES),$(BUILD)/$(notdir $(q:.rq=.csv))) $(EXPECTED)/
 
 # Re-fetch the pinned releases; fails if the bytes differ from the pins.
 imports:

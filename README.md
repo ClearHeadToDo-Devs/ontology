@@ -16,7 +16,7 @@ How the data is shaped (JSON schemas, SHACL shapes, the JSON-LD context) belongs
 | `v5/clearhead.ttl` | The ontology header: imports, no terms. |
 | `v5/imports/` | CCO v2.2 and an IAO module, pinned by checksum. |
 | `v5/examples/` | Real plans written in the standard terms. |
-| `v5/queries/` | One `robot query` per competency question. |
+| `v5/queries/` | One `robot query` per competency question, with its expected answer in `expected/`. |
 | `v5/verify/` | Must-never-happen checks (every action belongs to a plan, every plan names an objective). |
 
 ## Testing
@@ -24,11 +24,12 @@ How the data is shaped (JSON schemas, SHACL shapes, the JSON-LD context) belongs
 Needs [ROBOT](https://robot.obolibrary.org) and Java.
 
 ```bash
-make -C v5 test     # merge, reason with HermiT, verify, answer the competency questions
+make -C v5 test     # merge, reason with HermiT, verify, check the competency answers, lint
+make -C v5 answers  # accept the current answers as expected, after reading the diff
 make -C v5 imports  # re-fetch the pinned CCO and IAO; fails if the bytes changed
 ```
 
-Answers land in `v5/build/*.csv`.
+Each answer in `v5/build/*.csv` must match `v5/queries/expected/`, so a question that answers wrong or empty fails. CI runs the same gate with ROBOT pinned by checksum.
 
 ## Legacy v4
 
