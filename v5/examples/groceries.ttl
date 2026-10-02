@@ -6,11 +6,14 @@
 # An area of focus is a plan with a maintained objective (Decision 2), from
 # the human's own example: "buy milk" is done in the errands context *for*
 # "keep food in the house". Context and energy are conditions: each action
-# sits in a Performance Specification whose part describes the condition.
+# sits in Performance Specifications, one per condition, whose other part
+# describes it.
 
 :plan a cco:ont00000974 ;  # Plan
     rdfs:label "groceries"@en ;
-    obo:BFO_0000178 :objective , :buy-milk-when , :plan-meals-when , :clean-fridge-when .
+    obo:BFO_0000178 :objective ,
+        :buy-milk-at , :buy-milk-energy , :plan-meals-at , :plan-meals-energy ,
+        :clean-fridge-at , :clean-fridge-energy .
 :objective a cco:ont00000476 ; rdfs:label "keep food in the house"@en .  # Objective
 
 :buy-milk a obo:IAO_0000007 ; rdfs:label "buy milk"@en .
@@ -24,12 +27,13 @@
 :low-energy a obo:BFO_0000019 ; rdfs:label "low energy"@en .  # quality
 :high-energy a obo:BFO_0000019 ; rdfs:label "high energy"@en .
 
-:buy-milk-when a cco:ont00000127 ;  # Performance Specification
-    obo:BFO_0000178 :buy-milk , :at-errands , :on-low-energy .
-:plan-meals-when a cco:ont00000127 ;
-    obo:BFO_0000178 :plan-meals , :at-home , :on-low-energy-2 .
-:clean-fridge-when a cco:ont00000127 ;
-    obo:BFO_0000178 :clean-fridge , :at-home-2 , :on-high-energy .
+# One condition per Performance Specification (specification convention 7).
+:buy-milk-at a cco:ont00000127 ; obo:BFO_0000178 :buy-milk , :at-errands .  # Performance Specification
+:buy-milk-energy a cco:ont00000127 ; obo:BFO_0000178 :buy-milk , :on-low-energy .
+:plan-meals-at a cco:ont00000127 ; obo:BFO_0000178 :plan-meals , :at-home .
+:plan-meals-energy a cco:ont00000127 ; obo:BFO_0000178 :plan-meals , :on-low-energy-2 .
+:clean-fridge-at a cco:ont00000127 ; obo:BFO_0000178 :clean-fridge , :at-home-2 .
+:clean-fridge-energy a cco:ont00000127 ; obo:BFO_0000178 :clean-fridge , :on-high-energy .
 
 :at-errands a cco:ont00000853 ; cco:ont00001982 :errands .  # Descriptive ICE, describes
 :at-home a cco:ont00000853 ; cco:ont00001982 :home .
